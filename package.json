@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest run --coverage.all",
+    "test": "vitest run --coverage.enabled --coverage.provider=istanbul --coverage.all",
     "test-storybook": "test-storybook"
   },
   "dependencies": {
@@ -25,11 +25,14 @@
     "@storybook/test-runner": "^0.17.0",
     "@storybook/web-components": "^8.0.9",
     "@storybook/web-components-vite": "^8.0.9",
+    "@vitest/browser": "^1.5.2",
+    "@vitest/coverage-istanbul": "^1.5.2",
     "@vitest/coverage-v8": "^1.5.2",
     "playwright": "^1.43.1",
     "storybook": "^8.0.9",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vitest": "^1.5.2"
+    "vitest": "^1.5.2",
+    "webdriverio": "^8.36.1"
   }
 }
