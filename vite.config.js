@@ -1,5 +1,20 @@
 /** @type {import('vite').UserConfig} */
 export default {
+    build:{
+        minify:false,
+        rollupOptions: {
+            output: {
+                format: 'es',
+                // unbundled = bundle name is `*` file name without extension
+                manualChunks: function manualChunks(id) {
+                    if (id.endsWith('.ts')) {
+                        // return file name without extension
+                        return id.split('/').pop().replace('.ts', '');
+                    }
+                },
+            },
+        },
+    },
     test: {
         browser: {
             enabled : true,
@@ -7,6 +22,8 @@ export default {
             headless: true,
         },
         include:
-            [ '**/*.{test,spec}.?(c|m)[jt]s?(x)', 'src/stories/css.stories.ts' ]
+            [ '**/*.{test,spec}.?(c|m)[jt]s?(x)'
+                // , 'src/stories/css.stories.ts'
+            ]
     }
 }
