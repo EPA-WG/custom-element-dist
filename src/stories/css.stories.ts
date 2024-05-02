@@ -25,8 +25,6 @@ function Template({title, tag='', style, slot, payload=''}: CssProps) {
   `;
 }
 
-
-
 const meta = {
     title: 'Css',
     render: (args: CssProps) => Template(args),

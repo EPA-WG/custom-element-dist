@@ -33,7 +33,7 @@ export class HttpRequestElement extends HTMLElement
 
     async fetch()
     {
-        if( !this.closest('custom-element') )
+        if( !this.closest('body') )
             return;
         const url = attr(this, 'url') || '';
         if( !url )
