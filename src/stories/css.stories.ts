@@ -82,6 +82,7 @@ export const StyleIn2Instances: Story =
     },
 };
 
+// noinspection CssInvalidPseudoSelector
 export const OverrideInPayload: Story =
 {   args:
     {   title:  `${GREEN} in instance style can be overridden in payload as ${RED} in 1st instance`

@@ -1,18 +1,21 @@
 import '../custom-element.js';
 import '../http-request.js';
-import type {Meta, StoryObj} from '@storybook/web-components';
-import {expect, within}      from '@storybook/test';
+import type { Meta, StoryObj, composeStories } from '@storybook/web-components';
+import { expect, within }      from '@storybook/test';
+import {handlers}                              from '../handlers.ts';
 
 type TProps = { title: string; tag: string; slice: string; url: string; };
-const defs: TProps = {
-    title: '',
-    tag:   'hr-test-component',
-    slice: 'page',
-    url:   'https://pokeapi.co/api/v2/pokemon?limit=6'
+const defs: TProps =
+{   title:  ''
+,     tag:  'hr-test-component'
+,   slice:  'page'
+,     url:  '/pokemon?limit=6'
 };
 type Story = StoryObj<TProps>;
+function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
-function Template({title, tag, slice='s', url}: TProps) {
+function Template({title, tag, slice='s', url}: TProps)
+{
     return `
         <fieldset>
             <legend>${title}</legend>
@@ -36,73 +39,80 @@ function Template({title, tag, slice='s', url}: TProps) {
             <value-of select='@name'/>
         </button>
     </for-each>
+    <for-each select="//slice/${slice}/value/*">
+        <ul>
+            <var data-testid="request-section"><value-of select='name(.)'/></var>
+            <for-each select="@*">
+                <div>
+                    <var>@{local-name(.)}</var>
+                    =
+                    <code data-testid="attr-{local-name(.)}">{.}</code>
+                </div>
+            </for-each>
+        </ul>
+    </for-each>
 </template>
             </custom-element>
             <${tag}></${tag}>
       </fieldset>
   `;
 }
-const meta = {
-    title:      'http-request',
-    render:     (args: TProps) => Template(args),
-    renderPlay: async function renderPlay(story: StoryObj) {
-        document.body.innerHTML = meta.render({...defs, ...story.args});
-        await new Promise(resolve => setTimeout(async () => {
+const meta =
+{   title:      'http-request'
+,   render:     (args: TProps) => Template(args)
+,   renderPlay: async function renderPlay(story: StoryObj)
+    {   document.body.innerHTML = meta.render({...defs, ...story.args});
+        await new Promise(resolve => setTimeout(async () =>
+        {
             // @ts-ignore
             await story.play({canvasElement: document.body.firstElementChild as HTMLElement});
             resolve(0);
         }, 0));
     },
-} satisfies Meta<TProps> | { renderPlay: (s: StoryObj) => void };
+};
 
 export default meta;
 
-export const Demo:Story  = {
-    args : {title: 'url and slice', tag: 'hr-test-component'}
+export const Demo:Story  =
+{   args : {title: 'url and slice'}
 ,   play: async ({canvasElement}) =>
     {   const canvas = within(canvasElement);
         await canvas.findByText(Demo.args!.title as string);
         expect( await canvas.findByText('bulbasaur')).toBeInTheDOM(canvasElement);
         expect( await canvas.findByText('Pokemon Count: 6')).toBeInTheDOM(canvasElement);
     },
+    parameters: { msw: handlers  },
 };
 
-// export const
-//     LifecycleInitialized    = () => `
-//         <fieldset>
-//             <legend>http-request with delayed response</legend>
-//             <p> Before the data become available the <b>request</b>
-//                 is populated into dedicated <b>slice</b> in <b>10</b> seconds in this demo
-//             </p>
-//
-//             <custom-element
-//                 tag="no-responce"
-//                 hidden
-//                 >
-// <template><!-- wrapping into template to prevent images loading within DCE declaration -->
-//     <http-request
-//         url="https://pokeapi.co/api/v2/noreturn"
-//         slice="request_slice"
-//         type="text"
-//         ></http-request>
-//     Content of <code>//slice/request_slice</code> before <b>response</b> available
-//     <for-each select="//slice/request_slice/value/*">
-//         <ul>
-//             <var data-testid="request-section"><value-of select='name(.)'/></var>
-//             <for-each select="@*">
-//                 <div>
-//                     <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
-//                     =
-//                     <code><value-of select='.'/></code>
-//                 </div>
-//             </for-each>
-//         </ul>
-//     </for-each>
-// </template>
-//             </custom-element>
-//             <no-responce></no-responce>
-//       </fieldset>
-// `;
+export const Http404:Story  =
+{   args : {title: 'http-request with error', url: '/404'}
+,   play: async ({canvasElement}) =>
+    {   const canvas = within(canvasElement)
+        ,   $ = css=> canvasElement.querySelector(css)
+        ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
+        await canvas.findByText(Http404.args!.title as string);
+        await sleep(200);
+        expect( await $t('attr-status')).to.include('404');
+    },
+    parameters: { msw: handlers  },
+};
+
+export const LifecycleInitialized:Story  =
+{   args: { title: 'http-request with delayed 10 seconds response', url: '/noreturn'}
+,   play: async ({canvasElement}) =>
+    {   const canvas = within(canvasElement);
+        await canvas.findByText(LifecycleInitialized.args!.title as string);
+        expect( await canvas.findByText('request') ).toBeInTheDOM(canvasElement); // after DCE initiated
+        expect( canvas.queryByText('response') ).toBe(null);              // response is not available
+        // wait while response appears ~ 0.5 seconds
+        expect( await canvas.findByText('response') ).toBeInTheDOM(canvasElement); // only after delay is shown
+
+        expect( await canvas.findByText('bulbasaur') ).toBeInTheDOM(canvasElement);
+        expect( await canvas.findByText('Pokemon Count: 6') ).toBeInTheDOM(canvasElement);
+    },
+    parameters: { msw: handlers  },
+};
+
 // export const
 //     RequestResponceHeaders  = ({url}) => `
 //         <fieldset>
