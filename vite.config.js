@@ -16,6 +16,7 @@ export default {
         },
     },
     test: {
+        isolate: true,
         browser: {
             enabled : true,
             name    : 'chrome', // browser name is required

@@ -10,7 +10,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest --coverage.enabled --coverage.provider=istanbul --coverage.all --no-file-parallelism --watch=false",
-    "test:watch": "vitest --inspect-brk --no-file-parallelism",
+    "test:watch": "vitest --inspect-brk --no-file-parallelism --browser.headless=false ",
     "test:storybook": "test-storybook",
     "sb": "yarn storybook"
   },

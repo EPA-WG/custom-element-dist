@@ -8,7 +8,7 @@ import {handlers} from '../mocks/handlers.ts';
 type TProps = { title: string; tag: string; slice: string; url: string; };
 const defs: TProps =
 {   title:  ''
-,     tag:  'hr-test-component'
+,     tag:  ''
 ,   slice:  'page'
 ,     url:  '/pokemon?limit=6'
 };
@@ -21,7 +21,7 @@ function Template({title, tag, slice='s', url}: TProps)
         <fieldset>
             <legend>${title}</legend>
             <custom-element
-                ${tag ? `tag="${tag}"`:''}
+                ${ tag ? `tag="${tag}"`:''}
                 >
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
@@ -54,7 +54,7 @@ function Template({title, tag, slice='s', url}: TProps)
     </for-each>
 </template>
             </custom-element>
-            <${tag}></${tag}>
+            ${ tag ? `<${tag}></${tag}>` : ''}            
       </fieldset>
   `;
 }
@@ -86,18 +86,19 @@ export const Demo:Story  =
     parameters: { msw: handlers  },
 };
 
-// export const Http404:Story  =
-// {   args : {title: 'http-request with error', url: '/404'}
-// ,   play: async ({canvasElement}) =>
-//     {   const canvas = within(canvasElement)
-//         ,   $ = css=> canvasElement.querySelector(css)
-//         ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
-//         await canvas.findByText(Http404.args!.title as string);
-//         await sleep(200);
-//         expect( await $t('attr-status')).to.include('404');
-//     },
-//     parameters: { msw: handlers  },
-// };
+export const Http404:Story  =
+{   args : {title: 'http-request with error', url: '/404'}
+,   play: async ({canvasElement}) =>
+    {   const canvas = within(canvasElement)
+        ,   $ = css=> canvasElement.querySelector(css)
+        ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
+        await canvas.findByText(Http404.args!.title as string);
+        await sleep(200);
+        debugger;
+        expect( await $t('attr-status')).to.include('404');
+    },
+    parameters: { msw: handlers  },
+};
 //
 // export const LifecycleInitialized:Story  =
 // {   args: { title: 'http-request with delayed 10 seconds response', url: '/noreturn'}
