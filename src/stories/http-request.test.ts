@@ -3,7 +3,7 @@ import {type StoryObj} from "@storybook/web-components";
 import {setupWorker } from 'msw/browser';
 
 
-import '../custom-element.js';
+import '../custom-element/custom-element.js';
 import meta from "./http-request.stories.ts";
 
 import * as Stories from "./http-request.stories.ts";

@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { deepEqual} from './custom-element'
+import { deepEqual}     from './custom-element/custom-element.js'
 
 test('deepEqual', () => {
   expect(deepEqual(1, 1) ).toBe(true);

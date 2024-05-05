@@ -1,8 +1,10 @@
-import '../custom-element.js';
-import '../http-request.js';
+// noinspection DuplicatedCode
+
 import type { StoryObj } from '@storybook/web-components';
 import { expect, within }      from '@storybook/test';
 
+import '../custom-element/custom-element.js';
+import '../custom-element/http-request.js';
 import {handlers} from '../mocks/handlers.ts';
 
 type TProps = { title: string; tag: string; slice: string; url: string; };

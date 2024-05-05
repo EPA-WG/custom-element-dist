@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/web-components";
 import {within, expect} from "@storybook/test";
 
-import '../custom-element.js';
+import '../custom-element/custom-element.js';
 
 type CssProps = { title: string; tag: string; style: string; slot: string; payload: string };
 const defs = {title: '', tag: '', style: '', slot: '', payload: ''};

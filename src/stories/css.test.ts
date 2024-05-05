@@ -1,7 +1,7 @@
 import {describe, it,} from 'vitest';
 import {type StoryObj} from "@storybook/web-components";
 
-import '../custom-element.js';
+import '../custom-element/custom-element.js';
 import meta from "./css.stories.ts";
 
 import * as CssStories from "./css.stories.ts";
