@@ -692,12 +692,17 @@ CustomElement extends HTMLElement
 
             get dce(){ return dce }
         }
+        const registerTag = tag =>
+        {
+            if( window.customElements.get(tag) !== DceElement )
+                window.customElements.define( tag, DceElement);
+        };
         if(tag)
-            window.customElements.define( tag, DceElement);
+            registerTag(tag);
         else
         {   const t = tagName;
             this.setAttribute('tag', t );
-            window.customElements.define( t, DceElement);
+            registerTag(t);
             const el = document.createElement(t);
             this.getAttributeNames().forEach(a=>el.setAttribute(a,this.getAttribute(a)));
             el.append(...[...this.childNodes].filter( e => e.localName!=='style') );

@@ -25,5 +25,6 @@ export default {
             [ '**/*.{test,spec}.?(c|m)[jt]s?(x)'
                 // , 'src/stories/css.stories.ts'
             ]
-    }
+    },
+    publicDir: 'public'
 }

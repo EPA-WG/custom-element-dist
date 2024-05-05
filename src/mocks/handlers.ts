@@ -1,12 +1,16 @@
 import {delay, http, HttpResponse} from 'msw'
 
-import pokemonsMock from './stories/pokemons.mock';
+import pokemonsMock from './pokemons.mock.ts';
 
 export const handlers =
-[   http.get('/pokemon', () =>
+[   http.get('/pokemon', ({ request }) =>
     {
-        console.log('================================ */api/v2/pokemon');
-        return HttpResponse.json(pokemonsMock); })
+        const url = new URL(request.url);
+        const limit = url.searchParams.get('limit');
+        const data = structuredClone(pokemonsMock);
+        if( limit )
+            data.results.slice(0,Number(limit))
+        return HttpResponse.json(data); })
 ,   http.get('/noreturn', async () =>
     {
         await delay(500);
@@ -15,7 +19,8 @@ export const handlers =
     })
 ,   http.get('/reflect', ({request}) =>
     {   const headers: Record<string, string> = {};
-        [...request.headers.entries()].map(([key, val]) => headers[key] = val);
+        [...request.headers.entries()].map(([key, val]) => headers[key] = 'reflected-'+val);
+        headers['x-added'] = 'abc';
         return HttpResponse.json(pokemonsMock, {headers});
     })
 ,   http.get('/404', ({request}) =>

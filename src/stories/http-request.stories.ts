@@ -1,8 +1,9 @@
 import '../custom-element.js';
 import '../http-request.js';
-import type { Meta, StoryObj, composeStories } from '@storybook/web-components';
+import type { StoryObj } from '@storybook/web-components';
 import { expect, within }      from '@storybook/test';
-import {handlers}                              from '../handlers.ts';
+
+import {handlers} from '../mocks/handlers.ts';
 
 type TProps = { title: string; tag: string; slice: string; url: string; };
 const defs: TProps =
@@ -76,54 +77,73 @@ export default meta;
 export const Demo:Story  =
 {   args : {title: 'url and slice'}
 ,   play: async ({canvasElement}) =>
-    {   const canvas = within(canvasElement);
+    {
+        const canvas = within(canvasElement);
         await canvas.findByText(Demo.args!.title as string);
-        expect( await canvas.findByText('bulbasaur')).toBeInTheDOM(canvasElement);
-        expect( await canvas.findByText('Pokemon Count: 6')).toBeInTheDOM(canvasElement);
+        expect( await canvas.findByText('bulbasaur')).toBeInTheDocument();
+        expect( await canvas.findByText('Pokemon Count: 6')).toBeInTheDocument(canvasElement);
     },
     parameters: { msw: handlers  },
 };
 
-export const Http404:Story  =
-{   args : {title: 'http-request with error', url: '/404'}
-,   play: async ({canvasElement}) =>
-    {   const canvas = within(canvasElement)
-        ,   $ = css=> canvasElement.querySelector(css)
-        ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
-        await canvas.findByText(Http404.args!.title as string);
-        await sleep(200);
-        expect( await $t('attr-status')).to.include('404');
-    },
-    parameters: { msw: handlers  },
-};
-
-export const LifecycleInitialized:Story  =
-{   args: { title: 'http-request with delayed 10 seconds response', url: '/noreturn'}
-,   play: async ({canvasElement}) =>
-    {   const canvas = within(canvasElement);
-        await canvas.findByText(LifecycleInitialized.args!.title as string);
-        expect( await canvas.findByText('request') ).toBeInTheDOM(canvasElement); // after DCE initiated
-        expect( canvas.queryByText('response') ).toBe(null);              // response is not available
-        // wait while response appears ~ 0.5 seconds
-        expect( await canvas.findByText('response') ).toBeInTheDOM(canvasElement); // only after delay is shown
-
-        expect( await canvas.findByText('bulbasaur') ).toBeInTheDOM(canvasElement);
-        expect( await canvas.findByText('Pokemon Count: 6') ).toBeInTheDOM(canvasElement);
-    },
-    parameters: { msw: handlers  },
-};
-
-// export const
-//     RequestResponceHeaders  = ({url}) => `
+// export const Http404:Story  =
+// {   args : {title: 'http-request with error', url: '/404'}
+// ,   play: async ({canvasElement}) =>
+//     {   const canvas = within(canvasElement)
+//         ,   $ = css=> canvasElement.querySelector(css)
+//         ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
+//         await canvas.findByText(Http404.args!.title as string);
+//         await sleep(200);
+//         expect( await $t('attr-status')).to.include('404');
+//     },
+//     parameters: { msw: handlers  },
+// };
+//
+// export const LifecycleInitialized:Story  =
+// {   args: { title: 'http-request with delayed 10 seconds response', url: '/noreturn'}
+// ,   play: async ({canvasElement}) =>
+//     {   const canvas = within(canvasElement);
+//         await canvas.findByText(LifecycleInitialized.args!.title as string);
+//         expect( await canvas.findByText('request') ).toBeInTheDOM(canvasElement); // after DCE initiated
+//         expect( canvas.queryByText('response') ).toBe(null);              // response is not available
+//         // wait while response appears ~ 0.5 seconds
+//         expect( await canvas.findByText('response') ).toBeInTheDOM(canvasElement); // only after delay is shown
+//
+//         expect( await canvas.findByText('bulbasaur') ).toBeInTheDOM(canvasElement);
+//         expect( await canvas.findByText('Pokemon Count: 6') ).toBeInTheDOM(canvasElement);
+//     },
+//     parameters: { msw: handlers  },
+// };
+//
+// export const RequestResponseHeaders:Story  =
+// {   args: { title: 'http-request request headers passed', url: '/reflect'}
+// ,   play: async ({canvasElement}) =>
+//     {   const canvas = within(canvasElement);
+//         // see response made by /reflect handler
+//         const te = await canvas.findByTestId('section-request-attr-x-test');
+//         expect( te ).toBeInTheDOM(canvasElement);
+//         expect( te.textContent.trim() ).toEqual('testing');
+//
+//         const t1 = await canvas.findByTestId('section-response-attr-x-test');
+//         expect( t1 ).toBeInTheDOM(canvasElement);
+//         expect( t1.textContent.trim() ).toEqual('reflected-testing');
+//
+//
+//         const tAdded = await canvas.findByTestId('section-response-attr-x-added');
+//         expect( tAdded ).toBeInTheDOM(canvasElement);
+//         expect( tAdded.textContent.trim() ).toEqual('abc');
+//
+//     },
+//     parameters: { msw: handlers  },
+//     render : ({url}) => `
 //         <fieldset>
 //             <legend>http-request headers and responce status and headers</legend>
-//             <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
-//             </p>
+//             <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b></p>
 //
 //             <custom-element
 //                 tag="headers-demo"
-//                 hidden
 //                 >
+//                 <template>
 // <http-request
 //     url="${url}"
 //     slice="request_slice"
@@ -144,13 +164,14 @@ export const LifecycleInitialized:Story  =
 //     <td><value-of select="//slice/request_slice/value/response/@status"/></td></tr>
 // </table>
 // <for-each select="//slice/request_slice/value/*">
-//     <ul data-request-section="{name(.)}">
+//     <xsl:variable name="section">{name(.)}</xsl:variable>
+//     <ul date-testid="section-{$section}">
 //         <b data-testid="request-section"><value-of select='name(.)'/></b>
 //         <for-each select="@*">
 //             <div>
-//                 <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
+//                 <var >@{local-name(.)}</var>
 //                 =
-//                 <code><value-of select='.'/></code>
+//                 <code data-testid="section-{$section}-prop-{local-name(.)}">{.}</code>
 //             </div>
 //         </for-each>
 //         <for-each select="*">
@@ -159,9 +180,9 @@ export const LifecycleInitialized:Story  =
 //                 <ul>
 //                     <for-each select="@*">
 //                         <li>
-//                             <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
+//                             <var data-testid="section-attribute">@{local-name(.)}</var>
 //                             =
-//                             <code><value-of select='.'/></code>
+//                             <code data-testid="section-{$section}-attr-{local-name(.)}">{.}</code>
 //                         </li>
 //                     </for-each>
 //                     <code><value-of select='.'/></code>
@@ -170,10 +191,15 @@ export const LifecycleInitialized:Story  =
 //         </for-each>
 //     </ul>
 // </for-each>
+// </template>
 //             </custom-element>
 //             <headers-demo></headers-demo>
 //       </fieldset>
-// `;
+// `
+// };
+
+// export const
+//     RequestResponceHeaders  = ;
 // RequestResponceHeaders.args =
 //     {
 //         url: 'https://pokeapi.co/api/v2/reflect'

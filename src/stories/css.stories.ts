@@ -45,13 +45,14 @@ const RED = `<i style="color:red">red</i>`
 
 export const StyleDoesNotLeak: Story =
 {   args:
-    {   title: `The default color should stay on this   label, the message inside should be ${GREEN}`
+    {   title: `The default color should stay on this label, the message inside should be ${GREEN}`
     ,   style: `color:green`
-    ,   slot: 'text has to be green'
+    ,    slot: 'text has to be green'
+    , payload: '<u>no tags</u>'
     }
 ,   play: async ({canvasElement}) =>
     {   const canvas = within(canvasElement);
-        const el = await canvas.findByText(StyleDoesNotLeak.args!.slot as string);
+        const el = await canvas.findByText('text has to be green');
         const st = getComputedStyle(el);
         const color = st.getPropertyValue('color');
         // @ts-ignore
