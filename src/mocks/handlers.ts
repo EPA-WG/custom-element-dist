@@ -9,7 +9,7 @@ export const handlers =
         const limit = url.searchParams.get('limit');
         const data = structuredClone(pokemonsMock);
         if( limit )
-            data.results.slice(0,Number(limit))
+            data.results = data.results.slice(0,Number(limit))
         return HttpResponse.json(data); })
 ,   http.get('/noreturn', async () =>
     {
