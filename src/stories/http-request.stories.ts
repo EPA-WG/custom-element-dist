@@ -7,24 +7,21 @@ import '../custom-element/custom-element.js';
 import '../custom-element/http-request.js';
 import {handlers} from '../mocks/handlers.ts';
 
-type TProps = { title: string; tag: string; slice: string; url: string; };
+type TProps = { title: string; slice: string; url: string; };
 const defs: TProps =
 {   title:  ''
-,     tag:  ''
 ,   slice:  'page'
 ,     url:  '/pokemon?limit=6'
 };
 type Story = StoryObj<TProps>;
 function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
-function Template({title, tag, slice='s', url}: TProps)
+function Template({title, slice, url}: TProps)
 {
     return `
         <fieldset>
             <legend>${title}</legend>
-            <custom-element
-                ${ tag ? `tag="${tag}"`:''}
-                >
+            <custom-element>
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
         url="{ //slice/url  }"
@@ -63,7 +60,6 @@ function Template({title, tag, slice='s', url}: TProps)
     </for-each>
 </template>
             </custom-element>
-            ${ tag ? `<${tag}></${tag}>` : ''}            
       </fieldset>
   `;
 }
@@ -132,7 +128,6 @@ export const Http404:Story  =
 {   args : {title: 'http-request with error', url: '/404'}
 ,   play: async ({canvasElement}) =>
     {   const canvas = within(canvasElement)
-        ,   $ = css=> canvasElement.querySelector(css)
         ,   $t = async testId=> (await canvas.findByTestId(testId)).textContent;
         await canvas.findByText(Http404.args!.title as string);
         await sleep(200);

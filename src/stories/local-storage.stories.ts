@@ -6,14 +6,12 @@ import {expect, getByTestId, within} from '@storybook/test';
 import '../custom-element/custom-element.js';
 import '../custom-element/local-storage.js';
 
-type TProps = { title: string; tag: string; slice: string; key: string; value:string; type:string; live:string; body:string};
+type TProps = { title: string; slice: string; key: string; value:string; live:string; body:string};
 const defs: TProps =
 {   title:  ''
-,     tag:  ''
 ,   slice:  'ls-slice'
 ,     key:  'sb-ls-key'
 ,   value:  ''
-,    type:  ''
 ,    live:  ''
 ,    body:  ``
 };
@@ -22,17 +20,16 @@ function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resol
 
 function Template(args: TProps)
 {
-    const {title, tag, slice, key, value, type, live, body} = {...defs, ...args};
+    const {title, slice, key, value, live, body} = {...defs, ...args};
     return `
         <fieldset>
             <legend>${ title }</legend>
 
-            <custom-element ${ tag ? `tag="${tag}"`:''} >
+            <custom-element>
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <local-storage 
         key="${ key }" 
         slice="${ slice }" 
-        ${ type  ? `type="${type    }"`:''} 
         ${ live  ? `live="${live    }"`:''} 
         ${ value ? `value="${value  }"`:''} 
         ></local-storage>
@@ -43,7 +40,6 @@ function Template(args: TProps)
     ${ body }
 </template>
             </custom-element>
-            ${ tag ? `<${tag}></${tag}>` : ''}            
       </fieldset>
   `;
 }
@@ -155,8 +151,7 @@ export const FromStorageWithDefault:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(FromStorageWithDefault.args!.title as string);
-        const val = ()=> canvas.getByTestId('slice-value').textContent
-        ,  byText = txt => canvas.getByText(txt);
+        const byText = txt => canvas.getByText(txt);
 
         expect(localStorage.getItem(defs.key)).toEqual('ABC', 'from localStorage');
         byText('clear localStorage').click();
