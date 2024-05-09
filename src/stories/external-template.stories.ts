@@ -126,3 +126,131 @@ export const ExternalXsltFile:Story  =
         expect(canvas.getByTestId('data-smile').innerHTML).to.include('👼');
     },
 };
+
+export const ExternalHtmlFile:Story  =
+{   args : {title: 'external HTML template', body:`
+    <custom-element tag="dce-external-5" src="/html-template.html">
+                <template><i>loading from HTML file ...</i></template>
+            </custom-element>
+            <dce-external-5 title="DCE with external XSLT template" data-fruit="🍌">Hi</dce-external-5>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(ExternalHtmlFile.args!.title as string);
+        await canvas.findByText('👋');
+        const t5 = canvasElement.querySelector('dce-external-5').innerHTML;
+        expect(t5).to.include('👋');
+        expect(t5).to.include('👌');
+        expect(t5).to.include('<svg');
+        expect(t5).to.include('<math');
+    },
+};
+
+export const ExternalHtmlFileInline:Story  =
+{   args : {title: 'external HTML template', body:`
+            <custom-element src="/html-template.html" data-smile="👼" data-basket="🍒">
+                <i>inline DCE loading from HTML file ...</i>
+            </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(ExternalHtmlFileInline.args!.title as string);
+        await canvas.findByText('👋');
+        const t5 = canvasElement.innerHTML;
+        expect(t5).to.include('👋');
+        expect(t5).to.include('👌');
+        expect(t5).to.include('<svg');
+        expect(t5).to.include('<math');
+    },
+};
+
+export const HtmlWithinHtmlFile:Story  =
+{   args : {title: 'external HTML template - html by id', body:`
+        <custom-element src="/html-template.html#wave">
+            <template><i>loading HTML from templates file ...</i></template>
+        </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(HtmlWithinHtmlFile.args!.title as string);
+        expect(await canvas.findByText('👋')).toBeInTheDocument();
+    },
+};
+
+export const SvgWithinHtmlFile:Story  =
+{   args : {title: 'external HTML template - SVG by id', body:`
+        <custom-element src="/html-template.html#dwc-logo">
+            <template><i>loading  SVG from templates file ...</i></template>
+        </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(SvgWithinHtmlFile.args!.title as string);
+        expect(await canvas.findByTestId('svg-test')).toBeInTheDocument();
+    },
+};
+
+export const MathMLWithinHtmlFile:Story  =
+{   args : {title: 'external HTML template - MathML by id', body:`
+        <custom-element src="/html-template.html#sophomores-dream">
+            <template><i>loading MathML from HTML file ...</i></template>
+        </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(MathMLWithinHtmlFile.args!.title as string);
+        const ml = await canvas.findByTestId('ml-test');
+        debugger;
+        expect(ml.firstElementChild.localName).toEqual('mrow');
+    },
+};
+
+export const ByIdWithinXsltFile:Story  =
+{   args : {title: 'external XHTML template - xsl by id', body:`
+        <custom-element src="/html-template.xhtml#embedded-xsl">
+            <template>whole XSLT is  embedded into HTML body</template>
+        </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(ByIdWithinXsltFile.args!.title as string);
+        const ml = await canvas.findByTestId('src');
+        expect(ml.textContent).to.include('/html-template.xhtml#embedded-xsl');
+    },
+};
+export const MissingIdWithinXsltFile:Story  =
+{   args : {title: 'external HTML template - missing id', body:`
+    <custom-element src="/html-template.html#none">
+        <template><i data-testid="no-id">element with id=none is missing in template</i></template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(MissingIdWithinXsltFile.args!.title as string);
+        await sleep(100);
+        const ml = await canvas.findByTestId('no-id');
+        expect(ml.textContent).to.include('element with id=none is missing in template');
+    },
+};
+export const EmbeddingInAnotherFile:Story  =
+{   args : {title: 'external file with embedding of another external DCE', body:`
+    <custom-element src="/embed-1.html">
+        loading from embed-1.html ...
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await canvas.findByText(EmbeddingInAnotherFile.args!.title as string);
+        await sleep(100);
+        expect(await canvas.findByTestId('wave')).toBeInTheDocument();
+        expect(canvas.getByTestId('wave').innerHTML).toEqual('🖖');
+    },
+};
