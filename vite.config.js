@@ -1,31 +1,37 @@
 /** @type {import('vite').UserConfig} */
 export default {
-    build:{
-        minify:false,
+    build    : {
+        minify       : false,
         rollupOptions: {
             output: {
                 format: 'es',
                 // unbundled = bundle name is `*` file name without extension
-                manualChunks: function manualChunks(id) {
-                    if (id.endsWith('.ts')) {
+                manualChunks: function manualChunks( id )
+                {
+                    if( id.endsWith( '.ts' ) )
+                    {
                         // return file name without extension
-                        return id.split('/').pop().replace('.ts', '');
+                        return id.split( '/' ).pop().replace( '.ts', '' );
                     }
                 },
             },
         },
     },
-    test: {
-        isolate: true,
-        browser: {
+    test     : {
+        isolate : true,
+        browser : {
             enabled : true,
             name    : 'chrome', // browser name is required
             headless: true,
         },
-        include:
-            [ '**/*.{test,spec}.?(c|m)[jt]s?(x)'
+        include :
+            [ 'src/**/*.{test,spec}.?(c|m)[jt]s?(x)'
                 // , 'src/stories/css.stories.ts'
-            ]
+            ],
+        coverage: {
+            provider: 'istanbul',
+            include : [ 'src' ]
+        }
     },
     publicDir: 'public'
 }
