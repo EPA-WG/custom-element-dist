@@ -23,7 +23,7 @@ export const handlers =
         headers['x-added'] = 'abc';
         return HttpResponse.json(pokemonsMock, {headers});
     })
-,   http.get('/404', ({request}) =>
+,   http.get('/404', () =>
     {
         return new HttpResponse(null, {status: 404, statusText: 'not found'})   })
 ];

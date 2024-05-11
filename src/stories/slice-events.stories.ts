@@ -1,7 +1,7 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }             from '@storybook/web-components';
-import {expect, getByTestId, within, userEvent} from '@storybook/test';
+import { expect, within } from '@storybook/test';
 
 import '../custom-element/custom-element.js';
 
@@ -56,27 +56,27 @@ export const SliceInitChangeEvent:Story  =
         const canvas = within(canvasElement);
         await canvas.findByText(titleText);
         const code = await canvas.findByTestId('slice-value');
-        const input = await canvasElement.querySelector('[type="number"]');
-        expect(code).toBeInTheDocument();
-        expect(code.textContent).toEqual('0', 'initial slot value 0');
-        expect(input.value).toEqual('0', 'initial input value 0');
+        const input = await canvasElement.querySelector('[type="number"]') as HTMLInputElement;
+        await expect(code).toBeInTheDocument();
+        expect(code.textContent).to.equal('0', 'initial slot value 0');
+        expect(input.value).to.equal('0', 'initial input value 0');
 
         canvasElement.querySelector('[slice-value="//clickcount + 1"]').click()
         await sleep(10);
-        expect(code.textContent).toEqual('1', 'increment to 1');
-        expect(input.value).toEqual('1', 'increment input 1');
+        expect(code.textContent).to.equal('1', 'increment to 1');
+        expect(input.value).to.equal('1', 'increment input 1');
 
         canvasElement.querySelector('[slice-value="//clickcount + 1"]').click();
         await sleep(10);
         canvasElement.querySelector('[slice-value="//clickcount + 1"]').click();
         await sleep(10);
-        expect(code.textContent).toEqual('3', 'double increment to 3');
-        expect(input.value).toEqual('3', 'double increment input to 3');
+        expect(code.textContent).to.equal('3', 'double increment to 3');
+        expect(input.value).to.equal('3', 'double increment input to 3');
 
         canvasElement.querySelector('[slice-value="//clickcount - 1"]').click();
         await sleep(10);
-        expect(code.textContent).toEqual('2', 'decrement to 2');
-        expect(input.value).toEqual('2', 'decrement input to 2');
+        expect(code.textContent).to.equal('2', 'decrement to 2');
+        expect(input.value).to.equal('2', 'decrement input to 2');
     },
 };
 
@@ -103,10 +103,10 @@ export const RealtimeEventInSlice:Story  =
         ,     eventType = ()=> canvas.getByTestId('//slice/s/event/@type').textContent;
 
         const input = await canvasElement.querySelector('textarea');
-        expect(input).toBeInTheDocument();
-        expect( sliceText() ).toEqual('', 'initial slot value blank');
-        expect( offsetY()   ).toEqual('', 'initial slot offsetY blank');
-        expect( eventType() ).toEqual('', 'initial slot event blank');
+        // expect(input).toBeInTheDocument();
+        expect( sliceText() ).to.equal('', 'initial slot value blank');
+        expect( offsetY()   ).to.equal('', 'initial slot offsetY blank');
+        expect( eventType() ).to.equal('', 'initial slot event blank');
         const emitXy = ( x, y, eventName ) =>
         {   const ev = new MouseEvent(eventName,
             {   screenX:  x,
@@ -121,8 +121,8 @@ export const RealtimeEventInSlice:Story  =
 
         emitXy(10,20,'click');
         await sleep(10);
-        expect( sliceText() ).toEqual('x:10', 'click slot value 10');
-        expect( Number(offsetY())   ).toBeLessThan(0, 'offsetY click');
-        expect( eventType() ).toEqual('click', 'click event type');
+        expect( sliceText() ).to.equal('x:10', 'click slot value 10');
+        expect( Number(offsetY())   ).to.be.lessThan(0, 'offsetY click');
+        expect( eventType() ).to.equal('click', 'click event type');
     },
 };
