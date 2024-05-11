@@ -41,33 +41,23 @@
 </head>
 <body>
 
-    <custom-element>
-        <template>
-            <button slice="url-string" slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click"
-                >⬇️https://pokeapi.co/api/v2/pokemon?limit=6</button>
-            <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
-            <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
-            <http-request
-                url="{//fetch-url}"
-                slice="request_slice"
-                type="text"
-                mode="cors"
-                ></http-request>
-            //fetch-url : <code>{//fetch-url}</code>
-<!--            <for-each select="//slice/request_slice/value/*">-->
-<!--                <ul>-->
-<!--                    <var data-testid="request-section"><value-of select='name(.)'/></var>-->
-<!--                    <for-each select="@*">-->
-<!--                        <div>-->
-<!--                            <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>-->
-<!--                            =-->
-<!--                            <code><value-of select='.'/></code>-->
-<!--                        </div>-->
-<!--                    </for-each>-->
-<!--                </ul>-->
-<!--            </for-each>-->
+
+    <custom-element tag="dce-1">
+        <template >
+            <style >
+                color:red;
+            </style>
+
+            <u ><slot>red</slot></u>
         </template>
     </custom-element>
+<dce-1></dce-1> *
+<dce-1><template >
+            <style >
+                color:green;
+            </style>
 
+            <u >green</u>
+        </template></dce-1>
 </body>
 </html>

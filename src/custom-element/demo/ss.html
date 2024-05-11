@@ -1,52 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dce-root data-dce-id="1" xmlns="http://www.w3.org/1999/xhtml" xmlns:dce="urn:schemas-epa-wg:dce"
-          xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    <local-storage key="dateKey" slice="date-key" type="date" live="live" data-dce-id="2" xmlns=""/>
-    <local-storage key="timeKey" slice="time-key" type="time" live="live" data-dce-id="3" xmlns=""/>
-    <local-storage key="localDateTimeKey" slice="local-date-time" type="datetime-local" live="live" data-dce-id="4"
-                   xmlns=""/>
-    <local-storage key="numberKey" slice="number-key" type="number" live="live" data-dce-id="5" xmlns=""/>
-    <local-storage key="jsonKey" slice="json-key" type="json" live="live" data-dce-id="6" xmlns=""/>
-    <input id="typesinput" placeholder="set value" data-dce-id="7" xmlns=""/>
-    <button onclick="&#10;                        'dateKey,timeKey,localDateTimeKey,numberKey,jsonKey'.split(',')&#10;                            .map( k=&gt; localStorage.setItem(k, typesinput.value) )&#10;                    "
-            data-dce-id="8" xmlns=""> set to all
-    </button>
-    <br data-dce-id="9" xmlns=""/>
-    <hr data-dce-id="10" xmlns=""/>
-    <dce-text data-dce-id="11" xmlns="">
-        date-key:
-    </dce-text>
-    <button onclick="localStorage.setItem('dateKey', '2024-04-20T03:58:42.131Z')" data-dce-id="12" xmlns="">
-        2024-04-21T03:58:42.131Z
-    </button>
-    <button onclick="localStorage.setItem('dateKey', new Date(Date.now()).toISOString())" data-dce-id="13" xmlns="">
-        now
-    </button>
-    <button onclick="localStorage.setItem('dateKey', 'ABC'  )" data-dce-id="14" xmlns="">date ABC - invalid</button>
-    <code data-dce-id="15" xmlns="">
-
-
-    </code><br data-dce-id="16" xmlns=""/>
-    <dce-text data-dce-id="17" xmlns="">
-        time-key:
-    </dce-text>
-    <button onclick="localStorage.setItem('timeKey', '13:30')" data-dce-id="18" xmlns="">13:30</button>
-    <code data-dce-id="19" xmlns=""/><br data-dce-id="20" xmlns=""/>
-    <dce-text data-dce-id="21" xmlns="">
-        local-date-time:
-    </dce-text>
-    <button onclick="localStorage.setItem('localDateTimeKey', '1977-04-01T14:00:30')" data-dce-id="22" xmlns="">
-        21977-04-01T14:00:30 - local
-    </button>
-    <code data-dce-id="23" xmlns=""/><br data-dce-id="24" xmlns=""/>
-    <dce-text data-dce-id="25" xmlns="">
-        number-key:
-    </dce-text>
-    <button onclick="localStorage.setItem('numberKey', '2024')" data-dce-id="26" xmlns="">2024 - number</button>
-    <button onclick="localStorage.setItem('numberKey', '24')" data-dce-id="27" xmlns="">24 - number</button>
-    <code data-dce-id="28" xmlns=""/><br data-dce-id="29" xmlns=""/>
-    <fieldset data-dce-id="30" xmlns="">
-        <legend data-dce-id="31">json-key:</legend>
-        <button onclick="localStorage.setItem('jsonKey', jsonStringSample)" data-dce-id="32"> a:1,b:'B' - json</button>
-    </fieldset>
-</dce-root>
+<dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1"><http-request xmlns="" url="/reflect" slice="page" data-dce-id="2"></http-request><p xmlns="" data-dce-id="3">Pokemon Count: 6</p>
+<ul xmlns="" data-dce-id="6">
+<var data-testid="request-section" data-dce-id="7"><dce-text data-dce-id="8">request</dce-text></var><div data-dce-id="9">
+<var data-dce-id="10">@url</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-url" data-dce-id="12">/reflect</code>
+</div>
+<div data-dce-id="9-1">
+<var data-dce-id="10">@data-dce-id</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-data-dce-id" data-dce-id="12">2</code>
+</div>
+</ul>
+<ul xmlns="" data-dce-id="6-1">
+<var data-testid="request-section" data-dce-id="7"><dce-text data-dce-id="8">response</dce-text></var><div data-dce-id="9">
+<var data-dce-id="10">@ok</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-ok" data-dce-id="12">true</code>
+</div>
+<div data-dce-id="9-1">
+<var data-dce-id="10">@status</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-status" data-dce-id="12">200</code>
+</div>
+<div data-dce-id="9-2">
+<var data-dce-id="10">@statusText</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-statusText" data-dce-id="12">OK</code>
+</div>
+<div data-dce-id="9-3">
+<var data-dce-id="10">@type</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-type" data-dce-id="12">basic</code>
+</div>
+<div data-dce-id="9-4">
+<var data-dce-id="10">@url</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-url" data-dce-id="12">http://localhost:5173/reflect</code>
+</div>
+<div data-dce-id="9-5">
+<var data-dce-id="10">@redirected</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-redirected" data-dce-id="12">false</code>
+</div>
+</ul><button xmlns="" data-dce-id="5">bulbasaur</button><button xmlns="" data-dce-id="5-1">ivysaur</button><button xmlns="" data-dce-id="5-2">venusaur</button><button xmlns="" data-dce-id="5-3">charmander</button><button xmlns="" data-dce-id="5-4">charmeleon</button><button xmlns="" data-dce-id="5-5">charizard</button>
+<ul xmlns="" data-dce-id="6-2">
+<var data-testid="request-section" data-dce-id="7"><dce-text data-dce-id="8">data</dce-text></var><div data-dce-id="9">
+<var data-dce-id="10">@count</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-count" data-dce-id="12">1279</code>
+</div>
+<div data-dce-id="9-1">
+<var data-dce-id="10">@next</var><dce-text data-dce-id="11">
+                    =
+                    </dce-text><code data-testid="attr-next" data-dce-id="12">https://pokeapi.co/api/v2/pokemon?offset=6&amp;limit=6</code>
+</div>
+</ul></dce-root>

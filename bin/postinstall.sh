@@ -4,7 +4,7 @@
 #mkdir src
 #mkdir src/demo
 cd src/custom-element
-mkdir demo
+mkdir demo >/dev/null
 
 rm *.d.ts >/dev/null
 rm *.js >/dev/null
