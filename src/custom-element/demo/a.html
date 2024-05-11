@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:html="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>custom-element Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+    <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../local-storage.js"></script>
+    <script type="module" src="../custom-element.js"></script>
+
+    <style>
+        @import "./demo.css";
+
+        button {
+            background: forestgreen;
+        }
+
+        table {
+            min-width: 16rem;
+        }
+
+        td {
+            border-bottom: 1px solid silver;
+        }
+
+        tfoot td {
+            border-bottom: none;
+        }
+
+        td, th {
+            text-align: right;
+        }
+
+        caption {
+            padding: 1rem;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <custom-element>
+        <template>
+            <button slice="url-string" slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click"
+                >⬇️https://pokeapi.co/api/v2/pokemon?limit=6</button>
+            <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+            <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+            <http-request
+                url="{//fetch-url}"
+                slice="request_slice"
+                type="text"
+                mode="cors"
+                ></http-request>
+            //fetch-url : <code>{//fetch-url}</code>
+<!--            <for-each select="//slice/request_slice/value/*">-->
+<!--                <ul>-->
+<!--                    <var data-testid="request-section"><value-of select='name(.)'/></var>-->
+<!--                    <for-each select="@*">-->
+<!--                        <div>-->
+<!--                            <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>-->
+<!--                            =-->
+<!--                            <code><value-of select='.'/></code>-->
+<!--                        </div>-->
+<!--                    </for-each>-->
+<!--                </ul>-->
+<!--            </for-each>-->
+        </template>
+    </custom-element>
+
+</body>
+</html>
