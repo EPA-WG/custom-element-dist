@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from "@storybook/web-components";
+import type {StoryObj} from "@storybook/web-components";
 import {within, expect} from "@storybook/test";
 
 import '../custom-element/custom-element.js';
@@ -8,7 +8,8 @@ const defs = {title: '', tag: '', style: '', slot: '', payload: ''};
 
 type Story = StoryObj<CssProps>;
 
-function Template({title, tag='', style, slot, payload=''}: CssProps) {
+function render(args: CssProps) {
+    const {title, tag, style, slot, payload} = { ...defs, ...args };
     return `
         <fieldset>
             <legend>${ title }</legend>
@@ -25,18 +26,7 @@ function Template({title, tag='', style, slot, payload=''}: CssProps) {
   `;
 }
 
-const meta = {
-    title: 'Css',
-    render: (args: CssProps) => Template(args),
-    renderPlay: async function renderPlay(story: StoryObj) {
-        document.body.innerHTML = meta.render({...defs, ...story.args});
-        await new Promise(resolve => setTimeout(async () => {
-            // @ts-ignore
-            await story.play({canvasElement: document.body.firstElementChild as HTMLElement});
-            resolve(0);
-    }, 0));
-}
-} satisfies Meta<CssProps>| { renderPlay: (s:StoryObj)=>void } ;
+const meta = { title: 'Css', render };
 
 export default meta;
 

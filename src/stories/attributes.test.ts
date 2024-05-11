@@ -1,16 +1,14 @@
-import {describe, it} from 'vitest';
-import {type StoryObj} from "@storybook/web-components";
-
+import {describe} from 'vitest';
 
 import '../custom-element/custom-element.js';
 import meta from "./attributes.stories.ts";
 
 import * as Stories from "./attributes.stories.ts";
+import {playStories} from './renderPlay';
 
-const {renderPlay} = meta;
-describe('attributes', () => {
+
+describe('attributes', () =>
+{
     localStorage.clear();
-    for (let story of Object.values(Stories) as StoryObj[] )
-        if( story.play )
-            it(story.args!.title, async () => renderPlay(story));
+    playStories( Stories, meta );
 });

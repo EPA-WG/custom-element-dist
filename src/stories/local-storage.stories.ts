@@ -18,7 +18,7 @@ const defs: TProps =
 type Story = StoryObj<TProps>;
 function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
-function Template(args: TProps)
+function render(args: TProps)
 {
     const {title, slice, key, value, live, body} = {...defs, ...args};
     return `
@@ -45,18 +45,7 @@ function Template(args: TProps)
 }
 const meta =
 {   title:      'local-storage'
-,   render:     (args: TProps) => Template(args)
-,   renderPlay: async function renderPlay(story: StoryObj)
-    {
-        // @ts-ignore
-        document.body.innerHTML = ( story.render ? story : meta ).render({...defs, ...story.args});
-        await new Promise(resolve => setTimeout(async () =>
-        {
-            // @ts-ignore
-            await story.play({canvasElement: document.body.firstElementChild as HTMLElement});
-            resolve(0);
-        }, 0));
-    },
+,   render
 };
 
 export default meta;

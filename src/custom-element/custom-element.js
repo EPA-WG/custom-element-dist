@@ -175,7 +175,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         <xsl:choose>
             <xsl:when test="//attr">{//attr}</xsl:when>
             <xsl:otherwise>{def}</xsl:otherwise>
-        </xsl:choose><xsl:value-of select="."/></xsl:template>
+        </xsl:choose><xsl:value-of select="."></xsl:value-of></xsl:template>
     <xsl:template mode="payload"  match="attributes"></xsl:template>
     <xsl:template match="/">
         <xsl:apply-templates mode="payload" select="/datadom/attributes"/>

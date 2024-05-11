@@ -6,35 +6,30 @@ import {expect, getByTestId, within} from '@storybook/test';
 import '../custom-element/custom-element.js';
 import '../custom-element/location-element.js';
 
-type TProps = { title: string; tag: string; slice: string; href: string; value:string; type:string; live:string; body:string};
+type TProps = { title: string; slice: string; href: string; live:string; body:string};
 const defs: TProps =
 {   title:  ''
-,     tag:  ''
 ,   slice:  'url-slice'
 ,     href:  ''
-,   value:  ''
-,    type:  ''
 ,    live:  ''
 ,    body:  ``
 };
 type Story = StoryObj<TProps>;
 function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
-function Template(args: TProps)
+function render(args: TProps)
 {
-    const {title, tag, slice, href, value, type, live, body} = {...defs, ...args};
+    const {title, slice, href, live, body} = {...defs, ...args};
     return `
         <fieldset>
             <legend>${ title }</legend>
 
-            <custom-element ${ tag ? `tag="${tag}"`:''} >
+            <custom-element>
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <location-element 
         slice="${ slice }" 
-        ${ href   ? `href="${ href     }"`:''} 
-        ${ type  ? `type="${type    }"`:''} 
-        ${ live  ? `live="${live    }"`:''} 
-        ${ value ? `value="${value  }"`:''} 
+        ${ href   ? `href="${ href }"`:''} 
+        live="${ live }"
         ></location-element>
     
     
@@ -60,24 +55,12 @@ function Template(args: TProps)
     </xsl:template>
 </template>
             </custom-element>
-            ${ tag ? `<${tag}></${tag}>` : ''}            
       </fieldset>
   `;
 }
 const meta =
 {   title:      'location-element'
-,   render:     (args: TProps) => Template(args)
-,   renderPlay: async function renderPlay(story: StoryObj)
-    {
-        // @ts-ignore
-        document.body.innerHTML = ( story.render ? story : meta ).render({...defs, ...story.args});
-        await new Promise(resolve => setTimeout(async () =>
-        {
-            // @ts-ignore
-            await story.play({canvasElement: document.body.firstElementChild as HTMLElement});
-            resolve(0);
-        }, 0));
-    },
+,   render
 };
 
 export default meta;

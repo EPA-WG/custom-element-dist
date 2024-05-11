@@ -31,6 +31,7 @@ function Template({title, slice, url}: TProps)
     <button>set</button>   
     <button slice="url" slice-value="''" slice-event="click">set blank</button>   
     <button slice="url" slice-value="'/reflect'" slice-event="click">/reflect</button>   
+    <button slice="url" slice-value="'/pokemon'"         slice-event="click">/pokemon</button>   
     <button slice="url" slice-value="'/pokemon?limit=6'" slice-event="click">/pokemon?limit=6</button>   
     <button slice="url" slice-value="'/pokemon?limit=3'" slice-event="click">/pokemon?limit=3</button>   
 
@@ -105,6 +106,11 @@ export const UrlChange:Story  =
 
         expect( byText('Pokemon Count: 0') ).toBeInTheDocument();
         expect( urlAttr() ).toEqual('');
+
+        byText( '/pokemon' ).click();
+        await sleep(100);
+        expect( urlAttr() ).toEqual('/pokemon');
+        expect( byText('Pokemon Count: 6') ).toBeInTheDocument();
 
         byText( '/pokemon?limit=6' ).click();
         await sleep(100);
