@@ -11,9 +11,15 @@ Binary distribution for [@epa-wg/custom-element][git-url] with StoryBook and tes
 [bin/build.sh] generates binaries to be kept as in Git release as in NPM package.
 It serves the record of compliance on the moment of build.
 ## [dist](dist)
+Can be used as CDN entry with minified bundle: [custom-element-bundle.js][bundle-url]
+
+Each individual component of `custom-element` lib is available as hashed JS.
 
 ## [coverage](coverage)
-## [storybook-static](storybook-static)
+Provides the unit test coverage for lib and StoryBooks
+
+## [storybook-static][sb-url]
+CDN version of StoryBook.
 
 [git-url]:        https://github.com/EPA-WG/custom-element
 [git-test-url]:   https://github.com/EPA-WG/custom-element-dist
@@ -23,3 +29,4 @@ It serves the record of compliance on the moment of build.
 [coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.1/coverage/src/custom-element/coverage.svg
 [coverage-url]:   https://unpkg.com/@epa-wg/custom-element-test@0.0.1/coverage/src/custom-element/index.html
 [sb-url]:         https://unpkg.com/@epa-wg/custom-element-test@0.0.1/storybook-static/index.html
+[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-test@0.0.1/dist/custom-element-bundle.js
