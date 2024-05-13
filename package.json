@@ -5,6 +5,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
+        "postinstall": "bash bin/postinstall.sh",
+        "prepublishOnly": "bash bin/build.sh",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
