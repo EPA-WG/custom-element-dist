@@ -1,10 +1,10 @@
-# as tested sources reside in foreign module, they would be copied into src
+# as tested sources reside in foreign module, they would be copied into src/custom-element
 # to be treated as internal by test coverage
 #npm link @epa-wg/custom-element
-#mkdir src
-#mkdir src/demo
+
 cd src/custom-element
 mkdir demo >/dev/null
+mkdir ide >/dev/null
 
 rm *.d.ts >/dev/null
 rm *.js >/dev/null
@@ -13,5 +13,5 @@ cp ../../node_modules/@epa-wg/custom-element/*.d.ts .
 cp ../../node_modules/@epa-wg/custom-element/*.js .
 cp ../../node_modules/@epa-wg/custom-element/index.html index.html
 cp ../../node_modules/@epa-wg/custom-element/demo/* demo/
-#ls ../node_modules/@epa-wg/custom-element/*.js
-#ls *.js
+cp ../../node_modules/@epa-wg/custom-element/ide/* ide/
+

@@ -13,6 +13,11 @@ export default {
                         // return file name without extension
                         return id.split( '/' ).pop().replace( '.ts', '' );
                     }
+                    if( id.endsWith( '.js' ) )
+                    {
+                        // return file name without extension
+                        return id.split( '/' ).pop().replace( '.js', '' );
+                    }
                 },
             },
         },
@@ -29,6 +34,7 @@ export default {
                 // , 'src/stories/css.stories.ts'
             ],
         coverage: {
+            reporter: ['text', 'json', 'html','coverage-svg'],
             provider: 'istanbul',
             include : [ 'src' ]
         }
