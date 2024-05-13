@@ -1,6 +1,5 @@
 {
-    "name": "custom-element-dist",
-    "private": true,
+    "name": "@epa-wg/custom-element-dist",
     "version": "0.0.1",
     "type": "module",
     "scripts": {
@@ -66,9 +65,15 @@
         "coverage/**/*"
     ],
     "exports": {
-        ".": "./dist/assets/custom-element-BjWr5CWx.js",
-        "./package.json": "./package.json",
-        "./custom-element": "./dist/assets/custom-element-BjWr5CWx.js"
+        ".": {
+            "import": "./dist/assets/custom-element-bundle.js",
+            "require": "./dist/assets/custom-element-bundle.cjs"
+        },
+        "./custom-element": {
+            "import": "./dist/assets/custom-element-bundle.js",
+            "require": "./dist/assets/custom-element-bundle.cjs"
+        },
+        "./package.json": "./package.json"
     },
     "repository": {
         "type": "git",

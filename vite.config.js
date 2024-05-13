@@ -1,10 +1,22 @@
 /** @type {import('vite').UserConfig} */
+import { resolve } from 'path'
+
 export default {
     build    : {
-        minify       : false,
+        target       : 'esnext',
+        lib          : {
+            entry: resolve( __dirname, 'src/custom-element/index.js' ),
+            name : 'CustomElement',
+            fileName: 'custom-element-bundle',
+            formats:['es','cjs']
+        },
+        minify       : true,
         rollupOptions: {
-            output: {
-                format: 'es',
+            preserveEntrySignatures: 'strict',
+            output                 : {
+                format              : 'es',
+                exports             : 'named',
+                externalLiveBindings: false,
                 // unbundled = bundle name is `*` file name without extension
                 manualChunks: function manualChunks( id )
                 {
@@ -34,7 +46,7 @@ export default {
                 // , 'src/stories/css.stories.ts'
             ],
         coverage: {
-            reporter: ['text', 'json', 'html','coverage-svg'],
+            reporter: [ 'text', 'json', 'html', 'coverage-svg' ],
             provider: 'istanbul',
             include : [ 'src' ]
         }
