@@ -1,7 +1,8 @@
-import type {StoryObj} from "@storybook/web-components";
-import {within, expect} from "@storybook/test";
+import type {StoryObj}                         from "@storybook/web-components";
+import {within, expect}                        from "@storybook/test";
 
 import '../custom-element/custom-element.js';
+import {CharsCountInTextarea, WordCountOnType} from './dom-merge.test.stories';
 
 type CssProps = { title: string; tag: string; style: string; slot: string; payload: string };
 const defs = {title: '', tag: '', style: '', slot: '', payload: ''};
@@ -102,3 +103,14 @@ export const OverrideInPayload: Story =
         expect( color('#dce32 u')        ).to    .equal(color('i'));
     },
 };
+
+
+const TestStories = { StyleDoesNotLeak, StyleIn2Instances, OverrideInPayload };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

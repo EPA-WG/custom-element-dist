@@ -5,10 +5,10 @@ export default {
     build    : {
         target       : 'esnext',
         lib          : {
-            entry: resolve( __dirname, 'src/custom-element/index.js' ),
-            name : 'CustomElement',
+            entry   : resolve( __dirname, 'src/custom-element/index.js' ),
+            name    : 'CustomElement',
             fileName: 'custom-element-bundle',
-            formats:['es','cjs']
+            formats : [ 'es', 'cjs' ]
         },
         minify       : true,
         rollupOptions: {
@@ -42,8 +42,8 @@ export default {
             headless: true,
         },
         include :
-            [ 'src/**/*.{test,spec}.?(c|m)[jt]s?(x)'
-                // , 'src/stories/css.stories.ts'
+            [   'src/**/*.{test,spec}.?(c|m)[jt]s?(x)'
+            ,   'src/stories/*.test.stories.ts'
             ],
         coverage: {
             reporter: [ 'text', 'json', 'html', 'coverage-svg' ],

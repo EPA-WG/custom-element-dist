@@ -1,9 +1,10 @@
 // noinspection DuplicatedCode
 
-import type { StoryObj }             from '@storybook/web-components';
+import type { StoryObj }                        from '@storybook/web-components';
 import {expect, getByTestId, within, userEvent} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
+import {OverrideInPayload, StyleDoesNotLeak, StyleIn2Instances} from './css.test.stories';
 
 type TProps = { title: string; body:string};
 
@@ -36,8 +37,8 @@ export const AttributeDefaults:Story  =
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
-            p1: <code data-testid="p1">{$p1}</code> <br/> 
-            p2: <code data-testid="p2">{$p2}</code> <br/> 
+            p1: <code data-testid="p1">{$p1}</code> <br/>
+            p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
         </template>
     </custom-element>
@@ -64,8 +65,8 @@ export const AttributesRuntimeChange:Story  =
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
-            p1: <code data-testid="p1">{$p1}</code> <br/> 
-            p2: <code data-testid="p2">{$p2}</code> <br/> 
+            p1: <code data-testid="p1">{$p1}</code> <br/>
+            p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
         </template>
     </custom-element>
@@ -110,8 +111,8 @@ export const InstanceAttributes:Story  =
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
-            p1: <code data-testid="p1">{$p1}</code> <br/> 
-            p2: <code data-testid="p2">{$p2}</code> <br/> 
+            p1: <code data-testid="p1">{$p1}</code> <br/>
+            p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
         </template>
     </custom-element>
@@ -130,3 +131,14 @@ export const InstanceAttributes:Story  =
     },
 };
 
+
+
+const TestStories = { AttributeDefaults, AttributesRuntimeChange, InstanceAttributes };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

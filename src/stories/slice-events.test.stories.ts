@@ -4,6 +4,7 @@ import type { StoryObj }             from '@storybook/web-components';
 import { expect, within } from '@storybook/test';
 
 import '../custom-element/custom-element.js';
+import {NamedSlot}                   from './slots.test.stories';
 
 type TProps = { title: string; body:string};
 
@@ -74,7 +75,7 @@ export const RealtimeEventInSlice:Story  =
     <p>move the mouse over TEXTAREA and click to see slice and slice event changed</p>
     <custom-element>
         <template>
-            <textarea   slice="s" slice-value="concat('x:', //@pageX)" slice-event="mousemove click" 
+            <textarea   slice="s" slice-value="concat('x:', //@pageX)" slice-event="mousemove click"
                         style="width:16rem;height:16rem;box-shadow: inset {//@offsetX}px {//@offsetY}px gold;"></textarea><br/>
             //slice/s                   : <code data-testid="//slice/s"                 >{ //slice/s                }</code>  <br/>
             //slice/s/event/@offsetY    : <code data-testid="//slice/s/event/@offsetY"  >{ //slice/s/event/@offsetY }</code>  <br/>
@@ -115,3 +116,13 @@ export const RealtimeEventInSlice:Story  =
         expect( eventType() ).to.equal('click', 'click event type');
     },
 };
+
+const TestStories = { SliceInitChangeEvent, RealtimeEventInSlice };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

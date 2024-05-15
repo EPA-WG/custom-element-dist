@@ -17,6 +17,5 @@ export async function renderPlay<TProps>(story: StoryObj, meta:{render: (args: T
 export function playStories<TProps>( Stories: any, meta:{ render: (args: TProps)=>string } )
 {
     for ( let story of Object.values(Stories) as StoryObj[] )
-        if( story.play )
-            it( story.args!.title, async () => renderPlay(story, meta) );
+        it( story.args!.title, async () => renderPlay(story, meta) );
 }

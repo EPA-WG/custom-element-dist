@@ -1,9 +1,16 @@
 // noinspection DuplicatedCode
 
-import type { StoryObj }             from '@storybook/web-components';
+import type { StoryObj }                        from '@storybook/web-components';
 import {expect, getByTestId, within, userEvent} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
+import {
+    ByIdWithinXsltFile, EmbeddingInAnotherFile,
+    ExternalHtmlFile, ExternalHtmlFileInline, ExternalSvg, ExternalXsltFile, HtmlWithinHtmlFile, MathMLWithinHtmlFile,
+    MissingIdWithinXsltFile,
+    NoTag,
+    SvgWithinHtmlFile, TemplateInPage
+} from './external-template.test.stories';
 
 type TProps = { title: string; body:string};
 
@@ -80,7 +87,7 @@ export const WordCountOnType:Story  =
                         <code data-testid="words-id"
                             >{
                                 string-length(normalize-space(//slice/txt)) -
-                                string-length(translate(normalize-space(//slice/txt), ' ', '')) + 1 
+                                string-length(translate(normalize-space(//slice/txt), ' ', '')) + 1
                             }</code>
                         <!-- The expression first normalizes the string by removing leading and trailing whitespace and
                             collapsing internal whitespace into a single space. It then subtracts the length of the string
@@ -111,3 +118,13 @@ export const WordCountOnType:Story  =
         expect(canvas.getByTestId('words-id').textContent.trim()).toEqual('6', 'counter of words in render');
     },
 };
+
+const TestStories = { CharsCountInTextarea, WordCountOnType };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

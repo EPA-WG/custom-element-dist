@@ -1,10 +1,11 @@
 // noinspection DuplicatedCode
 
-import type { StoryObj }             from '@storybook/web-components';
-import {expect, getByTestId, within} from '@storybook/test';
+import type { StoryObj }                            from '@storybook/web-components';
+import {expect, getByTestId, within}                from '@storybook/test';
 
 import '../custom-element/custom-element.js';
 import '../custom-element/location-element.js';
+import {RealtimeEventInSlice, SliceInitChangeEvent} from './slice-events.test.stories';
 
 type TProps = { title: string; slice: string; href: string; live:string; body:string};
 const defs: TProps =
@@ -26,13 +27,13 @@ function render(args: TProps)
 
             <custom-element>
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
-    <location-element 
-        slice="${ slice }" 
-        ${ href   ? `href="${ href }"`:''} 
+    <location-element
+        slice="${ slice }"
+        ${ href   ? `href="${ href }"`:''}
         live="${ live }"
         ></location-element>
-    
-    
+
+
     ${ body }
     <xhtml:table>
         <xhtml:tbody>
@@ -131,3 +132,14 @@ export const SrcAttribute:Story  =
 
     },
 };
+
+
+const TestStories = { Demo, SrcAttribute };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

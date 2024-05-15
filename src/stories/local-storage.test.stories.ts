@@ -27,13 +27,13 @@ function render(args: TProps)
 
             <custom-element>
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
-    <local-storage 
-        key="${ key }" 
-        slice="${ slice }" 
-        ${ live  ? `live="${live    }"`:''} 
-        ${ value ? `value="${value  }"`:''} 
+    <local-storage
+        key="${ key }"
+        slice="${ slice }"
+        ${ live  ? `live="${live    }"`:''}
+        ${ value ? `value="${value  }"`:''}
         ></local-storage>
-    
+
     <br/>
     <var>${key}</var>:<code data-testid="slice-value">{ //slice/${slice} }</code>
     <br/>
@@ -53,12 +53,12 @@ export default meta;
 export const Demo:Story  =
 {   args : {title: 'live value', live:'live', body:`
     <input placeholder="value for localStorage" id="textinput"
-        slice="${defs.slice}" 
+        slice="${defs.slice}"
         value="{ //${defs.slice} ?? '${ defs.value }' }"/>
     <button onclick="localStorage.setItem('${defs.key}',textinput.value  )">set</button>
     <button onclick="localStorage.setItem('${defs.key}','text value'  )">text value</button>
-    <button onclick="localStorage.setItem('${defs.key}','another text')">another text</button>   
-    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>   
+    <button onclick="localStorage.setItem('${defs.key}','another text')">another text</button>
+    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>
 `}
 ,   play: async ({canvasElement}) =>
     {
@@ -94,8 +94,8 @@ export const Demo:Story  =
 export const AlwaysOverride:Story  =
 {   args : {title: 'AlwaysOverride', live:'', value:'ABC', body:`
     buttons are changing the localStorage value, but without 'live' attribute slice ^^ from <i>local-storage</i> is not updated<br/>
-    <button onclick="localStorage.setItem('${defs.key}','text value'  )">text value</button>  
-    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>   
+    <button onclick="localStorage.setItem('${defs.key}','text value'  )">text value</button>
+    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>
     `}
 ,   play: async ({canvasElement}) =>
     {
@@ -168,7 +168,7 @@ export const FromStorageWithDefault:Story  =
 
 export const TypeAttribute:Story  =
 {   args : {title: 'local-storage type attribute variations', body:`
-    
+
                 <local-storage key="textKey" slice="text-key" type="text" live="live"></local-storage>
                 <local-storage key="dateKey" slice="date-key" type="date" live="live"></local-storage>
                 <local-storage key="timeKey" slice="time-key" type="time" live="live"></local-storage>
@@ -386,3 +386,13 @@ export const TypeAttribute:Story  =
         expectVal('json-key'       ,'\na : 1b : B'      );
     },
 };
+
+const TestStories = { Demo, AlwaysOverride, FromStorageWithDefault, TypeAttribute };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{   localStorage.clear();
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

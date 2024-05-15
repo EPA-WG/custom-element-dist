@@ -4,6 +4,7 @@ import type { StoryObj }             from '@storybook/web-components';
 import {expect, getByTestId, within} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
+import {Demo, SrcAttribute}          from './location-element.test.stories';
 
 type TProps = { title: string; body:string};
 
@@ -32,10 +33,10 @@ export const TemplateInPage:Story  =
     <template id="template1">
     <slot>Hello</slot> World!
     </template>
-    
+
     <custom-element tag="dce-internal" src="#template1"></custom-element>
     <!-- no need for loading fallback as the template exists -->
-    
+
     <dce-internal data-testid="slot-override">👋</dce-internal>
     <dce-internal  data-testid="slot-default"></dce-internal>
 `}
@@ -243,3 +244,13 @@ export const EmbeddingInAnotherFile:Story  =
         expect(canvas.getByTestId('wave').innerHTML).toEqual('🖖');
     },
 };
+
+const TestStories = { TemplateInPage, NoTag, ExternalSvg, ExternalXsltFile, ExternalHtmlFile, ExternalHtmlFileInline, HtmlWithinHtmlFile, SvgWithinHtmlFile, MathMLWithinHtmlFile, ByIdWithinXsltFile, MissingIdWithinXsltFile, EmbeddingInAnotherFile };
+
+/* istanbul ignore else -- @preserve */
+if( 'test' === import.meta.env.MODE )
+{
+    const {playStories} = await  import('./renderPlay');
+    const {describe} = await import('vitest')
+    describe('slots', () => playStories( TestStories, meta ) );
+}

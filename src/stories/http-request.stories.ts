@@ -28,12 +28,12 @@ function Template({title, slice, url}: TProps)
         slice="${slice}"
         ></http-request>
     <input placeholder="URL for fetch" slice="url" value="{ //url ?? '${ url }' }"/>
-    <button>set</button>   
-    <button slice="url" slice-value="''" slice-event="click">set blank</button>   
-    <button slice="url" slice-value="'/reflect'" slice-event="click">/reflect</button>   
-    <button slice="url" slice-value="'/pokemon'"         slice-event="click">/pokemon</button>   
-    <button slice="url" slice-value="'/pokemon?limit=6'" slice-event="click">/pokemon?limit=6</button>   
-    <button slice="url" slice-value="'/pokemon?limit=3'" slice-event="click">/pokemon?limit=3</button>   
+    <button>set</button>
+    <button slice="url" slice-value="''" slice-event="click">set blank</button>
+    <button slice="url" slice-value="'/reflect'" slice-event="click">/reflect</button>
+    <button slice="url" slice-value="'/pokemon'"         slice-event="click">/pokemon</button>
+    <button slice="url" slice-value="'/pokemon?limit=6'" slice-event="click">/pokemon?limit=6</button>
+    <button slice="url" slice-value="'/pokemon?limit=3'" slice-event="click">/pokemon?limit=3</button>
 
     <p>Pokemon Count: {count(/datadom/slice/${slice}//results)}</p>
     <if test="count(/datadom/slice/${slice}//results) &lt; 0">
