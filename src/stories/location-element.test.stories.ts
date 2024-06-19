@@ -41,12 +41,12 @@ function render(args: TProps)
                 <xhtml:th><h3> URL properties </h3></xhtml:th>
                 <xhtml:td>{count(//value/@*)}</xhtml:td>
             </xhtml:tr>
-            <apply-templates mode="attrs" select="//value/@*"></apply-templates>
+            <apply-templates mode="attrs" select="//${ slice }/value/@*"></apply-templates>
         </xhtml:tbody>
     </xhtml:table>
     <xhtml:table>
             <h3> URL parameters </h3>
-            <apply-templates mode="attrs" select="//params/*/*"></apply-templates>
+            <apply-templates mode="attrs" select="//${ slice }/value/params/*/*"></apply-templates>
     </xhtml:table>
     <xsl:template mode="attrs" match="*|@*">
         <xhtml:tr>

@@ -109,9 +109,9 @@ export const RealtimeEventInSlice:Story  =
             input.dispatchEvent( ev );
         };
 
-        emitXy(10,20,'click');
+        emitXy(20,20,'click');
         await sleep(10);
-        expect( sliceText() ).to.equal('x:10', 'click slot value 10');
+        expect( sliceText() ).to.equal('x:20', 'click slot value 20');
         expect( Number(offsetY())   ).to.be.lessThan(0, 'offsetY click');
         expect( eventType() ).to.equal('click', 'click event type');
     },

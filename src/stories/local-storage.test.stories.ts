@@ -218,6 +218,8 @@ export const TypeAttribute:Story  =
     `}
 ,   play: async ({canvasElement}) =>
     {
+        window['JsonSample'] = {a:1,b:'B'};
+
         const canvas = within(canvasElement);
         await canvas.findByText(TypeAttribute.args!.title as string);
         const byText = txt => canvas.getByText(txt)
