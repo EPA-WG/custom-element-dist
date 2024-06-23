@@ -13,7 +13,6 @@ const attr = (el, attr)=> el.getAttribute?.(attr)
 ,   createText = ( d, t) => (d.ownerDocument || d ).createTextNode( t )
 ,   removeChildren = n => { while(n.firstChild) n.firstChild.remove(); return n; }
 ,   emptyNode = n => {  n.getAttributeNames().map( a => n.removeAttribute(a) ); return removeChildren(n); }
-,   createNS = ( ns, tag, t = '' ) => ( e => ((e.innerText = t||''),e) )(document.createElementNS( ns, tag ))
 ,   xslNs = x => ( x?.setAttribute('xmlns:xsl', XSL_NS_URL ), x )
 ,   xslHtmlNs = x => ( x?.setAttribute('xmlns:xhtml', HTML_NS_URL ), xslNs(x) )
 ,   cloneAs = (p,tag) =>
@@ -23,8 +22,7 @@ const attr = (el, attr)=> el.getAttribute?.(attr)
     while( p.firstChild )
         px.append(p.firstChild);
     return px;
-}
-,   ensureSSV = (s,v) => s ? ( s.includes(v) ? s : s + ' ' + v ) : v ;
+};
 
     function
 ASSERT(x)
