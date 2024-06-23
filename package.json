@@ -14,7 +14,7 @@
         "test:watch": "vitest --inspect-brk --no-file-parallelism --browser.headless=false --test-timeout=0",
         "test:storybook": "test-storybook",
         "sb": "yarn storybook",
-        "t": "vitest --no-file-parallelism --watch=false src/stories/location-element.test.ts"
+        "t": "vitest --no-file-parallelism --watch --browser.headless=false src/stories/slots.test.stories.ts"
     },
     "dependencies": {
         "@epa-wg/custom-element": "0.0.21"

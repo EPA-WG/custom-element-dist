@@ -62,7 +62,6 @@ export const CharsCountInTextarea:Story  =
         await userEvent.keyboard(titleText);
         expect(textarea.value).toEqual(titleText);
         expect(textarea.value.length).toEqual(titleText.length);
-        debugger;
         canvas.getByTestId('refocus-id').focus();
         await sleep(10);
         expect(canvas.getByTestId('counter-id').textContent).toEqual(''+titleText?.length,'counter of symbols');

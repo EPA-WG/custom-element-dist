@@ -81,13 +81,15 @@ export const OverrideInPayload: Story =
     ,   style:  `color:green`
     ,    slot:  'is green'
     ,     tag:  'dce-3'
-    , payload:  `  <u>should be</u> ${RED}:<dce-3 id="dce32">
-                        <template>
-                            <style> color:red; </style>
-                            <u>red</u>
-                        </template>
-                    </dce-3> <br/>
-                     should be ${GREEN}: <dce-3 id="dce31">green</dce-3>   `
+    , payload:  `<u>should be</u> ${RED}:
+                <dce-3 id="dce32">
+                    <template>
+                        <style> color:red; </style>
+                        <u>red</u>
+                    </template>
+                </dce-3> <br/>
+                should be ${GREEN}: 
+                <dce-3 id="dce31">green</dce-3>   `
     }
 ,   play: async ({canvasElement}) =>
     {

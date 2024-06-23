@@ -1,10 +1,9 @@
 // noinspection DuplicatedCode
 
-import type { StoryObj }             from '@storybook/web-components';
-import { expect, within } from '@storybook/test';
+import type { StoryObj }           from '@storybook/web-components';
+import {expect, userEvent, within, spyOn} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
-import {NamedSlot}                   from './slots.test.stories';
 
 type TProps = { title: string; body:string};
 
@@ -116,6 +115,37 @@ export const RealtimeEventInSlice:Story  =
         expect( eventType() ).to.equal('click', 'click event type');
     },
 };
+
+// export const DoubleEventInSlice:Story  =
+// {   args : {title: 'slice-event="change submit change submit" ', body:`
+//     <p> double event should invoke only single handler.
+//         The test is not visual, see "Interactions" in StoryBook </p>
+//     <custom-element>
+//         <template>
+//             <form slice-event="submit submit" slice="form-1">
+//                 <input slice-event="change change" required slice="field-1" />
+//                 <button>next</button>
+//             </form>
+//         </template>
+//     </custom-element>
+// `}
+// ,   play: async ({canvasElement}) =>
+//     {
+//         const titleText = RealtimeEventInSlice.args!.title as string;
+//         const canvas = within(canvasElement);
+//         const input = await canvas.findByRole('textbox');
+//         const dce = input.parentElement.parentElement.parentElement;
+//         const f = spyOn( dce, 'onCustomValidity')
+//         input.focus();
+//         await userEvent.type ( input, 'AB');
+//         canvas.getByRole('button').focus()
+//         await userEvent.clear( input );
+//         await userEvent.click( canvas.getByRole('button'));
+// sleep(100);
+//         // await expect(f).toHaveBeenCalledTimes(1);
+//
+//     },
+// };
 
 const TestStories = { SliceInitChangeEvent, RealtimeEventInSlice };
 

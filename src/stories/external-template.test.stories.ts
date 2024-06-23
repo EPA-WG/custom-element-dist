@@ -195,7 +195,6 @@ export const MathMLWithinHtmlFile:Story  =
         const canvas = within(canvasElement);
         await canvas.findByText(MathMLWithinHtmlFile.args!.title as string);
         const ml = await canvas.findByTestId('ml-test');
-        debugger;
         expect(ml.firstElementChild.localName).toEqual('mrow');
     },
 };

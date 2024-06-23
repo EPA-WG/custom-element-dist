@@ -645,10 +645,9 @@ CustomElement extends HTMLElement
                         {   el.dceInitialized = 1;
                             let evs = attr(el,'slice-event');
                             if( attr(el,'custom-validity') )
-                            {   evs = ensureSSV( evs, 'change' );
-                                evs = ensureSSV( evs, 'submit' );
-                            }
-                            (evs || 'change') .split(' ')
+                                evs += ' change submit';
+
+                            [...new Set((evs || 'change') .split(' '))]
                                 .forEach( t=> (el.localName==='slice'? el.parentElement : el)
                                     .addEventListener( t, ev=>
                                     {   ev.sliceElement = el;

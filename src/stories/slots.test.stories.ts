@@ -202,7 +202,7 @@ export const TemplateWithAttributesAndCondition:Story  =
         expect(p.querySelector('img').src).to.equal('https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg');
         expect(p.querySelector('h3').innerText).to.equal('bulbasaur');
         expect(p.innerText).to.include('Smile as: 👼');
-        expect(p.querySelector('p[slot="description"]').innerText).to.include('Bulbasaur is a cute Pokémon');
+        expect(p.querySelector('[slot="description"]').innerText).to.include('Bulbasaur is a cute Pokémon');
     }
 };
 

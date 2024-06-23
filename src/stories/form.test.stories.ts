@@ -8,7 +8,6 @@ import '../custom-element/custom-element.js';
 type TProps = { title: string; body:string};
 
 type Story = StoryObj<TProps>;
-function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
 function render(args: TProps)
 {
@@ -153,7 +152,8 @@ export const FormCustomValidityString:Story =
     <p> Form is valid only when input text is longer of 3 characters, @validation-message propagated in form slot </p>
     <custom-element>
         <template>
-            <form slice="form-1" custom-validity=" string-length(//form-1//f1) &gt; 3 ?? concat('should be more than 3 characters, now is ',string-length(//form-1//f1) ) "
+            <form slice="form-1"
+                custom-validity=" string-length(//form-1//f1) &gt; 3 ?? concat('should be more than 3 characters, now is ',string-length(//form-1//f1) ) "
                 data-testid="form-1"
                 >
                 <input name="f1" data-testid="input-1"/><br/>
@@ -180,7 +180,7 @@ export const FormCustomValidityString:Story =
 // custom validity rules on form : boolean and string values
 
 
-const TestStories = { CustomValidityBoolean: SystemMessage, WordCountOnType: SystemMessage };
+const TestStories = { SystemMessage, FormData, SetValidityMessage, FormCustomValidityBoolean, FormCustomValidityString};
 
 /* istanbul ignore else -- @preserve */
 if( 'test' === import.meta.env.MODE )
