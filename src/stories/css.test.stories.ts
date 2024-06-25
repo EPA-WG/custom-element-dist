@@ -48,6 +48,12 @@ export const StyleDoesNotLeak: Story =
         const color = st.getPropertyValue('color');
         // @ts-ignore
         expect(color).to.equal('rgb(0, 128, 0)')
+        await expect( el.closest('custom-element')).toBeInTheDocument();
+        const dce = el.closest('custom-element');
+        await expect( dce.xsltString).toContain('<xsl:stylesheet');
+        await expect( dce.dce.localName).toEqual('custom-element');
+        await expect( dce.dce.xsltString).toEqual(dce.xsltString);
+        await expect( dce.dce.xslt.documentElement.tagName ).toEqual('xsl:stylesheet');
     },
 };
 

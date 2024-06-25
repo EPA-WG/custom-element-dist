@@ -131,10 +131,8 @@ export const DoubleEventInSlice:Story  =
 `}
 ,   play: async ({canvasElement}) =>
     {
-        const titleText = RealtimeEventInSlice.args!.title as string;
         const canvas = within(canvasElement);
         const input = await canvas.findByTestId('f1');
-        const dce = input.parentElement.parentElement.parentElement;
         input.focus();
         await userEvent.type ( input, 'AB');
         canvas.getByRole('button').focus()
@@ -143,8 +141,55 @@ export const DoubleEventInSlice:Story  =
         expect( await canvas.findByText('slices count 2')).toBeInTheDocument();
     },
 };
+export const MultipleSlices:Story  =
+{   args : {title: 'slice="/datadom/attributes/emotion | s1" ', body:`
+    <p> double same event should be treated as one.</p>
+    <custom-element>
+        <template>
+            <input  slice="s1|s2" 
+                    slice-event="input"
+                    data-testid="f1"
+                    /><br/>
+            Type to update s1 and s2 slices <br/>
+            slice <code>s1: {//slice/s1}</code><br/>
+            slice <code>s2: {//slice/s2}</code><br/>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        const input = await canvas.findByTestId('f1');
+        input.focus();
+        await userEvent.type ( input, 'AB');
+        await expect( await canvas.findByText('s1: AB')).toBeInTheDocument();
+        await expect( await canvas.findByText('s2: AB')).toBeInTheDocument();
+    },
+};
+export const SlicesInAttrAndName:Story  =
+{   args : {title: 'slice="/datadom/attributes/emotion | s1" ', body:`
+    <p> double same event should be treated as one.</p>
+    <custom-element>
+        <template>
+            <attribute name="emotion">😃</attribute>
+            <input  slice-event="input" slice="/datadom/attributes/emotion | s1" data-testid="f1"/>
+            <p>Type to update </p>
+            <p>emotion attribute: {emotion}</p>
+            <p>slice: {//slice/s1}</p>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        const input = await canvas.findByTestId('f1');
+        input.focus();
+        await userEvent.type ( input, 'AB');
+        await expect( await canvas.findByText( 'emotion attribute: AB')).toBeInTheDocument();
+    },
+};
 
-const TestStories = { SliceInitChangeEvent, RealtimeEventInSlice };
+const TestStories = { SliceInitChangeEvent, RealtimeEventInSlice, DoubleEventInSlice,  MultipleSlices, SlicesInAttrAndName };
 
 /* istanbul ignore else -- @preserve */
 if( 'test' === import.meta.env.MODE )
