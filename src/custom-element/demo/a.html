@@ -1,63 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-      xmlns:html="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>custom-element Declarative Custom Element implementation demo</title>
+    <title>Data slices - Declarative Custom Element implementation demo</title>
     <link rel="icon" href="./wc-square.svg"/>
-    <script type="module" src="../http-request.js"></script>
-    <script type="module" src="../local-storage.js"></script>
-    <script type="module" src="../custom-element.js"></script>
 
+    <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../custom-element.js"></script>
     <style>
         @import "./demo.css";
 
-        button {
-            background: forestgreen;
+        label {
+            display: flex;
         }
 
-        table {
-            min-width: 16rem;
+        label:has(input[type="text"],input[type="password"],input:not([type]) ) {
+            flex-direction: column;
         }
 
-        td {
-            border-bottom: 1px solid silver;
-        }
-
-        tfoot td {
-            border-bottom: none;
-        }
-
-        td, th {
-            text-align: right;
-        }
-
-        caption {
-            padding: 1rem;
-            font-weight: bolder;
-            font-family: sans-serif;
+        nav {
+            max-width: 32em;
         }
     </style>
+    <!-- https://github.com/mdn/learning-area/blob/main/html/forms/form-validation/custom-error-message.html
+         todo: apply setCustomValidity( warningStr )
+    -->
+
 </head>
 <body>
 
-
-    <custom-element tag="dce-1">
-        <template >
-            <style >
-                color:red;
-            </style>
-
-            <u ><slot>red</slot></u>
+<fieldset>
+    <legend><b style="color:green">green</b> in instance style can be overridden in payload as <i
+            style="color:red">red</i> in 1st instance
+    </legend>
+    <custom-element tag="dce-3">
+        <template>
+            <u>
+                <slot>is green</slot>
+            </u>
         </template>
+        <style>dce-3 {
+            color: green
+        }</style>
     </custom-element>
-<dce-1></dce-1> *
-<dce-1><template >
-            <style >
-                color:green;
-            </style>
+   <u>should be</u> <i style="color:red">red</i>:
+    <dce-3 id="dce32">
+        <template>
+            <style> color:red; </style>
+            <u>red</u>
+        </template>
+    </dce-3> <br/>
+    should be GREEN:
+    <dce-3 id="dce31">green</dce-3>
+</fieldset>
 
-            <u >green</u>
-        </template></dce-1>
+<script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
+
 </body>
 </html>

@@ -1,5 +1,5 @@
 import {expect, test}                  from 'vitest'
-import {deepEqual, xml2dom, xmlString, obj2node, tagUid } from './custom-element/custom-element.js'
+import {deepEqual, xml2dom, xmlString, obj2node } from './custom-element/custom-element.js'
 
 test('deepEqual', () =>
 {
