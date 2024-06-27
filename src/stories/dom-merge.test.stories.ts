@@ -118,12 +118,12 @@ export const WordCountOnType:Story  =
     },
 };
 
-const TestStories = { CharsCountInTextarea, WordCountOnType };
-
 /* istanbul ignore else -- @preserve */
-if( 'test' === import.meta.env.MODE )
+if(  'test' === import.meta.env.MODE &&
+    !import.meta.url.includes('skiptest') )
 {
-    const {playStories} = await  import('./renderPlay');
-    const {describe} = await import('vitest')
-    describe('slots', () => playStories( TestStories, meta ) );
+    const mod = await import('./dom-merge.test.stories.ts?skiptest');
+    const { testStoryBook } = await import('./testStoryBook')
+    const { describe } = await import('vitest')
+    describe(meta.title, () => testStoryBook( mod, meta ) );
 }

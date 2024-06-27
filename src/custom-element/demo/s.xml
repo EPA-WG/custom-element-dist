@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<datadom xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-         xmlns:dce="urn:schemas-epa-wg:dce">
-    <payload>
-        <xhtml:span slot=""></xhtml:span>
-        <xhtml:style slot="" title="ABC">dce-3[data-dce-style="54f96d52-ce70-435d-83c4-b421357d9a17"]{ color:red; }</xhtml:style>
-        <xhtml:span slot=""></xhtml:span>
-        <xhtml:u slot="">red</xhtml:u>
-        <xhtml:span slot=""></xhtml:span>
-    </payload>
-    <attributes>
-        <id>dce32</id>
-        <data-dce-style>54f96d52-ce70-435d-83c4-b421357d9a17</data-dce-style>
-    </attributes>
-    <dataset>
-        <dceStyle>54f96d52-ce70-435d-83c4-b421357d9a17</dceStyle>
-    </dataset>
-    <slice/>
+<datadom>
+    <slice>
+        <signin-form>
+            <form-data>
+                <username>QWE</username>
+                <password>ASD</password>
+            </form-data>
+        </signin-form>
+    </slice>
 </datadom>

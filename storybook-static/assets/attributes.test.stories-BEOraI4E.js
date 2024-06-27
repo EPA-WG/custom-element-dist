@@ -47,7 +47,7 @@ import{w as o,e}from"./custom-element-BV8-hRQS.js";import"./index-CVRyq5ci.js";f
         </template>
     </custom-element>
     <dce-link3 id="dce3" p1="123" p3="qwe"></dce-link3> |
-`},play:async({canvasElement:a})=>{d.args.title;const i=o(a),t=async c=>(await i.findByTestId(c)).textContent.trim();await s(20),e(await t("p1")).toEqual("123"),e(await t("p2")).toEqual("always_p2"),e(await t("p3")).toEqual("qwe")}};d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
+`},play:async({canvasElement:a})=>{d.args.title;const i=o(a),t=async c=>(await i.findByTestId(c)).textContent.trim();debugger;await s(20),e(await t("p1")).toEqual("123"),e(await t("p2")).toEqual("always_p2"),e(await t("p3")).toEqual("qwe")}};d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'Attributes definition',
     body: \`
@@ -143,6 +143,7 @@ import{w as o,e}from"./custom-element-BV8-hRQS.js";import"./index-CVRyq5ci.js";f
     const titleText = (AttributeDefaults.args!.title as string);
     const canvas = within(canvasElement),
       code = async id => (await canvas.findByTestId(id)).textContent.trim();
+    debugger;
     await sleep(20);
     expect(await code('p1')).toEqual('123');
     expect(await code('p2')).toEqual('always_p2');

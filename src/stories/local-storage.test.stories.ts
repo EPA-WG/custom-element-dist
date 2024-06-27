@@ -389,12 +389,12 @@ export const TypeAttribute:Story  =
     },
 };
 
-const TestStories = { Demo, AlwaysOverride, FromStorageWithDefault, TypeAttribute };
-
 /* istanbul ignore else -- @preserve */
-if( 'test' === import.meta.env.MODE )
-{   localStorage.clear();
-    const {playStories} = await  import('./renderPlay');
-    const {describe} = await import('vitest')
-    describe('slots', () => playStories( TestStories, meta ) );
+if(  'test' === import.meta.env.MODE &&
+    !import.meta.url.includes('skiptest') )
+{
+    const mod = await import('./local-storage.test.stories.ts?skiptest');
+    const { testStoryBook } = await import('./testStoryBook')
+    const { describe } = await import('vitest')
+    describe(meta.title, () => testStoryBook( mod, meta ) );
 }

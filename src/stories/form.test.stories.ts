@@ -179,13 +179,12 @@ export const FormCustomValidityString:Story =
 };
 // custom validity rules on form : boolean and string values
 
-
-const TestStories = { SystemMessage, FormData, SetValidityMessage, FormCustomValidityBoolean, FormCustomValidityString};
-
 /* istanbul ignore else -- @preserve */
-if( 'test' === import.meta.env.MODE )
+if(  'test' === import.meta.env.MODE &&
+    !import.meta.url.includes('skiptest') )
 {
-    const {playStories} = await  import('./renderPlay');
-    const {describe} = await import('vitest')
-    describe('slots', () => playStories( TestStories, meta ) );
+    const mod = await import('./form.test.stories.ts?skiptest');
+    const { testStoryBook } = await import('./testStoryBook')
+    const { describe } = await import('vitest')
+    describe(meta.title, () => testStoryBook( mod, meta ) );
 }

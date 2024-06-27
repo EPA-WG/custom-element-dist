@@ -1,14 +1,14 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }                        from '@storybook/web-components';
-import {expect, getByTestId, within, userEvent} from '@storybook/test';
+import {expect, within} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
-import {OverrideInPayload, StyleDoesNotLeak, StyleIn2Instances} from './css.test.stories';
 
 type TProps = { title: string; body:string};
 
 type Story = StoryObj<TProps>;
+
 function sleep(ms: number) {    return new Promise((resolve) => setTimeout(resolve, ms)); }
 
 function render(args: TProps)
@@ -123,7 +123,7 @@ export const InstanceAttributes:Story  =
         const titleText = AttributeDefaults.args!.title as string;
         const canvas = within(canvasElement)
         , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
-
+debugger;
         await sleep(20)
         expect( await code('p1') ).toEqual('123' );
         expect( await code('p2') ).toEqual('always_p2'  );
@@ -131,14 +131,12 @@ export const InstanceAttributes:Story  =
     },
 };
 
-
-
-const TestStories = { AttributeDefaults, AttributesRuntimeChange, InstanceAttributes };
-
 /* istanbul ignore else -- @preserve */
-if( 'test' === import.meta.env.MODE )
+if(  'test' === import.meta.env.MODE &&
+    !import.meta.url.includes('skiptest') )
 {
-    const {playStories} = await  import('./renderPlay');
-    const {describe} = await import('vitest')
-    describe('slots', () => playStories( TestStories, meta ) );
+    const mod = await import('./attributes.test.stories.ts?skiptest');
+    const { testStoryBook } = await import('./testStoryBook')
+    const { describe } = await import('vitest')
+    describe(meta.title, () => testStoryBook( mod, meta ) );
 }
