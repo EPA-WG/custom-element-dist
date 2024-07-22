@@ -1,4 +1,4 @@
-import{w as i,e as t}from"./custom-element-BV8-hRQS.js";import"./index-CVRyq5ci.js";const g={title:"",tag:"",style:"",slot:"",payload:""};function p(n){const{title:e,tag:o,style:s,slot:a,payload:l}={...g,...n};return`
+import{w as i,e as t}from"./custom-element-BIxkVg7K.js";import"./index-CVRyq5ci.js";const g={title:"",tag:"",style:"",slot:"",payload:""};function p(n){const{title:e,tag:o,style:s,slot:a,payload:l}={...g,...n};return`
         <fieldset>
             <legend>${e}</legend>
             <custom-element ${o?`tag="${o}"`:""} >

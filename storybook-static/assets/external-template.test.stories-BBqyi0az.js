@@ -1,4 +1,4 @@
-import{w as l,e as a}from"./custom-element-BV8-hRQS.js";import"./index-CVRyq5ci.js";function T(t){return new Promise(e=>setTimeout(e,t))}function v(t){const{title:e,body:n}=t;return`
+import{w as l,e as a}from"./custom-element-BIxkVg7K.js";import"./index-CVRyq5ci.js";function T(t){return new Promise(e=>setTimeout(e,t))}function v(t){const{title:e,body:n}=t;return`
         <fieldset>
             <legend>${e}</legend>
             ${n}
