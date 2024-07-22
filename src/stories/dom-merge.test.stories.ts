@@ -118,6 +118,81 @@ export const WordCountOnType:Story  =
     },
 };
 
+export const OrderPreservingOn2ndTransform:Story  =
+{   args : {title: 'Order preserving on 2nd transform', body:`
+    <p>IF condition content should be displayed in place where it is defined (not shifted down on the parent children)</p>
+    <custom-element>
+        <form slice="f1">
+            <label>
+                <input type="checkbox"  name="c1" data-testid="cb1"/>
+                click to display #1 bellow
+            </label>
+            <br data-testid="beforeC1"/>
+            <if test="//c1">
+                <p data-testid="isC1">#1</p>
+            </if>
+            <label>
+                <input type="checkbox"  name="c2" data-testid="cb2"/>
+                click to display #2 bellow
+            </label>
+            <br data-testid="beforeC2"/>
+            <if test="//c2">
+                <p>#2</p>
+            </if>
+        </form>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const titleText = OrderPreservingOn2ndTransform.args!.title as string;
+        const canvas = within(canvasElement);
+        await canvas.findByText(titleText);
+
+        await userEvent.click(canvas.getByTestId('cb1'));
+        await expect(await canvas.findByText('#1')).toBeInTheDocument();
+        await userEvent.click(canvas.getByTestId('cb2'));
+        await expect(await canvas.findByText('#2')).toBeInTheDocument();
+        await expect(canvas.getByTestId("beforeC1").nextElementSibling).toEqual(canvas.getByTestId("isC1"))
+    },
+};
+export const ReadSystemValidityMessage:Story  =
+{   args : {title: 'read system validity message', body:`
+    <p>validationMessage propagated into slice as 'validation-message' attribute</p>
+    <ol>
+        <li> type in input field</li>
+        <li> delete input field content</li>
+        <li> observe the warning in string after input</li>
+        <li> Click Next observe the system warning in dropdown over input</li>
+    </ol>
+    <custom-element>
+        <template>
+            <form slice="email-form">
+                <label> Email
+                    <input slice="username" slice-event="input" placeholder="non-empty" required data-testid="inp1">
+                </label>
+                <if test="//username/@validation-message">
+                    <var data-testid="var1">{//username/@validation-message}</var>
+                </if>
+                <button data-testid="btn1">Next</button>
+            </form>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const titleText = ReadSystemValidityMessage.args!.title as string;
+        const canvas = within(canvasElement);
+        await canvas.findByText(titleText);
+        await userEvent.type(canvas.getByTestId('inp1'),'Hi');
+        await userEvent.clear(canvas.getByTestId('inp1'));
+        await userEvent.click(canvas.getByTestId('btn1'));
+        await expect(await canvas.findByTestId('var1')).toBeInTheDocument();
+        await expect(canvas.getByTestId("var1").textContent).toEqual(canvas.getByTestId("inp1").validationMessage);
+        await expect(canvas.getByTestId("var1").textContent.length>1).toEqual(true);
+    },
+};
+
+//<editor-fold desc="unit test run" collapsed>
 /* istanbul ignore else -- @preserve */
 if(  'test' === import.meta.env.MODE &&
     !import.meta.url.includes('skiptest') )
@@ -127,3 +202,4 @@ if(  'test' === import.meta.env.MODE &&
     const { describe } = await import('vitest')
     describe(meta.title, () => testStoryBook( mod, meta ) );
 }
+//</editor-fold>
