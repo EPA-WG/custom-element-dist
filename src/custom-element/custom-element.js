@@ -9,12 +9,22 @@ const attr = (el, attr)=> el.getAttribute?.(attr)
 ,   isText = e => e.nodeType === 3
 ,   isString = s => typeof s === 'string'
 ,   isNode = e => e && typeof e.nodeType === 'number'
-,   create = ( tag, t = '', d=document ) => ( e => ((t && e.append(createText(d.ownerDocument||d, t))),e) )((d.ownerDocument || d ).createElement( tag ))
 ,   createText = ( d, t) => (d.ownerDocument || d ).createTextNode( t )
 ,   removeChildren = n => { while(n.firstChild) n.firstChild.remove(); return n; }
 ,   emptyNode = n => {  n.getAttributeNames().map( a => n.removeAttribute(a) ); return removeChildren(n); }
 ,   xslNs = x => ( x?.setAttribute('xmlns:xsl', XSL_NS_URL ), x )
 ,   xslHtmlNs = x => ( x?.setAttribute('xmlns:xhtml', HTML_NS_URL ), xslNs(x) )
+,   isValidTagName = tag=> ( /^[_a-zA-Z][-_:a-zA-Z0-9]*$/ .test(tag) )
+,   create = ( tag, t = '', d=document ) =>
+{
+    const create = tag => ( e => ((t && e.append(createText(d.ownerDocument||d, t))),e) )((d.ownerDocument || d ).createElement( tag ))
+
+    if( isValidTagName(tag) )
+        return  create(tag)
+    const e = create('dce-object');
+    e.setAttribute('dce-object-name',tag)
+    return e;
+}
 ,   cloneAs = (p,tag) =>
 {   const px = p.ownerDocument.createElementNS(p.namespaceURI,tag);
     for( let a of p.attributes)
@@ -86,7 +96,7 @@ obj2node( o, tag, doc )
         if( isNode(o[k]) || typeof o[k] ==='function' || o[k] instanceof Window )
             continue
         else
-            if( typeof o[k] !== "object" )
+            if( typeof o[k] !== "object" && isValidTagName(k) )
                 ret.setAttribute(k, o[k] );
             else
                 ret.append(obj2node(o[k], k, doc))
