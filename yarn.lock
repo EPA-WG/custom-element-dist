@@ -1092,10 +1092,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/use-insertion-effect-with-fallbacks/-/use-insertion-effect-with-fallbacks-1.0.1.tgz#08de79f54eb3406f9daaf77c76e35313da963963"
   integrity sha512-jT/qyKZ9rzLErtrjGgdkMBn2OP8wl0G3sQlBb3YPryvKHsjvINUhVaPFfP+fpBcOkmrVOVEEHQFJ7nbj2TH2gw==
 
-"@epa-wg/custom-element@0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@epa-wg/custom-element/-/custom-element-0.0.24.tgz#b864196b550423c7292f7b1a9605e520d05721d5"
-  integrity sha512-WG5Z82zuxNSdnwuOZTLu8sAxMWtqy3h4oK6+zKjD74wrVEmxPfJuMKwinyYm4nxEd9rH0754OS3cRGMF9P+c3w==
+"@epa-wg/custom-element@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@epa-wg/custom-element/-/custom-element-0.0.25.tgz#889c0d0e7a3a9f1c4b9d8ecfba4fb09f0321c02e"
+  integrity sha512-ikH2nqr93JH+X/jv8KaBQ+fQGLUCSgu3+xElWtFXMNU8miOIRtQO0O1JeVarqjVTHNFkQ8jtVZrZdfvKPsX1LA==
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"

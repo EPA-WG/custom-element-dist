@@ -604,7 +604,9 @@ CustomElement extends HTMLElement
                         e.append( createText( x, t ))
                     return e;
                 })(x.ownerDocument.createElement( tag ))
-                injectData( x, 'payload'    , payload , assureSlot );
+                const payloadNode = injectData( x, 'payload'    , payload , assureSlot );
+                xslNs(payloadNode);
+                xslHtmlNs(payloadNode);
                 this.innerHTML='';
                 const attrsRoot = injectData( x, 'attributes' , this.attributes, e => createXmlNode( e.nodeName, e.value ) );
                 injectData( x, 'dataset', Object.keys( this.dataset ), k => createXmlNode( k, this.dataset[ k ] ) );
@@ -664,7 +666,7 @@ CustomElement extends HTMLElement
                     {   if( !el.dceInitialized )
                         {   el.dceInitialized = 1;
                             let evs = attr(el,'slice-event');
-                            if( attr(el,'custom-validity') )
+                            if( el.hasAttribute('custom-validity') )
                                 evs += ' change submit';
 
                             [...new Set((evs || 'change') .split(' '))]

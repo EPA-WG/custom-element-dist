@@ -1,6 +1,6 @@
 {
     "name": "@epa-wg/custom-element-dist",
-    "version": "0.0.24",
+    "version": "0.0.25",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -17,7 +17,7 @@
         "t": "vitest --no-file-parallelism --watch --browser.headless=false src/stories/attributes.test.stories.ts"
     },
     "dependencies": {
-        "@epa-wg/custom-element": "0.0.24"
+        "@epa-wg/custom-element": "0.0.25"
     },
     "devDependencies": {
         "@chromatic-com/storybook": "^1.3.3",
