@@ -26,7 +26,7 @@ CDN version of StoryBook.
 [github-image]:   https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg
 [npm-image]:      https://img.shields.io/npm/v/@epa-wg/custom-element-dist.svg
 [npm-url]:        https://npmjs.org/package/@epa-wg/custom-element-dist
-[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.24/coverage/src/custom-element/coverage.svg
-[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.24/coverage/src/custom-element/index.html
-[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.24/storybook-static/index.html
-[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.24/dist/custom-element-bundle.js
+[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.25/coverage/src/custom-element/coverage.svg
+[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.25/coverage/src/custom-element/index.html
+[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.25/storybook-static/index.html
+[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.25/dist/custom-element-bundle.js
