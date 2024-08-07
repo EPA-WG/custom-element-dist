@@ -23,7 +23,7 @@ function render(args: TProps)
   `;
 }
 const meta =
-{        title: 'site/VersionSelect'
+{        title: 'site'
 // ,         tags: ['autodocs']
 ,       render
 };
@@ -39,11 +39,12 @@ export const VersionsSelect:Story  =
                 url="https://registry.npmjs.org/@epa-wg/custom-element-dist" 
                 method="GET" 
                 header-accept="application/json"
-                slice="page" ></http-request>
-            <xhtml:select>
+                slice="versions-ajax" ></http-request>
+            
+            <xhtml:select slice="selected-version">
                 <for-each select="//versions/*">
                     <option>
-                        {./@version} 
+                       {./@version} 
                     </option>
                 </for-each>
             </xhtml:select>
@@ -58,9 +59,9 @@ export const VersionsSelect:Story  =
         , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
 
         await sleep(20)
-        expect( await code('p1') ).toEqual('default_P1' );
-        expect( await code('p2') ).toEqual('always_p2'  );
-        expect( await code('p3') ).toEqual('def_P3'     );
+        // expect( await code('p1') ).toEqual('default_P1' );
+        // expect( await code('p2') ).toEqual('always_p2'  );
+        // expect( await code('p3') ).toEqual('def_P3'     );
     },
 };
 

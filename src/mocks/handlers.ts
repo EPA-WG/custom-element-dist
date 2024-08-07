@@ -1,6 +1,7 @@
 import {delay, http, HttpResponse} from 'msw'
 
 import pokemonsMock from './pokemons.mock.ts';
+import versions from './versions.mock.ts';
 
 export const handlers =
 [   http.get('/pokemon', ({ request }) =>
@@ -25,5 +26,13 @@ export const handlers =
     })
 ,   http.get('/404', () =>
     {
-        return new HttpResponse(null, {status: 404, statusText: 'not found'})   })
+        return new HttpResponse(null, {status: 404, statusText: 'not found'})
+    })
+,
 ];
+// only for local
+if( !window.location.pathname.startsWith('@epa-wg/custom-element-dist'))
+    handlers.push(http.get('https://registry.npmjs.org/@epa-wg/custom-element-dist', async () =>
+    {
+        return HttpResponse.json(versions);
+    }))
