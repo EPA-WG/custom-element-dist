@@ -372,7 +372,7 @@ event2slice( x, sliceNames, ev, dce )
                 s.append( obj2node(new FormData(el),'value', s.ownerDocument) )
                 return s
             }
-            const v = el.value ?? attr( sel, 'value' ) ;
+            const v = el.value ?? attr( el, 'value' ) ;
             cleanSliceValue();
             if( v === null || v === undefined )
                 [...s.childNodes].filter(n=>n.localName!=='event').map(n=>n.remove());
@@ -454,8 +454,9 @@ export function appendByDceId(parent,e,k)
 }
 export function merge( parent, fromArr )
 {
-    if(!fromArr.length)
-        return removeChildren(parent);
+    if( !fromArr.length )
+        return 'dce-root' !== parent.firstElementChild?.localName && removeChildren(parent);
+
     const id2old = {};
     for( let c of parent.childNodes)
     {   ASSERT( !id2old[c.dceId] );
@@ -482,7 +483,8 @@ export function merge( parent, fromArr )
             appendByDceId(parent,e,k)
     }
     for( let v of Object.values(id2old) )
-        v.remove();
+        if( v.localName !== 'dce-root')
+           v.remove();
 }
 export function assureUID(n,attr)
 {   if( !n.hasAttribute(attr) )
@@ -732,6 +734,8 @@ CustomElement extends HTMLElement
                 {   a = create( name, newValue, this.xml );
                     this.xml.querySelector('attributes').append( a );
                 }
+
+                this.dispatchEvent(new CustomEvent('change', { bubbles: true,detail: { [name]: newValue }}))
             }
             attributeChangedCallback(name, oldValue, newValue)
             {   if( !this.xml || this.#inTransform )

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>npm-version template</title>
+    <link rel="icon" href="./wc-square.svg"/>
+</head>
+<body>
+
+<h1><code>npm-version</code> template</h1>
+<a href="./npm-versions-demo.html">docs</a>
+<template id="npm-version">
+    <attribute name="package-name"></attribute>
+    <attribute name="current-version"></attribute>
+    <attribute name="value" select="//selected-version"></attribute>
+
+    <http-request
+            url="https://registry.npmjs.org/@epa-wg/custom-element-dist"
+            method="GET"
+            header-accept="application/json"
+            slice="versions-ajax"></http-request>
+
+    <label><span slot="label">{$package-name} version:</span>
+        <xhtml:select slice="selected-version" autocomplete="off" name="version">
+            <for-each select="//versions/*">
+                <option value="{./@version}">
+                    <variable name="item-version">{./@version}</variable>
+                    { $item-version } - { substring( //time/*[@dce-object-name = $item-version ], 1,10)}
+                </option>
+            </for-each>
+            <for-each select="//versions/*">
+                <if test="./@version = $current-version">
+                    <option selected value="{./@version}">
+                        <variable name="item-version">{./@version}</variable>
+                        { $item-version } - { substring( //time/*[@dce-object-name = $item-version ], 1,10)}
+                    </option>
+                </if>
+            </for-each>
+        </xhtml:select>
+    </label>
+</template>
+</body>
+</html>
