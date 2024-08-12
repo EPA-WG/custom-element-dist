@@ -39,5 +39,27 @@
         </xhtml:select>
     </label>
 </template>
+
+<template id="npm-version-to-url">
+            <variable name="url" select="//window-location/value/@href"></variable>
+            <variable name="current-version" >0{
+                substring-before(substring-after(substring($url, string-length(substring-before($url, '/')) - string-length(substring-before(substring-before($url, '/'), '@0')) + 2), '@0'), '/')
+            }</variable>
+            <location-element slice="window-location" live>
+                <if test=" not(//selected-version = $current-version ) and not(//selected-version = '')  ">
+                    <attribute name="src">{ concat( substring-before($url, $current-version),
+                                                    //selected-version,
+                                                    substring-after($url, $current-version) ) }</attribute>
+                    <attribute name="method">location.href</attribute>
+                </if>
+            </location-element>
+            <http-request
+                url="https://registry.npmjs.org/@epa-wg/custom-element-dist"
+                method="GET"
+                header-accept="application/json"
+                slice="versions-ajax" ></http-request>
+
+            <custom-element src="#npm-version" slice="selected-version"></custom-element>
+        </template>
 </body>
 </html>

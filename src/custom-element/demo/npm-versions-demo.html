@@ -89,6 +89,17 @@
 </html-demo-element>
 
 
+<html-demo-element legend="5. control version in URL"
+                   description="">
+    1. <button onclick="window.location.hash = `#@epa-wg/custom-element-dist@0.0.24/storybook-static/index.html`">set in page URL</button>
+        (can be skipped when run from unpkg.com)<br/>
+    2. switch the package version in select and observe the URL change.
+    <template>
+        <custom-element src="./npm-versions.html#npm-version-to-url" package-name="custom-element-dist" current-version="0.0.24"></custom-element>
+    </template>
+</html-demo-element>
+
+
 <script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js" hidden></script>
 
 </body>

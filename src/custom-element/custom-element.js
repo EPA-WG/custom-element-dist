@@ -454,6 +454,8 @@ export function appendByDceId(parent,e,k)
 }
 export function merge( parent, fromArr )
 {
+    if( 'dce-root' === parent.firstElementChild?.localName && 'dce-root' !== fromArr[0].localName)
+        return;
     if( !fromArr.length )
         return 'dce-root' !== parent.firstElementChild?.localName && removeChildren(parent);
 
