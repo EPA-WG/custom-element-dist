@@ -20,7 +20,7 @@
             header-accept="application/json"
             slice="versions-ajax"></http-request>
 
-    <label><span slot="label">{$package-name} version:</span>
+    <label><slot name="label">{$package-name} version:</slot>
         <xhtml:select slice="selected-version" autocomplete="off" name="version">
             <for-each select="//versions/*">
                 <option value="{./@version}">
