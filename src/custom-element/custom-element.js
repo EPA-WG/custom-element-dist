@@ -727,7 +727,9 @@ CustomElement extends HTMLElement
                 applySlices();
             }
             #applyAttribute(name, newValue)
-            {   let a = this.xml.querySelector(`attributes>${name}`);
+            {   if( 'value' === name )
+                    this.value = newValue;
+                let a = this.xml.querySelector(`attributes>${name}`);
                 if( a )
                     emptyNode(a).append( createText(a,newValue) );
                 else
