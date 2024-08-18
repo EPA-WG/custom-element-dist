@@ -14,6 +14,7 @@ dce-1,dce-2,dce-3,dce-4,dce-internal,dce-hash
 script{ display:none !important; }
 dd{ padding: 1rem;}
 p{ margin: 0;}
+code{ font-weight: bold; color: green; }
 
 
 html-demo-element h3

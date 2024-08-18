@@ -259,7 +259,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     for( const c of fr.childNodes )
         payload.append(xslDom.importNode(c,true))
 
-    const embeddedTemplates = [...payload.querySelectorAll('template')];
+    const embeddedTemplates = [...payload.getElementsByTagName('xsl:template')];
     embeddedTemplates.forEach(t=>payload.ownerDocument.documentElement.append(t));
 
     const   slotCall = $(xslDom,'call-template[name="slot"]')
@@ -288,8 +288,9 @@ xhrTemplate(src)
         // xhr.overrideMimeType("text/xml");
         xhr.onload = () =>
         {   if( xhr.readyState === xhr.DONE && xhr.status === 200 )
-                resolve( xhr.responseXML ||  create('div', xhr.responseText ) )
-            reject(xhr.statusText)
+                resolve( xhr.responseXML?.body || xhr.responseXML ||  create('div', xhr.responseText ) )
+            else
+                reject(`${xhr.statusText} - ${src}`)
         };
         xhr.addEventListener("error", ev=>reject(ev) );
 
@@ -527,7 +528,7 @@ export const xPath = (x,root)=>
         ret += n.textContent;
     return ret
 }
-export const xslTags = 'stylesheet,transform,import,include,strip-space,preserve-space,output,key,decimal-format,namespace-alias,template,value-of,copy-of,number,apply-templates,apply-imports,for-each,sort,if,choose,when,otherwise,attribute-set,call-template,with-param,variable,param,text,processing-instruction,element,attribute,comment,copy,message,fallback'.split(',');
+export const xslTags = 'stylesheet,transform,import,include,strip-space,preserve-space,output,key,decimal-format,namespace-alias,value-of,copy-of,number,apply-templates,apply-imports,for-each,sort,if,choose,when,otherwise,attribute-set,call-template,with-param,variable,param,text,processing-instruction,element,attribute,comment,copy,message,fallback'.split(',');
 export const toXsl = (el, defParent) => {
     const x = create('xsl:'+el.localName);
     for( let a of el.attributes )
