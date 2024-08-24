@@ -157,6 +157,28 @@
     </template>
 </html-demo-element>
 
+<html-demo-element legend="5. module path by symbolic name"
+                   description="should render '👋 from embed-lib-component' as link to 'demo-lib/embed-lib.html', link should open the page "
+>
+    <template>
+        <custom-element>
+            <template>
+                <module-url slice="lib-url" src="lib-root/embed-lib.html#embed-relative-file"></module-url>
+                <if test="//lib-url/@error">
+                    <p>error: <b>{//lib-url/@error}</b></p>
+                </if>
+                check the link:
+                <a href="{//lib-url}"> lib-root/embed-lib.html#embed-relative-file </a>
+                <custom-element src="lib-root/embed-lib.html#embed-relative-file">
+                    failed to load
+                </custom-element>
+
+            </template>
+        </custom-element>
+
+    </template>
+</html-demo-element>
+
 <script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
 
 </body>
