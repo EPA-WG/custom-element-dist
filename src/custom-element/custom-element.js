@@ -403,7 +403,7 @@ const loadTemplateRoots = async ( src, dce )=>
     try
     {   const [path, hash] = src.split('#');
         if( '.' === src.charAt(0))
-            src = new URL(path, dce.closest('[base]')?.getAttribute('base') ).href;
+            src = new URL(path, dce.closest('[base]')?.getAttribute('base') || location ).href;
         else
             try
             {   src = import.meta.resolve( path );

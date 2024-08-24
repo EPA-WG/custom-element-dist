@@ -135,8 +135,10 @@
 
 
 <html-demo-element legend="4. module path by symbolic name"
-                   description="should render '👋 from embed-lib-component' as link to 'demo-lib/embed-lib.html', link should open the page "
+                   description="should render two smiley images and links should open matching page"
 >
+    <p>    <b>lib-root</b> resolved to <b>lib-dir</b> by page importmap
+    </p>
     <template>
         <custom-element>
             <template>
@@ -146,7 +148,7 @@
                     <p>error: <b>{//lib-url/@error}</b></p>
                 </if>
                 check the link:
-                <a href="{//lib-url}"> img: <img src="{//img-url}" alt=""/></a>
+                <a href="{//lib-url}"> lib-root/embed-lib.html#embed-relative-hash <img src="{//img-url}" alt=""/></a>
                 <custom-element src="lib-root/embed-lib.html#embed-relative-hash">
                     failed to load
                 </custom-element>
@@ -157,8 +159,8 @@
     </template>
 </html-demo-element>
 
-<html-demo-element legend="5. module path by symbolic name"
-                   description="should render '👋 from embed-lib-component' as link to 'demo-lib/embed-lib.html', link should open the page "
+<html-demo-element legend="5. module path by symbolic name to internal link within lib"
+                   description="should render '👍 from embed-relative-file' and Vulcan Salute 🖖. Links should open matching page "
 >
     <template>
         <custom-element>
