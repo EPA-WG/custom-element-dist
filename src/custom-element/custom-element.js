@@ -397,12 +397,8 @@ const loadTemplateRoots = async ( src, dce )=>
         return [dce]
     if( src.startsWith('#') )
         return ( n =>
-        {   if(!n) return []
-            const a = n.querySelectorAll(src)
-            if( a.length )
-                return [...a]
-            const r = n.getRootNode();
-            return r===n ? []: getByHashId(r)
+        {   const a = n.querySelectorAll(src)
+            return  [...( a.length ? a : n.getRootNode().querySelectorAll(src) )]
         })(dce.parentElement)
     try
     {   // todo cache

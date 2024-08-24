@@ -67,12 +67,12 @@
 <html-demo-element legend="this page import maps"
 >
     <template>
-        {
+    {
         "imports": {
-        "lib-root": "./lib-dir/",
-        "embed-lib": "./lib-dir/embed-lib.html"
+            "lib-root": "./lib-dir/",
+            "embed-lib": "./lib-dir/embed-lib.html"
         }
-        }
+    }
     </template>
 </html-demo-element>
 
@@ -134,18 +134,19 @@
 </html-demo-element>
 
 
-<html-demo-element legend="4. module by symbolic name"
+<html-demo-element legend="4. module path by symbolic name"
                    description="should render '👋 from embed-lib-component' as link to 'demo-lib/embed-lib.html', link should open the page "
 >
     <template>
         <custom-element>
             <template>
-                <module-url slice="lib-url" src="embed-lib"></module-url>
+                <module-url slice="lib-url" src="lib-root"></module-url>
                 <if test="//lib-url/@error">
                     <p>error: <b>{//lib-url/@error}</b></p>
                 </if>
                 check the link:
-                <a href="{//lib-url}">
+                <a href="{//lib-url}/embed-lib.html#embed-relative-hash">
+                    <img src="{//lib-url}/Smiley.svg" alt=""/>
                     <custom-element src="lib-root/embed-lib.html#embed-relative-hash">
                         failed to load
                     </custom-element>
