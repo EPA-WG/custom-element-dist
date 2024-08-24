@@ -20,8 +20,8 @@
     <style>
         @import "./demo.css";
 
-        custom-element > * {
-            box-shadow: 0 0 0.5rem lime;
+        dce-root
+        {   box-shadow: 0 0 0.5rem lime;
             padding: 1rem;
             display: inline-block;
         }
@@ -140,17 +140,17 @@
     <template>
         <custom-element>
             <template>
-                <module-url slice="lib-url" src="lib-root"></module-url>
+                <module-url slice="lib-url" src="lib-root/embed-lib.html#embed-relative-hash"></module-url>
+                <module-url slice="img-url" src="lib-root/Smiley.svg"></module-url>
                 <if test="//lib-url/@error">
                     <p>error: <b>{//lib-url/@error}</b></p>
                 </if>
                 check the link:
-                <a href="{//lib-url}/embed-lib.html#embed-relative-hash">
-                    <img src="{//lib-url}/Smiley.svg" alt=""/>
-                    <custom-element src="lib-root/embed-lib.html#embed-relative-hash">
-                        failed to load
-                    </custom-element>
-                </a>
+                <a href="{//lib-url}"> img: <img src="{//img-url}" alt=""/></a>
+                <custom-element src="lib-root/embed-lib.html#embed-relative-hash">
+                    failed to load
+                </custom-element>
+
             </template>
         </custom-element>
 

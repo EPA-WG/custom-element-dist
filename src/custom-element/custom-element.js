@@ -401,11 +401,23 @@ const loadTemplateRoots = async ( src, dce )=>
             return  [...( a.length ? a : n.getRootNode().querySelectorAll(src) )]
         })(dce.parentElement)
     try
-    {   // todo cache
-        const dom = await xhrTemplate(src)
-        const hash = new URL(src, location).hash
+    {   const [path, hash] = src.split('#');
+        if( '.' === src.charAt(0))
+            src= (new URL(src,window.location.href)).href
+        else
+            try
+            {   src = import.meta.resolve( path );
+                if(hash)
+                    src +='#'+hash;
+            }
+            catch( e )
+                {   console.error(e.message) }
+        // todo cache
+        const dom = await xhrTemplate(src);
+        dce.setAttributeNS('xml', 'base', src );
+
         if( hash )
-        {   const ret = dom.querySelectorAll(hash);
+        {   const ret = dom.querySelectorAll('#'+hash);
             if( ret.length )
                 return [...ret]
             return [dce]

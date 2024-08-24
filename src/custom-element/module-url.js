@@ -9,12 +9,17 @@ export class ModuleUrl extends HTMLElement
             ];
 
     sliceInit()
-    {   const path = attr(this,'src');
-        try{   this.setAttribute('value',this.value = import.meta.resolve(path) ) }
-        catch( er )
-            {   this.setAttribute('error', er.message);
-                this.setAttribute('value', path);
-                console.error(er.message ?? er, path); }
+    {   let path = attr(this,'src');
+        try
+        {   const url =  '.' === path.charAt(0)
+                ? new URL(path, this.closest('[base]')?.getAttribute('base') ).href
+                : import.meta.resolve(path);
+            this.setAttribute('value',this.value = url );
+        }catch( er )
+        {   this.setAttribute('error', er.message);
+            this.setAttribute('value', path);
+            console.error(er.message ?? er, path);
+        }
         this.dispatchEvent( new Event('change') );
     }
     attributeChangedCallback( name, oldValue, newValue )
