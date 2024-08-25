@@ -1,6 +1,8 @@
 // noinspection DuplicatedCode
 
 // importmap is located at .storybook/preview-head.html
+// for vitest wrap `pathe.resolve` method to capture /tester/tester.html and redirect to its clone with ^^ injected
+//      as in vite.config.js
 
 import type { StoryObj }             from '@storybook/web-components';
 import {expect, getByTestId, within} from '@storybook/test';
