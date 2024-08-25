@@ -69,6 +69,9 @@ export const ModuleBySymbolicName:Story  =
 `}
 ,   play: async ({canvasElement}) =>
     {
+        debugger;
+
+
         const canvas = within(canvasElement);
         await canvas.findByText(ModuleBySymbolicName.args!.title as string);
 
@@ -169,7 +172,7 @@ export const HashWithinLib:Story  =
 if(  'test' === import.meta.env.MODE &&
     !import.meta.url.includes('skiptest') )
 {
-    const mod = await import('./external-template.test.stories.ts?skiptest');
+    const mod = await import('./module-url.test.stories.ts?skiptest');
     const { testStoryBook } = await import('./testStoryBook')
     const { describe } = await import('vitest')
     describe(meta.title, () => testStoryBook( mod, meta ) );
