@@ -13,9 +13,7 @@ const config: StorybookConfig = {
     name: "@storybook/web-components-vite",
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
-  staticDirs: ['../public','../src/custom-element'],
+  docs: {},
+  staticDirs: ['../public'],
 };
 export default config;

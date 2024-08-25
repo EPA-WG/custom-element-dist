@@ -37,8 +37,9 @@ export default {
     test     : {
         isolate : true,
         browser : {
+            provider: 'playwright', // or 'webdriverio'
             enabled : true,
-            name    : 'chrome', // browser name is required
+            name    : 'chromium', // browser name is required
             headless: true,
         },
         include :
