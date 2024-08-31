@@ -123,7 +123,6 @@ export const InstanceAttributes:Story  =
         const titleText = AttributeDefaults.args!.title as string;
         const canvas = within(canvasElement)
         , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
-debugger;
         await sleep(20)
         expect( await code('p1') ).toEqual('123' );
         expect( await code('p2') ).toEqual('always_p2'  );

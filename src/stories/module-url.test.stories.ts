@@ -72,8 +72,6 @@ export const ModuleBySymbolicName:Story  =
 ,   play: async ({canvasElement}) =>
     {
         debugger;
-
-
         const canvas = within(canvasElement);
         await canvas.findByText(ModuleBySymbolicName.args!.title as string);
 
