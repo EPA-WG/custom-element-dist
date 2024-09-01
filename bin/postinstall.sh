@@ -12,6 +12,7 @@ pwd
 cp ../../node_modules/@epa-wg/custom-element/*.d.ts .
 cp ../../node_modules/@epa-wg/custom-element/*.js .
 cp ../../node_modules/@epa-wg/custom-element/index.html index.html
-cp ../../node_modules/@epa-wg/custom-element/demo/* demo/
-cp ../../node_modules/@epa-wg/custom-element/ide/* ide/
+cp -r ../../node_modules/@epa-wg/custom-element/demo/* demo/
+cp -r ../../node_modules/@epa-wg/custom-element/ide/* ide/
 
+cp -r demo ../../public
