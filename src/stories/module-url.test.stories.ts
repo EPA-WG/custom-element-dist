@@ -33,11 +33,14 @@ const meta =
 
 export default meta;
 
+// for StoryBook './demo/embed-1.html' is sufficient as current page is on root level
+// vitest page needs 3 levels up
+
 export const RelativeToPagePath:Story  =
 {   args : {title: '1. relative to page path', body:`
     <custom-element>
-        <a href="./demo/embed-1.html">
-            <custom-element src="./demo/embed-1.html"></custom-element>
+        <a href="../../../demo/embed-1.html">
+            <custom-element src="../../../demo/embed-1.html"></custom-element>
         </a>
     </custom-element>
 `}
@@ -72,6 +75,7 @@ export const ModuleBySymbolicName:Story  =
 ,   play: async ({canvasElement}) =>
     {
         debugger;
+        const p = import.meta.resolve('embed-lib');
         const canvas = within(canvasElement);
         await canvas.findByText(ModuleBySymbolicName.args!.title as string);
 
