@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Data slices - Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+
+    <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../custom-element.js"></script>
+    <style>
+        @import "./demo.css";
+
+        label {
+            display: flex;
+        }
+
+        label:has(input[type="text"],input[type="password"],input:not([type]) ) {
+            flex-direction: column;
+        }
+
+        nav {
+            max-width: 32em;
+        }
+    </style>
+    <!-- https://github.com/mdn/learning-area/blob/main/html/forms/form-validation/custom-error-message.html
+         todo: apply setCustomValidity( warningStr )
+    -->
+
+</head>
+<body>
+
+<fieldset>
+    <legend><b style="color:green">green</b> in instance style can be overridden in payload as <i
+            style="color:red">red</i> in 1st instance
+    </legend>
+    <custom-element tag="dce-3">
+        <template>
+            <u>
+                <slot>is green</slot>
+            </u>
+        </template>
+        <style>dce-3 {
+            color: green
+        }</style>
+    </custom-element>
+   <u>should be</u> <i style="color:red">red</i>:
+    <dce-3 id="dce32">
+        <template>
+            <style> color:red; </style>
+            <u>red</u>
+        </template>
+    </dce-3> <br/>
+    should be GREEN:
+    <dce-3 id="dce31">green</dce-3>
+</fieldset>
+
+<script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
+
+</body>
+</html>

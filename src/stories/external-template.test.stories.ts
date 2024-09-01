@@ -86,11 +86,15 @@ export const ExternalSvg:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(ExternalSvg.args!.title as string);
+
+        await expect(canvas.getByText('inline DCE loading from SVG ...')).toBeInTheDocument();
+
+        // needs separate test
+        // await expect( await canvas.findByText('loading from SVG ...')).toBeInTheDocument();
+
         expect(canvasElement.querySelector('[src="confused.svg"]').innerHTML).to.include('loading from SVG ...');
-        await sleep(100);
-        expect(canvasElement.querySelector('dce-external').innerHTML).to.include('<svg');
-        expect(canvasElement.querySelector('[src="no.svg"]').innerHTML).to.include('Vitest Browser Tester');
-        // "fallback for missing image" is not shown in test as test does not return 404, see test on 404 instead
+        await expect(await canvas.findByText('fallback for missing image')).toBeInTheDocument();
+        await expect(await canvas.findByTitle('Confused')).toBeInTheDocument();
     },
 };
 
@@ -238,9 +242,9 @@ export const EmbeddingInAnotherFile:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(EmbeddingInAnotherFile.args!.title as string);
-        await sleep(100);
-        expect(await canvas.findByTestId('wave')).toBeInTheDocument();
-        expect(canvas.getByTestId('wave').innerHTML).toEqual('🖖');
+        await sleep(1);
+        expect(await canvas.findByText('embed-1.html')).toBeInTheDocument();
+        expect(await canvas.findByText('🖖')).toBeInTheDocument();
     },
 };
 
