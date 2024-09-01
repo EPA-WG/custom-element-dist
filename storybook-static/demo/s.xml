@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datadom>
+    <payload xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <npm-version xmlns="http://www.w3.org/1999/xhtml" slice="selected-version" package-name="@epa-wg/custom-element"
+                     slot=""></npm-version>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <p xmlns="http://www.w3.org/1999/xhtml" slot="">
+            <code>selected-version</code>
+            slice: {//selected-version}
+        </p>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+    </payload>
+    <attributes>
+        <tag>dce-bbc8e8b4-575f-40d3-9880-2f1d56d85d80</tag>
+    </attributes>
+    <dataset/>
+    <slice>
+        <selected-version xmlns="" slice="selected-version" package-name="@epa-wg/custom-element" data-dce-id="2"
+                          current-version="" value="0.0.21">
+            <event isTrusted="false" sliceProcessed="1" type="change" eventPhase="2" bubbles="true" cancelable="false"
+                   defaultPrevented="false" composed="false" timeStamp="2225577.4000000954" returnValue="true"
+                   cancelBubble="false" NONE="0" CAPTURING_PHASE="1" AT_TARGET="2" BUBBLING_PHASE="3">
+                <detail package-name="@epa-wg/custom-element"/>
+            </event>
+        </selected-version>
+    </slice>
+</datadom>
