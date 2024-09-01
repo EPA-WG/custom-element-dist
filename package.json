@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest --coverage.enabled --coverage.all --no-file-parallelism --watch=false",
+    "test": "node bin/vitest/vitest-browser-importmaps.mjs && vitest --coverage.enabled --coverage.all --no-file-parallelism --watch=false",
     "test:watch": "vitest --inspect-brk --no-file-parallelism --browser.headless=false --test-timeout=0",
     "test:storybook": "test-storybook",
     "sb": "yarn storybook",

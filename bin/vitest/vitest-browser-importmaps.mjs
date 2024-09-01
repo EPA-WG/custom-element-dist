@@ -1,16 +1,11 @@
+// injects importmaps for module-url.test.stories.ts
 import fs from 'node:fs'
 
-const pathName = import.meta.dirname+'/../node_modules/@vitest/browser/dist/index.js';
-const jsStr = fs.readFileSync(pathName);
-if( !jsStr.includes('injectImportmap') ) // skip if already patched
+const pathName = 'node_modules/@vitest/browser/dist/client/tester/tester.html';
+const jsStr = fs.readFileSync(pathName).toString();
+if( !jsStr.includes('importmap') ) // skip if already patched
 {
-    const str2replace = 'await resolveOrchestrator(browserServer, url, res)';
-    const injectedStr = jsStr.replace(str2replace, `injectImportmap(${injectImportmap});${''+injectImportmap}`)
-    fs.writeFileSync(pathName, injectedStr);
-}
-
-function injectImportmap( html ){
-        return html.replace('<script>', `
+    const injectedStr = jsStr.replace('</style>', `</style>
 <script type="importmap">
     {
         "imports": {
@@ -19,6 +14,6 @@ function injectImportmap( html ){
         }
     }
 </script>
-<script>`)
-
+`);
+    fs.writeFileSync(pathName, injectedStr);
 }
