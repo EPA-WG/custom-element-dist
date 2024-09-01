@@ -3,6 +3,8 @@
 // importmap is located at .storybook/preview-head.html
 // for vitest wrap `pathe.resolve` method to capture /tester/tester.html and redirect to its clone with ^^ injected
 //      as in vite.config.js
+// test requires bin/vitest/vitest-browser-importmaps.mjs to inject importmap into tester.html
+// the relative path prefix in vitest is `../../..`
 
 import type { StoryObj }             from '@storybook/web-components';
 import {expect, getByTestId, within} from '@storybook/test';
@@ -74,7 +76,6 @@ export const ModuleBySymbolicName:Story  =
 `}
 ,   play: async ({canvasElement}) =>
     {
-        debugger;
         const p = import.meta.resolve('embed-lib');
         const canvas = within(canvasElement);
         await canvas.findByText(ModuleBySymbolicName.args!.title as string);
@@ -134,7 +135,6 @@ export const ModuleByName:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(ModuleByName.args!.title as string);
-
         await expect(await canvas.findByText('👌 from embed-relative-hash invoking')).toBeInTheDocument();
         await expect(await canvas.findByText('lib-root/embed-lib.html#embed-relative-hash')).toBeInTheDocument();
         await expect(await canvas.findByText('#embed-lib-component')).toBeInTheDocument();

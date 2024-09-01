@@ -1,4 +1,5 @@
 // injects importmaps for module-url.test.stories.ts
+//           see notes in ^^
 import fs from 'node:fs'
 
 const pathName = 'node_modules/@vitest/browser/dist/client/tester/tester.html';
@@ -9,8 +10,8 @@ if( !jsStr.includes('importmap') ) // skip if already patched
 <script type="importmap">
     {
         "imports": {
-            "lib-root/": "./demo/lib-dir/",
-            "embed-lib": "./demo/lib-dir/embed-lib.html"
+            "lib-root/": "../../../demo/lib-dir/",
+            "embed-lib": "../../../demo/lib-dir/embed-lib.html"
         }
     }
 </script>
