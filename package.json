@@ -11,10 +11,12 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "node bin/vitest/vitest-browser-importmaps.mjs && vitest --coverage.enabled --coverage.all --no-file-parallelism --watch=false",
+    "test:ff": "yarn test --browser.name=firefox",
     "test:watch": "vitest --inspect-brk --no-file-parallelism --browser.headless=false --test-timeout=0",
     "test:storybook": "test-storybook",
     "sb": "yarn storybook",
-    "t": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --watch --browser.headless=false src/stories/module-url.test.stories.ts"
+    "t": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --watch --browser.headless=false src/stories/module-url.test.stories.ts",
+    "tf": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --browser.name=firefox --watch --browser.headless=false src/stories/module-url.test.stories.ts"
   },
   "dependencies": {
     "@epa-wg/custom-element": "0.0.26"

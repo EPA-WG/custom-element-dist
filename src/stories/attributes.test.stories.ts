@@ -50,10 +50,9 @@ export const AttributeDefaults:Story  =
         const canvas = within(canvasElement)
         , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
 
-        await sleep(20)
-        expect( await code('p1') ).toEqual('default_P1' );
-        expect( await code('p2') ).toEqual('always_p2'  );
-        expect( await code('p3') ).toEqual('def_P3'     );
+        expect( await await canvas.findByTestId('p1') ).toHaveTextContent('default_P1' );
+        expect( await await canvas.findByTestId('p2') ).toHaveTextContent('always_p2'  );
+        expect( await await canvas.findByTestId('p3') ).toHaveTextContent('def_P3'     );
     },
 };
 

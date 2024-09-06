@@ -146,7 +146,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         return tagUid(templateNode)
     const sanitizeXsl = xml2dom(`<xsl:stylesheet version="1.0" xmlns:xsl="${ XSL_NS_URL }" xmlns:xhtml="${ HTML_NS_URL }" xmlns:exsl="${EXSL_NS_URL}" exclude-result-prefixes="exsl" >
         <xsl:output method="xml" />
-        <xsl:template match="/"><dce-root xmlns="${ HTML_NS_URL }"><xsl:apply-templates select="*"/></dce-root></xsl:template>
+        <xsl:template match="/"><dce-root xmlns="${ HTML_NS_URL }"><xsl:apply-templates select="*" /></dce-root></xsl:template>
         <xsl:template match="*[name()='template']"><xsl:apply-templates mode="sanitize" select="*|text()"/></xsl:template>
         <xsl:template match="*"><xsl:apply-templates mode="sanitize" select="*|text()"/></xsl:template>
         <xsl:template match="*[name()='svg']|*[name()='math']"><xsl:apply-templates mode="sanitize" select="."/></xsl:template>
@@ -161,6 +161,13 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     const sanitizeProcessor = new XSLTProcessor()
     ,   tc = (n =>
         {
+            forEach$(n,'custom-element', ce=>{
+                if( 'template' === ce.firstElementChild.localName )
+                {
+                    [...ce.firstElementChild.content.childNodes].forEach(n=>ce.append(n));
+                    ce.firstElementChild.remove();
+                }
+            })
             forEach$(n,'script', s=> s.remove() );
             const xslRoot = n.content ?? n.firstElementChild?.content ?? n.body ?? n;
             xslTags.forEach( tag => forEach$( xslRoot, tag, el=>toXsl(el,xslRoot) ) );
@@ -223,10 +230,14 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     ,   payload = $( xslDom, 'template[mode="payload"]');
     if( !fr )
         return console.error("transformation error",{ xml:tc.outerHTML, xsl: xmlString( sanitizeXsl ) });
+    if( 'dce-root'!==fr.firstElementChild.localName )
+    {   const r = fr.ownerDocument.createElement('dce-root');
+        [...fr.childNodes].forEach(n=>r.append(n));
+        fr.append(r)
+    }
     const params = [];
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
-    {
-        const p = cloneAs(a,'xsl:param')
+    {   const p = cloneAs(a,'xsl:param')
         ,  name = attr(a,'name');
         payload.append(p);
         let select = attr(p,'select')?.split('??')
@@ -574,7 +585,13 @@ CustomElement extends HTMLElement
                 this.append(s);
             })
         const templateDocs = templateRoots.map( n => createXsltFromDom( n ) )
-        , xp = templateDocs.map( (td, p) =>{ p = new XSLTProcessor(); p.importStylesheet( td ); return p })
+        , xp = templateDocs.map( (td, p) =>
+        {   p = new XSLTProcessor();
+            try{ p.importStylesheet( td ) }
+            catch( e )
+                {   console.error(e, xmlString(td)) }
+            return p
+        })
 
         Object.defineProperty( this, "xsltString", { get: ()=>templateDocs.map( td => xmlString(td) ).join('\n') });
 

@@ -115,9 +115,8 @@ export const ExternalXsltFile:Story  =
         await canvas.findByText(ExternalXsltFile.args!.title as string);
         expect(canvasElement.querySelector('dce-external-4').innerHTML).to.include('Hi');
         expect(canvasElement.querySelector('[data-smile="👼"]').innerHTML).to.include('loading from XSLT ...');
-        await sleep(100);
-        expect(canvas.getByTestId('data-fruit').innerHTML).to.include('🍌');
-        expect(canvas.getByTestId('data-smile').innerHTML).to.include('👼');
+        await expect(await canvas.findByTestId('data-fruit')).toHaveTextContent('🍌');
+        await expect(await canvas.findByTestId('data-smile')).toHaveTextContent('👼');
     },
 };
 
