@@ -1,7 +1,7 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }                        from '@storybook/web-components';
-import {expect, getByTestId, within, userEvent} from '@storybook/test';
+import {expect, within, userEvent, fireEvent} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
 import {
@@ -123,16 +123,16 @@ export const OrderPreservingOn2ndTransform:Story  =
     <p>IF condition content should be displayed in place where it is defined (not shifted down on the parent children)</p>
     <custom-element>
         <form slice="f1">
-            <label>
-                <input type="checkbox"  name="c1" data-testid="cb1"/>
+            <label data-testid="cb1">
+                <input type="checkbox"  name="c1" />
                 click to display #1 bellow
             </label>
             <br data-testid="beforeC1"/>
             <if test="//c1">
                 <p data-testid="isC1">#1</p>
             </if>
-            <label>
-                <input type="checkbox"  name="c2" data-testid="cb2"/>
+            <label data-testid="cb2">
+                <input type="checkbox"  name="c2" />
                 click to display #2 bellow
             </label>
             <br data-testid="beforeC2"/>
@@ -148,9 +148,11 @@ export const OrderPreservingOn2ndTransform:Story  =
         const canvas = within(canvasElement);
         await canvas.findByText(titleText);
 
-        await userEvent.click(canvas.getByTestId('cb1'));
+        // userEvent breaks under FF in vitest, fireEvent works
+        await fireEvent.click(await canvas.findByTestId('cb1'));
         await expect(await canvas.findByText('#1')).toBeInTheDocument();
-        await userEvent.click(canvas.getByTestId('cb2'));
+
+        await fireEvent.click(canvas.getByTestId('cb2'));
         await expect(await canvas.findByText('#2')).toBeInTheDocument();
         await expect(canvas.getByTestId("beforeC1").nextElementSibling).toEqual(canvas.getByTestId("isC1"))
     },
