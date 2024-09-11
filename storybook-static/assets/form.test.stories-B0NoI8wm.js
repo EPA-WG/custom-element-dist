@@ -1,4 +1,4 @@
-import{w as i,e as n,u as e}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.js";function l(a){const{title:t,body:s}=a;return`
+import{w as i,e as n,u as e}from"./custom-element-D8hcDZHh.js";import"./index-C8k3Z-3Y.js";function l(a){const{title:t,body:s}=a;return`
         <fieldset>
             <legend>${t}</legend>
             ${s}

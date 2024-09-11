@@ -1,4 +1,4 @@
-import{w as l,e as a}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.js";function T(t){return new Promise(e=>setTimeout(e,t))}function h(t){const{title:e,body:n}=t;return`
+import{w as l,e as a}from"./custom-element-D8hcDZHh.js";import"./index-C8k3Z-3Y.js";function f(t){return new Promise(e=>setTimeout(e,t))}function h(t){const{title:e,body:n}=t;return`
         <fieldset>
             <legend>${e}</legend>
             ${n}
@@ -13,7 +13,7 @@ import{w as l,e as a}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.
 
     <dce-internal data-testid="slot-override">👋</dce-internal>
     <dce-internal  data-testid="slot-default"></dce-internal>
-`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(s.args.title);const n=f=>e.getByTestId(f).textContent.trim();a(n("slot-override")).toEqual("👋 World!"),a(n("slot-default")).toEqual("Hello World!")}},i={args:{title:"no tag, template in same DOM",body:`
+`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(s.args.title);const n=T=>e.getByTestId(T).textContent.trim();a(n("slot-override")).toEqual("👋 World!"),a(n("slot-default")).toEqual("Hello World!")}},i={args:{title:"no tag, template in same DOM",body:`
 <template id="template2">
     🏗️ construction
 </template>
@@ -39,7 +39,7 @@ import{w as l,e as a}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.
     <custom-element src="/tree.xsl" data-smile="👼" data-basket="🍒">
         <i>inline DCE loading from XSLT ...</i>
     </custom-element>
-`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(o.args.title),a(t.querySelector("dce-external-4").innerHTML).to.include("Hi"),a(t.querySelector('[data-smile="👼"]').innerHTML).to.include("loading from XSLT ..."),await T(100),a(e.getByTestId("data-fruit").innerHTML).to.include("🍌"),a(e.getByTestId("data-smile").innerHTML).to.include("👼")}},c={args:{title:"external HTML template",body:`
+`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(o.args.title),a(t.querySelector("dce-external-4").innerHTML).to.include("Hi"),a(t.querySelector('[data-smile="👼"]').innerHTML).to.include("loading from XSLT ..."),await a(await e.findByTestId("data-fruit")).toHaveTextContent("🍌"),await a(await e.findByTestId("data-smile")).toHaveTextContent("👼")}},c={args:{title:"external HTML template",body:`
     <custom-element tag="dce-external-5" src="/html-template.html">
                 <template><i>loading from HTML file ...</i></template>
             </custom-element>
@@ -68,11 +68,11 @@ import{w as l,e as a}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.
     <custom-element src="/html-template.html#none">
         <template><i data-testid="no-id">element with id=none is missing in template</i></template>
     </custom-element>
-`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(x.args.title),await T(100);const n=await e.findByTestId("no-id");a(n.textContent).to.include("element with id=none is missing in template")}},y={args:{title:"external file with embedding of another external DCE",body:`
+`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(x.args.title),await f(100);const n=await e.findByTestId("no-id");a(n.textContent).to.include("element with id=none is missing in template")}},y={args:{title:"external file with embedding of another external DCE",body:`
     <custom-element src="/embed-1.html">
         loading from embed-1.html ...
     </custom-element>
-`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(y.args.title),await T(1),a(await e.findByText("embed-1.html")).toBeInTheDocument(),a(await e.findByText("🖖")).toBeInTheDocument()}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(y.args.title),await f(1),a(await e.findByText("embed-1.html")).toBeInTheDocument(),a(await e.findByText("🖖")).toBeInTheDocument()}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'Template in page DOM',
     body: \`
@@ -166,9 +166,8 @@ import{w as l,e as a}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.
     await canvas.findByText((ExternalXsltFile.args!.title as string));
     expect(canvasElement.querySelector('dce-external-4').innerHTML).to.include('Hi');
     expect(canvasElement.querySelector('[data-smile="👼"]').innerHTML).to.include('loading from XSLT ...');
-    await sleep(100);
-    expect(canvas.getByTestId('data-fruit').innerHTML).to.include('🍌');
-    expect(canvas.getByTestId('data-smile').innerHTML).to.include('👼');
+    await expect(await canvas.findByTestId('data-fruit')).toHaveTextContent('🍌');
+    await expect(await canvas.findByTestId('data-smile')).toHaveTextContent('👼');
   }
 }`,...o.parameters?.docs?.source}}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
   args: {

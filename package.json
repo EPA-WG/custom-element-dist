@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-dist",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,37 +11,39 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "node bin/vitest/vitest-browser-importmaps.mjs && vitest --coverage.enabled --coverage.all --no-file-parallelism --watch=false",
+    "test:ff": "yarn test --browser.name=firefox",
     "test:watch": "vitest --inspect-brk --no-file-parallelism --browser.headless=false --test-timeout=0",
     "test:storybook": "test-storybook",
     "sb": "yarn storybook",
-    "t": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --watch --browser.headless=false src/stories/module-url.test.stories.ts"
+    "t": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --watch --browser.headless=false src/stories/module-url.test.stories.ts",
+    "tf": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --browser.name=firefox --watch --browser.headless=false  src/stories/module-url.test.stories.ts"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.26"
+    "@epa-wg/custom-element": "0.0.27"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.7.0",
-    "@storybook/addon-essentials": "^8.2.9",
-    "@storybook/addon-interactions": "^8.2.9",
-    "@storybook/addon-links": "^8.2.9",
-    "@storybook/addon-mdx-gfm": "^8.2.9",
-    "@storybook/blocks": "^8.2.9",
-    "@storybook/test": "^8.2.9",
-    "@storybook/test-runner": "^0.19.1",
-    "@storybook/web-components": "^8.2.9",
-    "@storybook/web-components-vite": "^8.2.9",
-    "@vitest/browser": "^2.0.5",
-    "@vitest/coverage-istanbul": "^2.0.5",
-    "coverage-svg": "^0.0.3",
-    "lit": "^3.2.0",
-    "msw": "^2.3.5",
-    "msw-storybook-addon": "^2.0.3",
-    "playwright": "^1.46.1",
-    "storybook": "^8.2.9",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2",
-    "vitest": "^2.0.5",
-    "webdriverio": "^9.0.7"
+    "@chromatic-com/storybook": "2.0.0",
+    "@storybook/addon-essentials": "8.2.9",
+    "@storybook/addon-interactions": "8.2.9",
+    "@storybook/addon-links": "8.2.9",
+    "@storybook/addon-mdx-gfm": "8.2.9",
+    "@storybook/blocks": "8.2.9",
+    "@storybook/test": "8.2.9",
+    "@storybook/test-runner": "0.19.1",
+    "@storybook/web-components": "8.2.9",
+    "@storybook/web-components-vite": "8.2.9",
+    "@vitest/browser": "2.0.5",
+    "@vitest/coverage-istanbul": "2.0.5",
+    "coverage-svg": "0.0.3",
+    "lit": "3.2.0",
+    "msw": "2.4.5",
+    "msw-storybook-addon": "2.0.3",
+    "playwright": "1.47.0",
+    "storybook": "8.2.9",
+    "typescript": "5.6.2",
+    "vite": "5.4.3",
+    "vitest": "2.0.5",
+    "webdriverio": "9.0.9"
   },
   "msw": {
     "workerDirectory": [

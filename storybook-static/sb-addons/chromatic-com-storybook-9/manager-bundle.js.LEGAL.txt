@@ -6,11 +6,48 @@ filesize/dist/filesize.esm.js:
    *
    * @copyright 2024 Jason Mulligan <jason.mulligan@avoidwork.com>
    * @license BSD-3-Clause
-   * @version 10.1.4
+   * @version 10.1.6
    */
 
 @chromatic-com/storybook/dist/manager.mjs:
   /*! Bundled license information:
+  
+  object-assign/index.js:
+    (*
+    object-assign
+    (c) Sindre Sorhus
+    @license MIT
+    *)
+  
+  react/cjs/react.production.min.js:
+    (** @license React v16.14.0
+     * react.production.min.js
+     *
+     * Copyright (c) Facebook, Inc. and its affiliates.
+     *
+     * This source code is licensed under the MIT license found in the
+     * LICENSE file in the root directory of this source tree.
+     *)
+  
+  scheduler/cjs/scheduler.production.min.js:
+    (** @license React v0.19.1
+     * scheduler.production.min.js
+     *
+     * Copyright (c) Facebook, Inc. and its affiliates.
+     *
+     * This source code is licensed under the MIT license found in the
+     * LICENSE file in the root directory of this source tree.
+     *)
+  
+  react-dom/cjs/react-dom.production.min.js:
+    (** @license React v16.14.0
+     * react-dom.production.min.js
+     *
+     * Copyright (c) Facebook, Inc. and its affiliates.
+     *
+     * This source code is licensed under the MIT license found in the
+     * LICENSE file in the root directory of this source tree.
+     *)
   
   popper.js/dist/esm/popper.js:
     (**!

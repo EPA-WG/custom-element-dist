@@ -1,10 +1,11 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }             from '@storybook/web-components';
-import {expect, getByTestId, within} from '@storybook/test';
+import {expect, userEvent, within} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
 import '../custom-element/local-storage.js';
+import {localStorage_clear, localStorage_removeItem, localStorageSetItem} from "../custom-element";
 
 type TProps = { title: string; slice: string; key: string; value:string; live:string; body:string};
 const defs: TProps =
@@ -50,41 +51,47 @@ const meta =
 
 export default meta;
 
+window['localStorageSetItem'] = localStorageSetItem;
+window['localStorage_clear'] = localStorage_clear;
+window['localStorage_removeItem'] = localStorage_removeItem;
+
 export const Demo:Story  =
 {   args : {title: 'live value', live:'live', body:`
     <input placeholder="value for localStorage" id="textinput"
         slice="${defs.slice}"
         value="{ //${defs.slice} ?? '${ defs.value }' }"/>
-    <button onclick="localStorage.setItem('${defs.key}',textinput.value  )">set</button>
-    <button onclick="localStorage.setItem('${defs.key}','text value'  )">text value</button>
-    <button onclick="localStorage.setItem('${defs.key}','another text')">another text</button>
-    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>
+    <button onclick="localStorageSetItem('${defs.key}',textinput.value  )">set</button>
+    <button onclick="localStorageSetItem('${defs.key}','text value'  )">text value</button>
+    <button onclick="localStorageSetItem('${defs.key}','another text')">another text</button>
+    <button onclick="localStorage_removeItem('${defs.key}'            )">set blank</button>
 `}
 ,   play: async ({canvasElement}) =>
     {
+        localStorage_clear();
         const canvas = within(canvasElement);
         await canvas.findByText(Demo.args!.title as string);
         const val = ()=> canvas.getByTestId('slice-value').textContent
-        ,  byText = txt => canvas.getByText(txt);
+        await userEvent.click(await canvas.findByText('set blank'));
+        await expect(localStorage.getItem(defs.key)).toEqual(null, 'from localStorage');
+        await expect( val() ).toEqual('');
 
-        byText('set blank').click();
-        expect(localStorage.getItem(defs.key)).toEqual(null, 'from localStorage');
-        expect( val() ).toEqual('');
-        byText('text value').click();
+        await userEvent.click(canvas.getByText('text value'));
         await sleep(10);
-        expect( val() ).toEqual('text value');
+        await expect(localStorage.getItem(defs.key)).toEqual('text value', 'from localStorage');
+        await expect( val() ).toEqual('text value');
 
         window['textinput'].value = 'textinput.value';
-        byText('set').click();
+
+        await userEvent.click(canvas.getByText('set'));
         await sleep(10);
         expect( val() ).toEqual('textinput.value');
 
-        byText('another text').click();
+        await userEvent.click(canvas.getByText('another text'));
         await sleep(10);
         expect( val() ).toEqual('another text');
 
+        await userEvent.click(canvas.getByText('set blank'));
 
-        byText('set blank').click();
         await sleep(10);
         expect( val() ).toEqual('');
     },
@@ -94,31 +101,32 @@ export const Demo:Story  =
 export const AlwaysOverride:Story  =
 {   args : {title: 'AlwaysOverride', live:'', value:'ABC', body:`
     buttons are changing the localStorage value, but without 'live' attribute slice ^^ from <i>local-storage</i> is not updated<br/>
-    <button onclick="localStorage.setItem('${defs.key}','text value'  )">text value</button>
-    <button onclick="localStorage.removeItem('${defs.key}'            )">set blank</button>
+    <button onclick="localStorageSetItem('${defs.key}','text value')">text value</button>
+    <button onclick="localStorage_removeItem('${defs.key}')">set blank</button>
     `}
 ,   play: async ({canvasElement}) =>
     {
         const canvas = within(canvasElement);
         await canvas.findByText(AlwaysOverride.args!.title as string);
-        const val = ()=> canvas.getByTestId('slice-value').textContent
-        ,  byText = txt => canvas.getByText(txt);
-
-        expect(localStorage.getItem(defs.key)).toEqual('ABC', 'from localStorage');
-
-        byText('set blank').click();
-        expect(localStorage.getItem(defs.key)).toEqual(null, 'from localStorage');
+        const val = ()=> canvas.getByTestId('slice-value').textContent;
+        const click = async (text)=> await userEvent.click( await canvas.findByText(text) );
         await sleep(10);
-        expect( val() ).toEqual('ABC');
 
-        byText('text value').click();
-        await sleep(10);
-        expect(localStorage.getItem(defs.key)).toEqual('text value', 'from localStorage');
-        expect( val() ).toEqual('ABC');
+        await expect( localStorage.getItem(defs.key)).toEqual('ABC');
 
-        byText('set blank').click();
+        await click('set blank')
+        await expect(localStorage.getItem(defs.key)).toEqual(null, 'from localStorage');
         await sleep(10);
-        expect( val() ).toEqual('ABC');
+        await expect( val() ).toEqual('ABC');
+
+        await click('text value');
+        await sleep(10);
+        await expect(localStorage.getItem(defs.key)).toEqual('text value', 'from localStorage');
+        await expect( val() ).toEqual('ABC');
+
+        await click('set blank');
+        await sleep(10);
+        await expect( val() ).toEqual('ABC');
     },
 };
 
@@ -126,15 +134,15 @@ export const FromStorageWithDefault:Story  =
 {   args : {title: 'live value with defaults', live:'', value:'ABC', body:`
 
     <local-storage key="attr2Key" slice="attr2-key" type="text" live="live" slice-value="@value ?? 'DEF2'"></local-storage>
-    <button onclick="localStorage.removeItem('attr2Key')">clear key</button>
-    <button onclick="localStorage.setItem('attr2Key','attr2Key value')">update attr2-key value</button>
+    <button onclick="localStorage_removeItem('attr2Key')">clear key</button>
+    <button onclick="localStorageSetItem('attr2Key','attr2Key value')">update attr2-key value</button>
     //attr2-key: <code data-testid="key2-value">{//attr2-key}</code><br/>
 
     <local-storage key="attr3Key" slice="attr3-key" type="text" live="live" slice-value="@value ?? 'DEF3'"></local-storage>
-    <button onclick="localStorage.removeItem('attr3Key')">clear attr3-key key</button>
-    <button onclick="localStorage.setItem('attr3Key','attr3Key value')">update attr3-key value</button>
+    <button onclick="localStorage_removeItem('attr3Key')">clear attr3-key key</button>
+    <button onclick="localStorageSetItem('attr3Key','attr3Key value')">update attr3-key value</button>
     //attr3-key: <code data-testid="key3-value">{//attr3-key}</code><br/>
-    <button onclick="localStorage.clear()">clear localStorage</button>
+    <button onclick="localStorage_clear()">clear localStorage</button>
     `}
 ,   play: async ({canvasElement}) =>
     {
@@ -177,39 +185,39 @@ export const TypeAttribute:Story  =
                 <local-storage key="jsonKey" slice="json-key" type="json" live="live"></local-storage>
                 <input id="typesinput" placeholder="set value"><button onclick="
                         'textKey,dateKey,timeKey,localDateTimeKey,numberKey,jsonKey'.split(',')
-                            .map( k=> localStorage.setItem(k, typesinput.value) )
+                            .map( k=> localStorageSetItem(k, typesinput.value) )
                     "> set to all</button><br>
                 <hr>
                 text-key:
-                    <button onclick="localStorage.setItem('textKey', 'ABC'  )">ABC</button>
+                    <button onclick="localStorageSetItem('textKey', 'ABC'  )">ABC</button>
                     <code data-testid="text-key">{//text-key       }</code><br>
                 date-key:
-                    <button onclick="localStorage.setItem('dateKey', '2024-04-20T03:58:42.131Z')">2024-04-21T03:58:42.131Z           </button>
-                    <button onclick="localStorage.setItem('dateKey', new Date(Date.now()).toISOString())">now                                </button>
-                    <button onclick="localStorage.setItem('dateKey', 'ABC'  )">date ABC - invalid                 </button>
+                    <button onclick="localStorageSetItem('dateKey', '2024-04-20T03:58:42.131Z')">2024-04-21T03:58:42.131Z           </button>
+                    <button onclick="localStorageSetItem('dateKey', new Date(Date.now()).toISOString())">now                                </button>
+                    <button onclick="localStorageSetItem('dateKey', 'ABC'  )">date ABC - invalid                 </button>
                     <code data-testid="date-key">{//date-key       }</code><br>
                 time-key:
-                    <button onclick="localStorage.setItem('timeKey', '13:30')">13:30                              </button>
+                    <button onclick="localStorageSetItem('timeKey', '13:30')">13:30                              </button>
                     <code data-testid="time-key">{//time-key       }</code><br>
                 local-date-time:
-                    <button onclick="localStorage.setItem('localDateTimeKey', '1977-04-01T14:00:30')">1977-04-01T14:00:30 - local       </button>
+                    <button onclick="localStorageSetItem('localDateTimeKey', '1977-04-01T14:00:30')">1977-04-01T14:00:30 - local       </button>
                     <code data-testid="local-date-time">{//local-date-time}</code><br>
                 number-key:
-                    <button onclick="localStorage.setItem('numberKey', '2024'       )">2024 - number                      </button>
-                    <button onclick="localStorage.setItem('numberKey', '24'         )">24   - number                      </button>
-                    <button onclick="localStorage.setItem('numberKey', '1.23456e+5' )">1.23456e+5                         </button>
-                    <button onclick="localStorage.setItem('numberKey', '0001'       )">0001                               </button>
-                    <button onclick="localStorage.setItem('numberKey', '000'        )">000                                </button>
-                    <button onclick="localStorage.setItem('numberKey', '0'          )">0                                  </button>
-                    <button onclick="localStorage.setItem('numberKey', 'ABC'        )">ABC - invalid, NaN                 </button>
+                    <button onclick="localStorageSetItem('numberKey', '2024'       )">2024 - number                      </button>
+                    <button onclick="localStorageSetItem('numberKey', '24'         )">24   - number                      </button>
+                    <button onclick="localStorageSetItem('numberKey', '1.23456e+5' )">1.23456e+5                         </button>
+                    <button onclick="localStorageSetItem('numberKey', '0001'       )">0001                               </button>
+                    <button onclick="localStorageSetItem('numberKey', '000'        )">000                                </button>
+                    <button onclick="localStorageSetItem('numberKey', '0'          )">0                                  </button>
+                    <button onclick="localStorageSetItem('numberKey', 'ABC'        )">ABC - invalid, NaN                 </button>
                     <code data-testid="number-key">{//number-key     }</code> <br>
                 <fieldset>
                     <legend>json-key: </legend>
 
-                    <button onclick="localStorage.setItem('jsonKey', JSON.stringify('ABC'))">'ABC'   - string  </button>
-                    <button onclick="localStorage.setItem('jsonKey', JSON.stringify(12.345))">12.345  - number  </button>
-                    <button onclick="localStorage.setItem('jsonKey', JSON.stringify(window.JsonSample) )">a:1,b:'B'  -json  </button>
-                    <button onclick="localStorage.setItem('jsonKey', 'ABC'  )">ABC - invalid     </button><br>
+                    <button onclick="localStorageSetItem('jsonKey', JSON.stringify('ABC'))">'ABC'   - string  </button>
+                    <button onclick="localStorageSetItem('jsonKey', JSON.stringify(12.345))">12.345  - number  </button>
+                    <button onclick="localStorageSetItem('jsonKey', JSON.stringify(window.JsonSample) )">a:1,b:'B'  -json  </button>
+                    <button onclick="localStorageSetItem('jsonKey', 'ABC'  )">ABC - invalid     </button><br>
                     json-key:<code data-testid="json-key"><xsl:apply-templates select="//json-key/value/@*|//json-key/text()|//json-key/value/text()" mode="json"></xsl:apply-templates></code>
                 </fieldset>
                 <xsl:template mode="json" match="*|@*">
@@ -224,8 +232,8 @@ export const TypeAttribute:Story  =
         await canvas.findByText(TypeAttribute.args!.title as string);
         const byText = txt => canvas.getByText(txt)
         ,        val = testId => canvas.getByTestId(testId).textContent
-        ,  expectVal = (key,value) => { expect(val( key )).toEqual( value, key ) };
-        localStorage.clear(); // cleanup before test
+        ,  expectVal = (key,value) => { expect(val( key ).trim()).toEqual( value, key ) };
+        localStorage_clear(); // cleanup before test
         await sleep(10);
 
         expectVal('text-key'       ,'');
@@ -385,7 +393,7 @@ export const TypeAttribute:Story  =
         expectVal('time-key'       ,''                  );
         expectVal('local-date-time',''                  );
         expectVal('number-key'     ,'NaN'               );
-        expectVal('json-key'       ,'\na : 1b : B'      );
+        expectVal('json-key'       ,'a : 1b : B'      );
     },
 };
 
