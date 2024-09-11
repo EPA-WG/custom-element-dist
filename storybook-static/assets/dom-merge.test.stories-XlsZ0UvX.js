@@ -1,9 +1,9 @@
-import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.js";function p(n){return new Promise(e=>setTimeout(e,n))}function u(n){const{title:e,body:t}=n;return`
+import{w as d,e as a,u as c,f as u}from"./custom-element-D8hcDZHh.js";import"./index-C8k3Z-3Y.js";function p(n){return new Promise(e=>setTimeout(e,n))}function m(n){const{title:e,body:t}=n;return`
         <fieldset>
             <legend>${e}</legend>
             ${t}
         </fieldset>
-  `}const h={title:"dom-merge",render:u},o={args:{title:"Chars count in textarea",body:`
+  `}const h={title:"dom-merge",render:m},s={args:{title:"Chars count in textarea",body:`
     <p>Counter update happens on change event(focus change). The update should not interfere with the input</p>
     <custom-element>
         <form>
@@ -16,7 +16,7 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
              <br/><input placeholder="after textarea input, click here " data-testid="refocus-id" />
         </form>
     </custom-element>
-`},play:async({canvasElement:n})=>{const e=o.args.title,t=d(n);await t.findByText(e),await p(100),a(await t.findByTestId("textarea-id")).toBeInTheDocument();const i=t.getByTestId("textarea-id");i.value="",i.focus(),await s.keyboard(e),a(i.value).toEqual(e),a(i.value.length).toEqual(e.length),t.getByTestId("refocus-id").focus(),await p(10),a(t.getByTestId("counter-id").textContent).toEqual(""+e?.length,"counter of symbols")}},l={args:{title:"Word count in HTML input field",body:`
+`},play:async({canvasElement:n})=>{const e=s.args.title,t=d(n);await t.findByText(e),await p(100),a(await t.findByTestId("textarea-id")).toBeInTheDocument();const i=t.getByTestId("textarea-id");i.value="",i.focus(),await c.keyboard(e),a(i.value).toEqual(e),a(i.value.length).toEqual(e.length),t.getByTestId("refocus-id").focus(),await p(10),a(t.getByTestId("counter-id").textContent).toEqual(""+e?.length,"counter of symbols")}},o={args:{title:"Word count in HTML input field",body:`
     <p>Counter update happens on keyup event. The update should not interfere with the input</p>
     <custom-element>
             <form>
@@ -46,20 +46,20 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
                 <p><b>txt</b> slice:</p> <blockquote> {//slice/txt} </blockquote>
             </form>
         </custom-element>
-`},play:async({canvasElement:n})=>{const e=l.args.title,t=d(n);await t.findByText(e);const i=await t.findByTestId("input-id");i.value="",i.focus(),a(i).toBeInTheDocument(),await s.keyboard(e),await p(10),a(i.value).toEqual(e),a(t.getByTestId("chars-id").textContent.trim()).toEqual(""+e.length,"counter of symbols"),a(e.split(" ").length).toEqual(6,"counter of words in text sample"),a(t.getByTestId("words-id").textContent.trim()).toEqual("6","counter of words in render")}},r={args:{title:"Order preserving on 2nd transform",body:`
+`},play:async({canvasElement:n})=>{const e=o.args.title,t=d(n);await t.findByText(e);const i=await t.findByTestId("input-id");i.value="",i.focus(),a(i).toBeInTheDocument(),await c.keyboard(e),await p(10),a(i.value).toEqual(e),a(t.getByTestId("chars-id").textContent.trim()).toEqual(""+e.length,"counter of symbols"),a(e.split(" ").length).toEqual(6,"counter of words in text sample"),a(t.getByTestId("words-id").textContent.trim()).toEqual("6","counter of words in render")}},r={args:{title:"Order preserving on 2nd transform",body:`
     <p>IF condition content should be displayed in place where it is defined (not shifted down on the parent children)</p>
     <custom-element>
         <form slice="f1">
-            <label>
-                <input type="checkbox"  name="c1" data-testid="cb1"/>
+            <label data-testid="cb1">
+                <input type="checkbox"  name="c1" />
                 click to display #1 bellow
             </label>
             <br data-testid="beforeC1"/>
             <if test="//c1">
                 <p data-testid="isC1">#1</p>
             </if>
-            <label>
-                <input type="checkbox"  name="c2" data-testid="cb2"/>
+            <label data-testid="cb2">
+                <input type="checkbox"  name="c2" />
                 click to display #2 bellow
             </label>
             <br data-testid="beforeC2"/>
@@ -68,7 +68,7 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
             </if>
         </form>
     </custom-element>
-`},play:async({canvasElement:n})=>{const e=r.args.title,t=d(n);await t.findByText(e),await s.click(t.getByTestId("cb1")),await a(await t.findByText("#1")).toBeInTheDocument(),await s.click(t.getByTestId("cb2")),await a(await t.findByText("#2")).toBeInTheDocument(),await a(t.getByTestId("beforeC1").nextElementSibling).toEqual(t.getByTestId("isC1"))}},c={args:{title:"read system validity message",body:`
+`},play:async({canvasElement:n})=>{const e=r.args.title,t=d(n);await t.findByText(e),await u.click(await t.findByTestId("cb1")),await a(await t.findByText("#1")).toBeInTheDocument(),await u.click(t.getByTestId("cb2")),await a(await t.findByText("#2")).toBeInTheDocument(),await a(t.getByTestId("beforeC1").nextElementSibling).toEqual(t.getByTestId("isC1"))}},l={args:{title:"read system validity message",body:`
     <p>validationMessage propagated into slice as 'validation-message' attribute</p>
     <ol>
         <li> type in input field</li>
@@ -89,7 +89,7 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
             </form>
         </template>
     </custom-element>
-`},play:async({canvasElement:n})=>{const e=c.args.title,t=d(n);await t.findByText(e),await s.type(t.getByTestId("inp1"),"Hi"),await s.clear(t.getByTestId("inp1")),await s.click(t.getByTestId("btn1")),await a(await t.findByTestId("var1")).toBeInTheDocument(),await a(t.getByTestId("var1").textContent).toEqual(t.getByTestId("inp1").validationMessage),await a(t.getByTestId("var1").textContent.length>1).toEqual(!0)}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+`},play:async({canvasElement:n})=>{const e=l.args.title,t=d(n);await t.findByText(e),await c.type(t.getByTestId("inp1"),"Hi"),await c.clear(t.getByTestId("inp1")),await c.click(t.getByTestId("btn1")),await a(await t.findByTestId("var1")).toBeInTheDocument(),await a(t.getByTestId("var1").textContent).toEqual(t.getByTestId("inp1").validationMessage),await a(t.getByTestId("var1").textContent.length>1).toEqual(!0)}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'Chars count in textarea',
     body: \`
@@ -125,7 +125,7 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
     await sleep(10);
     expect(canvas.getByTestId('counter-id').textContent).toEqual('' + titleText?.length, 'counter of symbols');
   }
-}`,...o.parameters?.docs?.source}}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+}`,...s.parameters?.docs?.source}}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'Word count in HTML input field',
     body: \`
@@ -177,23 +177,23 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
     expect(titleText.split(' ').length).toEqual(6, 'counter of words in text sample');
     expect(canvas.getByTestId('words-id').textContent.trim()).toEqual('6', 'counter of words in render');
   }
-}`,...l.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+}`,...o.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'Order preserving on 2nd transform',
     body: \`
     <p>IF condition content should be displayed in place where it is defined (not shifted down on the parent children)</p>
     <custom-element>
         <form slice="f1">
-            <label>
-                <input type="checkbox"  name="c1" data-testid="cb1"/>
+            <label data-testid="cb1">
+                <input type="checkbox"  name="c1" />
                 click to display #1 bellow
             </label>
             <br data-testid="beforeC1"/>
             <if test="//c1">
                 <p data-testid="isC1">#1</p>
             </if>
-            <label>
-                <input type="checkbox"  name="c2" data-testid="cb2"/>
+            <label data-testid="cb2">
+                <input type="checkbox"  name="c2" />
                 click to display #2 bellow
             </label>
             <br data-testid="beforeC2"/>
@@ -210,13 +210,15 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
     const titleText = (OrderPreservingOn2ndTransform.args!.title as string);
     const canvas = within(canvasElement);
     await canvas.findByText(titleText);
-    await userEvent.click(canvas.getByTestId('cb1'));
+
+    // userEvent breaks under FF in vitest, fireEvent works
+    await fireEvent.click(await canvas.findByTestId('cb1'));
     await expect(await canvas.findByText('#1')).toBeInTheDocument();
-    await userEvent.click(canvas.getByTestId('cb2'));
+    await fireEvent.click(canvas.getByTestId('cb2'));
     await expect(await canvas.findByText('#2')).toBeInTheDocument();
     await expect(canvas.getByTestId("beforeC1").nextElementSibling).toEqual(canvas.getByTestId("isC1"));
   }
-}`,...r.parameters?.docs?.source}}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+}`,...r.parameters?.docs?.source}}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
   args: {
     title: 'read system validity message',
     body: \`
@@ -255,4 +257,4 @@ import{w as d,e as a,u as s}from"./custom-element-wn23PUwN.js";import"./index-C8
     await expect(canvas.getByTestId("var1").textContent).toEqual(canvas.getByTestId("inp1").validationMessage);
     await expect(canvas.getByTestId("var1").textContent.length > 1).toEqual(true);
   }
-}`,...c.parameters?.docs?.source}}};const y=["CharsCountInTextarea","WordCountOnType","OrderPreservingOn2ndTransform","ReadSystemValidityMessage"];export{o as CharsCountInTextarea,r as OrderPreservingOn2ndTransform,c as ReadSystemValidityMessage,l as WordCountOnType,y as __namedExportsOrder,h as default};
+}`,...l.parameters?.docs?.source}}};const y=["CharsCountInTextarea","WordCountOnType","OrderPreservingOn2ndTransform","ReadSystemValidityMessage"];export{s as CharsCountInTextarea,r as OrderPreservingOn2ndTransform,l as ReadSystemValidityMessage,o as WordCountOnType,y as __namedExportsOrder,h as default};

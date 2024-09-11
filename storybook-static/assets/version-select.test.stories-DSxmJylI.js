@@ -1,4 +1,4 @@
-import{w as r}from"./custom-element-wn23PUwN.js";import"./http-request-DNq59pnj.js";import"./location-element-hKpcXCdn.js";import"./index-C8k3Z-3Y.js";function o(e){return new Promise(s=>setTimeout(s,e))}function n(e){const{title:s,body:i}=e;return`
+import{w as r}from"./custom-element-D8hcDZHh.js";import"./http-request-DNq59pnj.js";import"./location-element-hKpcXCdn.js";import"./index-C8k3Z-3Y.js";function o(e){return new Promise(s=>setTimeout(s,e))}function n(e){const{title:s,body:i}=e;return`
         <fieldset>
             <legend>${s}</legend>
             ${i}

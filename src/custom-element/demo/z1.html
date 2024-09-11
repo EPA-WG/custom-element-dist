@@ -24,10 +24,11 @@
     </style>
 </head>
 <body>
+<button onclick="window.location.hash = `#@epa-wg/custom-element-dist@0.0.27/storybook-static/index.html`">set in page URL</button>
 
-  <custom-element src="./html-template.html#dwc-logo">
-            <template><i>loading SVG from templates file ...</i></template>
-        </custom-element>
+<custom-element src="@epa-wg/custom-element-dist/demo/npm-versions.html#npm-version"
+                package-name="@epa-wg/custom-element-dist"
+                ></custom-element>
 
 </body>
 </html>

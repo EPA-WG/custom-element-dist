@@ -1,4 +1,4 @@
-import{w as o,e as l}from"./custom-element-wn23PUwN.js";import"./index-C8k3Z-3Y.js";function y(t){const{title:a,tag:n,attributes:e,slot:s,payload:g}=t;return`
+import{w as o,e as l}from"./custom-element-D8hcDZHh.js";import"./index-C8k3Z-3Y.js";function y(t){const{title:a,tag:n,attributes:e,slot:s,payload:g}=t;return`
         <fieldset>
             <legend>${a}</legend>
             <custom-element
