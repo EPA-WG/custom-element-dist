@@ -47,6 +47,7 @@ xml2dom( xmlString )
 }
     export function
 xmlString(doc){ return new XMLSerializer().serializeToString( doc ) }
+function x(doc) { return xmlString(doc) }
 
     function
 injectData( root, sectionName, arr, cb )
@@ -145,19 +146,53 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     if( templateNode.tagName === S || templateNode.documentElement?.tagName === S )
         return tagUid(templateNode)
     const sanitizeXsl = xml2dom(`<xsl:stylesheet version="1.0" xmlns:xsl="${ XSL_NS_URL }" xmlns:xhtml="${ HTML_NS_URL }" xmlns:exsl="${EXSL_NS_URL}" exclude-result-prefixes="exsl" >
-        <xsl:output method="xml" />
+    <xsl:output method="xml"/>
         <xsl:template match="/"><dce-root xmlns="${ HTML_NS_URL }"><xsl:apply-templates select="*" /></dce-root></xsl:template>
-        <xsl:template match="*[name()='template']"><xsl:apply-templates mode="sanitize" select="*|text()"/></xsl:template>
-        <xsl:template match="*"><xsl:apply-templates mode="sanitize" select="*|text()"/></xsl:template>
-        <xsl:template match="*[name()='svg']|*[name()='math']"><xsl:apply-templates mode="sanitize" select="."/></xsl:template>
-        <xsl:template mode="sanitize" match="*[count(text())=1 and count(*)=0]"><xsl:copy><xsl:apply-templates mode="sanitize" select="@*"/><xsl:value-of select="text()"></xsl:value-of></xsl:copy></xsl:template>
-        <xsl:template mode="sanitize" match="xhtml:*[count(text())=1 and count(*)=0]"><xsl:element name="{local-name()}"><xsl:apply-templates mode="sanitize" select="@*"/><xsl:value-of select="text()"></xsl:value-of></xsl:element></xsl:template>
-        <xsl:template mode="sanitize" match="*|@*"><xsl:copy><xsl:apply-templates mode="sanitize" select="*|@*|text()"/></xsl:copy></xsl:template>
-        <xsl:template mode="sanitize" match="text()[normalize-space(.) = '']"/>
-        <xsl:template mode="sanitize" match="text()"><dce-text><xsl:copy/></dce-text></xsl:template>
-        <xsl:template mode="sanitize" match="xsl:value-of|*[name()='slot']"><dce-text><xsl:copy><xsl:apply-templates mode="sanitize" select="*|@*|text()"/></xsl:copy></dce-text></xsl:template>
-        <xsl:template mode="sanitize" match="xhtml:*"><xsl:element name="{local-name()}"><xsl:apply-templates mode="sanitize" select="*|@*|text()"/></xsl:element></xsl:template>
-    </xsl:stylesheet>`)
+    <xsl:template match="*[name()='template']">
+        <xsl:apply-templates mode="sanitize" select="*|text()"/>
+    </xsl:template>
+    <xsl:template match="*">
+        <xsl:apply-templates mode="sanitize" select="*|text()"/>
+    </xsl:template>
+    <xsl:template match="*[name()='svg']|*[name()='math']">
+        <xsl:apply-templates mode="sanitize" select="."/>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="*[count(text())=1 and count(*)=0]">
+        <xsl:copy>
+            <xsl:apply-templates mode="sanitize" select="@*"/>
+            <xsl:value-of select="text()"></xsl:value-of>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="xhtml:*[count(text())=1 and count(*)=0]">
+        <xsl:element name="{local-name()}">
+            <xsl:apply-templates mode="sanitize" select="@*"/>
+            <xsl:value-of select="text()"></xsl:value-of>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="*|@*">
+        <xsl:copy>
+            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="text()[normalize-space(.) = '']"/>
+    <xsl:template mode="sanitize" match="text()">
+        <dce-text>
+            <xsl:copy/>
+        </dce-text>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="xsl:value-of|*[name()='slot']">
+        <dce-text>
+            <xsl:copy>
+                <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+            </xsl:copy>
+        </dce-text>
+    </xsl:template>
+    <xsl:template mode="sanitize" match="xhtml:*">
+        <xsl:element name="{local-name()}">
+            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+        </xsl:element>
+    </xsl:template>
+</xsl:stylesheet>`)
     const sanitizeProcessor = new XSLTProcessor()
     ,   tc = (n =>
         {
@@ -237,7 +272,8 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     }
     const params = [];
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
-    {   const p = cloneAs(a,'xsl:param')
+    {
+        const p = cloneAs(a,'xsl:param')
         ,  name = attr(a,'name');
         payload.append(p);
         let select = attr(p,'select')?.split('??')
