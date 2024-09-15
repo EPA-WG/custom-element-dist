@@ -24,38 +24,36 @@
 
 <body>
 
-<custom-element tag="icon-button" hidden>
-    <template>
-        <attribute name="href"></attribute>
-        <attribute name="icon"></attribute>
-        <style>
-            a {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.5rem 1rem;;
-                border-radius: 1.5rem;
-                &:hover,&:focus{ background-color: #60cae5; }
-                &,&:visited {
-                    text-decoration: none;
-                    color: var(--mdc-text-button-label-text-color, var(--mat-app-on-background));
-                }
-                --icon-size:2rem;
-
+<template id="icon-button">
+    <attribute name="href"></attribute>
+    <attribute name="icon"></attribute>
+    <style>
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;;
+            border-radius: 1.5rem;
+            &:hover,&:focus{ background-color: #60cae5; }
+            &,&:visited {
+                text-decoration: none;
+                color: var(--mdc-text-button-label-text-color, var(--mat-app-on-background));
             }
-            .icon{ font-size: var(--icon-size); height: var(--icon-size); }
+            --icon-size:2rem;
 
-        </style>
-        <a href="{$href}">
-            <choose>
-                <when test="contains($icon,'/')"> <img src="{$icon}" alt="DCE logo" class="icon"/> </when>
-                <when test="contains($icon,'fa-')"> <i class="icon {$icon}"></i> </when>
-                <otherwise><span class="icon material-icons">{$icon}</span></otherwise>
-            </choose>
-            <slot></slot>
-        </a>
-    </template>
-</custom-element>
+        }
+        .icon{ font-size: var(--icon-size); height: var(--icon-size); }
+
+    </style>
+    <a href="{$href}">
+        <choose>
+            <when test="contains($icon,'/')"> <img src="{$icon}" alt="DCE logo" class="icon"/> </when>
+            <when test="contains($icon,'fa-')"> <i class="icon {$icon}"></i> </when>
+            <otherwise><span class="icon material-icons">{$icon}</span></otherwise>
+        </choose>
+        <slot></slot>
+    </a>
+</template>
 
 
 <custom-element>
@@ -68,17 +66,30 @@
                 justify-content: flex-end;
                 spacer{ flex: 10 10; }
 
+                padding: 0 var(--mat-text-button-horizontal-padding, 8px);
+
                 --mdc-text-button-label-text-color: #005cbb;
                 --mat-sidenav-content-background-color: #d7e3ff;
                 color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
                 background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
 
+                    --mdc-text-button-label-text-tracking: .006rem;
+                    --mdc-text-button-label-text-weight: bold;
+
+                font-size: var(--mdc-text-button-label-text-size, var(--mat-app-label-large-size));
+                letter-spacing: var(--mdc-text-button-label-text-tracking, var(--mat-app-label-large-tracking));
+                /* text-transform: var(--mdc-text-button-label-text-transform); */
+                font-weight: var(--mdc-text-button-label-text-weight, var(--mat-app-label-large-weight));
                 icon-button:first-child {
                     align-self: flex-start;
                 }
             }
         </style>
+        <custom-element tag="icon-button" src="#icon-button"></custom-element>
         <icon-button href="./" icon="../custom-element/demo/wc-square.svg">custom-element</icon-button>
+        <spacer></spacer>
+        <icon-button href="./components.html" title="Select a theme for the documentation">Components</icon-button>
+
         <spacer></spacer>
         <icon-button icon="format_color_fill" title="Select a theme for the documentation">Theme</icon-button>
         <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material" icon="fab fa-github" title="GitHub reposotory">GitHub</icon-button>
