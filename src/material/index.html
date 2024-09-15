@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>custom-element - Material Design</title>
+    <link rel="icon" href="demo/wc-square.svg" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/custom-element/": "../custom-element/"
+          }
+        }
+    </script>
+    <script type="module" src="../custom-element/custom-element.js"></script>
+    <style>
+        @import "./material.css";
+        @import "./demo.css";
+    </style>
+</head>
+
+<body>
+
+<custom-element tag="icon-button" hidden>
+    <template>
+        <attribute name="href"></attribute>
+        <attribute name="icon"></attribute>
+        <style>
+            a {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;;
+                border-radius: 1.5rem;
+                &:hover,&:focus{ background-color: #60cae5; }
+                &,&:visited {
+                    text-decoration: none;
+                    color: var(--mdc-text-button-label-text-color, var(--mat-app-on-background));
+                }
+                --icon-size:2rem;
+
+            }
+            .icon{ font-size: var(--icon-size); height: var(--icon-size); }
+
+        </style>
+        <a href="{$href}">
+            <choose>
+                <when test="contains($icon,'/')"> <img src="{$icon}" alt="DCE logo" class="icon"/> </when>
+                <when test="contains($icon,'fa-')"> <i class="icon {$icon}"></i> </when>
+                <otherwise><span class="icon material-icons">{$icon}</span></otherwise>
+            </choose>
+            <slot></slot>
+        </a>
+    </template>
+</custom-element>
+
+
+<custom-element>
+
+    <template id="nav-head">
+        <style>
+            dce-root {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                spacer{ flex: 10 10; }
+
+                --mdc-text-button-label-text-color: #005cbb;
+                --mat-sidenav-content-background-color: #d7e3ff;
+                color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
+                background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
+
+                icon-button:first-child {
+                    align-self: flex-start;
+                }
+            }
+        </style>
+        <icon-button href="./" icon="../custom-element/demo/wc-square.svg">custom-element</icon-button>
+        <spacer></spacer>
+        <icon-button icon="format_color_fill" title="Select a theme for the documentation">Theme</icon-button>
+        <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material" icon="fab fa-github" title="GitHub reposotory">GitHub</icon-button>
+    </template>
+</custom-element>
+</body>
+</html>
