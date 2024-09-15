@@ -442,15 +442,17 @@ const loadTemplateRoots = async ( src, dce )=>
 {
     if( !src || !src.trim() )
         return [dce]
+    const base = dce.closest('[base]')?.getAttribute('base');
+
     if( src.startsWith('#') )
-        return ( n =>
-        {   const a = n.querySelectorAll(src)
-            return  [...( a.length ? a : n.getRootNode().querySelectorAll(src) )]
-        })(dce.parentElement)
+    {   if( !base || location.href === base )
+            return [...document.querySelectorAll( src )];
+        src = ( base || location.href ) + src;
+    }
     try
     {   const [path, hash] = src.split('#');
         if( '.' === src.charAt(0))
-            src = new URL(path, dce.closest('[base]')?.getAttribute('base') || location ).href;
+            src = new URL(path, base || location.href ).href;
         else
             try
             {   src = import.meta.resolve( path );
