@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>custom-element - Material Design</title>
-    <link rel="icon" href="demo/wc-square.svg" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <link rel="icon" href="demo/wc-square.svg"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
     <script type="importmap">
         {
@@ -27,73 +28,105 @@
 <template id="icon-button">
     <attribute name="href"></attribute>
     <attribute name="icon"></attribute>
+    <attribute name="kind" aria-description="color appearance. Default value is 'normal'. Values: normal|primary|secondary|alert|blend"></attribute>
     <style>
+        &:not([kind]) a,&[kind="normal"] a{
+            background-color: var(--mdc-theme-primary, #6200ee);
+        }
+
         a {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;;
             border-radius: 1.5rem;
-            &:hover,&:focus{ background-color: #60cae5; }
-            &,&:visited {
+
+            background-color: var(--mdc-theme-primary, white);
+
+            &:hover, &:focus {
+                background-color: #60cae5;
+            }
+
+            &, &:visited {
                 text-decoration: none;
                 color: var(--mdc-text-button-label-text-color, var(--mat-app-on-background));
             }
-            --icon-size:2rem;
+
+            --icon-size: 2rem;
 
         }
-        .icon{ font-size: var(--icon-size); height: var(--icon-size); }
+
+        .icon {
+            font-size: var(--icon-size);
+            height: var(--icon-size);
+        }
 
     </style>
     <a href="{$href}">
         <choose>
-            <when test="contains($icon,'/')"> <img src="{$icon}" alt="DCE logo" class="icon"/> </when>
-            <when test="contains($icon,'fa-')"> <i class="icon {$icon}"></i> </when>
+            <when test="contains($icon,'/')"><img src="{$icon}" alt="DCE logo" class="icon"/></when>
+            <when test="contains($icon,'fa-')"><i class="icon {$icon}"></i></when>
             <otherwise><span class="icon material-icons">{$icon}</span></otherwise>
         </choose>
         <slot></slot>
     </a>
 </template>
+<template id="nav-head">
+    <style>
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
 
-
-<custom-element>
-
-    <template id="nav-head">
-        <style>
-            dce-root {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-                spacer{ flex: 10 10; }
-
-                padding: 0 var(--mat-text-button-horizontal-padding, 8px);
-
-                --mdc-text-button-label-text-color: #005cbb;
-                --mat-sidenav-content-background-color: #d7e3ff;
-                color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
-                background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
-
-                    --mdc-text-button-label-text-tracking: .006rem;
-                    --mdc-text-button-label-text-weight: bold;
-
-                font-size: var(--mdc-text-button-label-text-size, var(--mat-app-label-large-size));
-                letter-spacing: var(--mdc-text-button-label-text-tracking, var(--mat-app-label-large-tracking));
-                /* text-transform: var(--mdc-text-button-label-text-transform); */
-                font-weight: var(--mdc-text-button-label-text-weight, var(--mat-app-label-large-weight));
-                icon-button:first-child {
-                    align-self: flex-start;
-                }
+            spacer {
+                flex: 10 10;
             }
-        </style>
-        <custom-element tag="icon-button" src="#icon-button"></custom-element>
+
+            padding: 0 var(--mat-text-button-horizontal-padding, 8px);
+
+
+            --mdc-text-button-label-text-tracking: .006rem;
+            --mdc-text-button-label-text-weight: bold;
+
+            font-size: var(--mdc-text-button-label-text-size, var(--mat-app-label-large-size));
+            letter-spacing: var(--mdc-text-button-label-text-tracking, var(--mat-app-label-large-tracking));
+            /* text-transform: var(--mdc-text-button-label-text-transform); */
+            font-weight: var(--mdc-text-button-label-text-weight, var(--mat-app-label-large-weight));
+
+            icon-button:first-child {
+                align-self: flex-start;
+            }
+        }
+    </style>
+    <nav>
         <icon-button href="./" icon="../custom-element/demo/wc-square.svg">custom-element</icon-button>
         <spacer></spacer>
-        <icon-button href="./components.html" title="Select a theme for the documentation">Components</icon-button>
+        <icon-button href="./components.html" title="Select a theme for the documentation" kind="normal">Components</icon-button>
 
         <spacer></spacer>
         <icon-button icon="format_color_fill" title="Select a theme for the documentation">Theme</icon-button>
-        <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material" icon="fab fa-github" title="GitHub reposotory">GitHub</icon-button>
-    </template>
-</custom-element>
+        <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material" icon="fab fa-github"
+                     title="GitHub reposotory">GitHub
+        </icon-button>
+    </nav>
+    <slot></slot>
+</template>
+<custom-element tag="icon-button" src="#icon-button" hidden></custom-element>
+
+<header>
+    <custom-element src="#nav-head">
+        <h1> custom-element Material </h1>
+        <h2> Material Design components for custon-element </h2>
+        <icon-button href="./components.html" title="Select a theme for the documentation">Get started</icon-button>
+    </custom-element>
+</header>
+<main>
+
+</main>
+<footer>
+    <hr/>
+    <p>Powered by Syngrafact Corp. ©2024.</p>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
 </body>
 </html>

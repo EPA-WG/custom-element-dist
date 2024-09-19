@@ -104,6 +104,7 @@ export const DynamicMethod: Story =
     };
 
 
+//#region unit tests
 /* istanbul ignore else -- @preserve */
 if ('test' === import.meta.env.MODE &&
     !import.meta.url.includes('skiptest')) {
@@ -112,3 +113,4 @@ if ('test' === import.meta.env.MODE &&
     const {describe} = await import('vitest')
     describe(meta.title, () => testStoryBook(mod, meta));
 }
+//#endregion

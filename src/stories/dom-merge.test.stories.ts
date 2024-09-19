@@ -194,7 +194,7 @@ export const ReadSystemValidityMessage:Story  =
     },
 };
 
-//<editor-fold desc="unit test run" collapsed>
+//#region unit tests
 /* istanbul ignore else -- @preserve */
 if(  'test' === import.meta.env.MODE &&
     !import.meta.url.includes('skiptest') )
@@ -204,4 +204,4 @@ if(  'test' === import.meta.env.MODE &&
     const { describe } = await import('vitest')
     describe(meta.title, () => testStoryBook( mod, meta ) );
 }
-//</editor-fold>
+//#endregion
