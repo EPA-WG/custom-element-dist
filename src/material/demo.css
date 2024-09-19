@@ -1,3 +1,13 @@
-body{
+body {
     margin: 0;
+}
+
+header {
+    text-align: center;
+
+    --mdc-text-button-label-text-color: #005cbb;
+    --mat-sidenav-content-background-color: #d7e3ff;
+    color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
+    background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
+
 }
