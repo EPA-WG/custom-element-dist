@@ -181,11 +181,9 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         </dce-text>
     </xsl:template>
     <xsl:template mode="sanitize" match="xsl:value-of|*[name()='slot']">
-        <dce-text>
-            <xsl:copy>
-                <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
-            </xsl:copy>
-        </dce-text>
+        <xsl:copy>
+            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+        </xsl:copy>
     </xsl:template>
     <xsl:template mode="sanitize" match="xhtml:*">
         <xsl:element name="{local-name()}">
@@ -442,17 +440,15 @@ const loadTemplateRoots = async ( src, dce )=>
 {
     if( !src || !src.trim() )
         return [dce]
-    const base = dce.closest('[base]')?.getAttribute('base') || location.href;
-
     if( src.startsWith('#') )
-    {   if( location.href === base )
-            return [...document.querySelectorAll( src )];
-        src = base + src;
-    }
+        return ( n =>
+        {   const a = n.querySelectorAll(src)
+            return  [...( a.length ? a : n.getRootNode().querySelectorAll(src) )]
+        })(dce.parentElement)
     try
     {   const [path, hash] = src.split('#');
         if( '.' === src.charAt(0))
-            src = new URL(path, base).href;
+            src = new URL(path, dce.closest('[base]')?.getAttribute('base') || location ).href;
         else
             try
             {   src = import.meta.resolve( path );
