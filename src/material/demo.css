@@ -6,8 +6,15 @@ header {
     text-align: center;
 
     --mdc-text-button-label-text-color: #005cbb;
-    --mat-sidenav-content-background-color: #d7e3ff;
-    color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
-    background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
-
+    --mat-sidenav-content-background-color: var(--mat-indigo-50, #d7e3ff);
+    color: var(--text-color, var(--mat-app-on-background));
+    background-color: var(--primary-color, var(--mat-app-background));
+    &{ padding: var(--cem-dim-x-small,0.5rem) var(--cem-dim-small,1rem) }
+    h1,p{position: relative; z-index: 2;}
+    .logo-large{ position: absolute;
+        right: var(--cem-dim-x-large);
+        height: var(--cem-dim-xxx-large);
+        z-index: 1;
+        opacity: 0.5;
+    }
 }

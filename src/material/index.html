@@ -18,7 +18,9 @@
     </script>
     <script type="module" src="../custom-element/custom-element.js"></script>
     <style>
+        @import "./angular.css";
         @import "./material.css";
+        @import "./theme/semantic.css";
         @import "./demo.css";
     </style>
 </head>
@@ -31,7 +33,7 @@
     <attribute name="kind" aria-description="color appearance. Default value is 'normal'. Values: normal|primary|secondary|alert|blend"></attribute>
     <style>
         &:not([kind]) a,&[kind="normal"] a{
-            background-color: var(--mdc-theme-primary, #6200ee);
+            /*background-color: var(--mdc-theme-primary, #6200ee);*/
         }
 
         a {
@@ -41,15 +43,14 @@
             padding: 0.5rem 1rem;;
             border-radius: 1.5rem;
 
-            background-color: var(--mdc-theme-primary, white);
-
-            &:hover, &:focus {
-                background-color: #60cae5;
-            }
+                                        background-color: var(--cem-action-primary-background);
+            &:hover{                    background-color: var(--cem-action-primary-background-hover); }
+            &:focus{                    background-color: var(--cem-action-primary-background-focus); }
+            &:active, &:focus:active {  background-color: var(--cem-action-primary-background-active); }
 
             &, &:visited {
                 text-decoration: none;
-                color: var(--mdc-text-button-label-text-color, var(--mat-app-on-background));
+                color: var(--mat-light-blue-900);
             }
 
             --icon-size: 2rem;
@@ -66,7 +67,7 @@
         <choose>
             <when test="contains($icon,'/')"><img src="{$icon}" alt="DCE logo" class="icon"/></when>
             <when test="contains($icon,'fa-')"><i class="icon {$icon}"></i></when>
-            <otherwise><span class="icon material-icons">{$icon}</span></otherwise>
+            <when test="$icon"><span class="icon material-icons">{$icon}</span></when>
         </choose>
         <slot></slot>
     </a>
@@ -82,7 +83,7 @@
                 flex: 10 10;
             }
 
-            padding: 0 var(--mat-text-button-horizontal-padding, 8px);
+            padding: 0 var(--mat-blue-50, 8px);
 
 
             --mdc-text-button-label-text-tracking: .006rem;
@@ -97,27 +98,38 @@
                 align-self: flex-start;
             }
         }
+        section{
+            display: flex; flex-direction: column;
+            margin: var(--cem-dim-xxx-large,4rem);
+            h1{ font-size: var(--cem-dim-x-large,3.5rem);
+                text-shadow: var(--primary-color, silver) 0 0 var(--cem-dim-medium);
+            }
+        }
+
     </style>
     <nav>
-        <icon-button href="./" icon="../custom-element/demo/wc-square.svg">custom-element</icon-button>
+        <icon-button href="./" icon="../custom-element/demo/wc-square.svg"> custom-element </icon-button>
         <spacer></spacer>
-        <icon-button href="./components.html" title="Select a theme for the documentation" kind="normal">Components</icon-button>
+        <icon-button href="./components.html" title="Select a theme for the documentation" kind="normal"> Components </icon-button>
 
         <spacer></spacer>
-        <icon-button icon="format_color_fill" title="Select a theme for the documentation">Theme</icon-button>
-        <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material" icon="fab fa-github"
-                     title="GitHub reposotory">GitHub
+        <icon-button icon="format_color_fill" title="Select a theme for the documentation"> Theme </icon-button>
+        <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material"
+                     icon="fab fa-github" title="GitHub reposotory"> GitHub
         </icon-button>
     </nav>
-    <slot></slot>
+    <section>
+        <slot></slot>
+    </section>
 </template>
 <custom-element tag="icon-button" src="#icon-button" hidden></custom-element>
 
-<header>
+<header class="cem-theme-teal">
     <custom-element src="#nav-head">
-        <h1> custom-element Material </h1>
-        <h2> Material Design components for custon-element </h2>
-        <icon-button href="./components.html" title="Select a theme for the documentation">Get started</icon-button>
+        <img class="logo-large" src="../custom-element/demo/wc-square.svg" alt="custom-element logo"/>
+        <h1> &lt;custom-element&gt; Material </h1>
+        <p> Material Design components for custon-element </p>
+        <icon-button href="./components.html" title="Select a theme for the documentation" icon="fab fa-github">Get started</icon-button>
     </custom-element>
 </header>
 <main>

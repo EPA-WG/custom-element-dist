@@ -40,14 +40,57 @@
 
 /*#endregion */
 
-/*#region semantic colors  */
+/*#region action */
+
 /*#endregion */
 
---primary-color: #ff0000;
---secondary-color: #00ff00;
---alert-color: #00ff00;
---text-color: #000000;
-
---cem-action-primary-background: var(--)
-
 }
+
+
+/*#region semantic colors  */
+:root, .cem-theme-default{
+
+    --primary-color: #ff0000;
+    --secondary-color: #00ff00;
+    --alert-color: #00ff00;
+    --text-color: #000000;
+
+    --cem-action-primary-color: var(--mat-light-blue-900);
+
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--mat-grey-50,lightgrey);
+    --cem-action-primary-background-focus: var(--mat-grey-100,silver);
+    --cem-action-primary-background-active: var(--mat-grey-200,grey);
+}
+
+.cem-theme-teal{
+
+    --primary-color: var(--ng-teal-primary);
+    --secondary-color: var(--ng-teal-hover);
+    --alert-color: var(--ng-magenta-80);
+    --text-color: var(--ng-azure-40);
+
+    --cem-action-primary-color: var(--primary-color);
+
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--ng-teal-hover,lightgrey);
+    --cem-action-primary-background-focus: var(--ng-teal-focus,silver);
+    --cem-action-primary-background-active: var(--ng-teal-active,grey);
+}
+
+.cem-theme-azure{
+
+    --primary-color: var(--ng-azure-90);
+    --secondary-color: var(--ng-azure-80);
+    --alert-color: var(--ng-magenta-80);
+    --text-color: var(--ng-azure-40);
+
+    --cem-action-primary-color: var(--primary-color);
+
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--ng-azure-80,lightgrey);
+    --cem-action-primary-background-focus: var(--ng-azure-70,silver);
+    --cem-action-primary-background-active: var(--ng-azure-60,grey);
+}
+
+/*#endregion */

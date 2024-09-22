@@ -1,5 +1,9 @@
+/* https://htmlcolorcodes.com/color-chart/material-design-color-chart/ */
+
 :root{
-    
+
+/*#region branded colors  */
+
 /* Red */
 --mat-red : #f44336; 
 --mat-red-50 : #ffebee; 
@@ -313,8 +317,9 @@
 
 /* White / Black */
 --mat-white : #ffffff; 
---mat-black : #000000; 
-    
+--mat-black : #000000;
+
+/*#endregion */
 }
 
 body {
