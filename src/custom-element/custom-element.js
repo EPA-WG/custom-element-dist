@@ -607,6 +607,8 @@ CustomElement extends HTMLElement
     static observedAttributes = ['src','tag','hidden'];
     async connectedCallback()
     {
+        if(this.firstElementChild && this.firstElementChild.localName !== 'template')
+            console.warn('custom-element used without template wrapping content\n', this.outerHTML);
         const templateRoots = await loadTemplateRoots( attr( this, 'src' ), this )
         ,               tag = attr( this, 'tag' )
         ,           tagName = tag ? tag : 'dce-'+crypto.randomUUID();
