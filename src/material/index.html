@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>custom-element - Material Design</title>
-    <link rel="icon" href="demo/wc-square.svg"/>
+    <link href="demo/wc-square.svg" rel="icon"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
 
     <script type="importmap">
         {
@@ -16,7 +16,7 @@
           }
         }
     </script>
-    <script type="module" src="../custom-element/custom-element.js"></script>
+    <script src="../custom-element/custom-element.js" type="module"></script>
     <style>
         @import "./angular.css";
         @import "./material.css";
@@ -30,9 +30,10 @@
 <template id="icon-button">
     <attribute name="href"></attribute>
     <attribute name="icon"></attribute>
-    <attribute name="kind" aria-description="color appearance. Default value is 'normal'. Values: normal|primary|secondary|alert|blend"></attribute>
+    <attribute aria-description="color appearance. Default value is 'normal'. Values: normal|primary|secondary|alert|blend"
+               name="kind"></attribute>
     <style>
-        &:not([kind]) a,&[kind="normal"] a{
+        &:not([kind]) a, &[kind="normal"] a {
             /*background-color: var(--mdc-theme-primary, #6200ee);*/
         }
 
@@ -43,10 +44,22 @@
             padding: 0.5rem 1rem;;
             border-radius: 1.5rem;
 
-                                        background-color: var(--cem-action-primary-background);
-            &:hover{                    background-color: var(--cem-action-primary-background-hover); }
-            &:focus{                    background-color: var(--cem-action-primary-background-focus); }
-            &:active, &:focus:active {  background-color: var(--cem-action-primary-background-active); }
+            background-color: var(--cem-action-primary-background);
+            transition: var(--cem-action-transition);
+            box-shadow: var(--cem-action-box-shadow);
+
+            &:hover {
+                background-color: var(--cem-action-primary-background-hover);
+                box-shadow: var(--cem-action-box-shadow-hover);
+            }
+
+            &:focus {
+                background-color: var(--cem-action-primary-background-focus);
+            }
+
+            &:active, &:focus:active {
+                background-color: var(--cem-action-primary-background-active);
+            }
 
             &, &:visited {
                 text-decoration: none;
@@ -65,7 +78,7 @@
     </style>
     <a href="{$href}">
         <choose>
-            <when test="contains($icon,'/')"><img src="{$icon}" alt="DCE logo" class="icon"/></when>
+            <when test="contains($icon,'/')"><img alt="DCE logo" class="icon" src="{$icon}"/></when>
             <when test="contains($icon,'fa-')"><i class="icon {$icon}"></i></when>
             <when test="$icon"><span class="icon material-icons">{$icon}</span></when>
         </choose>
@@ -98,22 +111,27 @@
                 align-self: flex-start;
             }
         }
-        section{
-            display: flex; flex-direction: column;
-            margin: var(--cem-dim-xxx-large,4rem);
-            h1{ font-size: var(--cem-dim-x-large,3.5rem);
+
+        section {
+            display: flex;
+            flex-direction: column;
+            margin: var(--cem-dim-xxx-large, 4rem);
+
+            h1 {
+                font-size: var(--cem-dim-x-large, 3.5rem);
                 text-shadow: var(--primary-color, silver) 0 0 var(--cem-dim-medium);
             }
         }
 
     </style>
     <nav>
-        <icon-button href="./" icon="../custom-element/demo/wc-square.svg"> custom-element </icon-button>
+        <icon-button href="./" icon="../custom-element/demo/wc-square.svg"> custom-element</icon-button>
         <spacer></spacer>
-        <icon-button href="./components.html" title="Select a theme for the documentation" kind="normal"> Components </icon-button>
+        <icon-button href="./components.html" kind="normal" title="Select a theme for the documentation"> Components
+        </icon-button>
 
         <spacer></spacer>
-        <icon-button icon="format_color_fill" title="Select a theme for the documentation"> Theme </icon-button>
+        <icon-button icon="format_color_fill" title="Select a theme for the documentation"> Theme</icon-button>
         <icon-button href="https://github.com/EPA-WG/custom-element-dist/tree/main/src/material"
                      icon="fab fa-github" title="GitHub reposotory"> GitHub
         </icon-button>
@@ -122,14 +140,18 @@
         <slot></slot>
     </section>
 </template>
-<custom-element tag="icon-button" src="#icon-button" hidden></custom-element>
+<custom-element hidden src="#icon-button" tag="icon-button"></custom-element>
 
 <header class="cem-theme-teal">
     <custom-element src="#nav-head">
-        <img class="logo-large" src="../custom-element/demo/wc-square.svg" alt="custom-element logo"/>
-        <h1> &lt;custom-element&gt; Material </h1>
-        <p> Material Design components for custon-element </p>
-        <icon-button href="./components.html" title="Select a theme for the documentation" icon="fab fa-github">Get started</icon-button>
+        <template>
+            <img alt="custom-element logo" class="logo-large" src="../custom-element/demo/wc-square.svg"/>
+            <h1> <code>&lt;custom-element&gt;</code> Material </h1>
+            <p> Material Design components for <a href="https://github.com/EPA-WG/custom-element"><code>custom-element</code></a> </p>
+            <icon-button class="cem-theme-default" href="./components.html" title="Select a theme for the documentation">Get
+                started
+            </icon-button>
+        </template>
     </custom-element>
 </header>
 <main>

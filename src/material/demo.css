@@ -9,6 +9,9 @@ header {
     --mat-sidenav-content-background-color: var(--mat-indigo-50, #d7e3ff);
     color: var(--text-color, var(--mat-app-on-background));
     background-color: var(--primary-color, var(--mat-app-background));
+    --cem-action-box-shadow:none;
+    --cem-action-box-shadow-hover:none;
+
     &{ padding: var(--cem-dim-x-small,0.5rem) var(--cem-dim-small,1rem) }
     h1,p{position: relative; z-index: 2;}
     .logo-large{ position: absolute;
@@ -18,3 +21,5 @@ header {
         opacity: 0.5;
     }
 }
+
+code{ font-size: 125%; font-weight: bold; }
