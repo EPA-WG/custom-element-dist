@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>custom-element - Material Design</title>
-    <link rel="icon" href="demo/wc-square.svg" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <link href="demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
 
     <script type="importmap">
         {
@@ -15,19 +16,29 @@
           }
         }
     </script>
-    <script type="module" src="../custom-element/custom-element.js"></script>
+    <script src="../custom-element/custom-element.js" type="module"></script>
     <style>
+        @import "./angular.css";
         @import "./material.css";
+        @import "./theme/semantic.css";
         @import "./demo.css";
     </style>
 </head>
 
 <body>
+<custom-element hidden src="/index.html#icon-button" tag="icon-button"></custom-element>
 
 
-<custom-element src="./index.html#nav-head">
+<header class="cem-theme-teal">
+    <custom-element src="./index.html#nav-head" ></custom-element>
+</header>
+<main>
 
-
-</custom-element>
+</main>
+<footer>
+    <hr/>
+    <p>Powered by Syngrafact Corp. ©2024.</p>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
 </body>
 </html>

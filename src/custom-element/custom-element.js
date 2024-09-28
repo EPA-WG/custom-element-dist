@@ -644,7 +644,7 @@ CustomElement extends HTMLElement
             static get observedAttributes(){ return declaredAttributes.map( a=>attr(a,'name')); }
             #inTransform = 0;
             connectedCallback()
-            {   let payload = this.childNodes;
+            {   let payload = [...this.childNodes];
                 if( this.firstElementChild?.tagName === 'TEMPLATE' )
                 {
                     if( this.firstElementChild !== this.lastElementChild )
