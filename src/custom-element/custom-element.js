@@ -72,6 +72,9 @@ assureSlot( e )
     }
     return e;
 }
+    function
+keepAttributes(e, aNames)
+    {   e.getAttributeNames().forEach( n=> aNames.includes(n) || e.removeAttribute(n) ); }
 
     export function
 obj2node( o, tag, doc )
@@ -271,9 +274,11 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     const params = [];
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
     {
+        keepAttributes(a,'namespace,name,select');
         const p = cloneAs(a,'xsl:param')
         ,  name = attr(a,'name');
         payload.append(p);
+        keepAttributes(p,'select,name');
         let select = attr(p,'select')?.split('??')
         if( !select)
         {   select = ['//'+name, `'${p.textContent}'`];
@@ -281,8 +286,8 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             p.setAttribute('name',name);
         }
         let val;
-        if( select?.length>1 ){
-            p.removeAttribute('select');
+        if( select?.length>1 )
+        {   p.removeAttribute('select');
             const c = $( xslDom, 'template[match="ignore"]>choose').cloneNode(true);
             emptyNode(c.firstElementChild).append( createText(c,'{'+select[0]+'}'));
             emptyNode(c.lastElementChild ).append( createText(c,'{'+select[1]+'}'));
