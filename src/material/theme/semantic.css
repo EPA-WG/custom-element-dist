@@ -58,9 +58,9 @@
     --cem-action-primary-color: var(--mat-light-blue-900);
 
     --cem-action-primary-background: var(--mat-grey-50,white);
-    --cem-action-primary-background-hover: var(--mat-grey-100,lightgrey);
-    --cem-action-primary-background-focus: var(--mat-grey-200,silver);
-    --cem-action-primary-background-active: var(--mat-grey-300,grey);
+    --cem-action-primary-background-hover: var(--mat-grey-200,lightgrey);
+    --cem-action-primary-background-focus: var(--mat-grey-400,silver);
+    --cem-action-primary-background-active: var(--mat-grey-600,grey);
 
     --cem-action-box-shadow: var(--ng-action-elevation-shadow, 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12));
     --cem-action-box-shadow-hover: var(--ng-action-box-shadow-hover);
