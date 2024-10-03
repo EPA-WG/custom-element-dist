@@ -320,7 +320,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         for( let c of s.childNodes)
             v.lastElementChild.append(c)
         return v
-    }
+    };
 
     forEach$( payload,'slot', s => s.parentNode.replaceChild( slot2xsl(s), s ) )
 
@@ -469,7 +469,8 @@ const loadTemplateRoots = async ( src, dce )=>
         if( hash )
         {   const ret = dom.querySelectorAll('#'+hash);
             if( ret.length )
-                return [...ret]
+                return [...ret];
+            console.error('template not found',src+'#'+hash);
             return [dce]
         }
         return [dom]
