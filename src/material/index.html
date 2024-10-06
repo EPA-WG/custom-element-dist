@@ -12,10 +12,11 @@
     <script type="importmap">
         {
           "imports": {
-            "@epa-wg/custom-element/": "../custom-element/"
+            "@epa-wg/": "../"
           }
         }
     </script>
+    <script src="../custom-element/module-url.js" type="module"></script>
     <script src="../custom-element/custom-element.js" type="module"></script>
     <style>
         @import "./angular.css";
@@ -125,9 +126,11 @@
 
     </style>
     <nav>
-        <icon-button href="./" icon="../custom-element/demo/wc-square.svg"> custom-element</icon-button>
+        <module-url slice="cem-url" src="@epa-wg/material"></module-url>
+        <module-url slice="logo-url" src="@epa-wg/custom-element/demo/wc-square.svg"></module-url>
+        <icon-button href="{//cem-url}/" icon="{//logo-url}"> custom-element</icon-button>
         <spacer></spacer>
-        <icon-button href="./components.html" kind="normal" title="Select a theme for the documentation"> Components
+        <icon-button href="{//cem-url}/components.html" kind="normal" title="Select a theme for the documentation"> Components
         </icon-button>
 
         <spacer></spacer>
