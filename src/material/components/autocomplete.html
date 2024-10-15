@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -44,52 +44,105 @@
     <p>&lt;custom-element&gt; Material offers a wide variety of UI components based on the
         <a href="https://material.io/components" >Material Design specification</a>.
     </p>
-    <custom-element tag="demo-list-card" hidden>
+    <custom-element tag="cem-autocomplete">
         <template>
-            <attribute name="head"></attribute>
-            <attribute name="description"></attribute>
+            <attribute name="name"></attribute>
+            <attribute name="label"></attribute>
+            <attribute name="placeholder"></attribute>
+            <attribute name="type">search</attribute>
             <style>
                 dce-root
-                {   display: inline-flex; flex-direction: column;
-                    transition: background .3s ease;
-                    border: 1px solid #c4c6d0;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    &>*{padding: 1rem;}
-                    a
-                    {   color: var(--cem-action-primary-color, black);
-                        background-color:var(--cem-action-primary-background, silver);
-                        transition: background .3s ease;
-                        transform: translateZ(0);
-                        &:hover { background-color: var(--cem-action-primary-background-hover); }
-                        &:focus { background-color: var(--cem-action-primary-background-focus); }
-                        &:focus:active,
-                        &:active{ background-color: var(--cem-action-primary-background-active); }
+                {   position: relative;
+                    display: flex; flex-direction: column; justify-content: center;
+                    --drop-transition: max-height .3s ease-in, height .3s ease-in;
+                    --input-padding: 0;
+                    --cem-app-surface-variant: lightpink;
+                    --cem-app-on-surface: violet;
+                    --cem-app-primary: violet;
+                    --cem-filled-text-field-container-color: pink;
+                    --cem-filled-text-field-input-text-color: black;
+                    --cem-filled-text-field-caret-color: darkpink;
 
-                        &, &:visited { text-decoration: none; }
-                        h3{ text-transform: capitalize; }
+                    --cem-input-outline: inset 0 -1px 0 black;
+                    --cem-input-outline-focus: inset 0 -3px 0 red;
+
+                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
+
+                    min-height: 3.5rem;
+
+                    &:focus-within > fieldset{ display: flex;  max-height: 10rem; height: auto; overflow: auto; transition: var(--drop-transition) }
+                    fieldset
+                    {   position: absolute;
+                        left: 0; right: 0; top:100%;
+                        display: flex; flex-direction: column; border: red;  max-height: 0; transition: var(--drop-transition); overflow: hidden; padding: 0;
+                        background-color: #60cae5;
+                        label{ padding: 0.5rem; &:hover{ background-color: silver;}
+                            input{ width: 0; overflow: hidden; display: inline-block; }
+                        }
+                    }
+                    &>label
+                    {   display: flex; flex-direction: column; justify-content: center;
+                        flex: 1; padding: 0.5rem 1rem;
+                        box-shadow: var(--cem-input-outline);
+                        transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+                        input
+                        {   background: none; padding: var(--input-padding);
+                            &,&:focus,&:focus-visible{ border: none; outline: none; }
+                            &:placeholder-shown{   height: 0; border: none; outline:none;  }
+
+                            color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
+                            caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
+                            transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+                        }
+                    }
+                    &:focus-within
+                    {
+                        &> label
+                        {   font-size: small;
+                            box-shadow: var(--cem-input-outline-focus);
+                        }
                     }
                 }
             </style>
-            <slot></slot>
-            <a href="./components/{$head}.html">
-                <h3>{$head}</h3>
-                {$description}
-            </a>
+            <variable name="selected-value" ><if test="//selected">{//selected}</if><if test="not(//selected)">{$value}</if> </variable>
+<!--            <pre>-->
+<!--                //selected {//selected}-->
+<!--                //input-slice {//input-slice}-->
+<!--                $selected-value {$selected-value}-->
+<!--            </pre>-->
+            <slot name="input"><label>{$label}<input
+                    name="{$name}"
+                    type="{$type}"
+                    placeholder="{$placeholder}"
+                    value="{//selected ?? $selected-value}"
+                    slice="selected"
+                    slice-event="input"/></label></slot>
+            <fieldset form="cem-autocomplete-form" >
+                <xsl:for-each select="/datadom/payload/*[normalize-space(text()) != '']">
+                    <if test="normalize-space(//selected) = '' or contains(@value, //selected)">
+                        <label value="{@value ?? .}" slice-event="click"><input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input">{.}</label>
+                    </if>
+                </xsl:for-each>
+            </fieldset>
         </template>
     </custom-element>
-    <demo-list-card head="autocomplete" description="Suggests relevant options as the user types.">
-        <cem-autocomplete placeholder="Greetings" >
-            <p>hello</p>
-            <p>hi</p>
-        </cem-autocomplete>
-    </demo-list-card>
-    <demo-list-card head="Badge" description="A small value indicator that can be overlaid on another object.">
-        <cem-badge placeholder="Greetings" >
-            <p>hello</p>
-            <p>hi</p>
-        </cem-badge>
-    </demo-list-card>
+    <cem-autocomplete label="Number" type="number" placeholder="Enter the numeric value">
+        <data value="1">One     </data>
+        <data value="2">Two     </data>
+        <data value="3">Three   </data>
+    </cem-autocomplete>
+
+    <form id="myform" onsubmit="event.preventDefault(); console.log( myform.pick[0].value )">
+        <input name="pick"/>
+        <fieldset form="fakeorm" onchange="console.log( myform.pick[0].value = event.target.value )">
+            <label><input type="radio" value="apple" name="pick">🍎</label>
+            <label><input type="radio" value="pear" name="pick">🍐</label>
+        </fieldset>
+        <button type="submit" >Submit</button>
+    </form>
+
+
+
 </main>
 <footer>
     <hr/>
