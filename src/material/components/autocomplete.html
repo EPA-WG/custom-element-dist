@@ -56,12 +56,6 @@
                     display: flex; flex-direction: column; justify-content: center;
                     --drop-transition: max-height .3s ease-in, height .3s ease-in;
                     --input-padding: 0;
-                    --cem-app-surface-variant: lightpink;
-                    --cem-app-on-surface: violet;
-                    --cem-app-primary: violet;
-                    --cem-filled-text-field-container-color: pink;
-                    --cem-filled-text-field-input-text-color: black;
-                    --cem-filled-text-field-caret-color: darkpink;
 
                     --cem-input-outline: inset 0 -1px 0 black;
                     --cem-input-outline-focus: inset 0 -3px 0 red;
@@ -76,7 +70,10 @@
                         left: 0; right: 0; top:100%;
                         display: flex; flex-direction: column; border: red;  max-height: 0; transition: var(--drop-transition); overflow: hidden; padding: 0;
                         background-color: #60cae5;
-                        label{ padding: 0.5rem; &:hover{ background-color: silver;}
+
+                        label{ padding: 0.5rem;
+                            &:hover{ background-color: silver;}
+                            &:focus-within{ background-color: #0d47a1;}
                             input{ width: 0; overflow: hidden; display: inline-block; }
                         }
                     }
@@ -85,10 +82,12 @@
                         flex: 1; padding: 0.5rem 1rem;
                         box-shadow: var(--cem-input-outline);
                         transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+                        color: var(--cem-filled-text-field-label-text-color);
+
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
-                            &:placeholder-shown{   height: 0; border: none; outline:none;  }
+                            &:placeholder-shown{ border: none; outline:none;  }
 
                             color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
                             caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
@@ -105,31 +104,36 @@
                 }
             </style>
             <variable name="selected-value" ><if test="//selected">{//selected}</if><if test="not(//selected)">{$value}</if> </variable>
-<!--            <pre>-->
-<!--                //selected {//selected}-->
-<!--                //input-slice {//input-slice}-->
-<!--                $selected-value {$selected-value}-->
-<!--            </pre>-->
-            <slot name="input"><label>{$label}<input
+            <pre>
+                //focused {//focused}
+                //suggest {//suggest}
+                //selected {//selected}
+                $selected-value {$selected-value}
+            </pre>
+            <slot name="input"><label>{$label}<xhtml:input
                     name="{$name}"
                     type="{$type}"
                     placeholder="{$placeholder}"
                     value="{//selected ?? $selected-value}"
-                    slice="selected"
-                    slice-event="input"/></label></slot>
+                    >
+                    <slice name="selected" slice-event="input" ></slice>
+                    <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
+                </xhtml:input></label></slot>
             <fieldset form="cem-autocomplete-form" >
                 <xsl:for-each select="/datadom/payload/*[normalize-space(text()) != '']">
-                    <if test="normalize-space(//selected) = '' or contains(@value, //selected)">
-                        <label value="{@value ?? .}" slice-event="click"><input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input">{.}</label>
+                    <if test="normalize-space(//selected) = '' or contains(@value, //filter)">
+                        <label value="{@value ?? .}"
+                            ><input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input"/>
+                            {.}</label>
                     </if>
                 </xsl:for-each>
             </fieldset>
         </template>
     </custom-element>
-    <cem-autocomplete label="Number" type="number" placeholder="Enter the numeric value">
-        <data value="1">One     </data>
-        <data value="2">Two     </data>
-        <data value="3">Three   </data>
+    <cem-autocomplete label="Number" type="text" placeholder="Enter the numeric value">
+        <data value="one">One     </data>
+        <data value="two">Two     </data>
+        <data value="three">Three   </data>
     </cem-autocomplete>
 
     <form id="myform" onsubmit="event.preventDefault(); console.log( myform.pick[0].value )">
@@ -140,8 +144,6 @@
         </fieldset>
         <button type="submit" >Submit</button>
     </form>
-
-
 
 </main>
 <footer>

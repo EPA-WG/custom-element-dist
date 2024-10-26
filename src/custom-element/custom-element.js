@@ -193,6 +193,17 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
         </xsl:element>
     </xsl:template>
+    <xsl:template mode="sanitize" match="xhtml:input">
+        <xsl:element name="{local-name()}">
+            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+        </xsl:element>
+        <xsl:for-each select="*">
+            <xsl:copy>
+                <xsl:attribute name="for" >^</xsl:attribute>
+                <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+            </xsl:copy>
+        </xsl:for-each>
+    </xsl:template>
 </xsl:stylesheet>`)
     const sanitizeProcessor = new XSLTProcessor()
     ,   tc = (n =>
@@ -734,18 +745,39 @@ CustomElement extends HTMLElement
                         }
                     })
 
+                    function getSliceTarget(el)
+                    {   let r = el;
+                        if( el.localName === 'slice')
+                        {   const ref= attr(el,'for');
+                            if( !ref )
+                                r = el.parentElement;
+                            if( '^' === ref )
+                            {   do r = r.previousElementSibling;
+                                while( r.localName === 'slice' )
+                            } else
+                                r = this.querySelector(ref)
+
+                            if( !r )
+                                return console.warn(`can not find selector in "slice for=${ref}" `, el.outerHTML);
+                            attr(el,'slice') || el.setAttribute('slice', attr(el,'name'))
+                        }
+                        return r;
+                    }
                     forEach$( this,'[slice],[slice-event]', el =>
-                    {   if( !el.dceInitialized )
+                    {   let evs = attr(el,'slice-event');
+                        const sVal = el.hasAttribute('slice-value') || el.hasAttribute('value') || el.value;
+                        const tgt = getSliceTarget(el);
+                        if( !el.dceInitialized )
                         {   el.dceInitialized = 1;
-                            let evs = attr(el,'slice-event');
-                            if( el.hasAttribute('custom-validity') )
+                            if( tgt.hasAttribute('custom-validity') )
                                 evs += ' change submit';
 
                             [...new Set((evs || 'change') .split(' '))]
-                                .forEach( t=> (el.localName==='slice'? el.parentElement : el)
-                                    .addEventListener( t, ev=>
+                                .forEach( t=>
+                                    tgt.addEventListener( t, ev=>
                                     {   ev.sliceElement = el;
                                         ev.sliceEventSource = ev.currentTarget || ev.target;
+                                        ev.sliceProcessed = 0;
                                         const slices = event2slice( sliceRoot, attr( ev.sliceElement, 'slice'), ev, this );
 
                                         forEach$(this,'[custom-validity]',el =>
@@ -758,7 +790,7 @@ CustomElement extends HTMLElement
                                             }catch(err)
                                                 { console.error(err, 'xPath', x) }
                                         })
-                                        const x = attr(el,'custom-validity')
+                                        const x = attr(tgt,'custom-validity')
                                         ,     v = x && xPath( x, attrsRoot )
                                         ,   msg = v === true? '' : v;
 
@@ -784,8 +816,8 @@ CustomElement extends HTMLElement
                                         this.onSlice(ev);
                                     } ));
                             if( !evs || evs.includes('init') )
-                            {   if( el.hasAttribute('slice-value') || el.hasAttribute('value') || el.value )
-                                    this.onSlice({type:'init', target: el, sliceElement:el, sliceEventSource:el })
+                            {   if( sVal )
+                                    this.onSlice({type:'init', target: tgt, sliceElement:el, sliceEventSource:tgt })
                                 else
                                     el.value = sliceXPath( attr(el,'slice') )
                             }
