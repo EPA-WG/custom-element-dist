@@ -73,6 +73,11 @@
     --cem-filled-text-field-label-text-color: var(--ng-azure-variant-30);
     --cem-filled-text-field-input-text-color: var(--ng-azure-variant-0);
     --cem-filled-text-field-caret-color: var(--ng-azure-variant-10);
+    --cem-outline-color-focus: var(--ng-azure-40);
+
+    --cem-list-background-color: var(--ng-azure-neutral-94);
+    --cem-list-background-color-hover: var(--ng-azure-variant-90);
+    --cem-list-background-color-focus: var(--ng-azure-variant-80);
 }
 
 .cem-theme-teal{

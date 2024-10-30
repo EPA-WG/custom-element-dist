@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -27,8 +27,13 @@
             display: flex; flex-wrap: wrap;
             gap: 3rem;
             padding: 5rem;
-            &>*{ width: 16rem;}
             &>p{ min-width: 90%; }
+            html-demo-element
+            {   overflow: visible;
+                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
+                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="description"] dd{ padding: 0; }
+            }
         }
     </style>
 </head>
@@ -41,24 +46,28 @@
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <main>
-    <p>&lt;custom-element&gt; Material offers a wide variety of UI components based on the
+    <p><code>cem-autocomplete</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
         <a href="https://material.io/components" >Material Design specification</a>.
     </p>
-    <custom-element tag="cem-autocomplete">
+    <custom-element tag="cem-autocomplete" hidden>
         <template>
             <attribute name="name"></attribute>
             <attribute name="label"></attribute>
             <attribute name="placeholder"></attribute>
             <attribute name="type">search</attribute>
+            <attribute name="value"></attribute>
             <style>
                 dce-root
                 {   position: relative;
                     display: flex; flex-direction: column; justify-content: center;
-                    --drop-transition: max-height .3s ease-in, height .3s ease-in;
+                    --drop-transition: max-height .3s ease-in, height .3s ease-in, box-shadow .3s ease-in;
                     --input-padding: 0;
 
                     --cem-input-outline: inset 0 -1px 0 black;
-                    --cem-input-outline-focus: inset 0 -3px 0 red;
+                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
+                    --cem-autocomplete-container-shape: 0.25rem;
+                    --cem-autocomplete-background-color: var(--cem-list-background-color);
+                    --cem-autocomplete-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
 
                     background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
 
@@ -68,12 +77,23 @@
                     fieldset
                     {   position: absolute;
                         left: 0; right: 0; top:100%;
-                        display: flex; flex-direction: column; border: red;  max-height: 0; transition: var(--drop-transition); overflow: hidden; padding: 0;
-                        background-color: #60cae5;
+                        display: flex; flex-direction: column; border: red;  max-height: 0;
+                        transition: var(--drop-transition), box-shadow;
+                        overflow: hidden; padding: 0;
+
+
+                        border-radius: var(--cem-autocomplete-container-shape);
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        box-shadow: var(--cem-autocomplete-container-elevation-shadow);
+                        background-color: var(--cem-autocomplete-background-color );
+
+                        transition-delay: 40ms;
+                        transition-duration: 110ms;
 
                         label{ padding: 0.5rem;
-                            &:hover{ background-color: silver;}
-                            &:focus-within{ background-color: #0d47a1;}
+                            &:hover{ background-color: var(--cem-list-background-color-hover);}
+                            &:focus-within{ background-color: var(--cem-list-background-color-focus);}
                             input{ width: 0; overflow: hidden; display: inline-block; }
                         }
                     }
@@ -88,35 +108,38 @@
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
                             &:placeholder-shown{ border: none; outline:none;  }
+                            &[value=""]{ height: 0; }
+                            &:focus,&:focus-visible,&[placeholder*=""]{ height: auto; }
 
                             color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
                             caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
+                            font-size: 1rem;
                             transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
                         }
                     }
                     &:focus-within
                     {
                         &> label
-                        {   font-size: small;
-                            box-shadow: var(--cem-input-outline-focus);
+                        {   box-shadow: var(--cem-input-outline-focus);
+                            font-size: small; justify-content: space-between;
                         }
                     }
+                    label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
+                    slice{display: none;}
                 }
             </style>
-            <variable name="selected-value" ><if test="//selected">{//selected}</if><if test="not(//selected)">{$value}</if> </variable>
-            <pre>
-                //focused {//focused}
-                //suggest {//suggest}
-                //selected {//selected}
-                $selected-value {$selected-value}
-            </pre>
+<!--            <pre>-->
+<!--                //focused {//focused}-->
+<!--                //suggest {//suggest}-->
+<!--                //selected {//selected}-->
+<!--            </pre>-->
             <slot name="input"><label>{$label}<xhtml:input
                     name="{$name}"
                     type="{$type}"
                     placeholder="{$placeholder}"
-                    value="{//selected ?? $selected-value}"
+                    value="{//selected ?? $value}"
+                    slice="selected" slice-event="input"
                     >
-                    <slice name="selected" slice-event="input" ></slice>
                     <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
                 </xhtml:input></label></slot>
             <fieldset form="cem-autocomplete-form" >
@@ -130,20 +153,46 @@
             </fieldset>
         </template>
     </custom-element>
-    <cem-autocomplete label="Number" type="text" placeholder="Enter the numeric value">
-        <data value="one">One     </data>
-        <data value="two">Two     </data>
-        <data value="three">Three   </data>
-    </cem-autocomplete>
 
-    <form id="myform" onsubmit="event.preventDefault(); console.log( myform.pick[0].value )">
-        <input name="pick"/>
-        <fieldset form="fakeorm" onchange="console.log( myform.pick[0].value = event.target.value )">
-            <label><input type="radio" value="apple" name="pick">🍎</label>
-            <label><input type="radio" value="pear" name="pick">🍐</label>
-        </fieldset>
-        <button type="submit" >Submit</button>
-    </form>
+<html-demo-element legend="No value" description="Focus to see the cursor in input with label shifted upward ">
+    <template>
+<cem-autocomplete label="String field" ></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text">
+    <template>
+<cem-autocomplete label="Number" type="number" placeholder="Enter the numeric value"></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Value defined" description="The value should be visible" >
+    <template>
+<cem-autocomplete label="Number" type="text" value="abc"></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No initial value with placeholder" >
+    <div slot="description"><code>data value="xxx</code> for selection item uses <code>data</code> attribute for value </div>
+    <template>
+<cem-autocomplete label="Number" type="text" placeholder="Enter the numeric value">
+    <data value="one">One       </data>
+    <data value="two">Two       </data>
+    <data value="three">Three   </data>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No initial value without placeholder" description="label takes the space till input is focused" >
+    <template>
+<cem-autocomplete label="Number" type="text" >
+    <data value="one">One       </data>
+    <data value="two">Two       </data>
+    <data value="three">Three   </data>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
 
 </main>
 <footer>
@@ -151,5 +200,7 @@
     Powered by Syngrafact Corp. ©2024.<br/>
     <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
 </footer>
+<script type="module" src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js"></script>
+
 </body>
 </html>
