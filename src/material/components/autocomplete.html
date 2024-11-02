@@ -73,14 +73,18 @@
 
                     min-height: 3.5rem;
 
-                    &:focus-within > fieldset{ display: flex;  max-height: 10rem; height: auto; overflow: auto; transition: var(--drop-transition) }
+                    & > fieldset,
+                    & > fieldset[focus-within="0"]{display: none;}
+
+                    & > fieldset[focus-within="1"],
+                    & > fieldset[focus-within="2"]{ display: flex;  max-height: 10rem; height: auto; overflow: auto; transition: var(--drop-transition) }
+
                     fieldset
                     {   position: absolute;
                         left: 0; right: 0; top:100%;
-                        display: flex; flex-direction: column; border: red;  max-height: 0;
+                        flex-direction: column; border: red;  max-height: 0;
                         transition: var(--drop-transition);
                         overflow: hidden; padding: 0;
-
 
                         border-radius: var(--cem-autocomplete-container-shape);
                         border-top-left-radius: 0;
@@ -128,11 +132,11 @@
                     slice{display: none;}
                 }
             </style>
-<!--            <pre>-->
-<!--                //focused {//focused}-->
-<!--                //suggest {//suggest}-->
-<!--                //selected {//selected}-->
-<!--            </pre>-->
+            <pre>
+                //focused {//focused}
+                //suggest {//suggest}
+                //selected {//selected}
+            </pre>
             <slot name="input"><label>{$label}<xhtml:input
                     name="{$name}"
                     type="{$type}"
@@ -140,13 +144,19 @@
                     value="{//selected ?? $value}"
                     slice="selected" slice-event="input"
                     >
+                    <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                    <slice name="focused" slice-event="focus" slice-value="1"></slice>
                     <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
                 </xhtml:input></label></slot>
             <fieldset form="cem-autocomplete-form" >
+                <attribute name="focus-within">{//focused}</attribute>
                 <xsl:for-each select="/datadom/payload/*[normalize-space(text()) != '']">
                     <if test="normalize-space(//selected) = '' or contains(@value, //filter)">
                         <label value="{@value ?? .}"
-                            ><input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input"/>
+                            ><xhtml:input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input">
+                            <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                            <slice name="focused" slice-event="focus" slice-value="2"></slice>
+                        </xhtml:input>
                             {.}</label>
                     </if>
                 </xsl:for-each>
@@ -168,27 +178,56 @@
 
 <html-demo-element legend="Value defined" description="The value should be visible" >
     <template>
-<cem-autocomplete label="Number" type="text" value="abc"></cem-autocomplete>
+<cem-autocomplete label="Text" type="text" value="abc"></cem-autocomplete>
     </template>
 </html-demo-element>
 
 <html-demo-element legend="No initial value with placeholder" >
     <div slot="description"><code>data value="xxx</code> for selection item uses <code>data</code> attribute for value </div>
     <template>
-<cem-autocomplete label="Number" type="text" placeholder="Enter the numeric value">
-    <data value="one">One       </data>
-    <data value="two">Two       </data>
-    <data value="three">Three   </data>
+<cem-autocomplete label="Fruits and berries" type="text" placeholder="Enter the fruit name">
+    <data value="apple"      > 🍎 Apple        </data>
+    <data value="strawberry" > 🍓 Strawberry   </data>
+    <data value="pineapple"  > 🍍 Pineapple    </data>
 </cem-autocomplete>
     </template>
 </html-demo-element>
 
-<html-demo-element legend="No initial value without placeholder" description="label takes the space till input is focused" >
+<html-demo-element legend="Number, No initial value without placeholder" description="label takes the space till input is focused" >
+    <template>
+<cem-autocomplete label="Number" type="number" >
+    <data value="1">One       </data>
+    <data value="2">Two       </data>
+    <data value="3">Three     </data>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+
+<html-demo-element legend="Options text as value" description="The value is same as text" >
+    <template>
+<cem-autocomplete label="Dinosaur" type="text" >
+        <option>Tyrannosaurus    </option>
+        <option>Sauropod         </option>
+        <option>Velociraptor     </option>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Options Grouping" description="filter within eac group, empty groups are hidden" >
     <template>
 <cem-autocomplete label="Number" type="text" >
-    <data value="one">One       </data>
-    <data value="two">Two       </data>
-    <data value="three">Three   </data>
+    <optgroup label="🦖 Theropods">
+        <option>Tyrannosaurus    </option>
+        <option>Sauropod         </option>
+        <option>Velociraptor     </option>
+        <option>Deinonychus      </option>
+    </optgroup>
+    <optgroup label="🦕 Sauropods">
+        <option>Diplodocus      </option>
+        <option>Saltasaurus     </option>
+        <option>Apatosaurus     </option>
+    </optgroup>
 </cem-autocomplete>
     </template>
 </html-demo-element>
