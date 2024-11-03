@@ -78,6 +78,14 @@
     --cem-list-background-color: var(--ng-azure-neutral-94);
     --cem-list-background-color-hover: var(--ng-azure-variant-90);
     --cem-list-background-color-focus: var(--ng-azure-variant-80);
+
+    --cem-menu-item-color: black;
+    --cem-menu-item-color-disabled: var(--ng-azure-neutral-50);
+    --cem-menu-item-background: var(--ng-azure-neutral-94);
+    --cem-menu-item-hover-background: var(--ng-azure-neutral-80);
+    --cem-menu-item-hover-color: black;
+    --cem-menu-item-padding: 0.5rem;
+    --cem-menu-item-font-weight: bold;
 }
 
 .cem-theme-teal{

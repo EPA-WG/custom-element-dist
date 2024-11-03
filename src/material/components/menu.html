@@ -58,10 +58,6 @@
             <style>
                 dce-root
                 {
-                    --cem-menu-item-background: transparent;
-                    --cem-menu-item-hover-background: grey;
-                    --cem-menu-item-hover-color: white;
-
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
@@ -70,8 +66,15 @@
                     &[justify="end"  ]{ justify-content: flex-end;  }
                     &[justify="start"]{ justify-content: flex-start;}
 
-                    &>*{ padding: 0.5rem;
+                    &>*
+                    {   padding: var(--cem-menu-item-padding);
                         background-color: var( --cem-menu-item-background );
+                        color: var( --cem-menu-item-color );
+                        text-decoration: none;
+                        font-weight: var(--cem-menu-item-font-weight);
+
+                        &[disabled],&[disabled]:visited{ color:var(--cem-menu-item-color-disabled); }
+                        &:visited{ color:var(--cem-menu-item-color); }
                         &:hover
                         {
                             color: var(--cem-menu-item-hover-color);
@@ -90,7 +93,7 @@
     <template>
 <cem-menu>
     <a href="#">link 1</a>
-    <a href="#">link 2</a>
+    <a href="#" disabled>link 2</a>
     <a href="#">link 3</a>
 </cem-menu>
     </template>
