@@ -45,12 +45,16 @@
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <main>
-    <p><code>cem-dropdown</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
+    <p><code>cem-menu</code> is responsive menu component from &lt;custom-element&gt; Material suite based on the
         <a href="https://material.io/components" >Material Design specification</a>.
+    </p>
+    <p>
+        <code>direction</code> attribute defines css <code>row</code> or <code>column</code> flex-direction.
     </p>
     <custom-element tag="cem-menu" hidden>
         <template>
-            <attribute name="direction">row</attribute>
+            <attribute name="direction"></attribute>
+            <attribute name="justify"></attribute>
             <style>
                 dce-root
                 {
@@ -60,7 +64,12 @@
 
                     display: flex;
                     flex-direction: row;
-                    &[direction="column"]{ flex-direction: column; }
+                    flex-wrap: wrap;
+                    &[direction="column"]{ flex-direction: column;  }
+                    &[direction="row"   ]{ flex-direction: row;     }
+                    &[justify="end"  ]{ justify-content: flex-end;  }
+                    &[justify="start"]{ justify-content: flex-start;}
+
                     &>*{ padding: 0.5rem;
                         background-color: var( --cem-menu-item-background );
                         &:hover
@@ -86,6 +95,126 @@
 </cem-menu>
     </template>
 </html-demo-element>
+
+<html-demo-element legend="Vertical" description="vertical menu">
+    <template>
+<cem-menu direction="column">
+    <a href="#">link 1</a>
+    <a href="#">link 2</a>
+    <a href="#">link 3</a>
+</cem-menu>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Horizontal" description="horizontal menu">
+    <template>
+<cem-menu direction="row">
+    <a href="#">link 1</a>
+    <a href="#">link 2</a>
+    <a href="#">link 3</a>
+</cem-menu>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="custom styling for all menus in scope" description="supported via overriding css properties">
+    <template>
+<custom-element>
+    <template>
+<style>
+    a{
+        --cem-menu-item-color: yellow;
+        --cem-menu-item-background: lightblue;
+        --cem-menu-item-hover-background: blue;
+        --cem-menu-item-hover-color: red;
+        &:visited{ color:var(--cem-menu-item-color); }
+        &:hover{ color:var(--cem-menu-item-hover-color); }
+    }
+</style>
+<cem-menu direction="row">
+    <a href="#">link 1</a>
+    <a href="#">link 2</a>
+    <a href="#">link 3</a>
+</cem-menu>
+<cem-menu direction="row">
+    <a href="#">link A</a>
+    <a href="#">link B</a>
+</cem-menu>
+    </template>
+</custom-element>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="inline custom styling " description="supported via overriding css properties">
+    <template>
+<cem-menu direction="row">
+    <template>
+        <style>
+            a
+            {   --cem-menu-item-color:blue;
+                --cem-menu-item-background: salmon;
+                --cem-menu-item-hover-background: blue;
+                --cem-menu-item-hover-color: yellow;
+            }
+        </style>
+        <a href="#">link 1</a>
+        <a href="#">link 2</a>
+        <a href="#">link 3</a>
+    </template>
+</cem-menu>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="wrap menu" description="second line is left aligned by default">
+    <template>
+
+<custom-element>
+    <template>
+        <style>
+            cem-menu
+            {   display: block;
+                width: 8rem;
+                border: dashed 1px coral;
+            }
+        </style>
+<cem-menu>
+    <template>
+        <a href="#">link 1</a>
+        <a href="#">link 2</a>
+        <a href="#">link 3</a>
+    </template>
+</cem-menu>
+    </template>
+</custom-element>
+
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="wrap menu right" description="second line right aligned">
+    <template>
+
+<custom-element>
+    <template>
+        <style>
+            cem-menu
+            {   display: block;
+                width: 8rem;
+                border: dashed 1px coral;
+            }
+        </style>
+<cem-menu justify="end">
+    <template>
+        <a href="#">link 1</a>
+        <a href="#">link 2</a>
+        <a href="#">link 3</a>
+    </template>
+</cem-menu>
+    </template>
+</custom-element>
+
+    </template>
+</html-demo-element>
+
+
 
 
 
