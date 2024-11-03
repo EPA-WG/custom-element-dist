@@ -72,8 +72,8 @@
                         color: var( --cem-menu-item-color );
                         text-decoration: none;
                         font-weight: var(--cem-menu-item-font-weight);
-
-                        &[disabled],&[disabled]:visited{ color:var(--cem-menu-item-color-disabled); }
+                        &:focus{ z-index: 1; }
+                        &[disabled],&[disabled]:visited{ color:var(--cem-menu-item-color-disabled); pointer-events: none;}
                         &:visited{ color:var(--cem-menu-item-color); }
                         &:hover
                         {
@@ -93,7 +93,7 @@
     <template>
 <cem-menu>
     <a href="#">link 1</a>
-    <a href="#" disabled>link 2</a>
+    <a disabled>link 2</a>
     <a href="#">link 3</a>
 </cem-menu>
     </template>
