@@ -30,9 +30,7 @@
             &>p{ min-width: 90%; }
             html-demo-element
             {   overflow: visible;
-                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
-                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
-                [slot="description"] dd{ padding: 0; }
+
             }
         }
     </style>
@@ -132,11 +130,11 @@
                     slice{display: none;}
                 }
             </style>
-            <pre>
-                //focused {//focused}
-                //suggest {//suggest}
-                //selected {//selected}
-            </pre>
+<!--            <pre>-->
+<!--                //focused {//focused}-->
+<!--                //suggest {//suggest}-->
+<!--                //selected {//selected}-->
+<!--            </pre>-->
             <slot name="input"><label>{$label}<xhtml:input
                     name="{$name}"
                     type="{$type}"
@@ -239,7 +237,7 @@
     Powered by Syngrafact Corp. ©2024.<br/>
     <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
 </footer>
-<script type="module" src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js"></script>
+<script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
 
 </body>
 </html>
