@@ -35,7 +35,7 @@
 
 <body>
 <custom-element hidden src="./index.html#icon-button" tag="icon-button"></custom-element>
-
+<custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
 
 <header class="cem-theme-teal">
     <custom-element src="./index.html#nav-head" ></custom-element>
@@ -89,6 +89,13 @@
             <p>hello</p>
             <p>hi</p>
         </cem-badge>
+    </demo-list-card>
+    <demo-list-card head="Menu" description="Vertical or horizontal List of actions: links or buttons">
+        <cem-menu direction="row">
+                <a href="#">link 1</a>
+                <a href="#">link 2</a>
+                <a href="#">link 3</a>
+        </cem-menu>
     </demo-list-card>
 </main>
 <footer>
