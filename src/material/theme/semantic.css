@@ -50,16 +50,22 @@
 /*#region semantic colors  */
 :root, .cem-theme-default, .cem-theme-azure{
 
-    --primary-color: var(--ng-azure-90);
-    --secondary-color: var(--ng-azure-80);
+    --primary-background-color: var(--ng-azure-90);
+    --secondary-background-color: var(--ng-azure-80);
     --alert-color: var(--ng-magenta-80);
-    --text-color: var(--ng-azure-40);
+    --text-color: var(--ng-azure-10);
 
-    --cem-action-primary-color: var(--primary-color);
+    --cem-action-primary-color: var(--text-color);
     --cem-action-primary-background: transparent;
     --cem-action-primary-background-hover: var(--ng-azure-80,lightgrey);
     --cem-action-primary-background-focus: var(--ng-azure-70,silver);
     --cem-action-primary-background-active: var(--ng-azure-60,grey);
+
+    --cem-action-secondary-color: var(--text-color);
+    --cem-action-secondary-background: var(--ng-azure-secondary-90);
+    --cem-action-secondary-background-hover: var(--ng-azure-secondary-80,lightgrey);
+    --cem-action-secondary-background-focus: var(--ng-azure-secondary-70,silver);
+    --cem-action-secondary-background-active: var(--ng-azure-secondary-60,grey);
 
     --cem-action-box-shadow: var(--ng-action-elevation-shadow, 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12));
     --cem-action-box-shadow-hover: var(--ng-action-box-shadow-hover);
