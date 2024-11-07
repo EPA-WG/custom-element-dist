@@ -336,10 +336,10 @@
     react-confetti "^6.1.0"
     strip-ansi "^7.1.0"
 
-"@epa-wg/custom-element@0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@epa-wg/custom-element/-/custom-element-0.0.27.tgz#bf392c20fb68327b3727a54c91ccf10f4b82ee1d"
-  integrity sha512-GGZzzQaZIONuPNkj+4mefcRdCyIOTzuVozkd0r3cdiiCCRGHw/OXMhW5EnT7UZxPS8WHoG3yp6TSmLrqSqYOOA==
+"@epa-wg/custom-element@0.0.28":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@epa-wg/custom-element/-/custom-element-0.0.28.tgz#05133bca4defe5955d3dcf09a09bfd1341c2286d"
+  integrity sha512-ikwyGgyxUx8xaz3DKhay/A/wjw2O50PBhMqVLt4Q2ZbfkZLbEoKJgmljDmLWVUpRVH7F4AJYjHRprH2e+AB+UA==
 
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
