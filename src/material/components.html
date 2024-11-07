@@ -34,7 +34,8 @@
 </head>
 
 <body>
-<custom-element hidden src="./index.html#icon-button" tag="icon-button"></custom-element>
+<custom-element tag="icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
+<custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
 
 <header class="cem-theme-teal">
@@ -78,6 +79,12 @@
             </a>
         </template>
     </custom-element>
+
+    <demo-list-card head="icon-link" description="Vertical or horizontal List of actions: links or buttons">
+        <cem-icon-link icon="format_color_fill"
+                       title="Select a theme for the documentation"> Theme</cem-icon-link>
+
+    </demo-list-card>
 
     <demo-list-card head="Menu" description="Vertical or horizontal List of actions: links or buttons">
         <cem-menu direction="row">
