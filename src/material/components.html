@@ -27,14 +27,14 @@
             display: flex; flex-wrap: wrap;
             gap: 3rem;
             padding: 5rem;
-            &>*{ width: 16rem;}
+            &>*{ flex: 1 1 12rem;}
             &>p{ min-width: 90%; }
         }
     </style>
 </head>
 
 <body>
-<custom-element tag="icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
+<custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
 
@@ -86,7 +86,7 @@
 
     </demo-list-card>
 
-    <demo-list-card head="Menu" description="Vertical or horizontal List of actions: links or buttons">
+    <demo-list-card head="menu" description="Vertical or horizontal List of actions: links or buttons">
         <cem-menu direction="row">
                 <a href="#">🏠link</a>
                 <a disabled>text</a>
@@ -100,7 +100,12 @@
             <p>hi</p>
         </cem-autocomplete>
     </demo-list-card>
-    <demo-list-card head="Badge" description="A small value indicator that can be overlaid on another object.">
+    <demo-list-card head="dropdown" description="dropdown overlay which hangs above the background html">
+        <cem-dropdown>
+            cem-dropdown
+        </cem-dropdown>
+    </demo-list-card>
+    <demo-list-card head="badge" description="A small value indicator that can be overlaid on another object.">
         <cem-badge placeholder="Greetings" >
             <p>hello</p>
             <p>hi</p>
