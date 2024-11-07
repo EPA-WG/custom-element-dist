@@ -3,7 +3,7 @@ export default {
     "_rev": "5-df363ab4a2b9c478c01e021bde4fbafe",
     "name": "@epa-wg/custom-element-dist",
     "dist-tags": {
-        "latest": "0.0.27"
+        "latest": "0.0.28"
     },
     "versions": {
         "0.0.1": {
@@ -617,9 +617,9 @@ export default {
                 "host": "s3://npm-registry-packages"
             }
         },
-        "0.0.27": {
+        "0.0.28": {
             "name": "@epa-wg/custom-element-dist",
-            "version": "0.0.27",
+            "version": "0.0.28",
             "type": "module",
             "scripts": {
                 "dev": "vite",
@@ -636,7 +636,7 @@ export default {
                 "t": "vitest --no-file-parallelism --watch --browser.headless=false src/stories/attributes.test.stories.ts"
             },
             "dependencies": {
-                "@epa-wg/custom-element": "0.0.27"
+                "@epa-wg/custom-element": "0.0.28"
             },
             "devDependencies": {
                 "@chromatic-com/storybook": "^1.3.3",
@@ -707,7 +707,7 @@ export default {
                 "./src/custom-element/ide/web-types-dce.json",
                 "./src/custom-element/ide/web-types-xsl.json"
             ],
-            "_id": "@epa-wg/custom-element-dist@0.0.27",
+            "_id": "@epa-wg/custom-element-dist@0.0.28",
             "gitHead": "a6a84bdc2cc433acf3d3afa827556c79ecacffb8",
             "description": "Binary distribution for [@epa-wg/custom-element][git-url] with StoryBook and test coverage",
             "_nodeVersion": "20.8.1",
@@ -715,7 +715,7 @@ export default {
             "dist": {
                 "integrity": "sha512-ISVPKkirFGvTTNFanf9WxOTeEBJrAyjuebqQSJiH97QHgG7pxQQAWUC4heBRbJ9kUo5FUmBDph2d9Rep/POCDw==",
                 "shasum": "1a68a8bc37315cbcab0f66247aa54c82d7bc159d",
-                "tarball": "https://registry.npmjs.org/@epa-wg/custom-element-dist/-/custom-element-dist-0.0.27.tgz",
+                "tarball": "https://registry.npmjs.org/@epa-wg/custom-element-dist/-/custom-element-dist-0.0.28.tgz",
                 "fileCount": 299,
                 "unpackedSize": 9437753,
                 "signatures": [
@@ -751,7 +751,7 @@ export default {
         "0.0.22": "2024-06-25T03:55:52.525Z",
         "0.0.23": "2024-06-27T03:25:14.314Z",
         "0.0.24": "2024-07-22T03:10:12.564Z",
-        "0.0.27": "2024-08-06T07:29:39.264Z"
+        "0.0.28": "2024-08-06T07:29:39.264Z"
     },
     "bugs": {
         "url": "https://github.com/EPA-WG/custom-element/issues"
@@ -781,6 +781,6 @@ export default {
             "email": "suns@simulationworks.com"
         }
     ],
-    "readme": "# custom-element-dist\nBinary distribution for [@epa-wg/custom-element][git-url] with StoryBook and test coverage\n\n`custom-element` [![git][github-image] GitHub][git-url]\n| [tests project][git-test-url]\n| [![NPM version][npm-image]][npm-url]\n| [![coverage][coverage-image]][coverage-url]\n| [StoryBook][sb-url]\n\n# Content\n[bin/build.sh] generates binaries to be kept as in Git release as in NPM package.\nIt serves the record of compliance on the moment of build.\n## [dist](dist)\nCan be used as CDN entry with minified bundle: [custom-element-bundle.js][bundle-url]\n\nEach individual component of `custom-element` lib is available as hashed JS.\n\n## [coverage](coverage)\nProvides the unit test coverage for lib and StoryBooks\n\n## [storybook-static][sb-url]\nCDN version of StoryBook.\n\n[git-url]:        https://github.com/EPA-WG/custom-element\n[git-test-url]:   https://github.com/EPA-WG/custom-element-dist\n[github-image]:   https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg\n[npm-image]:      https://img.shields.io/npm/v/@epa-wg/custom-element-dist.svg\n[npm-url]:        https://npmjs.org/package/@epa-wg/custom-element-dist\n[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.27/coverage/src/custom-element/coverage.svg\n[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.27/coverage/src/custom-element/index.html\n[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.27/storybook-static/index.html\n[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.27/dist/custom-element-bundle.js\n",
+    "readme": "# custom-element-dist\nBinary distribution for [@epa-wg/custom-element][git-url] with StoryBook and test coverage\n\n`custom-element` [![git][github-image] GitHub][git-url]\n| [tests project][git-test-url]\n| [![NPM version][npm-image]][npm-url]\n| [![coverage][coverage-image]][coverage-url]\n| [StoryBook][sb-url]\n\n# Content\n[bin/build.sh] generates binaries to be kept as in Git release as in NPM package.\nIt serves the record of compliance on the moment of build.\n## [dist](dist)\nCan be used as CDN entry with minified bundle: [custom-element-bundle.js][bundle-url]\n\nEach individual component of `custom-element` lib is available as hashed JS.\n\n## [coverage](coverage)\nProvides the unit test coverage for lib and StoryBooks\n\n## [storybook-static][sb-url]\nCDN version of StoryBook.\n\n[git-url]:        https://github.com/EPA-WG/custom-element\n[git-test-url]:   https://github.com/EPA-WG/custom-element-dist\n[github-image]:   https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg\n[npm-image]:      https://img.shields.io/npm/v/@epa-wg/custom-element-dist.svg\n[npm-url]:        https://npmjs.org/package/@epa-wg/custom-element-dist\n[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.28/coverage/src/custom-element/coverage.svg\n[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.28/coverage/src/custom-element/index.html\n[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.28/storybook-static/index.html\n[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.28/dist/custom-element-bundle.js\n",
     "readmeFilename": "README.md"
 }

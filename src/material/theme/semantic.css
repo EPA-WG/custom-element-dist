@@ -1,0 +1,112 @@
+/*  cem - custom-element material
+    SEMANTIC THEME basic definitions
+    based on https://blog.firsov.net/search/label/Semantic%20Theme
+ */
+:root{
+
+/*#region SPACING DIMENSIONS */
+--cem-dim-xx-small  : 0.25rem;
+--cem-dim-x-small   : 0.5rem;
+--cem-dim-small     : 0.75rem;
+--cem-dim-medium    : 1rem;
+--cem-dim-large     : 1.5rem;
+--cem-dim-x-large   : 2rem;
+--cem-dim-xx-large  : 4rem;
+--cem-dim-xxx-large : 8rem;
+/*#endregion */
+
+/*#region OUTLINE THIKNESS */
+--cem-thick-none: 0;
+--cem-thick-xx-light: 0.5px;
+--cem-thick-x-light : 1px;
+--cem-thick-light   : 2px;
+--cem-thick-normal  : 4px;
+--cem-thick-bold    : 0.5rem;
+--cem-thick-x-bold  : 1rem;
+--cem-thick-xx-bold : 4rem;
+/*#endregion */
+
+/*#region TEXT TRACKING/SPACING */
+--cem-tracking-negative : -0.25em;
+--cem-tracking-stick    : 0;
+--cem-tracking-tight    : 0.5px;
+--cem-tracking-normal   : auto;
+--cem-tracking-loose    : 0.25em;
+--cem-tracking-sparse   : 0.5em;
+--cem-tracking-spread   : 1em;
+/*#endregion */
+
+/*#region branded colors  */
+
+/*#endregion */
+
+/*#region action */
+
+/*#endregion */
+
+}
+
+
+/*#region semantic colors  */
+:root, .cem-theme-default, .cem-theme-azure{
+
+    --primary-background-color: var(--ng-azure-90);
+    --secondary-background-color: var(--ng-azure-80);
+    --alert-color: var(--ng-magenta-80);
+    --text-color: var(--ng-azure-10);
+
+    --cem-action-primary-color: var(--text-color);
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--ng-azure-80,lightgrey);
+    --cem-action-primary-background-focus: var(--ng-azure-70,silver);
+    --cem-action-primary-background-active: var(--ng-azure-60,grey);
+
+    --cem-action-secondary-color: var(--text-color);
+    --cem-action-secondary-background: var(--ng-azure-secondary-90);
+    --cem-action-secondary-background-hover: var(--ng-azure-secondary-80,lightgrey);
+    --cem-action-secondary-background-focus: var(--ng-azure-secondary-70,silver);
+    --cem-action-secondary-background-active: var(--ng-azure-secondary-60,grey);
+
+    --cem-action-box-shadow: var(--ng-action-elevation-shadow, 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12));
+    --cem-action-box-shadow-hover: var(--ng-action-box-shadow-hover);
+    --cem-action-transition: var(--ng-action-transition);
+
+    --cem-app-surface-variant: var(--ng-azure-variant-90);
+    --cem-app-on-surface: var(--ng-azure-variant-70);
+    --cem-app-primary: var(--ng-azure-variant-60);
+
+    --cem-filled-text-field-container-color: var(--ng-azure-variant-90);
+    --cem-filled-text-field-label-text-color: var(--ng-azure-variant-30);
+    --cem-filled-text-field-input-text-color: var(--ng-azure-variant-0);
+    --cem-filled-text-field-caret-color: var(--ng-azure-variant-10);
+    --cem-outline-color-focus: var(--ng-azure-40);
+
+    --cem-list-background-color: var(--ng-azure-neutral-94);
+    --cem-list-background-color-hover: var(--ng-azure-variant-90);
+    --cem-list-background-color-focus: var(--ng-azure-variant-80);
+
+    --cem-menu-item-color: black;
+    --cem-menu-item-color-disabled: var(--ng-azure-neutral-50);
+    --cem-menu-item-background: var(--ng-azure-neutral-94);
+    --cem-menu-item-hover-background: var(--ng-azure-neutral-80);
+    --cem-menu-item-hover-color: black;
+    --cem-menu-item-padding: 0.5rem;
+    --cem-menu-item-font-weight: bold;
+}
+
+.cem-theme-teal{
+
+    --primary-color: var(--ng-teal-primary);
+    --secondary-color: var(--ng-teal-hover);
+    --alert-color: var(--ng-magenta-80);
+    --text-color: var(--ng-azure-40);
+
+    --cem-action-primary-color: var(--primary-color);
+
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--ng-teal-hover,lightgrey);
+    --cem-action-primary-background-focus: var(--ng-teal-focus,silver);
+    --cem-action-primary-background-active: var(--ng-teal-active,grey);
+}
+
+/*#endregion */

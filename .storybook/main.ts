@@ -5,9 +5,9 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    // "@chromatic-com/storybook",
+    // "@chromatic-com/storybook", // breaks SB UI
     '@storybook/addon-interactions',
-    // "@storybook/addon-mdx-gfm"
+    // "@storybook/addon-mdx-gfm" // not used
   ],
   framework: {
     name: "@storybook/web-components-vite",

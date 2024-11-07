@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <link href="../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../"
+          }
+        }
+    </script>
+    <script src="../custom-element/module-url.js" type="module"></script>
+    <script src="../custom-element/custom-element.js" type="module"></script>
+    <style>
+        @import "./angular.css";
+        @import "./material.css";
+        @import "./theme/semantic.css";
+        @import "./demo.css";
+        main{
+            display: flex; flex-wrap: wrap;
+            gap: 3rem;
+            padding: 5rem;
+            &>*{ width: 16rem;}
+            &>p{ min-width: 90%; }
+        }
+    </style>
+</head>
+
+<body>
+<custom-element hidden src="./index.html#icon-button" tag="icon-button"></custom-element>
+<custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
+
+<header class="cem-theme-teal">
+    <custom-element src="./index.html#nav-head" ></custom-element>
+</header>
+<main>
+    <p>&lt;custom-element&gt; Material offers a wide variety of UI components based on the
+        <a href="https://material.io/components" >Material Design specification</a>.
+    </p>
+    <custom-element tag="demo-list-card" hidden>
+        <template>
+            <attribute name="head"></attribute>
+            <attribute name="description"></attribute>
+            <style>
+                &>dce-root
+                {   display: inline-flex; flex-direction: column;
+                    transition: background .3s ease;
+                    border: 1px solid #c4c6d0;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    &>*{padding: 1rem;}
+                    &>a
+                    {   color: var(--cem-action-secondary-color, black);
+                        background-color:var(--cem-action-secondary-background, silver);
+                        transition: background .3s ease;
+                        transform: translateZ(0);
+                        &:hover { background-color: var(--cem-action-secondary-background-hover); }
+                        &:focus { background-color: var(--cem-action-secondary-background-focus); }
+                        &:focus:active,
+                        &:active{ background-color: var(--cem-action-secondary-background-active); }
+
+                        &, &:visited { text-decoration: none; }
+                        h3{ text-transform: capitalize; }
+                    }
+                }
+            </style>
+            <slot></slot>
+            <a href="./components/{$head}.html">
+                <h3>{$head}</h3>
+                {$description}
+            </a>
+        </template>
+    </custom-element>
+
+    <demo-list-card head="Menu" description="Vertical or horizontal List of actions: links or buttons">
+        <cem-menu direction="row">
+                <a href="#">🏠link</a>
+                <a disabled>text</a>
+                <a href="#">link</a>
+        </cem-menu>
+    </demo-list-card>
+
+    <demo-list-card head="autocomplete" description="Suggests relevant options as the user types.">
+        <cem-autocomplete placeholder="Greetings" >
+            <p>hello</p>
+            <p>hi</p>
+        </cem-autocomplete>
+    </demo-list-card>
+    <demo-list-card head="Badge" description="A small value indicator that can be overlaid on another object.">
+        <cem-badge placeholder="Greetings" >
+            <p>hello</p>
+            <p>hi</p>
+        </cem-badge>
+    </demo-list-card>
+</main>
+<footer>
+    <hr/>
+    Powered by Syngrafact Corp. ©2024.<br/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+</body>
+</html>

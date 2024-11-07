@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+    <style>
+        @import "../angular.css";
+        @import "../material.css";
+        @import "../theme/semantic.css";
+        @import "../demo.css";
+        main{
+            display: flex; flex-wrap: wrap;
+            gap: 3rem;
+            padding: 5rem;
+            &>p{ min-width: 90%; }
+            html-demo-element{flex:1; width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+<custom-element hidden src="../index.html#icon-button" tag="icon-button"></custom-element>
+
+
+<header class="cem-theme-teal">
+    <custom-element src="../index.html#nav-head" ></custom-element>
+</header>
+<main>
+    <p><code>cem-autocomplete</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
+        <a href="https://material.io/components" >Material Design specification</a>.
+    </p>
+    <custom-element tag="cem-autocomplete" hidden>
+        <template>
+            <attribute name="name"></attribute>
+            <attribute name="label"></attribute>
+            <attribute name="placeholder"></attribute>
+            <attribute name="type">search</attribute>
+            <attribute name="value"></attribute>
+            <style>
+                dce-root
+                {   position: relative;
+                    display: flex; flex-direction: column; justify-content: center;
+                    --drop-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+                    --input-padding: 0;
+
+                    --cem-input-outline: inset 0 -1px 0 black;
+                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
+                    --cem-autocomplete-container-shape: 0.25rem;
+                    --cem-autocomplete-background-color: var(--cem-list-background-color);
+                    --cem-autocomplete-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+
+                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
+
+                    min-height: 3.5rem;
+
+                    & > fieldset,
+                    & > fieldset[focus-within="0"]{display: none;}
+
+                    & > fieldset[focus-within="1"],
+                    & > fieldset[focus-within="2"]{ display: flex;  max-height: 10rem; height: auto; overflow: auto; transition: var(--drop-transition) }
+
+                    fieldset
+                    {   position: absolute;
+                        left: 0; right: 0; top:100%;
+                        flex-direction: column; border: red;  max-height: 0;
+                        transition: var(--drop-transition);
+                        overflow: hidden; padding: 0;
+
+                        border-radius: var(--cem-autocomplete-container-shape);
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        box-shadow: var(--cem-autocomplete-container-elevation-shadow);
+                        background-color: var(--cem-autocomplete-background-color );
+
+                        transition-delay: 40ms;
+                        transition-duration: 110ms;
+
+                        label{ padding: 0.5rem;
+                            &:hover{ background-color: var(--cem-list-background-color-hover);}
+                            &:focus-within{ background-color: var(--cem-list-background-color-focus);}
+                            input{ width: 0; overflow: hidden; display: inline-block; }
+                        }
+                    }
+                    &>label
+                    {   display: flex; flex-direction: column; justify-content: center;
+                        flex: 1; padding: 0.5rem 1rem;
+                        box-shadow: var(--cem-input-outline);
+                        transition: var(--drop-transition);
+                        color: var(--cem-filled-text-field-label-text-color);
+
+                        input
+                        {   background: none; padding: var(--input-padding);
+                            &,&:focus,&:focus-visible{ border: none; outline: none; }
+                            &:placeholder-shown{ border: none; outline:none;  }
+                            &[value=""]{ height: 0; }
+                            &:focus,&:focus-visible,&[placeholder*=""]{ height: auto; }
+
+                            color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
+                            caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
+                            font-size: 1rem;
+                            transition: var(--drop-transition);
+                        }
+                    }
+                    &:focus-within
+                    {
+                        &> label
+                        {   box-shadow: var(--cem-input-outline-focus);
+                            font-size: small; justify-content: space-between;
+                        }
+                    }
+                    label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
+                    slice{display: none;}
+                }
+            </style>
+<!--            <pre>-->
+<!--                //focused {//focused}-->
+<!--                //suggest {//suggest}-->
+<!--                //selected {//selected}-->
+<!--            </pre>-->
+            <slot name="input"><label>{$label}<xhtml:input
+                    name="{$name}"
+                    type="{$type}"
+                    placeholder="{$placeholder}"
+                    value="{//selected ?? $value}"
+                    slice="selected" slice-event="input"
+                    >
+                    <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                    <slice name="focused" slice-event="focus" slice-value="1"></slice>
+                    <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
+                </xhtml:input></label></slot>
+            <fieldset form="cem-autocomplete-form" >
+                <attribute name="focus-within">{//focused}</attribute>
+                <xsl:for-each select="/datadom/payload/*[normalize-space(text()) != '']">
+                    <if test="normalize-space(//selected) = '' or contains(@value, //filter)">
+                        <label value="{@value ?? .}"
+                            ><xhtml:input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input">
+                            <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                            <slice name="focused" slice-event="focus" slice-value="2"></slice>
+                        </xhtml:input>
+                            {.}</label>
+                    </if>
+                </xsl:for-each>
+            </fieldset>
+        </template>
+    </custom-element>
+
+<html-demo-element legend="No value" description="Focus to see the cursor in input with label shifted upward ">
+    <template>
+<cem-autocomplete label="String field" ></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text">
+    <template>
+<cem-autocomplete label="Number" type="number" placeholder="Enter the numeric value"></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Value defined" description="The value should be visible" >
+    <template>
+<cem-autocomplete label="Text" type="text" value="abc"></cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No initial value with placeholder" >
+    <div slot="description"><code>data value="xxx</code> for selection item uses <code>data</code> attribute for value </div>
+    <template>
+<cem-autocomplete label="Fruits and berries" type="text" placeholder="Enter the fruit name">
+    <data value="apple"      > 🍎 Apple        </data>
+    <data value="strawberry" > 🍓 Strawberry   </data>
+    <data value="pineapple"  > 🍍 Pineapple    </data>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Number, No initial value without placeholder" description="label takes the space till input is focused" >
+    <template>
+<cem-autocomplete label="Number" type="number" >
+    <data value="1">One       </data>
+    <data value="2">Two       </data>
+    <data value="3">Three     </data>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+
+<html-demo-element legend="Options text as value" description="The value is same as text" >
+    <template>
+<cem-autocomplete label="Dinosaur" type="text" >
+        <option>Tyrannosaurus    </option>
+        <option>Sauropod         </option>
+        <option>Velociraptor     </option>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Options Grouping" description="filter within eac group, empty groups are hidden" >
+    <template>
+<cem-autocomplete label="Number" type="text" >
+    <optgroup label="🦖 Theropods">
+        <option>Tyrannosaurus    </option>
+        <option>Sauropod         </option>
+        <option>Velociraptor     </option>
+        <option>Deinonychus      </option>
+    </optgroup>
+    <optgroup label="🦕 Sauropods">
+        <option>Diplodocus      </option>
+        <option>Saltasaurus     </option>
+        <option>Apatosaurus     </option>
+    </optgroup>
+</cem-autocomplete>
+    </template>
+</html-demo-element>
+
+
+</main>
+<footer>
+    <hr/>
+    Powered by Syngrafact Corp. ©2024.<br/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+<!--<script type="module" src="./html-demo-element.js"></script>-->
+<script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
+
+</body>
+</html>

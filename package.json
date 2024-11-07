@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-dist",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,19 +19,19 @@
     "tf": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --browser.name=firefox --watch --browser.headless=false  src/stories/module-url.test.stories.ts"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.27"
+    "@epa-wg/custom-element": "0.0.28"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "2.0.0",
-    "@storybook/addon-essentials": "8.2.9",
-    "@storybook/addon-interactions": "8.2.9",
-    "@storybook/addon-links": "8.2.9",
-    "@storybook/addon-mdx-gfm": "8.2.9",
-    "@storybook/blocks": "8.2.9",
-    "@storybook/test": "8.2.9",
+    "@chromatic-com/storybook": "2.0.2",
+    "@storybook/addon-essentials": "8.3.3",
+    "@storybook/addon-interactions": "8.3.3",
+    "@storybook/addon-links": "8.3.3",
+    "@storybook/addon-mdx-gfm": "8.3.3",
+    "@storybook/blocks": "8.3.3",
+    "@storybook/test": "8.3.3",
     "@storybook/test-runner": "0.19.1",
-    "@storybook/web-components": "8.2.9",
-    "@storybook/web-components-vite": "8.2.9",
+    "@storybook/web-components": "8.3.3",
+    "@storybook/web-components-vite": "8.3.3",
     "@vitest/browser": "2.0.5",
     "@vitest/coverage-istanbul": "2.0.5",
     "coverage-svg": "0.0.3",
@@ -39,9 +39,9 @@
     "msw": "2.4.5",
     "msw-storybook-addon": "2.0.3",
     "playwright": "1.47.0",
-    "storybook": "8.2.9",
+    "storybook": "8.3.3",
     "typescript": "5.6.2",
-    "vite": "5.4.3",
+    "vite": "5.4.8",
     "vitest": "2.0.5",
     "webdriverio": "9.0.9"
   },
