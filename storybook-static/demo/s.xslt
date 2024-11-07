@@ -1,56 +1,39 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                >
-    <xsl:output method="xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dce="urn:schemas-epa-wg:dce" xmlns:exsl="http://exslt.org/common" version="1.0" exclude-result-prefixes="exsl">
+    <xsl:template match="ignore">
+        <xsl:choose>
+            <xsl:when test="//attr"><xsl:value-of select="//attr"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="def"/></xsl:otherwise>
+        </xsl:choose><xsl:value-of select="."/></xsl:template>
+    <xsl:template mode="payload" match="attributes"><xsl:param name="direction"><xsl:choose>
+            <xsl:when test="//direction"><xsl:value-of select="//direction"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="'row'"/></xsl:otherwise>
+        </xsl:choose></xsl:param><dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" data-dce-id="1"><xsl:attribute name="direction"><xsl:choose>
+            <xsl:when test="//direction"><xsl:value-of select="//direction"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="'row'"/></xsl:otherwise>
+        </xsl:choose></xsl:attribute><xsl:call-template name="slot">
+            <xsl:with-param name="slotname" select="''"/>
+            <xsl:with-param name="defaultvalue"/>
+        </xsl:call-template></dce-root></xsl:template>
     <xsl:template match="/">
-        <dce-root >
-            <xsl:apply-templates select="*"/>
-        </dce-root>
+        <xsl:apply-templates mode="payload" select="/datadom/attributes"/>
     </xsl:template>
-    <xsl:template match="*[name()='template']">
-        <xsl:apply-templates mode="sanitize" select="*|text()"/>
+    <xsl:template name="slot">
+        <xsl:param name="slotname"/>
+        <xsl:param name="defaultvalue"/>
+        <xsl:choose>
+            <xsl:when test="//payload/*[@slot=$slotname]">
+               <xsl:copy-of select="//payload/*[@slot=$slotname]"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$defaultvalue"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="*">
-        <xsl:apply-templates mode="sanitize" select="*|text()"/>
-    </xsl:template>
-    <xsl:template match="*[name()='svg']|*[name()='math']">
-        <xsl:apply-templates mode="sanitize" select="."/>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="*[count(text())=1 and count(*)=0]">
-        <xsl:copy>
-            <xsl:apply-templates mode="sanitize" select="@*"/>
-            <xsl:value-of select="text()"></xsl:value-of>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="xhtml:*[count(text())=1 and count(*)=0]">
-        <xsl:element name="{local-name()}">
-            <xsl:apply-templates mode="sanitize" select="@*"/>
-            <xsl:value-of select="text()"></xsl:value-of>
-        </xsl:element>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="*|@*">
-        <xsl:copy>
-            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="text()[normalize-space(.) = '']"/>
-    <xsl:template mode="sanitize" match="text()">
-        <dce-text>
-            <xsl:copy/>
-        </dce-text>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="xsl:value-of|*[name()='slot']">
-        <dce-text>
-            <xsl:copy>
-                <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
-            </xsl:copy>
-        </dce-text>
-    </xsl:template>
-    <xsl:template mode="sanitize" match="xhtml:*">
-        <xsl:element name="{local-name()}">
-            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
-        </xsl:element>
-    </xsl:template>
+    <xsl:variable name="js-injected-body">
+        <xsl:call-template name="slot">
+            <xsl:with-param name="slotname" select="''"/>
+            <xsl:with-param name="defaultvalue"/>
+        </xsl:call-template>
+    </xsl:variable>
 </xsl:stylesheet>

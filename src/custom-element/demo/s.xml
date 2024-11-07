@@ -1,3 +1,18 @@
-<body xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><h4>embed-1.html</h4>
-<custom-element><template>🖖</template></custom-element>
-</body>
+<?xml version="1.0" encoding="UTF-8"?>
+<datadom>
+    <payload xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        <a xmlns="http://www.w3.org/1999/xhtml" href="#" data-dce-id="4" slot="">link 1</a>
+        <a xmlns="http://www.w3.org/1999/xhtml" href="#" data-dce-id="5" slot="">link 2</a>
+        <a xmlns="http://www.w3.org/1999/xhtml" href="#" data-dce-id="6" slot="">link 3</a>
+    </payload>
+    <attributes>
+        <xmlns/>
+        <justify>end</justify>
+        <data-dce-id>2</data-dce-id>
+        <direction>row</direction>
+    </attributes>
+    <dataset>
+        <dceId>2</dceId>
+    </dataset>
+    <slice/>
+</datadom>
