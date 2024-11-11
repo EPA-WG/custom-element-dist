@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-dist",
-  "version": "0.0.29",
+  "version": "0.0.31",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,7 @@
     "tf": "node ./node_modules/vitest/vitest.mjs --no-file-parallelism --browser.name=firefox --watch --browser.headless=false  src/stories/module-url.test.stories.ts"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.29"
+    "@epa-wg/custom-element": "0.0.31"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
