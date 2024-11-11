@@ -189,6 +189,72 @@ export const SlicesInAttrAndName:Story  =
     },
 };
 
+
+export const CheckboxChecked:Story  =
+{   args : {title: 'Checkbox value in slice ', body:`
+    <p> Checked value propagated into slice</p>
+    <custom-element>
+        <template>
+            <input type="checkbox"  slice="s1" value="V1" checked/>
+            <p>slice: {//s1}</p>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await expect( await canvas.findByText( 'slice: V1')).toBeInTheDocument();
+    },
+};
+
+export const CheckboxUnchecked:Story  =
+{   args : {title: 'UncheckedCheckbox value not in slice ', body:`
+    <p> Check to see the value propagated into slice. Uncheck to observe the empty string in the slice. </p>
+    <custom-element>
+        <template>
+            <input type="checkbox"  slice="s1" value="V1" data-testid="i1"/>
+            <p data-testid="t1">slice: {//s1}</p>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        const p =await canvas.findByTestId( 't1');
+        await expect(p.textContent ).toEqual("slice: ");
+        const cb = await canvas.findByTestId( 'i1');
+        await userEvent.click ( cb );
+        await expect( await canvas.findByText('slice: V1')).toBeInTheDocument();
+        await userEvent.click ( cb );
+        await expect( p.textContent).toEqual('slice: ');
+
+    },
+};
+
+export const CheckboxSliceValue:Story  =
+{   args : {title: 'UncheckedCheckbox slice-value not in slice ', body:`
+    <p> Check to see the value propagated into slice. Uncheck to observe the empty string in the slice. </p>
+    <custom-element>
+        <template>
+            <input type="checkbox"  slice="s1" slice-value="'V1'" data-testid="i1"/>
+            <p data-testid="t1">slice: {//s1}</p>
+        </template>
+    </custom-element>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        const p =await canvas.findByTestId( 't1');
+        await expect(p.textContent ).toEqual("slice: ");
+        const cb = await canvas.findByTestId( 'i1');
+        await userEvent.click ( cb );
+        await expect( await canvas.findByText('slice: V1')).toBeInTheDocument();
+        await userEvent.click ( cb );
+        await expect( p.textContent).toEqual('slice: ');
+
+    },
+};
+
 //#region unit tests
 /* istanbul ignore else -- @preserve */
 if(  'test' === import.meta.env.MODE &&

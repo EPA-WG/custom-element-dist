@@ -19,7 +19,7 @@ const preview = {
         },
     },
     loaders: [mswLoader],
-    tags: ['autodocs', 'autodocs']
+    tags: ['autodocs', 'autodocs', 'autodocs']
 };
 
 export default preview;
