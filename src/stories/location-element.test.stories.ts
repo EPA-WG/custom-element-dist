@@ -1,11 +1,10 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }                            from '@storybook/web-components';
-import {expect, getByTestId, within}                from '@storybook/test';
+import {expect, within}                from '@storybook/test';
 
 import '../custom-element/custom-element.js';
 import '../custom-element/location-element.js';
-import {RealtimeEventInSlice, SliceInitChangeEvent} from './slice-events.test.stories';
 
 type TProps = { title: string; slice: string; href: string; live:string; body:string};
 const defs: TProps =

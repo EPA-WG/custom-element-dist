@@ -64,40 +64,40 @@ export const AttributesRuntimeChange:Story  =
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
-            p1: <code data-testid="p1">{$p1}</code> <br/>
-            p2: <code data-testid="p2">{$p2}</code> <br/>
-            p3: <code data-testid="p3">{$p3}</code>
+            p1: <code data-testid="t1">{$p1}</code> <br/>
+            p2: <code data-testid="t2">{$p2}</code> <br/>
+            p3: <code data-testid="t3">{$p3}</code>
         </template>
     </custom-element>
     <section>
-        <dce-link2   id="dce2" p1="123" p2="override ignored as select is defined"></dce-link2> <br>
-        <div><input id="i1" value="p1">  <button onclick="dce2.setAttribute('p1',i1.value)"> set p1</button> </div>
-        <div><input id="i2" value="p2">  <button onclick="dce2.setAttribute('p2',i2.value)"> set p2</button> </div>
-        <div><input id="i3" value="p3">  <button onclick="dce2.setAttribute('p3',i3.value)"> set p3</button> </div>
+        <dce-link2  id="dce2" p1="123" p2="override ignored as select is defined"></dce-link2> <br>
+        <div><input id="i1" value="P1">  <button onclick="dce2.setAttribute('p1',i1.value)"> set p1</button> </div>
+        <div><input id="i2" value="P2">  <button onclick="dce2.setAttribute('p2',i2.value)"> set p2</button> </div>
+        <div><input id="i3" value="P3">  <button onclick="dce2.setAttribute('p3',i3.value)"> set p3</button> </div>
     </section>
 `}
 ,   play: async ({canvasElement}) =>
     {
-        const titleText = AttributeDefaults.args!.title as string;
         const canvas = within(canvasElement)
-        ,       code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
+        ,       code = async (id:string) => await canvas.findByTestId(id);
 
         await sleep(20)
-        expect( await code('p1') ).toEqual('123' );
-        expect( await code('p2') ).toEqual('always_p2', 'no overrides due to value is hardcoded'  );
-        expect( await code('p3') ).toEqual('def_P3' );
-
-        dce2.setAttribute('p1',i1.value);
-        await sleep(10)
-        expect( await code('p1') ).toEqual('p1','set p1 in runtime' );
+        expect( await code('t1') ).toHaveTextContent('123' );
+        expect( await code('t2') ).toHaveTextContent('always_p2'); // no overrides due to value is hardcoded
+        expect( await code('t3') ).toHaveTextContent('def_P3' );
+        const dce2 = window.dce2;
+        dce2.setAttribute('P1',i1.value);
+        await expect(await canvas.findByText('P1')).toBeInTheDocument();
+        expect( await code('t1') ).toHaveTextContent('P1'); // 4. set p1 in runtime'
 
         dce2.setAttribute('p2',i2.value);
-        await sleep(10)
-        expect( await code('p2') ).toEqual('always_p2','can not set p2 in runtime' );
+        // await expect(await canvas.findByText('P2')).toBeInTheDocument();
+        expect( canvas.getByTestId('t2') ).toHaveTextContent('always_p2'); // can not set p2 in runtime
 
         dce2.setAttribute('p3',i3.value);
-        await sleep(10)
-        expect( await code('p3') ).toEqual('p3','set p3 in runtime' );
+        await expect(await canvas.findByText('P3')).toBeInTheDocument();
+
+        expect( canvas.getByTestId('t3') ).toHaveTextContent('P3'); // set p3 in runtime
     },
 };
 

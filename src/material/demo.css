@@ -29,3 +29,8 @@ footer{ text-align: center;
     }
 }
 code{ font-size: 125%; font-weight: bold; }
+html-demo-element{
+    pre{ margin: 0}
+    [slot="text"]{margin: 0 1rem; }
+    [slot="demo"]{margin: 0 1rem 1rem 1rem; }
+}
