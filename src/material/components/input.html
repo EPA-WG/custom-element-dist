@@ -58,6 +58,7 @@
             <attribute name="placeholder"></attribute>
             <attribute name="type">search</attribute>
             <attribute name="value"></attribute>
+            <attribute name="required"></attribute>
             <style>
                 dce-root
                 {
@@ -115,6 +116,7 @@
                     value="{//selected ?? $value}"
                     slice="selected" slice-event="input"
                     >
+                    <if test="$required"><attribute name="required">{$required}</attribute></if>
                     <slice name="focused" slice-event="blur" slice-value="0"></slice>
                     <slice name="focused" slice-event="focus" slice-value="1"></slice>
                     <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
@@ -158,11 +160,24 @@
     </template>
 </html-demo-element>
 
+<html-demo-element legend="Error native support">
+    <div slot="description"><code>required</code> attribute would trigger the system message if the field is empty.
+        Press Next button to see.</div>
+    <template>
+<form>
+    <cem-input required></cem-input>
+    <button>Next</button>
+</form>
+    </template>
+</html-demo-element>
+
 <html-demo-element legend="Error message">
     <div slot="description"><code>warn</code> slot is used for warning message</div>
     <template>
-<cem-input required>
-</cem-input>
+<form>
+    <cem-input required></cem-input>
+    <button>Next</button>
+</form>
     </template>
 </html-demo-element>
 
