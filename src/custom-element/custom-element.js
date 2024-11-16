@@ -198,9 +198,9 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     </xsl:template>
     <xsl:template mode="sanitize" match="xhtml:input">
         <xsl:element name="{local-name()}">
-            <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
+            <xsl:apply-templates mode="sanitize" select="*[not(name()='slice')]|@*|text()"/>
         </xsl:element>
-        <xsl:for-each select="*">
+        <xsl:for-each select="slice">
             <xsl:copy>
                 <xsl:attribute name="for" >^</xsl:attribute>
                 <xsl:apply-templates mode="sanitize" select="*|@*|text()"/>
