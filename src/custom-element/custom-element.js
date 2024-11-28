@@ -768,7 +768,7 @@ CustomElement extends HTMLElement
                     })
 
                     Object.entries(hardcodedAttributes).map(( [a,v] )=>
-                    {   if( v !== attr(this,a) )
+                    {   if( !this.hasAttribute(a) && v !== attr(this,a) )
                         {   this.setAttribute( a, v );
                             this.#applyAttribute( a, v );
                         }
