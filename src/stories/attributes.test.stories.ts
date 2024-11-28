@@ -1,9 +1,9 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj }                        from '@storybook/web-components';
-import {expect, within} from '@storybook/test';
+import {expect, userEvent, within} from '@storybook/test';
 
-import '../custom-element/custom-element.js';
+import {cloneAs, mix} from'../custom-element/custom-element.js';
 
 type TProps = { title: string; body:string};
 
@@ -29,12 +29,46 @@ const meta =
 
 export default meta;
 
+export const CloneAs:Story  =
+{   args : {title: 'cloneAs(el,newTag)', body:`
+    <p><code>cloneAs()</code> used for conversion of <code>attribute</code> to <code>xsl:param</code></p>
+    <attribute data-testid="t1" >default_P1                </attribute>
+    <attribute data-testid="t2" select="'always_p2'"      ></attribute>
+    <attribute data-testid="t3" ></attribute>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+
+        const cmp = async ( tid:string ) =>
+        {   const t1 = await canvas.findByTestId(tid);
+            const c1 = cloneAs(t1, 'xsl:param');
+            for( let a of t1.attributes )
+                {   await expect(a.value).toEqual(c1.getAttribute(a.name)); }
+
+            await expect( c1.textContent ).toEqual(t1.textContent);
+        }
+        await cmp('t1');
+        await cmp('t2');
+        await cmp('t3');
+    },
+};
+export const Mix:Story  =
+{   args : {title: 'mix(to,from)', body:`
+    <p><code>mix(to,from)</code> used for <code>attribute</code> collections</p>
+`}
+,   play: async () =>
+    {
+        await expect( mix({},{a:1,b:'2'})).toEqual({a:1,b:'2'});
+    },
+};
+
 export const AttributeDefaults:Story  =
 {   args : {title: 'Attributes definition', body:`
     <p>Params needed to declare DCE attributes and track the attributes changes. It also is used by IDE and validation.</p>
     <custom-element tag="dce-link" >
         <template>
-            <attribute name="p1">default_P1                </attribute>
+            <attribute name="p1">default_P1</attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="p1">{$p1}</code> <br/>
@@ -126,6 +160,72 @@ export const InstanceAttributes:Story  =
         expect( await code('p1') ).toEqual('123' );
         expect( await code('p2') ).toEqual('always_p2'  );
         expect( await code('p3') ).toEqual('qwe'     );
+    },
+};
+
+
+export const AttributesPropagationUp:Story  =
+{   args : {title: 'Instance Attributes', body:`
+    <p>Attributes with value(p2) or <code>select</code>(p3) should be propagated to DCE</p>
+    <p>p1 attribute is not propagated as does not have the value.</p>
+    <custom-element tag="sample-el">
+    <template>
+        <attribute name="data-testid"></attribute>
+        <attribute name="p1"></attribute>
+        <attribute name="p2">DEFAULT VALUE</attribute>
+        <attribute name="p3" select=" //from-input ?? 'abc' "></attribute>
+        <input slice="from-input" slice-event="input"/><br/>
+        p1:<code data-testid="{$data-testid}-p1" >{ $p1 }</code><br/>
+        p2:<code data-testid="{$data-testid}-p2" >{ $p2 }</code><br/>
+        p2:<code data-testid="{$data-testid}-p3" >{ $p3 }</code><br/>  
+        //from-input: {//from-input}      <hr/>
+    </template>
+</custom-element>
+
+<sample-el data-testid="t1" value="123"                 ></sample-el>
+<sample-el data-testid="t2" p1="P1" p2="123" p3="P3"    ></sample-el>
+<sample-el data-testid="t3"                             ></sample-el>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement)
+        , code = async (id:string) => (await canvas.findByTestId(id)).textContent?.trim();
+
+        await sleep(20)
+        
+        await expect( await code('t1-p1') ).toEqual('' );
+        await expect( await code('t1-p2') ).toEqual('DEFAULT VALUE' );
+        await expect( await code('t1-p3') ).toEqual('abc' );
+
+        const t1 = await canvas.findByTestId('t1');
+        await expect( t1 ).toHaveAttribute('value','123');
+        await expect( t1 ).toHaveAttribute('p2','DEFAULT VALUE');
+        await expect( t1 ).toHaveAttribute('p3','abc');
+        await expect( t1 ).not.toHaveAttribute('p1');
+
+        await expect( await code('t2-p1') ).toEqual('P1' );
+        await expect( await code('t2-p2') ).toEqual('123' );
+        await expect( await code('t2-p3') ).toEqual('abc' );
+        
+        const t2 = await canvas.findByTestId('t2');
+        await expect( t2 ).toHaveAttribute('p1','P1');
+        await expect( t2 ).toHaveAttribute('p2','123');
+        await expect( t2 ).toHaveAttribute('p3','abc');
+
+
+        await expect( await code('t3-p1') ).toEqual('' );
+        await expect( await code('t3-p2') ).toEqual('DEFAULT VALUE' );
+        await expect( await code('t3-p3') ).toEqual('abc' );
+        
+        const t3 = await canvas.findByTestId('t3');
+        await expect( t1 ).not.toHaveAttribute('p1');
+        await expect( t3 ).toHaveAttribute('p2','DEFAULT VALUE');
+        await expect( t3 ).toHaveAttribute('p3','abc');
+
+        t3.querySelector('input')?.focus();
+        await userEvent.keyboard('DCE');
+        await expect( t3 ).toHaveAttribute('p3','DCE');
+
     },
 };
 

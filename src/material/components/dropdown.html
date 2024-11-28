@@ -53,6 +53,7 @@
                 [slot="description"] dd {
                     padding: 0;
                 }
+                [slot="demo"]{ min-height: 8rem; }
             }
         }
     </style>
@@ -66,9 +67,10 @@
     <custom-element src="../index.html#nav-head"></custom-element>
 </header>
 <main>
-    <p><code>cem-dropdown</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
+    <p><code>cem-dropdown</code> is popover component from &lt;custom-element&gt; Material suite based on the
         <a href="https://material.io/components">Material Design specification</a>.
     </p>
+    <p>The visibility of dropdown content is driven by <code>open</code> attribute</p>
     <custom-element hidden tag="cem-dropdown">
         <template id="cem-dropdown">
             <attribute name="open"></attribute>
@@ -117,6 +119,20 @@
     </custom-element>
 
     <html-demo-element
+            legend="HTML in dropdown"
+            description="any HTML payload is OK. The image is just for reference." >
+        <template>
+<cem-dropdown label="Image in drop" open="true">
+    <img src="../../custom-element/demo/confused.svg"/>
+</cem-dropdown>
+<hr/>
+<hr/>
+<hr/>
+<hr/>
+        </template>
+    </html-demo-element>
+
+    <html-demo-element
             legend="Menu in dropdown"
             description="Focus to see the cursor in input with label shifted upward" >
         <template>
@@ -135,9 +151,11 @@
         <template>
             <custom-element>
                 <template>
-<label><input slice="opened" type="checkbox" value="1"/> open</label><br/>
-
+<label><input slice="opened" type="checkbox" value="1" checked/>
+        open</label><br/>
+//opened:'{//opened}'
 <cem-dropdown label="Vertical menu" open="{//opened='1'}">
+
     <cem-menu direction="column">
         <a href="#">link 1</a>
         <a href="#">link 2</a>
@@ -148,7 +166,6 @@
             </custom-element>
         </template>
     </html-demo-element>
-
 
 </main>
 <footer>

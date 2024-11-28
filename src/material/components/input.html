@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+    <style>
+        @import "../angular.css";
+        @import "../material.css";
+        @import "../theme/semantic.css";
+        @import "../demo.css";
+        main{
+            display: flex; flex-wrap: wrap;
+            gap: 3rem;
+            padding: 5rem;
+            &>p{ min-width: 90%; }
+            html-demo-element{flex:1; width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+<custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
+
+
+<header class="cem-theme-teal">
+    <custom-element src="../index.html#nav-head" ></custom-element>
+</header>
+<pre>
+    TODO
+    * bypass all INPUT attributes
+    * error handling
+    * link to form error handling
+    * docs
+</pre>
+<main>
+    <p><code>cem-input</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
+        <a href="https://material.io/components" >Material Design specification</a>.
+    </p>
+    <custom-element tag="cem-input" hidden>
+        <template>
+            <attribute name="name"           ></attribute>
+            <attribute name="label"          ></attribute>
+            <attribute name="type"           ></attribute>
+            <attribute name="autocapitalize" ></attribute>
+            <attribute name="disabled"       ></attribute>
+            <attribute name="multiple"       ></attribute>
+            <attribute name="readonly"       ></attribute>
+            <attribute name="required"       ></attribute>
+            <attribute name="incremental"    ></attribute>
+            <attribute name="max"            ></attribute>
+            <attribute name="maxlength"      ></attribute>
+            <attribute name="min"            ></attribute>
+            <attribute name="minlength"      ></attribute>
+            <attribute name="size"           ></attribute>
+            <attribute name="step"           ></attribute>
+            <attribute name="tabindex"       ></attribute>
+            <attribute name="autocomplete"   ></attribute>
+            <attribute name="form"           ></attribute>
+            <attribute name="id"             ></attribute>
+            <attribute name="list"           ></attribute>
+            <attribute name="pattern"        ></attribute>
+            <attribute name="placeholder"    ></attribute>
+            <attribute name="title"          ></attribute>
+            <attribute name="value"          ></attribute>
+
+            <style>
+                dce-root
+                {
+                    display: flex; flex-direction: column; justify-content: center;
+                    --input-padding: 0;
+
+                    --cem-input-outline: inset 0 -1px 0 black;
+                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
+                    --cem-input-container-shape: 0.25rem;
+                    --cem-input-background-color: var(--cem-list-background-color);
+                    --cem-input-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+
+                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
+
+                    &>label
+                    {   display: flex; flex-direction: column; justify-content: center;
+                        flex: 1; padding: 0.5rem 1rem;
+                        box-shadow: var(--cem-input-outline);
+                        transition: var(--drop-transition);
+                        box-sizing: border-box;
+                        min-height: 3.5rem;
+                        color: var(--cem-filled-text-field-label-text-color);
+
+                        input
+                        {   background: none; padding: var(--input-padding);
+                            &,&:focus,&:focus-visible{ border: none; outline: none; }
+                            &:placeholder-shown{ border: none; outline:none;  }
+                            &[value=""]{ height: 0; }
+                            &:focus,&:focus-visible,&[placeholder*=""]{ height: auto; }
+
+                            color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
+                            caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
+                            font-size: 1rem;
+                            transition: var(--drop-transition);
+                        }
+                    }
+                    &:focus-within
+                    {
+                        &> label
+                        {   box-shadow: var(--cem-input-outline-focus);
+                            font-size: small; justify-content: space-between;
+                        }
+                    }
+                    label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
+                    slice{display: none;}
+                }
+            </style>
+            <slot name="head"></slot>
+            <slot name="input"><label>{$label}<xhtml:input
+                    type="{$type}"
+                    value="{//selected ?? $value}"
+                    slice="selected" slice-event="input"
+                    >
+                    <if test="$required"        ><attribute name="required"         >{$required         }</attribute></if>
+                    <if test="$autocapitalize"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
+                    <if test="$disabled"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
+                    <if test="$multiple"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
+                    <if test="$readonly"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
+                    <if test="$incremental"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
+                    <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
+                    <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
+                    <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
+                    <if test="$minlength"       ><attribute name="minlength"        >{$minlength        }</attribute></if>
+                    <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
+                    <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
+                    <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
+                    <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
+                    <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
+                    <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
+                    <if test="$list"            ><attribute name="list"             >{$list             }</attribute></if>
+                    <if test="$name"            ><attribute name="name"             >{$name             }</attribute></if>
+                    <if test="$pattern"         ><attribute name="pattern"          >{$pattern          }</attribute></if>
+                    <if test="$placeholder"     ><attribute name="placeholder"      >{$placeholder      }</attribute></if>
+                    <if test="$title"           ><attribute name="title"            >{$title            }</attribute></if>
+
+                    <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                    <slice name="focused" slice-event="focus" slice-value="1"></slice>
+                    <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
+                </xhtml:input></label></slot>
+                                <if test="$required"        >$required:{$required         }</if>
+
+            <slot name="warn"></slot>
+            <slot name="foot"></slot>
+        </template>
+    </custom-element>
+
+<custom-element tag="cem-demo-input-types" hidden>
+    <template>
+        <attribute name="value" select="//type"></attribute>
+        <label>Type:
+            <select slice="type">
+                <option value="text"          > text             </option>
+                <option value="date"          > date             </option>
+                <option value="datetime-local"> datetime-local   </option>
+                <option value="email"         > email            </option>
+                <option value="month"         > month            </option>
+                <option value="number"        > number           </option>
+                <option value="password"      > password         </option>
+                <option value="tel"           > tel              </option>
+                <option value="text"          > text             </option>
+                <option value="time"          > time             </option>
+                <option value="url"           > url              </option>
+                <option value="week"          > week             </option>
+                <optgroup label="other types do not make a sense for cem-input">
+                    <option value="button"    > button            </option>
+                    <option value="checkbox"  > checkbox          </option>
+                    <option value="color"     > color             </option>
+                    <option value="file"      > file              </option>
+                    <option value="hidden"    > hidden            </option>
+                    <option value="image"     > image             </option>
+                    <option value="radio"     > radio             </option>
+                    <option value="range"     > range             </option>
+                    <option value="reset"     > reset             </option>
+                    <option value="search"    > search            </option>
+                    <option value="submit"    > submit            </option>
+                </optgroup>
+            </select>
+        </label>
+    </template>
+</custom-element>
+
+<custom-element tag="cem-demo-cb">
+    <template>
+        <attribute name="slice" ></attribute>
+        <attribute name="value" select="//val"></attribute>
+        <label><input type="checkbox" value="{$slice}" slice="val" /> {$slice}  </label>
+    </template>
+</custom-element>
+
+<custom-element tag="cem-demo-tx">
+    <template>
+        <attribute name="slice" ></attribute>
+        <attribute name="value" select="//val"></attribute>
+        <style>input,label{ width: 100%; } </style>
+        <label>{$slice}<input slice="val" /></label>
+    </template>
+</custom-element>
+
+<custom-element tag="cem-demo-in">
+    <template>
+        <attribute name="slice" ></attribute>
+        <attribute name="value" select="//val"></attribute>
+        <style>input,label{ width: 100%; } </style>
+        <label>{$slice}<input slice="val" type="number"/></label>
+    </template>
+</custom-element>
+
+<html-demo-element legend="No value" description="Focus to see the cursor in input with label shifted upward ">
+    <template>
+<cem-input label="String field" ></cem-input>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text">
+    <template>
+<cem-input label="Number" type="number" placeholder="Enter the numeric value">
+</cem-input>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Value defined" description="The value should be visible" >
+    <template>
+<cem-input label="Text" type="text" value="abc"></cem-input>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="head and foot slots" >
+    <div slot="description"><code>head</code> slot inserted above input,
+        <code>foot</code> slot injected bellow</div>
+    <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
+        <a href="./autocomplete.html">cem-autocomplete</a> uses <code>foot</code> slot for
+        <a href="./menu.html">menu</a> with suggestions.
+    </p>
+    <template>
+<cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
+    <div slot="head"> 🍎 <code>head</code> slot  </div>
+    <div slot="foot"> 🍓 <code>foot</code> slot  </div>
+</cem-input>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Native error support" >
+    <div slot="descrition">Native <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation">
+        Form validation</a> is supported. See also <a href="../../custom-element/demo/form.html"><code>custom-element</code> form handling</a>  </div>
+    <div><code>required</code> attribute would trigger the system message if the field is empty.</div>
+    <div>
+        Press Next button to see the browser error popup.</div>
+    <template>
+<form>
+    <cem-input required></cem-input>
+    <button>Next</button>
+</form>
+    </template>
+</html-demo-element>
+
+<html-demo-element legend="Error message">
+    <div slot="description"><code>warn</code> slot is used for warning message</div>
+    <template>
+<form>
+    <cem-input required></cem-input>
+    <button>Next</button>
+</form>
+    </template>
+</html-demo-element>
+
+
+<html-demo-element legend="INPUT field attributes playground" id="play">
+    <div slot="descrition">
+        <p> Underlying implementation uses
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">HTML input</a>.
+            All its attributes are supported.
+        </p>
+<custom-element >
+    <template>
+        <style>
+            &>dce-root
+            {   display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;
+                &>*{ flex: 1 1 10rem; }
+            }
+            label{ display: block; }
+        </style>
+        <cem-demo-cb slice="autocapitalize" ></cem-demo-cb>
+        <cem-demo-cb slice="disabled"       ></cem-demo-cb>
+        <cem-demo-cb slice="multiple"       ></cem-demo-cb>
+        <cem-demo-cb slice="readonly"       ></cem-demo-cb>
+        <cem-demo-cb slice="required"       ></cem-demo-cb>
+        <cem-demo-cb slice="incremental"    ></cem-demo-cb>
+        <cem-demo-in slice="max"            ></cem-demo-in>
+        <cem-demo-in slice="maxlength"      ></cem-demo-in>
+        <cem-demo-in slice="min"            ></cem-demo-in>
+        <cem-demo-in slice="minlength"      ></cem-demo-in>
+        <cem-demo-in slice="size"           ></cem-demo-in>
+        <cem-demo-in slice="step"           ></cem-demo-in>
+        <cem-demo-in slice="tabindex"       ></cem-demo-in>
+        <cem-demo-tx slice="autocomplete"   ></cem-demo-tx>
+        <cem-demo-tx slice="form"           ></cem-demo-tx>
+        <cem-demo-tx slice="id"             ></cem-demo-tx>
+        <cem-demo-tx slice="list"           ></cem-demo-tx>
+        <cem-demo-tx slice="name"           ></cem-demo-tx>
+        <cem-demo-tx slice="pattern"        ></cem-demo-tx>
+        <cem-demo-tx slice="placeholder"    ></cem-demo-tx>
+        <cem-demo-tx slice="title"          ></cem-demo-tx>
+        <cem-demo-tx slice="value"          ></cem-demo-tx>
+        <cem-demo-input-types slice="type"></cem-demo-input-types>
+
+        <form action="#play">
+            <cem-input type="{//type}" value="123">
+                <if test="//autocapitalize = 'autocapitalize'"  ><attribute name="autocapitalize"   ></attribute></if>
+                <if test="//disabled = 'disabled'"              ><attribute name="disabled"         ></attribute></if>
+                <if test="//multiple = 'multiple'"              ><attribute name="multiple"         ></attribute></if>
+                <if test="//readonly = 'readonly'"              ><attribute name="readonly"         ></attribute></if>
+                <if test="//required = 'required'"              ><attribute name="required"         ></attribute></if>
+                <if test="//incremental = 'incremental'"        ><attribute name="incremental"      ></attribute></if>
+                <if test="not(//max = '')"                      ><attribute name="max"          >{//max}</attribute></if>
+                <if test="not(//maxlength = '')"                ><attribute name="maxlength"    >{//maxlength}</attribute></if>
+                <if test="not(//min = '')"                      ><attribute name="min"          >{//min}</attribute></if>
+                <if test="not(//minlength = '')"                ><attribute name="minlength"    >{//minlength}</attribute></if>
+                <if test="not(//step = '')"                     ><attribute name="step"         >{//step}</attribute></if>
+                <if test="not(//tabindex = '')"                 ><attribute name="tabindex"     >{//tabindex}</attribute></if>
+            </cem-input>
+            <button>Next</button>
+            <if test="//required = 'required'" >//req:{//required }</if>
+
+        </form>
+    </template>
+</custom-element>
+
+    </div>
+    <template>
+    </template>
+</html-demo-element>
+
+</main>
+<footer>
+    <hr/>
+    Powered by Syngrafact Corp. ©2024.<br/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+<!--<script type="module" src="./html-demo-element.js"></script>-->
+<script type="module" src="https://unpkg.com/html-demo-element@1/html-demo-element.js"></script>
+
+</body>
+</html>

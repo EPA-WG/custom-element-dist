@@ -44,7 +44,7 @@ export const TemplateInPage:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(TemplateInPage.args!.title as string);
-        const         val = (prop)=> canvas.getByTestId(prop).textContent.trim();
+        const val = (prop:string)=> canvas.getByTestId(prop).textContent?.trim();
 
         expect(val('slot-override')).toEqual('👋 World!');
         expect(val('slot-default' )).toEqual('Hello World!');

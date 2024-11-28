@@ -3,7 +3,7 @@ export default {
     "_rev": "5-df363ab4a2b9c478c01e021bde4fbafe",
     "name": "@epa-wg/custom-element-dist",
     "dist-tags": {
-        "latest": "0.0.31"
+        "latest": "0.0.32"
     },
     "versions": {
         "0.0.1": {
