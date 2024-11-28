@@ -3,7 +3,7 @@
 import type { StoryObj }                        from '@storybook/web-components';
 import {expect, userEvent, within} from '@storybook/test';
 
-import {cloneAs, mix} from'../custom-element/custom-element.js';
+import {cloneAs, mix, mergeAttr} from'../custom-element/custom-element.js';
 
 type TProps = { title: string; body:string};
 
@@ -29,6 +29,11 @@ const meta =
 
 export default meta;
 
+function html2Element( htmlStr: string)
+{   const n = document.createElement('div');
+    n.innerHTML = htmlStr;
+    return n.firstElementChild as HTMLElement;
+}
 export const CloneAs:Story  =
 {   args : {title: 'cloneAs(el,newTag)', body:`
     <p><code>cloneAs()</code> used for conversion of <code>attribute</code> to <code>xsl:param</code></p>
@@ -60,6 +65,26 @@ export const Mix:Story  =
 ,   play: async () =>
     {
         await expect( mix({},{a:1,b:'2'})).toEqual({a:1,b:'2'});
+    },
+};
+export const MergeAttr:Story  =
+{   args : {title: 'mergeAttr( from, to )', body:`
+    <p><code>mergeAttr( from, to )</code> used for <code>attribute</code> collections</p>
+`}
+,   play: async () =>
+    {
+        const from = html2Element('<br title="a" id="b" readonly />');
+        const to = html2Element('<br removed/>');
+
+        await expect( to).toHaveAttribute('removed');
+
+        mergeAttr(from!,to);
+
+        await expect( to).toHaveAttribute('title','a');
+        await expect( to).toHaveAttribute('id','b');
+        await expect( to).toHaveAttribute('readonly');
+        await expect( to.getAttributeNames().length).toEqual(3);
+        await expect( to).not.toHaveAttribute('removed');
     },
 };
 
