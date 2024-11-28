@@ -1,5 +1,7 @@
 export function log(x: any): void;
 export function deepEqual(a: any, b:any): boolean|0;
+export function cloneAs(sourceNode: HTMLElement, tag:string): HTMLElement;
+export function mix(objTo: any, objFrom:any): any;
 export function xml2dom(xmlString:string): Document;
 export function xmlString(doc:Node|Document): string;
 export function obj2node(o:any, tag:string, doc:Document): HTMLElement;

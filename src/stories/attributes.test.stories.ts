@@ -3,7 +3,7 @@
 import type { StoryObj }                        from '@storybook/web-components';
 import {expect, within} from '@storybook/test';
 
-import '../custom-element/custom-element.js';
+import {cloneAs, mix, xmlString} from'../custom-element/custom-element.js';
 
 type TProps = { title: string; body:string};
 
@@ -29,12 +29,37 @@ const meta =
 
 export default meta;
 
+export const CloneAs:Story  =
+{   args : {title: 'cloneAs(el,newTag)', body:`
+    <p><code>cloneAs()</code> used for conversion of <code>attribute</code> to <code>xsl:param</code></p>
+    <attribute data-testid="t1" >default_P1                </attribute>
+    <attribute data-testid="t2" select="'always_p2'"      ></attribute>
+    <attribute data-testid="t3" ></attribute>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+
+        const cmp = async ( tid:string ) =>
+        {   const t1 = await canvas.findByTestId(tid);
+            const c1 = cloneAs(t1, 'xsl:param');
+            for( let a of t1.attributes )
+                {   await expect(a.value).toEqual(c1.getAttribute(a.name)); }
+
+            await expect( c1.textContent ).toEqual(t1.textContent);
+        }
+        await cmp('t1');
+        await cmp('t2');
+        await cmp('t3');
+    },
+};
+
 export const AttributeDefaults:Story  =
 {   args : {title: 'Attributes definition', body:`
     <p>Params needed to declare DCE attributes and track the attributes changes. It also is used by IDE and validation.</p>
     <custom-element tag="dce-link" >
         <template>
-            <attribute name="p1">default_P1                </attribute>
+            <attribute name="p1">default_P1</attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
             <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="p1">{$p1}</code> <br/>
