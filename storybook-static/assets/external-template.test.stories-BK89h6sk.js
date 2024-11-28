@@ -1,4 +1,4 @@
-import{w as l,e as a}from"./index-CxRwF5Or.js";import"./custom-element-D59Fok1f.js";function f(t){return new Promise(e=>setTimeout(e,t))}function h(t){const{title:e,body:n}=t;return`
+import{w as l,e as a}from"./index-CxRwF5Or.js";import"./custom-element-uuAtIYWS.js";function f(t){return new Promise(e=>setTimeout(e,t))}function h(t){const{title:e,body:n}=t;return`
         <fieldset>
             <legend>${e}</legend>
             ${n}
@@ -13,7 +13,7 @@ import{w as l,e as a}from"./index-CxRwF5Or.js";import"./custom-element-D59Fok1f.
 
     <dce-internal data-testid="slot-override">👋</dce-internal>
     <dce-internal  data-testid="slot-default"></dce-internal>
-`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(s.args.title);const n=T=>e.getByTestId(T).textContent.trim();a(n("slot-override")).toEqual("👋 World!"),a(n("slot-default")).toEqual("Hello World!")}},i={args:{title:"no tag, template in same DOM",body:`
+`},play:async({canvasElement:t})=>{const e=l(t);await e.findByText(s.args.title);const n=T=>e.getByTestId(T).textContent?.trim();a(n("slot-override")).toEqual("👋 World!"),a(n("slot-default")).toEqual("Hello World!")}},i={args:{title:"no tag, template in same DOM",body:`
 <template id="template2">
     🏗️ construction
 </template>
@@ -92,7 +92,7 @@ import{w as l,e as a}from"./index-CxRwF5Or.js";import"./custom-element-D59Fok1f.
   }) => {
     const canvas = within(canvasElement);
     await canvas.findByText(TemplateInPage.args!.title as string);
-    const val = prop => canvas.getByTestId(prop).textContent.trim();
+    const val = (prop: string) => canvas.getByTestId(prop).textContent?.trim();
     expect(val('slot-override')).toEqual('👋 World!');
     expect(val('slot-default')).toEqual('Hello World!');
   }
