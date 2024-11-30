@@ -294,6 +294,12 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         fr.append(r)
     }
 
+    [...fr.querySelectorAll('[test]')].forEach( n=>{
+        const t = attr(n,'test')
+        ,     r = t.replace(/hasBoolAttribute\((.*?)\)/g, "not($1 = \'false\')  and ($1 = '' or $1 = 'required' or $1 = 'true' )");
+        t!== r && n.setAttribute('test',r);
+    });
+
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
     {
         keepAttributes(a,'namespace,name,select');

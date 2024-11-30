@@ -131,12 +131,12 @@
                     value="{//selected ?? $value}"
                     slice="selected" slice-event="input"
                     >
-                    <if test="$required"        ><attribute name="required"         >{$required         }</attribute></if>
-                    <if test="$autocapitalize"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
-                    <if test="$disabled"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
-                    <if test="$multiple"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
-                    <if test="$readonly"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
-                    <if test="$incremental"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
+                    <if test="hasBoolAttribute(($required)"       ><attribute name="required"         >{$required         }</attribute></if>
+                    <if test="hasBoolAttribute($autocapitalize)"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
+                    <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
+                    <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
+                    <if test="hasBoolAttribute($readonly)"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
+                    <if test="hasBoolAttribute($incremental)"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
                     <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
                     <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
                     <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
@@ -157,7 +157,7 @@
                     <slice name="focused" slice-event="focus" slice-value="1"></slice>
                     <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
                 </xhtml:input></label></slot>
-                                <if test="$required"        >$required:{$required         }</if>
+<if test="$required"        >$required:{$required         }</if>
 
             <slot name="warn"></slot>
             <slot name="foot"></slot>
@@ -339,7 +339,7 @@
                 <if test="not(//tabindex = '')"                 ><attribute name="tabindex"     >{//tabindex}</attribute></if>
             </cem-input>
             <button>Next</button>
-            <if test="//required = 'required'" >//req:{//required }</if>
+<if test="//disabled = 'disabled'"              >//disabled = 'disabled' </if>
 
         </form>
     </template>
