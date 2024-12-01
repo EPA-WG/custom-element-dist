@@ -79,7 +79,7 @@
             <attribute name="value"          ></attribute>
 
             <style>
-                dce-root
+                &>dce-root
                 {
                     display: flex; flex-direction: column; justify-content: center;
                     --input-padding: 0;
@@ -131,7 +131,7 @@
                     value="{//selected ?? $value}"
                     slice="selected" slice-event="input"
                     >
-                    <if test="hasBoolAttribute(($required)"       ><attribute name="required"         >{$required         }</attribute></if>
+                    <if test="hasBoolAttribute($required)"        ><attribute name="required"         >{$required         }</attribute></if>
                     <if test="hasBoolAttribute($autocapitalize)"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
                     <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
                     <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
@@ -157,8 +157,6 @@
                     <slice name="focused" slice-event="focus" slice-value="1"></slice>
                     <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
                 </xhtml:input></label></slot>
-<if test="$required"        >$required:{$required         }</if>
-
             <slot name="warn"></slot>
             <slot name="foot"></slot>
         </template>
@@ -337,6 +335,7 @@
                 <if test="not(//minlength = '')"                ><attribute name="minlength"    >{//minlength}</attribute></if>
                 <if test="not(//step = '')"                     ><attribute name="step"         >{//step}</attribute></if>
                 <if test="not(//tabindex = '')"                 ><attribute name="tabindex"     >{//tabindex}</attribute></if>
+                <if test="not(//autocomplete = '')"             ><attribute name="autocomplete" >{//autocomplete}</attribute></if>
             </cem-input>
             <button>Next</button>
 <if test="//disabled = 'disabled'"              >//disabled = 'disabled' </if>

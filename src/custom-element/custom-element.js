@@ -296,7 +296,11 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
 
     [...fr.querySelectorAll('[test]')].forEach( n=>{
         const t = attr(n,'test')
-        ,     r = t.replace(/hasBoolAttribute\((.*?)\)/g, "not($1 = \'false\')  and ($1 = '' or $1 = 'required' or $1 = 'true' )");
+        ,     r = t.replace(/hasBoolAttribute\((.*?)\)/g,
+            (match, p1, p2,p3,p4)=>
+            {   const a = p1.substring(1);
+                return `(not($${a} = \'false\') and ($${a} = '' or $${a} = '${a}' or $${a} = 'true' ))`
+            });
         t!== r && n.setAttribute('test',r);
     });
 
@@ -335,8 +339,12 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             a.append(val);
             a.removeAttribute('select');
         }else
-        {   keepAttributes( p, 'name' );
+        {
+            keepAttributes( p, 'name' );
             p.setAttribute('select','/datadom/attributes/'+name)
+
+            if( !hardcodedAttributes[name] )
+                a.remove();
         }
     });
     [...fr.querySelectorAll('[value]')].filter(el=>el.getAttribute('value').match( /\{(.*)\?\?(.*)\}/g )).forEach(el=>
@@ -729,7 +737,7 @@ CustomElement extends HTMLElement
                 const attrsRoot = injectData( x, 'attributes' , this.attributes, e => createXmlNode( e.nodeName, e.value ) )
                 , inAttrs = a=> this.hasAttribute(a) || [...attrsRoot.children].find(e=>e.localName === a);
                 Object.keys(hardcodedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a,hardcodedAttributes[a])) );
-                declaredAttributes.map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a)) );
+                Object.keys(exposedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a)) );
 
                 injectData( x, 'dataset', Object.keys( this.dataset ), k => createXmlNode( k, this.dataset[ k ] ) );
                 const sliceRoot = injectData( x, 'slice', sliceNames, k => createXmlNode( k, '' ) )
