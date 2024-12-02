@@ -81,6 +81,8 @@
     --cem-filled-text-field-input-text-color: var(--ng-azure-variant-0);
     --cem-filled-text-field-caret-color: var(--ng-azure-variant-10);
     --cem-outline-color-focus: var(--ng-azure-40);
+    --cem-focus-outline-height: 3px;
+    --cem-input-outline: inset 0 -1px 0 black;
 
     --cem-list-background-color: var(--ng-azure-neutral-94);
     --cem-list-background-color-hover: var(--ng-azure-variant-90);

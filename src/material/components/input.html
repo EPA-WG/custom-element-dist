@@ -84,8 +84,6 @@
                     display: flex; flex-direction: column; justify-content: center;
                     --input-padding: 0;
 
-                    --cem-input-outline: inset 0 -1px 0 black;
-                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
                     --cem-input-container-shape: 0.25rem;
                     --cem-input-background-color: var(--cem-list-background-color);
                     --cem-input-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
@@ -100,7 +98,7 @@
                         box-sizing: border-box;
                         min-height: 3.5rem;
                         color: var(--cem-filled-text-field-label-text-color);
-
+                        position: relative;
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
@@ -113,12 +111,22 @@
                             font-size: 1rem;
                             transition: var(--drop-transition);
                         }
+                        &:after{ display: block; width: 0; height: 0;  content: ' ';
+                            transition: all 300ms;
+                            position: absolute; align-self: center;
+                            bottom: var(--cem-focus-outline-height);
+                        }
                     }
                     &:focus-within
                     {
                         &> label
-                        {   box-shadow: var(--cem-input-outline-focus);
-                            font-size: small; justify-content: space-between;
+                        {   font-size: small; justify-content: space-between;
+                            &:after{  width: 100%; height: var(--cem-focus-outline-height);
+                                background: none;
+                                box-shadow: 0 var(--cem-focus-outline-height) 0 var(--cem-outline-color-focus);
+                                align-self: center;
+                                transition: all 300ms;
+                            }
                         }
                     }
                     label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
@@ -210,7 +218,7 @@
         <attribute name="slice" ></attribute>
         <attribute name="value" select="//val"></attribute>
         <style>input,label{ width: 100%; } </style>
-        <label>{$slice}<input slice="val" /></label>
+        <label>{$slice}<input slice="val" value="{$value}"/></label>
     </template>
 </custom-element>
 
@@ -318,24 +326,33 @@
         <cem-demo-tx slice="pattern"        ></cem-demo-tx>
         <cem-demo-tx slice="placeholder"    ></cem-demo-tx>
         <cem-demo-tx slice="title"          ></cem-demo-tx>
-        <cem-demo-tx slice="value"          ></cem-demo-tx>
+        <cem-demo-tx slice="value"       value="abc"   ></cem-demo-tx>
         <cem-demo-input-types slice="type"></cem-demo-input-types>
 
         <form action="#play">
-            <cem-input type="{//type}" value="123">
+            <cem-input type="{//type}" >
                 <if test="//autocapitalize = 'autocapitalize'"  ><attribute name="autocapitalize"   ></attribute></if>
                 <if test="//disabled = 'disabled'"              ><attribute name="disabled"         ></attribute></if>
                 <if test="//multiple = 'multiple'"              ><attribute name="multiple"         ></attribute></if>
                 <if test="//readonly = 'readonly'"              ><attribute name="readonly"         ></attribute></if>
                 <if test="//required = 'required'"              ><attribute name="required"         ></attribute></if>
                 <if test="//incremental = 'incremental'"        ><attribute name="incremental"      ></attribute></if>
-                <if test="not(//max = '')"                      ><attribute name="max"          >{//max}</attribute></if>
-                <if test="not(//maxlength = '')"                ><attribute name="maxlength"    >{//maxlength}</attribute></if>
-                <if test="not(//min = '')"                      ><attribute name="min"          >{//min}</attribute></if>
-                <if test="not(//minlength = '')"                ><attribute name="minlength"    >{//minlength}</attribute></if>
-                <if test="not(//step = '')"                     ><attribute name="step"         >{//step}</attribute></if>
-                <if test="not(//tabindex = '')"                 ><attribute name="tabindex"     >{//tabindex}</attribute></if>
-                <if test="not(//autocomplete = '')"             ><attribute name="autocomplete" >{//autocomplete}</attribute></if>
+                <if test="not(//max          = '')" ><attribute name="max"          >{//max         }</attribute></if>
+                <if test="not(//maxlength    = '')" ><attribute name="maxlength"    >{//maxlength   }</attribute></if>
+                <if test="not(//min          = '')" ><attribute name="min"          >{//min         }</attribute></if>
+                <if test="not(//minlength    = '')" ><attribute name="minlength"    >{//minlength   }</attribute></if>
+                <if test="not(//size         = '')" ><attribute name="size"         >{//size        }</attribute></if>
+                <if test="not(//step         = '')" ><attribute name="step"         >{//step        }</attribute></if>
+                <if test="not(//tabindex     = '')" ><attribute name="tabindex"     >{//tabindex    }</attribute></if>
+                <if test="not(//autocomplete = '')" ><attribute name="autocomplete" >{//autocomplete}</attribute></if>
+                <if test="not(//form         = '')" ><attribute name="form"         >{//form        }</attribute></if>
+                <if test="not(//id           = '')" ><attribute name="id"           >{//id          }</attribute></if>
+                <if test="not(//list         = '')" ><attribute name="list"         >{//list        }</attribute></if>
+                <if test="not(//name         = '')" ><attribute name="name"         >{//name        }</attribute></if>
+                <if test="not(//pattern      = '')" ><attribute name="pattern"      >{//pattern     }</attribute></if>
+                <if test="not(//placeholder  = '')" ><attribute name="placeholder"  >{//placeholder }</attribute></if>
+                <if test="not(//title        = '')" ><attribute name="title"        >{//title       }</attribute></if>
+                <if test="not(//value        = '')" ><attribute name="value"        >{//value       }</attribute></if>
             </cem-input>
             <button>Next</button>
 <if test="//disabled = 'disabled'"              >//disabled = 'disabled' </if>
