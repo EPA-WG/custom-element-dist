@@ -527,7 +527,14 @@ const loadTemplateRoots = async ( src, dce )=>
 export function mergeAttr( from, to )
 {   for( let a of from.attributes)
         try
-        {   a.namespaceURI? to.setAttributeNS( a.namespaceURI, a.name, a.value ) : to.setAttribute( a.name, a.value )
+        {   const name = a.name;
+            if( a.namespaceURI )
+            {   if( !to.hasAttributeNS(a.namespaceURI, name) || to.getAttributeNS(a.namespaceURI, name) !== a.value )
+                    to.setAttributeNS( a.namespaceURI, name, a.value )
+            }else
+            {   if( !to.hasAttribute(name) || to.getAttribute(name) !== a.value )
+                    to.setAttribute( a.name, a.value )
+            }
             if( a.name === 'value')
                 to.value = a.value
         }catch(e)
