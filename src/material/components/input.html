@@ -42,14 +42,19 @@
 </header>
 <pre>
     TODO
-    * bypass all INPUT attributes
     * error handling
     * link to form error handling
     * docs
 </pre>
 <main>
     <p><code>cem-input</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
-        <a href="https://material.io/components" >Material Design specification</a>.
+        <a href="https://material.io/components" >Material Design specification</a>,
+        <a href="https://m3.material.io/components/text-fields/specs" >text fields</a> in particular.
+    </p>
+    <p>
+        The <code>warn</code> slot would overlap the <code>foot</code> slot or content bellow the <code>cem-input</code>.
+        Default slot implementation is sensitive to <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage"
+            >validationMessage property</a>.
     </p>
     <custom-element tag="cem-input" hidden>
         <template>
@@ -260,7 +265,7 @@
     </p>
     <template>
 <cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
-    <div slot="head"> 🍎 <code>head</code> slot  </div>
+    <div slot="head"> 🍏 <code>head</code> slot  </div>
     <div slot="foot"> 🍓 <code>foot</code> slot  </div>
 </cem-input>
     </template>

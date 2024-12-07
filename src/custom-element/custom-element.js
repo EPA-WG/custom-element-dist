@@ -532,8 +532,11 @@ export function mergeAttr( from, to )
                 to.value = a.value
         }catch(e)
             { console.warn('attribute assignment error',e?.message || e); }
+    const ea = to.dceExportedAttributes
+        , aa = to.getAttribute('dce-exported-attributes')
+        , em = aa ? new Set( aa.split(' ') ) : null;
     for( let a of to.getAttributeNames() )
-        if( !from.hasAttribute(a))
+        if( !from.hasAttribute(a) && !ea?.has(a) && !em?.has(a) )
             to.removeAttribute(a)
 }
 export function assureUnique(n, id=0)
@@ -698,11 +701,13 @@ CustomElement extends HTMLElement
                                 .map(splitSliceNames).flat();
 
         const { declaredAttributes, hardcodedAttributes, exposedAttributes } = templateDocs[0];
+        const dceExportedAttributes = new Set([...Object.keys(hardcodedAttributes), ...Object.keys(exposedAttributes)]);
 
         class DceElement extends HTMLElement
         {
             static get observedAttributes(){ return declaredAttributes; }
             #inTransform = 0;
+            get dceExportedAttributes(){ return dceExportedAttributes; }
             connectedCallback()
             {   let payload = sanitizeBlankText(this.childNodes);
                 if( this.firstElementChild?.tagName === 'TEMPLATE' )

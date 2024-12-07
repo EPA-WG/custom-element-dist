@@ -87,6 +87,49 @@ export const MergeAttr:Story  =
         await expect( to).not.toHaveAttribute('removed');
     },
 };
+export const dceExportedAttributes:Story  =
+{   args : {title: 'mergeAttr( from, to )', body:`
+    <p><code>mergeAttr( from, to )</code> used for <code>attribute</code> collections</p>
+    <p><code>dceExportedAttributes</code> property on target element defines the set of attributes which 
+    would not be removed from target element</p>
+`}
+,   play: async () =>
+    {
+        const from = html2Element('<br id="b" readonly />');
+        const to = html2Element('<br removed/>') as (HTMLElement & {dceExportedAttributes:Set<string>});
+        to.dceExportedAttributes = new Set(['enforced']);
+        to.setAttribute('enforced',"defined by inner component");
+        await expect( to).toHaveAttribute('enforced');
+
+        mergeAttr(from,to);
+
+        await expect( to).toHaveAttribute('id','b');
+        await expect( to).toHaveAttribute('readonly');
+        await expect( to).not.toHaveAttribute('removed');
+        await expect( to).toHaveAttribute('enforced',"defined by inner component");
+    },
+};
+export const dceExportedAttributes_attr:Story  =
+{   args : {title: 'mergeAttr( from, to )', body:`
+    <p><code>mergeAttr( from, to )</code> used for <code>attribute</code> collections</p>
+    <p><code>dce-exported-attributes</code> attribute on target element defines the space separated list of attributes which 
+    would not be removed from target element</p>
+`}
+,   play: async () =>
+    {
+        const from = html2Element('<br id="b" readonly />');
+        const to = html2Element('<br removed dce-exported-attributes="enforced"/>') as (HTMLElement & {dceExportedAttributes:Set<string>});
+        to.setAttribute('enforced',"defined by inner component");
+        await expect( to).toHaveAttribute('enforced');
+
+        mergeAttr(from,to);
+
+        await expect( to).toHaveAttribute('id','b');
+        await expect( to).toHaveAttribute('readonly');
+        await expect( to).not.toHaveAttribute('removed');
+        await expect( to).toHaveAttribute('enforced',"defined by inner component");
+    },
+};
 
 export const AttributeDefaults:Story  =
 {   args : {title: 'Attributes definition', body:`
