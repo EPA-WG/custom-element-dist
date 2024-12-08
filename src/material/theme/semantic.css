@@ -51,6 +51,9 @@
 /*#region semantic colors  */
 :root, .cem-theme-default, .cem-theme-azure{
 
+    --cem-icon-size: 2rem;
+    --cem-icon-size-small: 1rem;
+    --cem-icon-size-large: 3rem;
     --primary-background-color: var(--ng-azure-90);
     --secondary-background-color: var(--ng-azure-80);
     --alert-color: var(--ng-magenta-80);
@@ -75,6 +78,7 @@
     --cem-app-surface-variant: var(--ng-azure-variant-90);
     --cem-app-on-surface: var(--ng-azure-variant-70);
     --cem-app-primary: var(--ng-azure-variant-60);
+    --cem-on-surface-variant: var(--cem-action-secondary-color);
 
     --cem-filled-text-field-container-color: var(--ng-azure-variant-90);
     --cem-filled-text-field-label-text-color: var(--ng-azure-variant-30);

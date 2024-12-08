@@ -148,9 +148,7 @@ export const AttributeDefaults:Story  =
 `}
 ,   play: async ({canvasElement}) =>
     {
-        const titleText = AttributeDefaults.args!.title as string;
-        const canvas = within(canvasElement)
-        , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
+        const canvas = within(canvasElement);
 
         expect( await await canvas.findByTestId('p1') ).toHaveTextContent('default_P1' );
         expect( await await canvas.findByTestId('p2') ).toHaveTextContent('always_p2'  );
