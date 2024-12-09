@@ -50,8 +50,9 @@
             <attribute name="head"></attribute>
             <attribute name="description"></attribute>
             <style>
+                &{ display: flex;}
                 &>dce-root
-                {   display: inline-flex; flex-direction: column;
+                {   display: inline-flex; flex-direction: column; justify-content: space-between;
                     transition: background .3s ease;
                     border: 1px solid #c4c6d0;
                     border-radius: 12px;
@@ -60,6 +61,7 @@
                     &>a
                     {   color: var(--cem-action-secondary-color, black);
                         background-color:var(--cem-action-secondary-background, silver);
+                        min-height: 6rem;
                         transition: background .3s ease;
                         transform: translateZ(0);
                         &:hover { background-color: var(--cem-action-secondary-background-hover); }
@@ -81,9 +83,9 @@
     </custom-element>
 
     <demo-list-card head="icon" description="Icons from popular collections">
-        <cem-icon icon="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg"
+        <cem-icon src="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg"
                     >Material Icon </cem-icon>
-        <cem-icon icon="recycling"
+        <cem-icon src="recycling"
                     > Recycling </cem-icon>
 
     </demo-list-card>
