@@ -34,6 +34,7 @@
                 [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
                 [slot="description"] dd{ padding: 0; }
             }
+            var{ color: darkgreen; font-weight: bold; }
         }
         cem-icon{ margin: 1rem; }
     </style>
@@ -95,10 +96,13 @@
         </p>
         <h1>Attributes</h1>
         <div> <code>src</code> attribute defines the icon in one of the libraries or URL. The selection algorithm
-            <ol>if value is single symbol, it is treated as unicode or emoji image </ol>
-            <ol>if value has a slash symbol (<code>/</code>), it is treated as URL for <code>img</code> element </ol>
-            <ol>otherwise if value has a <code>fa-</code> substring, it is treated as favicon </ol>
-            <ol>otherwise if value is not empty, it is treated as material icon </ol>
+            <ol>
+                <li>if value is single symbol, it is treated as <var>unicode</var> or <var>emoji</var> image </li>
+                <li>if value has a slash symbol (<code>/</code>), it is treated as <var>URL</var> for <code>img</code> element </li>
+                <li>if value has a <code>fa-</code> substring, it is treated as <var>favicon</var> </li>
+                <li>if value is not empty, it is treated as <var>material icon</var> </li>
+                
+            </ol>
         </div>
         <div> <code>direction</code> attribute defines css <code>row</code> or <code>column</code> flex-direction. </div>
     </aside>
@@ -108,8 +112,8 @@
             Defines the text position next to icon. Uses CSS <code>flex-direction</code> values.
         </p>
         <template>
-<cem-icon src="fab fa-github"> default is row </cem-icon>
-<cem-icon src="fas fa-heart" direction="column"> column </cem-icon>
+<cem-icon src="»"> default is row </cem-icon>
+<cem-icon src="home" direction="column"> column </cem-icon>
 <cem-icon src="fas fa-bone" direction="row"> row </cem-icon>
         </template>
     </html-demo-element>
@@ -210,9 +214,8 @@
         <template>
             <custom-element>
                 <template>
-                    <module-url slice="cem-url" src="@epa-wg/material"></module-url>
                     <module-url slice="logo-url" src="@epa-wg/custom-element/demo/wc-square.svg"></module-url>
-                    <cem-icon href="{//cem-url}/" src="{//logo-url}"> custom-element</cem-icon>
+                    <cem-icon src="{//logo-url}"> custom-element</cem-icon>
                     <cem-icon src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg">
                         bulbasaur
                     </cem-icon>
