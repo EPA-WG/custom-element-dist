@@ -30,6 +30,9 @@
             &>p{ min-width: 90%; }
             html-demo-element{flex:1; width: 100%; }
         }
+        html-demo-element.flat-attr{
+            .token.attr-name:before{content:'\A    '; }
+        }
     </style>
 </head>
 
@@ -53,6 +56,9 @@
             <a href="https://material.io/components" >Material Design specification</a>,
             <a href="https://m3.material.io/components/text-fields/specs" >text fields</a> in particular.
         </p>
+        <p>Other implementations: <a href="https://material-web.dev/components/text-field/">Material Web</a>(Lit),
+            <a href="https://material.angular.io/components/input/overview">Angular Material</a>
+        </p>
         <h1>Attributes</h1>
         <div> <code>leading, label, trailing, supporting </code> attributes define the text when slot
             with same name is omitted.
@@ -63,16 +69,14 @@
         <div> <code>label</code> attribute defines the label text.
             </div>
         <h1>Slots</h1>
-        <div> <code></code> attribute defines the <a href="./icon.html">cem-icon</a> source.
-        </div>
-
+        <div> <code>leading</code> placeholder for leading icon</div>
+        <div> <code>label</code> placeholder for label text</div>
+        <div> <code>trailing</code> placeholder for trailing icon</div>
+        <div> <code>supporting</code> placeholder for supporting text</div>
         <p>
-            The <code>warn</code> slot would overlap the <code>foot</code> slot or content bellow the <code>cem-input</code>.
+            <code>warn</code> slot content would overlap the <code>supporting</code> slot when not empty.
             Default slot implementation is sensitive to <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage"
                 >validationMessage property</a>.
-        </p>
-        <p>Other implementations: <a href="https://material-web.dev/components/text-field/">Material Web</a>(Lit),
-            <a href="https://material.angular.io/components/input/overview">Angular Material</a>
         </p>
     </section>
     <custom-element tag="cem-input" hidden>
@@ -214,7 +218,7 @@
             </label>
             <slot name="supporting">
                 <if test="$supporting">
-                    <cem-icon src="{$supporting}"></cem-icon>
+                    {$supporting}
                 </if>
             </slot>
             <slot name="warn">
@@ -285,13 +289,15 @@
     </template>
 </custom-element>
 
-<html-demo-element legend="Most features" description="Focus to see the cursor in input with label shifted upward ">
+<html-demo-element legend="Most features" description="Focus to see the cursor in input with label shifted upward "
+    class="flat-attr"
+    >
     <template>
 <cem-input label="String field with leading and trailing icon "
     placeholder="type here"
     supporting="required field. Clear to see placeholder."
     leading="search"
-    trailing="cross"
+    trailing="close"
     ></cem-input>
     </template>
 </html-demo-element>
@@ -302,7 +308,7 @@
     </template>
 </html-demo-element>
 
-<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text">
+<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text" class="flat-attr">
     <template>
 <cem-input label="Number" type="number" placeholder="Enter the numeric value">
 </cem-input>
