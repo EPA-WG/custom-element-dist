@@ -120,17 +120,17 @@
                     --cem-input-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
                     --cem-input-focus-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
-                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
-
                     &>label
-                    {   display: flex; flex-direction: column; justify-content: center;
-                        flex: 1; padding: 0.5rem 1rem;
+                    {   display: flex; flex: 1; gap: 0.5rem;
+                        padding: 0.5rem 1rem;
+                        background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
                         box-shadow: var(--cem-input-outline);
                         transition: var(--drop-transition);
                         box-sizing: border-box;
                         min-height: 3.5rem;
                         color: var(--cem-filled-text-field-label-text-color);
                         position: relative;
+                        &>div{ display: flex;flex-direction: column; justify-content: center;flex:1; }
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
@@ -144,6 +144,7 @@
                             transition: var(--drop-transition);
                         }
                         &:after{ display: block; width: 0; height: 0;  content: ' ';
+                            left:0;
                             transition: var(--cem-input-focus-transition);
                             position: absolute; align-self: center;
                             bottom: var(--cem-focus-outline-height);
@@ -153,7 +154,10 @@
                     {
                         &> label
                         {   font-size: small; justify-content: space-between;
+                            color: var(--cem-outline-color-focus);
+                            input{ caret-color: var(--cem-outline-color-focus); }
                             &:after{  width: 100%; height: var(--cem-focus-outline-height);
+                                left:0;
                                 background: none;
                                 box-shadow: 0 var(--cem-focus-outline-height) 0 var(--cem-outline-color-focus);
                                 align-self: center;
@@ -163,6 +167,11 @@
                     }
                     label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
                     slice{display: none;}
+                    .warn,.supporting
+                    {
+                        padding: 0.25rem 1rem;
+                        font-size: var(--cem-form-field-subscript-text-size, var(--cem-sys-body-small-size));
+                    }
                 }
             </style>
             <label>
@@ -171,60 +180,62 @@
                         <cem-icon src="{$leading}"></cem-icon>
                     </if>
                 </slot>
-                <slot name="label">
-                    <if test="$label">
-                        <span class="label">{$label}</span>
-                    </if>
-                </slot>
-                <slot name="input">
-                    <xhtml:input
-                        type="{$type}"
-                        value="{//selected ?? $value}"
-                        slice="selected" slice-event="input"
-                        >
-                        <if test="hasBoolAttribute($required)"        ><attribute name="required"         >{$required         }</attribute></if>
-                        <if test="hasBoolAttribute($autocapitalize)"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
-                        <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
-                        <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
-                        <if test="hasBoolAttribute($readonly)"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
-                        <if test="hasBoolAttribute($incremental)"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
-                        <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
-                        <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
-                        <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
-                        <if test="$minlength"       ><attribute name="minlength"        >{$minlength        }</attribute></if>
-                        <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
-                        <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
-                        <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
-                        <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
-                        <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
-                        <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
-                        <if test="$list"            ><attribute name="list"             >{$list             }</attribute></if>
-                        <if test="$name"            ><attribute name="name"             >{$name             }</attribute></if>
-                        <if test="$pattern"         ><attribute name="pattern"          >{$pattern          }</attribute></if>
-                        <if test="$placeholder"     ><attribute name="placeholder"      >{$placeholder      }</attribute></if>
-                        <if test="$title"           ><attribute name="title"            >{$title            }</attribute></if>
+                <div>
+                    <slot name="label">
+                        <if test="$label">
+                            <span class="label">{$label}</span>
+                        </if>
+                    </slot>
+                    <slot name="input">
+                        <xhtml:input
+                            type="{$type}"
+                            value="{//selected ?? $value}"
+                            slice="selected" slice-event="input"
+                            >
+                            <if test="hasBoolAttribute($required)"        ><attribute name="required"         >{$required         }</attribute></if>
+                            <if test="hasBoolAttribute($autocapitalize)"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
+                            <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
+                            <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
+                            <if test="hasBoolAttribute($readonly)"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
+                            <if test="hasBoolAttribute($incremental)"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
+                            <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
+                            <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
+                            <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
+                            <if test="$minlength"       ><attribute name="minlength"        >{$minlength        }</attribute></if>
+                            <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
+                            <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
+                            <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
+                            <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
+                            <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
+                            <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
+                            <if test="$list"            ><attribute name="list"             >{$list             }</attribute></if>
+                            <if test="$name"            ><attribute name="name"             >{$name             }</attribute></if>
+                            <if test="$pattern"         ><attribute name="pattern"          >{$pattern          }</attribute></if>
+                            <if test="$placeholder"     ><attribute name="placeholder"      >{$placeholder      }</attribute></if>
+                            <if test="$title"           ><attribute name="title"            >{$title            }</attribute></if>
 
-                        <slice name="focused" slice-event="blur" slice-value="0"></slice>
-                        <slice name="focused" slice-event="focus" slice-value="1"></slice>
-                        <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
-                    </xhtml:input>
-                </slot>
+                            <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                            <slice name="focused" slice-event="focus" slice-value="1"></slice>
+                            <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
+                        </xhtml:input>
+                    </slot>
+                </div>
                 <slot name="trailing">
                     <if test="$trailing">
                         <cem-icon src="{$trailing}"></cem-icon>
                     </if>
                 </slot>
-
             </label>
-            <slot name="supporting">
-                <if test="$supporting">
-                    {$supporting}
-                </if>
-            </slot>
-            <slot name="warn">
-                <span class="warn">{//warn}</span>
-            </slot>
-            <slot name="warn"></slot>
+            <div class="supporting">
+                <slot name="supporting">
+                    <if test="$supporting">
+                        {$supporting}
+                    </if>
+                </slot>
+            </div>
+            <div class="warn">
+                <slot name="warn">{//warn}</slot>
+            </div>
         </template>
     </custom-element>
 

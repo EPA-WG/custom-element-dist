@@ -54,6 +54,10 @@
     --cem-icon-size: 2rem;
     --cem-icon-size-small: 1rem;
     --cem-icon-size-large: 3rem;
+
+    --cem-sys-body-small-size: .75rem;
+    --cem-form-field-subscript-text-size: var(--cem-sys-body-small-size);
+
     --primary-background-color: var(--ng-azure-90);
     --secondary-background-color: var(--ng-azure-80);
     --alert-color: var(--ng-magenta-80);
