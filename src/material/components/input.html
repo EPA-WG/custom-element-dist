@@ -46,8 +46,11 @@
 </header>
 <pre>
     TODO
-    * error handling
+    * error handling & styling
     * link to form error handling
+    * password show text 👁️ & clear button
+    * tokens as in https://material-web.dev/components/text-field/#filled-text-field-tokens
+        or by css in https://material.angular.io/components/input/overview
     * docs
 </pre>
 <main>
@@ -130,7 +133,7 @@
                         min-height: 3.5rem;
                         color: var(--cem-filled-text-field-label-text-color);
                         position: relative;
-                        &>div{ display: flex;flex-direction: column; justify-content: center;flex:1; }
+                        &>.entry{ display: flex;flex-direction: column; justify-content: center;flex:1; }
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
@@ -172,6 +175,7 @@
                         padding: 0.25rem 1rem;
                         font-size: var(--cem-form-field-subscript-text-size, var(--cem-sys-body-small-size));
                     }
+                    [slot="trailing"],[slot="leading"]{display: flex;}
                 }
             </style>
             <label>
@@ -180,7 +184,7 @@
                         <cem-icon src="{$leading}"></cem-icon>
                     </if>
                 </slot>
-                <div>
+                <div class="entry">
                     <slot name="label">
                         <if test="$label">
                             <span class="label">{$label}</span>
@@ -193,7 +197,6 @@
                             slice="selected" slice-event="input"
                             >
                             <if test="hasBoolAttribute($required)"        ><attribute name="required"         >{$required         }</attribute></if>
-                            <if test="hasBoolAttribute($autocapitalize)"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
                             <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
                             <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
                             <if test="hasBoolAttribute($readonly)"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
@@ -205,6 +208,7 @@
                             <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
                             <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
                             <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
+                            <if test="$autocapitalize"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
                             <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
                             <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
                             <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
@@ -332,7 +336,7 @@
     </template>
 </html-demo-element>
 
-<html-demo-element legend="head and foot slots" >
+<html-demo-element legend="leading and trailing slots" >
     <div slot="description"><code>head</code> slot inserted above input,
         <code>foot</code> slot injected bellow</div>
     <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
@@ -341,8 +345,8 @@
     </p>
     <template>
 <cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
-    <div slot="head"> 🍏 <code>head</code> slot  </div>
-    <div slot="foot"> 🍓 <code>foot</code> slot  </div>
+    <div slot="leading"><cem-icon src="edit"></cem-icon></div>
+    <div slot="trailing"><cem-icon src="👁"></cem-icon>️<cem-icon src="close"></cem-icon>️</div>
 </cem-input>
     </template>
 </html-demo-element>
@@ -387,7 +391,6 @@
             }
             label{ display: block; }
         </style>
-        <cem-demo-cb slice="autocapitalize" ></cem-demo-cb>
         <cem-demo-cb slice="disabled"       ></cem-demo-cb>
         <cem-demo-cb slice="multiple"       ></cem-demo-cb>
         <cem-demo-cb slice="readonly"       ></cem-demo-cb>
@@ -400,6 +403,7 @@
         <cem-demo-in slice="size"           ></cem-demo-in>
         <cem-demo-in slice="step"           ></cem-demo-in>
         <cem-demo-in slice="tabindex"       ></cem-demo-in>
+        <cem-demo-tx slice="autocapitalize" title="on sentences off none words characters "></cem-demo-tx>
         <cem-demo-tx slice="autocomplete"   ></cem-demo-tx>
         <cem-demo-tx slice="form"           ></cem-demo-tx>
         <cem-demo-tx slice="id"             ></cem-demo-tx>
@@ -419,32 +423,32 @@
 
         <form action="#play">
             <cem-input type="{//type}" >
-                <if test="//autocapitalize = 'autocapitalize'"  ><attribute name="autocapitalize"   ></attribute></if>
                 <if test="//disabled = 'disabled'"              ><attribute name="disabled"         ></attribute></if>
                 <if test="//multiple = 'multiple'"              ><attribute name="multiple"         ></attribute></if>
                 <if test="//readonly = 'readonly'"              ><attribute name="readonly"         ></attribute></if>
                 <if test="//required = 'required'"              ><attribute name="required"         ></attribute></if>
                 <if test="//incremental = 'incremental'"        ><attribute name="incremental"      ></attribute></if>
-                <if test="not(//max          = '')" ><attribute name="max"          >{//max         }</attribute></if>
-                <if test="not(//maxlength    = '')" ><attribute name="maxlength"    >{//maxlength   }</attribute></if>
-                <if test="not(//min          = '')" ><attribute name="min"          >{//min         }</attribute></if>
-                <if test="not(//minlength    = '')" ><attribute name="minlength"    >{//minlength   }</attribute></if>
-                <if test="not(//size         = '')" ><attribute name="size"         >{//size        }</attribute></if>
-                <if test="not(//step         = '')" ><attribute name="step"         >{//step        }</attribute></if>
-                <if test="not(//tabindex     = '')" ><attribute name="tabindex"     >{//tabindex    }</attribute></if>
-                <if test="not(//autocomplete = '')" ><attribute name="autocomplete" >{//autocomplete}</attribute></if>
-                <if test="not(//form         = '')" ><attribute name="form"         >{//form        }</attribute></if>
-                <if test="not(//id           = '')" ><attribute name="id"           >{//id          }</attribute></if>
-                <if test="not(//list         = '')" ><attribute name="list"         >{//list        }</attribute></if>
-                <if test="not(//name         = '')" ><attribute name="name"         >{//name        }</attribute></if>
-                <if test="not(//pattern      = '')" ><attribute name="pattern"      >{//pattern     }</attribute></if>
-                <if test="not(//placeholder  = '')" ><attribute name="placeholder"  >{//placeholder }</attribute></if>
-                <if test="not(//title        = '')" ><attribute name="title"        >{//title       }</attribute></if>
-                <if test="not(//value        = '')" ><attribute name="value"        >{//value       }</attribute></if>
-                <if test="not(//label        = '')" ><attribute name="label"        >{//label       }</attribute></if>
-                <if test="not(//leading      = '')" ><attribute name="leading"      >{//leading     }</attribute></if>
-                <if test="not(//trailing     = '')" ><attribute name="trailing"     >{//trailing    }</attribute></if>
-                <if test="not(//supporting   = '')" ><attribute name="supporting"   >{//supporting  }</attribute></if>
+                <if test="not(//max          = '')" ><attribute name="max"              >{//max             }</attribute></if>
+                <if test="not(//maxlength    = '')" ><attribute name="maxlength"        >{//maxlength       }</attribute></if>
+                <if test="not(//min          = '')" ><attribute name="min"              >{//min             }</attribute></if>
+                <if test="not(//minlength    = '')" ><attribute name="minlength"        >{//minlength       }</attribute></if>
+                <if test="not(//size         = '')" ><attribute name="size"             >{//size            }</attribute></if>
+                <if test="not(//step         = '')" ><attribute name="step"             >{//step            }</attribute></if>
+                <if test="not(//tabindex     = '')" ><attribute name="tabindex"         >{//tabindex        }</attribute></if>
+                <if test="not(//autocapitalize='')" ><attribute name="autocapitalize"   >{//autocapitalize  }</attribute></if>
+                <if test="not(//autocomplete = '')" ><attribute name="autocomplete"     >{//autocomplete    }</attribute></if>
+                <if test="not(//form         = '')" ><attribute name="form"             >{//form            }</attribute></if>
+                <if test="not(//id           = '')" ><attribute name="id"               >{//id              }</attribute></if>
+                <if test="not(//list         = '')" ><attribute name="list"             >{//list            }</attribute></if>
+                <if test="not(//name         = '')" ><attribute name="name"             >{//name            }</attribute></if>
+                <if test="not(//pattern      = '')" ><attribute name="pattern"          >{//pattern         }</attribute></if>
+                <if test="not(//placeholder  = '')" ><attribute name="placeholder"      >{//placeholder     }</attribute></if>
+                <if test="not(//title        = '')" ><attribute name="title"            >{//title           }</attribute></if>
+                <if test="not(//value        = '')" ><attribute name="value"            >{//value           }</attribute></if>
+                <if test="not(//label        = '')" ><attribute name="label"            >{//label           }</attribute></if>
+                <if test="not(//leading      = '')" ><attribute name="leading"          >{//leading         }</attribute></if>
+                <if test="not(//trailing     = '')" ><attribute name="trailing"         >{//trailing        }</attribute></if>
+                <if test="not(//supporting   = '')" ><attribute name="supporting"       >{//supporting      }</attribute></if>
             </cem-input>
             <button>Next</button>
 <if test="//disabled = 'disabled'"              >//disabled = 'disabled' </if>
