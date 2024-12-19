@@ -69,11 +69,12 @@
                 font-size: var(--cem-icon-size);
                 height: var(--cem-icon-size);
             }
+            .unicode{position: relative; top:-25%; }
         }
     </style>
 
     <choose>
-        <when test="string-length($src)=1"><b class="icon">{$src}</b></when>
+        <when test="string-length($src) &lt; 3"><b class="icon unicode">{$src}</b></when>
         <when test="contains($src,'/')"><img alt="icon" class="icon" src="{$src}"/></when>
         <when test="contains($src,'fa-')"><i class="icon {$src}"></i></when>
         <when test="$src"><span class="icon material-icons">{$src}</span></when>
@@ -140,8 +141,8 @@
                 ><a href="https://emojipedia.org/search?q=heart">Search Emoji</a></cem-icon>
         </p>
         <template>
-<cem-icon src="🐾"      > Paw Prints </cem-icon>
-<cem-icon src="❤️"  > Red Heart </cem-icon>
+<cem-icon src="🚀"      > Rocket emoji </cem-icon>
+<cem-icon src="👁"  > Eye unicode </cem-icon>
 <hr/>
 <cem-icon src="🎄" ></cem-icon>
 <cem-icon src="😭" ></cem-icon>
