@@ -35,6 +35,7 @@
 
 <body>
 <custom-element tag="cem-icon" hidden src="./components/icon.html#cem-icon" ></custom-element>
+<custom-element tag="cem-input" hidden src="./components/input.html#cem-input" ></custom-element>
 <custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
 
@@ -90,7 +91,11 @@
 
     </demo-list-card>
 
-    <demo-list-card head="icon-link" description="Vertical or horizontal List of actions: links or buttons">
+    <demo-list-card head="input" description="Text input field">
+        <cem-input  leading="search" label="Text input" supporting="required field"></cem-input>
+    </demo-list-card>
+
+    <demo-list-card head="icon-link" description="Button like link">
         <cem-icon-link icon="format_color_fill"
                        title="Select a theme for the documentation"
                        href="./components/icon-link.html"
