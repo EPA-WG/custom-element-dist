@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+    <style>
+        @import "../angular.css";
+        @import "../material.css";
+        @import "../theme/semantic.css";
+        @import "../demo.css";
+        main{
+            display: flex; flex-wrap: wrap;
+            gap: 3rem;
+            padding: 5rem;
+            &>p{ min-width: 90%; }
+            html-demo-element
+            {   overflow: visible;
+                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
+                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="description"] dd{ padding: 0; }
+            }
+            var{ color: darkgreen; font-weight: bold; }
+            html-demo-element { [slot="demo"] { display: flex; gap: 8rem; } } }
+    </style>
+</head>
+
+<body>
+<template id="cem-badge">
+    <attribute name="text"
+            aria-description="Badge text content. Up to 4 characters including + sign."
+            ></attribute>
+    <attribute name="dot"
+            aria-description="attribute defines the small dot presentation without visible text. Default 'true' "
+            ></attribute>
+    <attribute name="color"
+            aria-description="semantic colors. Default is 'primary'. Values: primary|secondary|success|alert"
+            ></attribute>
+    <attribute name="vertical"
+            aria-description="Vertical align. Default is 'top'. Values: top|middle|bottom"
+            ></attribute>
+    <attribute name="horizontal"
+            aria-description="Horizontal align. Default is 'end'. Values: begin|middle|end"
+            ></attribute>
+    <style>
+        &[dot]>*>dd{ height: 0; width: 0; min-width: 0.5rem; color: transparent; padding: 0; min-height: 0.5rem; }
+        &{ position: relative;}
+        &>*>dd{
+            /*position: absolute; top:-0.5rem; border-radius: 0.5rem; */
+            /*padding: 0.25rem; background-color: red;*/
+            display: flex ;
+            flex-direction: row;
+            flex-wrap: wrap;
+            -webkit-box-pack: center;
+            justify-content: center;
+            align-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            position: absolute;
+            box-sizing: border-box;
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            font-size: 0.75rem;
+            min-width: 20px;
+            line-height: 1;
+            height: 20px;
+            z-index: 1;
+            background-color: rgb(25, 118, 210);
+            color: rgb(255, 255, 255);
+            top: 0px;
+            right: 0px;
+            transform: scale(1) translate(50%, -50%);
+            transform-origin: 100% 0%;
+            padding: 0px 6px;
+            border-radius: 10px;
+            transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+
+    <dd>{text}</dd>
+    <slot></slot>
+
+</template>
+
+<custom-element hidden src="#cem-badge" tag="cem-badge"></custom-element>
+<custom-element hidden src="./icon-link.html#cem-badge-link" tag="cem-badge-link"></custom-element>
+<custom-element hidden src="./icon.html#cem-icon" tag="cem-icon"></custom-element>
+
+<header class="cem-theme-teal">
+    <custom-element src="../index.html#nav-head"></custom-element>
+</header>
+<main>
+    <aside>
+        <p><code>cem-badge</code> is badge component from &lt;custom-element&gt; Material suite icons based on the
+            <a href="https://m3.material.io/components/badges/overview">Material Design specification for Badges</a>.<br/>
+            Badges show notifications, counts, or status information on navigation items and icons.
+            Inspired by <a href="https://mui.com/material-ui/react-badge/">MUI</a>
+        </p>
+        <h1>Attributes</h1>
+        <div> <code>text</code> attribute defines the Up to 4 characters including + sign.</div>
+        <div> <code>dot</code> attribute defines the small dot presentation without visible text. Default 'true'. </div>
+    </aside>
+
+    <html-demo-element legend="Variations">
+        <p slot="description">
+
+        </p>
+        <template>
+<cem-badge text="0" color="secondary"> <cem-icon src="far fa-envelope"></cem-icon> </cem-badge>
+<cem-badge text="999+"  > <cem-icon src="🛒" vertical="middle"></cem-icon>  </cem-badge>
+<cem-badge text="999+"  dot> <cem-icon src="🛒" vertical="middle"></cem-icon>  </cem-badge>
+        </template>
+    </html-demo-element>
+
+
+</main>
+<footer>
+    <hr/>
+    Powered by Syngrafact Corp. ©2024.<br/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+<script src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js" type="module"></script>
+
+</body>
+</html>
