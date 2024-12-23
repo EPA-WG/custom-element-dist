@@ -103,6 +103,12 @@
     --cem-menu-item-hover-color: black;
     --cem-menu-item-padding: 0.5rem;
     --cem-menu-item-font-weight: bold;
+
+    --cem-badge-color-primary: var(--ng-azure-50);
+    --cem-badge-color-secondary: var(--ng-magenta-50);
+    --cem-badge-color-success: var(--ng-cyan-60);
+    --cem-badge-color-alert: var(--ng-error-50);
+
 }
 
 .cem-theme-teal{
