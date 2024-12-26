@@ -42,7 +42,7 @@
 
 <body>
 <template id="cem-icon">
-    <attribute name="src"
+    <attribute name="image"
             aria-description="defines the icon in one of the libraries or URL. The selection algorithm
             if value is single symbol, it is treated as unicode or emoji image
             if value has a slash symbol (/), it is treated as URL for img< element
@@ -74,10 +74,10 @@
     </style>
 
     <choose>
-        <when test="string-length($src) &lt; 3"><b class="icon unicode">{$src}</b></when>
-        <when test="contains($src,'/')"><img alt="icon" class="icon" src="{$src}"/></when>
-        <when test="contains($src,'fa-')"><i class="icon {$src}"></i></when>
-        <when test="$src"><span class="icon material-icons">{$src}</span></when>
+        <when test="string-length($image) &lt; 3"><b class="icon unicode">{$image}</b></when>
+        <when test="contains($image,'/')"><img alt="icon" class="icon" src="{$image}"/></when>
+        <when test="contains($image,'fa-')"><i class="icon {$image}"></i></when>
+        <when test="$image"><span class="icon material-icons">{$image}</span></when>
     </choose>
     <slot></slot>
 
@@ -96,7 +96,7 @@
             Icons are small symbols to easily identify actions and categories
         </p>
         <h1>Attributes</h1>
-        <div> <code>src</code> attribute defines the icon in one of the libraries or URL. The selection algorithm
+        <div> <code>image</code> attribute defines the icon in one of the libraries or URL. The selection algorithm
             <ol>
                 <li>if value is single symbol, it is treated as <var>unicode</var> or <var>emoji</var> image </li>
                 <li>if value has a slash symbol (<code>/</code>), it is treated as <var>URL</var> for <code>img</code> element </li>
@@ -113,9 +113,9 @@
             Defines the text position next to icon. Uses CSS <code>flex-direction</code> values.
         </p>
         <template>
-<cem-icon src="»"> default is row </cem-icon>
-<cem-icon src="home" direction="column"> column </cem-icon>
-<cem-icon src="fas fa-bone" direction="row"> row </cem-icon>
+<cem-icon image="»"> default is row </cem-icon>
+<cem-icon image="home" direction="column"> column </cem-icon>
+<cem-icon image="fas fa-bone" direction="row"> row </cem-icon>
         </template>
     </html-demo-element>
 
@@ -125,9 +125,9 @@
             Defines the icon size.
         </p>
         <template>
-<cem-icon src="fas fa-heart" size="small"> small </cem-icon>
-<cem-icon src="fas fa-heart" size="normal"> normal </cem-icon>
-<cem-icon src="fas fa-heart" size="large"> large </cem-icon>
+<cem-icon image="fas fa-heart" size="small"> small </cem-icon>
+<cem-icon image="fas fa-heart" size="normal"> normal </cem-icon>
+<cem-icon image="fas fa-heart" size="large"> large </cem-icon>
         </template>
     </html-demo-element>
 
@@ -135,76 +135,76 @@
     
     <html-demo-element legend="Unicode or Emoji">
         <p slot="description">
-            <cem-icon src="https://unicodeplus.com/favicon.ico"
+            <cem-icon image="https://unicodeplus.com/favicon.ico"
                 ><a href="https://unicodeplus.com/search">Search Unicode</a> </cem-icon>
-            <cem-icon src="https://emojipedia.org/images/favicon-32x32.png"
+            <cem-icon image="https://emojipedia.org/images/favicon-32x32.png"
                 ><a href="https://emojipedia.org/search?q=heart">Search Emoji</a></cem-icon>
         </p>
         <template>
-<cem-icon src="🚀"      > Rocket emoji </cem-icon>
-<cem-icon src="👁"  > Eye unicode </cem-icon>
+<cem-icon image="🚀"      > Rocket emoji </cem-icon>
+<cem-icon image="👁"  > Eye unicode </cem-icon>
 <hr/>
-<cem-icon src="🎄" ></cem-icon>
-<cem-icon src="😭" ></cem-icon>
-<cem-icon src="🔥" ></cem-icon>
-<cem-icon src="💀" ></cem-icon><br/>
-<cem-icon src="🛒" ></cem-icon>
-<cem-icon src="✨" ></cem-icon>
-<cem-icon src="😊" ></cem-icon>
-<cem-icon src="😂" ></cem-icon><br/>
-<cem-icon src="⭐" ></cem-icon>
-<cem-icon src="🫶" ></cem-icon>
-<cem-icon src="🎁" ></cem-icon>
-<cem-icon src="✅" ></cem-icon>
+<cem-icon image="🎄" ></cem-icon>
+<cem-icon image="😭" ></cem-icon>
+<cem-icon image="🔥" ></cem-icon>
+<cem-icon image="💀" ></cem-icon><br/>
+<cem-icon image="🛒" ></cem-icon>
+<cem-icon image="✨" ></cem-icon>
+<cem-icon image="😊" ></cem-icon>
+<cem-icon image="😂" ></cem-icon><br/>
+<cem-icon image="⭐" ></cem-icon>
+<cem-icon image="🫶" ></cem-icon>
+<cem-icon image="🎁" ></cem-icon>
+<cem-icon image="✅" ></cem-icon>
         </template>
     </html-demo-element>
 
     <html-demo-element legend="Google Material icon font">
         <p slot="description">
-            <cem-icon src="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg"
+            <cem-icon image="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg"
                 >Material Icon &bull; <a href="https://fonts.google.com/icons">Search all</a></cem-icon>
         </p>
         <template>
-<cem-icon src="recycling"      > recycling</cem-icon>
-<cem-icon src="shopping_cart"  > shopping_cart</cem-icon>
+<cem-icon image="recycling"      > recycling</cem-icon>
+<cem-icon image="shopping_cart"  > shopping_cart</cem-icon>
 <hr/>
-<cem-icon src="search"         ></cem-icon>
-<cem-icon src="home"           ></cem-icon>
-<cem-icon src="menu"           ></cem-icon>
-<cem-icon src="close"          ></cem-icon><br/>
-<cem-icon src="check_circle"   ></cem-icon>
-<cem-icon src="favorite"       ></cem-icon>
-<cem-icon src="add"            ></cem-icon>
-<cem-icon src="star"           ></cem-icon><br/>
-<cem-icon src="chevron_right"  ></cem-icon>
-<cem-icon src="logout"         ></cem-icon>
-<cem-icon src="add_circle"     ></cem-icon>
-<cem-icon src="cancel"         ></cem-icon>
+<cem-icon image="search"         ></cem-icon>
+<cem-icon image="home"           ></cem-icon>
+<cem-icon image="menu"           ></cem-icon>
+<cem-icon image="close"          ></cem-icon><br/>
+<cem-icon image="check_circle"   ></cem-icon>
+<cem-icon image="favorite"       ></cem-icon>
+<cem-icon image="add"            ></cem-icon>
+<cem-icon image="star"           ></cem-icon><br/>
+<cem-icon image="chevron_right"  ></cem-icon>
+<cem-icon image="logout"         ></cem-icon>
+<cem-icon image="add_circle"     ></cem-icon>
+<cem-icon image="cancel"         ></cem-icon>
         </template>
     </html-demo-element>
 
     <html-demo-element legend="Fontawesome">
         <p slot="description">
-                <cem-icon src="https://fontawesome.com/images/favicon/icon.svg"
+                <cem-icon image="https://fontawesome.com/images/favicon/icon.svg"
                 >Fontawesome Icon &bull; <a href="https://fontawesome.com/icons/">Search all</a></cem-icon>
             </a>
         </p>
         <template>
-            <cem-icon src="fab fa-github"> GitHub</cem-icon>
-            <cem-icon src="fas fa-bookmark"> Bookmark</cem-icon>
-            <cem-icon src="fab fa-discord"></cem-icon><hr/>
-            <cem-icon src="fab fa-android"></cem-icon>
-            <cem-icon src="fab fa-apple"></cem-icon>
-            <cem-icon src="far fa-user"></cem-icon>
-            <cem-icon src="far fa-envelope"></cem-icon><br/>
-            <cem-icon src="fas fa-thumbs-up"></cem-icon>
-            <cem-icon src="far fa-thumbs-down"></cem-icon>
-            <cem-icon src="far fa-star"></cem-icon>
-            <cem-icon src="fas fa-star"></cem-icon><br/>
-            <cem-icon src="fas fa-location-arrow"></cem-icon>
-            <cem-icon src="fas fa-map-marker"></cem-icon>
-            <cem-icon src="fas fa-map-marked-alt"></cem-icon>
-            <cem-icon src="fas fa-globe"></cem-icon>
+            <cem-icon image="fab fa-github"> GitHub</cem-icon>
+            <cem-icon image="fas fa-bookmark"> Bookmark</cem-icon>
+            <cem-icon image="fab fa-discord"></cem-icon><hr/>
+            <cem-icon image="fab fa-android"></cem-icon>
+            <cem-icon image="fab fa-apple"></cem-icon>
+            <cem-icon image="far fa-user"></cem-icon>
+            <cem-icon image="far fa-envelope"></cem-icon><br/>
+            <cem-icon image="fas fa-thumbs-up"></cem-icon>
+            <cem-icon image="far fa-thumbs-down"></cem-icon>
+            <cem-icon image="far fa-star"></cem-icon>
+            <cem-icon image="fas fa-star"></cem-icon><br/>
+            <cem-icon image="fas fa-location-arrow"></cem-icon>
+            <cem-icon image="fas fa-map-marker"></cem-icon>
+            <cem-icon image="fas fa-map-marked-alt"></cem-icon>
+            <cem-icon image="fas fa-globe"></cem-icon>
 
         </template>
     </html-demo-element>
@@ -216,8 +216,8 @@
             <custom-element>
                 <template>
                     <module-url slice="logo-url" src="@epa-wg/custom-element/demo/wc-square.svg"></module-url>
-                    <cem-icon src="{//logo-url}"> custom-element</cem-icon>
-                    <cem-icon src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg">
+                    <cem-icon image="{//logo-url}"> custom-element</cem-icon>
+                    <cem-icon image="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg">
                         bulbasaur
                     </cem-icon>
                 </template>
@@ -231,9 +231,9 @@
             For font based icons the color is inherited from CSS text <code>color</code>.
         </p>
         <template>
-<cem-icon src="fas fa-heart" style="color:red"     > red    </cem-icon>
-<cem-icon src="fas fa-heart" style="color:green"   > green  </cem-icon>
-<cem-icon src="fas fa-heart" style="color:blue"    > blue   </cem-icon>
+<cem-icon image="fas fa-heart" style="color:red"     > red    </cem-icon>
+<cem-icon image="fas fa-heart" style="color:green"   > green  </cem-icon>
+<cem-icon image="fas fa-heart" style="color:blue"    > blue   </cem-icon>
         </template>
     </html-demo-element>
 

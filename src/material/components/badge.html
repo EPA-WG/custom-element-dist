@@ -82,14 +82,15 @@
             line-height: 1;
             height: 20px;
             z-index: 1;
-            background-color: var(--cem-badge-color-primary);
-            color: rgb(255, 255, 255);
+            background-color: var(--cem-badge-color, --cem-badge-color-primary);
+            color: var(--cem-badge-text-color,rgb(255, 255, 255));
             top: 0;
             right: 0;
             transform: scale(1) translate(50%, -50%);
             transform-origin: 100% 0%;
             padding: 0 6px;
             border-radius: 10px;
+            border: var(--cem-badge-border, none);
             transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         &[color="secondary"]>*>dd{ background-color: var(--cem-badge-color-secondary); }
@@ -127,26 +128,67 @@
 
         </p>
         <template>
-<cem-badge text="0"    color="secondary"> <cem-icon src="far fa-envelope"></cem-icon> </cem-badge>
-<cem-badge text="999+"                  > <cem-icon src="🛒" vertical="middle"></cem-icon>  </cem-badge>
-<cem-badge text="999+"  dot             > <cem-icon src="notifications" vertical="middle"></cem-icon>  </cem-badge>
+<cem-badge text="0"    color="secondary"> <cem-icon image="far fa-envelope"></cem-icon> </cem-badge>
+<cem-badge text="999+"                  > <cem-icon image="🛒" vertical="middle"></cem-icon>  </cem-badge>
+<cem-badge text="999+"  dot             > <cem-icon image="notifications" vertical="middle"></cem-icon>  </cem-badge>
         </template>
     </html-demo-element>
 
     <html-demo-element legend="color attribute">
         <p slot="description">
-            <a href="#">Semantic colors</a>
+            Semantic colors
         </p>
         <template>
-<cem-badge text="0"                     > <cem-icon src="✉"></cem-icon> </cem-badge>
-<cem-badge text="1"    color="primary"  > <cem-icon src="✉"></cem-icon> </cem-badge>
-<cem-badge text="2"    color="secondary"> <cem-icon src="✉"></cem-icon> </cem-badge>
-<cem-badge text="3"    color="success"  > <cem-icon src="✉"></cem-icon> </cem-badge>
-<cem-badge text="4"    color="alert"    > <cem-icon src="✉"></cem-icon> </cem-badge>
+<cem-badge text="0"                     > <cem-icon image="✉"></cem-icon> </cem-badge>
+<cem-badge text="1"    color="primary"  > <cem-icon image="✉"></cem-icon> </cem-badge>
+<cem-badge text="2"    color="secondary"> <cem-icon image="✉"></cem-icon> </cem-badge>
+<cem-badge text="3"    color="success"  > <cem-icon image="✉"></cem-icon> </cem-badge>
+<cem-badge text="4"    color="alert"    > <cem-icon image="✉"></cem-icon> </cem-badge>
+        </template>
+    </html-demo-element>
+
+    <html-demo-element legend="custom color">
+        <p slot="description">
+            Override by CE
+        </p>
+        <template>
+<custom-element>
+    <template>
+        <style>
+            &
+            {   --cem-badge-text-color:red;
+                --cem-badge-color:#FF08;
+                --cem-badge-border: 1px blue solid;
+                cem-badge dd{box-shadow: -2px 3px 8px blue;}
+            }
+        </style>
+        <cem-badge text="123"> CUSTOM COLOR </cem-badge>
+    </template>
+</custom-element>
         </template>
     </html-demo-element>
 
 
+    <html-demo-element legend="invisible attribute">
+        <p slot="description">
+            hides badge, animated
+        </p>
+        <template>
+    <custom-element>
+        <template>
+            <label><input type="checkbox" slice="invisible"/>
+                invisible
+<cem-badge text="1"    color="primary"  >
+    <attribute name="invisible"></attribute>
+    <div src="🛒"  title="🛒" >🛒</div>
+    <cem-icon image="🛒"  title="🛒" >🛒</cem-icon>
+</cem-badge>
+
+            </label>
+        </template>
+    </custom-element>
+        </template>
+    </html-demo-element>
 </main>
 <footer>
     <hr/>

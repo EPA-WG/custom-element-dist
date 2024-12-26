@@ -182,7 +182,7 @@
             <label>
                 <slot name="leading">
                     <if test="$leading">
-                        <cem-icon src="{$leading}"></cem-icon>
+                        <cem-icon image="{$leading}"></cem-icon>
                     </if>
                 </slot>
                 <div class="entry">
@@ -228,7 +228,7 @@
                 </div>
                 <slot name="trailing">
                     <if test="$trailing">
-                        <cem-icon src="{$trailing}"></cem-icon>
+                        <cem-icon image="{$trailing}"></cem-icon>
                     </if>
                 </slot>
             </label>
@@ -347,8 +347,8 @@
     </p>
     <template>
 <cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
-    <div slot="leading"><cem-icon src="edit"></cem-icon></div>
-    <div slot="trailing"><cem-icon src="👁"></cem-icon>️<cem-icon src="close"></cem-icon>️</div>
+    <div slot="leading"><cem-icon image="edit"></cem-icon></div>
+    <div slot="trailing"><cem-icon image="👁"></cem-icon>️<cem-icon image="close"></cem-icon>️</div>
 </cem-input>
     </template>
 </html-demo-element>
