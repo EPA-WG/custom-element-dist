@@ -61,7 +61,8 @@
             ></attribute>
     <style>
         &[dot]>*>dd{ height: 0; width: 0; min-width: 0.5rem; color: transparent; padding: 0; min-height: 0.5rem; }
-        &{ position: relative;}
+        &[invisible]>*>dd{ height: 0; width: 0; min-width: 0; color: transparent; padding: 0; min-height:0; }
+        &{ position: relative; display: inline-block; }
         &>*>dd{
             /*position: absolute; top:-0.5rem; border-radius: 0.5rem; */
             /*padding: 0.25rem; background-color: red;*/
@@ -91,17 +92,15 @@
             padding: 0 6px;
             border-radius: 10px;
             border: var(--cem-badge-border, none);
-            transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 225ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         &[color="secondary"]>*>dd{ background-color: var(--cem-badge-color-secondary); }
         &[color="success"]>*>dd{ background-color: var(--cem-badge-color-success); }
         &[color="alert"]>*>dd{ background-color: var(--cem-badge-color-alert); }
 
     </style>
-
     <dd>{text}</dd>
     <slot></slot>
-
 </template>
 
 <custom-element hidden src="#cem-badge" tag="cem-badge"></custom-element>
@@ -176,19 +175,23 @@
         <template>
     <custom-element>
         <template>
-            <label><input type="checkbox" slice="invisible"/>
-                invisible
-<cem-badge text="1"    color="primary"  >
-    <attribute name="invisible"></attribute>
-    <div src="🛒"  title="🛒" >🛒</div>
-    <cem-icon image="🛒"  title="🛒" >🛒</cem-icon>
+            <label>
+                <input type="checkbox" slice="is-checked" value="on" />
+                invisible</label>
+<cem-badge text="1"  >
+        <if test="/datadom/slice/is-checked = 'on'"><attribute name="invisible">on</attribute></if>
+        <cem-icon image="mail" ></cem-icon>
 </cem-badge>
-
-            </label>
+    &nbsp;
+<cem-badge dot>
+        <if test="/datadom/slice/is-checked = 'on'"><attribute name="invisible">on</attribute></if>
+        <cem-icon image="mail" ></cem-icon>
+</cem-badge>
         </template>
     </custom-element>
         </template>
     </html-demo-element>
+
 </main>
 <footer>
     <hr/>

@@ -34,10 +34,11 @@
 </head>
 
 <body>
-<custom-element tag="cem-icon" hidden src="./components/icon.html#cem-icon" ></custom-element>
-<custom-element tag="cem-input" hidden src="./components/input.html#cem-input" ></custom-element>
+<custom-element tag="cem-icon"      hidden src="./components/icon.html#cem-icon" ></custom-element>
+<custom-element tag="cem-input"     hidden src="./components/input.html#cem-input" ></custom-element>
 <custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
-<custom-element tag="cem-menu" hidden src="./components/menu.html#cem-menu"></custom-element>
+<custom-element tag="cem-menu"      hidden src="./components/menu.html#cem-menu"></custom-element>
+<custom-element tag="cem-badge"     hidden src="./components/badge.html#cem-badge" ></custom-element>
 
 <header class="cem-theme-teal">
     <custom-element src="./index.html#nav-head" ></custom-element>
@@ -111,6 +112,16 @@
         </cem-menu>
     </demo-list-card>
 
+    <demo-list-card head="badge" description="A small value indicator that can be overlaid on another object.">
+        <template>
+            <div style="display: inline-flex; gap:2rem;">
+                <cem-badge text="0"    color="secondary"><template> <cem-icon image="far fa-envelope"                   ></cem-icon> </template></cem-badge>
+                <cem-badge text="999+"                  ><template> <cem-icon image="🛒" vertical="middle"              ></cem-icon> </template></cem-badge>
+                <cem-badge text="999+"  dot             ><template> <cem-icon image="notifications" vertical="middle"   ></cem-icon> </template></cem-badge>
+            </div>
+        </template>
+    </demo-list-card>
+
     <demo-list-card head="autocomplete" description="Suggests relevant options as the user types.">
         <cem-autocomplete placeholder="Greetings" >
             <p>hello</p>
@@ -121,12 +132,6 @@
         <cem-dropdown>
             cem-dropdown
         </cem-dropdown>
-    </demo-list-card>
-    <demo-list-card head="badge" description="A small value indicator that can be overlaid on another object.">
-        <cem-badge placeholder="Greetings" >
-            <p>hello</p>
-            <p>hi</p>
-        </cem-badge>
     </demo-list-card>
 </main>
 <footer>
