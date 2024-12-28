@@ -39,6 +39,7 @@
 <custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-menu"      hidden src="./components/menu.html#cem-menu"></custom-element>
 <custom-element tag="cem-badge"     hidden src="./components/badge.html#cem-badge" ></custom-element>
+<custom-element tag="cem-dropdown"  hidden src="./components/dropdown.html#cem-dropdown" ></custom-element>
 
 <header class="cem-theme-teal">
     <custom-element src="./index.html#nav-head" ></custom-element>
@@ -130,9 +131,23 @@
         </cem-autocomplete>
     </demo-list-card>
     <demo-list-card head="dropdown" description="dropdown overlay which hangs above the background html">
-        <cem-dropdown>
-            cem-dropdown
+        <div>
+        <cem-dropdown label="drop base" >
+            <template>
+                <style>aside{background-color: silver; padding: 1rem; }</style>
+                dropped content
+            </template>
+
         </cem-dropdown>
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+        </div>
     </demo-list-card>
 </main>
 <footer>

@@ -76,17 +76,14 @@
             <attribute name="open"></attribute>
             <attribute name="label"></attribute>
             <style>
-                dce-root {
+                &[open="false"]>*>aside{  max-height: 0; }
+                &>* {
                     position: relative;
 
                     --cem-dropdown-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
                     --cem-dropdown-max-height: 10rem;
                     --cem-dropdown-base-min-width: 8em;
 
-                    &[open="false"]{
-                        &>aside{  max-height: 0;
-                        }
-                    }
                     & > label {
                         min-width: var(--cem-dropdown-base-min-width);
                         display: inline-block;
@@ -132,11 +129,9 @@
         </template>
     </html-demo-element>
 
-    <html-demo-element
-            legend="Menu in dropdown"
-            description="Focus to see the cursor in input with label shifted upward" >
+    <html-demo-element legend="Menu in dropdown">
         <template>
-<cem-dropdown label="Vertical menu" open="true">
+<cem-dropdown label="Vertical menu" >
     <cem-menu direction="column">
         <a href="#">link 1</a>
         <a href="#">link 2</a>
@@ -146,14 +141,14 @@
         </template>
     </html-demo-element>
 
-    <html-demo-element description="Focus to see the cursor in input with label shifted upward "
-                       legend="Collapsing by slice">
+    <html-demo-element legend="Hide dropdown dynamically"
+                       description="open=false hides dropdown"
+                       >
         <template>
             <custom-element>
                 <template>
 <label><input slice="opened" type="checkbox" value="1" checked/>
         open</label><br/>
-//opened:'{//opened}'
 <cem-dropdown label="Vertical menu" open="{//opened='1'}">
 
     <cem-menu direction="column">
