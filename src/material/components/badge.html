@@ -36,6 +36,7 @@
             }
             var{ color: darkgreen; font-weight: bold; }
             html-demo-element { [slot="demo"] { display: flex; gap: 8rem; } } }
+            flex-3x{ display: inline-flex; flex-wrap: wrap;gap:3rem; max-width:12rem;}
     </style>
 </head>
 
@@ -50,11 +51,8 @@
     <attribute name="color"
             aria-description="semantic colors. Default is 'primary'. Values: primary|secondary|success|alert"
             ></attribute>
-    <attribute name="vertical"
-            aria-description="Vertical align. Default is 'top'. Values: top|middle|bottom"
-            ></attribute>
-    <attribute name="horizontal"
-            aria-description="Horizontal align. Default is 'end'. Values: begin|middle|end"
+    <attribute name="align"
+            aria-description="Vertical & horizontal align. Default is 'top right'. Values: top|middle|bottom|left|center|right"
             ></attribute>
     <attribute name="invisible"
             aria-description="Boolean. Default is 'false'. Values: true|false"
@@ -62,7 +60,13 @@
     <style>
         &[dot]>*>dd{ height: 0; width: 0; min-width: 0.5rem; color: transparent; padding: 0; min-height: 0.5rem; }
         &[invisible]>*>dd{ height: 0; width: 0; min-width: 0; color: transparent; padding: 0; min-height:0; }
-        &{ position: relative; display: inline-block; }
+        &[align~=left]>*>dd{  --cem-badge-align-h: -100%; }
+        &[align~=center]>*>dd{  --cem-badge-align-h: -25%; }
+        &[align~=right]>*>dd{  --cem-badge-align-h: 50%; }
+        &[align~=top]>*>dd{  --cem-badge-align-v: -50%; }
+        &[align~=middle]>*>dd{  --cem-badge-align-v: 25%; }
+        &[align~=bottom]>*>dd{  --cem-badge-align-v: 75%; }
+        &{ position: relative; display: inline-block; --cem-badge-align-v: -50%; --cem-badge-align-h: 50%; }
         &>*>dd{
             /*position: absolute; top:-0.5rem; border-radius: 0.5rem; */
             /*padding: 0.25rem; background-color: red;*/
@@ -87,7 +91,7 @@
             color: var(--cem-badge-text-color,rgb(255, 255, 255));
             top: 0;
             right: 0;
-            transform: scale(1) translate(50%, -50%);
+            transform: scale(1) translate(var(--cem-badge-align-h), var(--cem-badge-align-v));
             transform-origin: 100% 0%;
             padding: 0 6px;
             border-radius: 10px;
@@ -120,6 +124,8 @@
         <h1>Attributes</h1>
         <div> <code>text</code> attribute defines the Up to 4 characters including + sign.</div>
         <div> <code>dot</code> attribute defines the small dot presentation without visible text. Default 'true'. </div>
+        <div> <code>invisible</code> attribute hides badge. </div>
+        <div> <code>align</code> attribute defines the vertical & horizontal align. Default is 'top right'. Values: top|middle|bottom|left|center|right. </div>
     </aside>
 
     <html-demo-element legend="Variations">
@@ -179,16 +185,42 @@
                 <input type="checkbox" slice="is-checked" value="on" />
                 invisible</label>
 <cem-badge text="1"  >
-        <if test="/datadom/slice/is-checked = 'on'"><attribute name="invisible">on</attribute></if>
-        <cem-icon image="mail" ></cem-icon>
+    <if test="/datadom/slice/is-checked = 'on'">
+        <attribute name="invisible">on</attribute>
+    </if>
+    <cem-icon image="mail" ></cem-icon>
 </cem-badge>
     &nbsp;
 <cem-badge dot>
-        <if test="/datadom/slice/is-checked = 'on'"><attribute name="invisible">on</attribute></if>
-        <cem-icon image="mail" ></cem-icon>
+    <if test="/datadom/slice/is-checked = 'on'">
+        <attribute name="invisible">on</attribute>
+    </if>
+    <cem-icon image="mail" ></cem-icon>
 </cem-badge>
         </template>
     </custom-element>
+        </template>
+    </html-demo-element>
+
+    <html-demo-element legend="align attribute">
+        <p slot="description">
+            sets vertical( top, middle, bottom ) and horizontal( left, center, right) badge align.<br/>
+            Default is right top.
+        </p>
+        <template>
+<flex-3x>
+    <cem-badge text="1" align="left top"   ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="2" align="center top" ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="3" align="right top"  ><cem-icon image="mail" ></cem-icon></cem-badge>
+
+    <cem-badge text="4" align="left middle"   ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="5" align="center middle" ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="6" align="right middle"  ><cem-icon image="mail" ></cem-icon></cem-badge>
+
+    <cem-badge text="7" align="left bottom"   ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="8" align="center bottom" ><cem-icon image="mail" ></cem-icon></cem-badge>
+    <cem-badge text="9" align="right bottom"  ><cem-icon image="mail" ></cem-icon></cem-badge>
+</flex-3x>
         </template>
     </html-demo-element>
 
