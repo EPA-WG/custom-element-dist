@@ -5,7 +5,7 @@ const XSL_NS_URL  = 'http://www.w3.org/1999/XSL/Transform'
 
 // const log = x => console.debug( new XMLSerializer().serializeToString( x ) );
 
-const attr = (el, attr)=> el.getAttribute?.(attr)
+const attr = (el, attr)=> el?.getAttribute?.(attr)
 ,   isText = e => e.nodeType === 3
 ,   isString = s => typeof s === 'string'
 ,   isNode = e => e && typeof e.nodeType === 'number'
@@ -327,10 +327,15 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             if( select?.length>1 )
             {   p.removeAttribute('select');
                 const c = $( xslDom, 'template[match="ignore"]>choose').cloneNode(true);
-                // todo multiple ?? operators
                 emptyNode(c.firstElementChild).append( createText(c,'{'+select[0]+'}'));
-                emptyNode(c.lastElementChild ).append( createText(c,'{'+select[1]+'}'));
-                c.firstElementChild.setAttribute('test','string-length('+select[0]+')');
+                c.firstElementChild.setAttribute('test',select[0]);
+                for( let i=1; i<select.length-1; i++)
+                {   const when = c.firstElementChild.cloneNode(true);
+                    emptyNode(when).append( createText(c,'{'+select[i]+'}'));
+                    when.setAttribute('test',select[i]);
+                    c.insertBefore(when, c.lastElementChild);
+                }
+                emptyNode(c.lastElementChild ).append( createText(c,'{'+select[select.length-1]+'}'));
                 p.append(c);
                 val = c.cloneNode(true);
             }else
@@ -474,12 +479,15 @@ event2slice( x, sliceNames, ev, dce )
             const v = notChecked? '' : el.value ?? attr( el, 'value' );
             cleanSliceValue();
             if( v === null || v === undefined )
+            {
                 [...s.childNodes].filter(n=>n.localName!=='event').map(n=>n.remove());
+                s.removeAttribute('value');
+            }
             else
-                if( isString(v) )
-                    s.append( createText( d, v) );
-                else
-                    s.append( obj2node(v,'value',s.ownerDocument) )
+            {   const ve = isString(v) ? createText( d, v) : obj2node(v,'value',s.ownerDocument);
+                s.append( ve );
+                s.setAttribute('value',v);
+            }
         }
         return s
     })
@@ -748,6 +756,7 @@ CustomElement extends HTMLElement
                 this.innerHTML='';
                 const attrsRoot = injectData( x, 'attributes' , this.attributes, e => createXmlNode( e.nodeName, e.value ) )
                 , inAttrs = a=> this.hasAttribute(a) || [...attrsRoot.children].find(e=>e.localName === a);
+                mergeAttr( this, attrsRoot );
                 Object.keys(hardcodedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a,hardcodedAttributes[a])) );
                 Object.keys(exposedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a)) );
 
@@ -897,13 +906,15 @@ CustomElement extends HTMLElement
             #applyAttribute(name, newValue)
             {   if( 'value' === name )
                     this.value = newValue;
+                const attrs = this.xml.querySelector('attributes');
                 let a = this.xml.querySelector(`attributes>${name}`);
                 if( a )
                     emptyNode(a).append( createText(a,newValue) );
                 else
                 {   a = create( name, newValue, this.xml );
-                    this.xml.querySelector('attributes').append( a );
+                    attrs.append( a );
                 }
+                attrs.setAttribute(name,newValue);
 
                 this.dispatchEvent(new CustomEvent('change', { bubbles: true,detail: { [name]: newValue }}))
             }
