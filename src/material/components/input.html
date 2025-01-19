@@ -49,10 +49,11 @@
     * error handling & styling
     * link to form error handling
     * password show text 👁️ & clear button
+    * slice propagation to owner DCE
     * tokens as in https://material-web.dev/components/text-field/#filled-text-field-tokens
         or by css in https://material.angular.io/components/input/overview
     * outlined variation
-    * docs
+    * docs w/ how to use
 </pre>
 <main>
     <section>
@@ -85,6 +86,7 @@
     </section>
     <custom-element tag="cem-input" hidden>
         <template id="cem-input">
+            <attribute name="value"   select="//selected  " ></attribute>
             <attribute name="name"           ></attribute>
             <attribute name="type"           ></attribute>
             <attribute name="autocapitalize" ></attribute>
@@ -107,7 +109,6 @@
             <attribute name="pattern"        ></attribute>
             <attribute name="placeholder"    ></attribute>
             <attribute name="title"          ></attribute>
-            <attribute name="value"          ></attribute>
             <attribute name="leading"       aria-description="leading icon"  ></attribute>
             <attribute name="trailing"      aria-description="trailing icon" ></attribute>
             <attribute name="label"         aria-description="label text"    ></attribute>
@@ -194,7 +195,7 @@
                     <slot name="input">
                         <xhtml:input
                             type="{$type}"
-                            value="{//selected ?? $value}"
+                            value="{//selected ?? /datadom/attributes/@value}"
                             slice="selected" slice-event="input"
                             size="2"
                             >
@@ -222,7 +223,6 @@
 
                             <slice name="focused" slice-event="blur" slice-value="0"></slice>
                             <slice name="focused" slice-event="focus" slice-value="1"></slice>
-                            <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
                         </xhtml:input>
                     </slot>
                 </div>

@@ -138,7 +138,7 @@ export const AttributeDefaults:Story  =
         <template>
             <attribute name="p1">default_P1</attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
-            <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
+            <attribute name="p3" select="//attributes/@p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="p1">{$p1}</code> <br/>
             p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
@@ -163,7 +163,7 @@ export const AttributesRuntimeChange:Story  =
         <template>
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
-            <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
+            <attribute name="p3" select="//attributes/@p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="t1">{$p1}</code> <br/>
             p2: <code data-testid="t2">{$p2}</code> <br/>
             p3: <code data-testid="t3">{$p3}</code>
@@ -209,7 +209,7 @@ export const InstanceAttributes:Story  =
         <template>
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
-            <attribute name="p3" select="//p3 ?? 'def_P3' "></attribute>
+            <attribute name="p3" select="//attributes/@p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="p1">{$p1}</code> <br/>
             p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
@@ -239,11 +239,11 @@ export const AttributesPropagationUp:Story  =
         <attribute name="data-testid"></attribute>
         <attribute name="p1"></attribute>
         <attribute name="p2">DEFAULT VALUE</attribute>
-        <attribute name="p3" select=" //from-input ?? 'abc' "></attribute>
+        <attribute name="p3" select=" //from-input "></attribute>
         <input slice="from-input" slice-event="input"/><br/>
         p1:<code data-testid="{$data-testid}-p1" >{ $p1 }</code><br/>
         p2:<code data-testid="{$data-testid}-p2" >{ $p2 }</code><br/>
-        p2:<code data-testid="{$data-testid}-p3" >{ $p3 }</code><br/>  
+        p3:<code data-testid="{$data-testid}-p3" >{ $p3 }</code><br/>  
         //from-input: {//from-input}      <hr/>
     </template>
 </custom-element>
@@ -261,32 +261,32 @@ export const AttributesPropagationUp:Story  =
         
         await expect( await code('t1-p1') ).toEqual('' );
         await expect( await code('t1-p2') ).toEqual('DEFAULT VALUE' );
-        await expect( await code('t1-p3') ).toEqual('abc' );
+        await expect( await code('t1-p3') ).toEqual('' );
 
         const t1 = await canvas.findByTestId('t1');
         await expect( t1 ).toHaveAttribute('value','123');
         await expect( t1 ).toHaveAttribute('p2','DEFAULT VALUE');
-        await expect( t1 ).toHaveAttribute('p3','abc');
+        await expect( t1 ).toHaveAttribute('p3','');
         await expect( t1 ).not.toHaveAttribute('p1');
 
         await expect( await code('t2-p1') ).toEqual('P1' );
         await expect( await code('t2-p2') ).toEqual('123' );
-        await expect( await code('t2-p3') ).toEqual('abc' );
+        await expect( await code('t2-p3') ).toEqual('' );
         
         const t2 = await canvas.findByTestId('t2');
         await expect( t2 ).toHaveAttribute('p1','P1');
         await expect( t2 ).toHaveAttribute('p2','123');
-        await expect( t2 ).toHaveAttribute('p3','abc');
+        await expect( t2 ).toHaveAttribute('p3','');
 
 
         await expect( await code('t3-p1') ).toEqual('' );
         await expect( await code('t3-p2') ).toEqual('DEFAULT VALUE' );
-        await expect( await code('t3-p3') ).toEqual('abc' );
+        await expect( await code('t3-p3') ).toEqual('' );
         
         const t3 = await canvas.findByTestId('t3');
         await expect( t1 ).not.toHaveAttribute('p1');
         await expect( t3 ).toHaveAttribute('p2','DEFAULT VALUE');
-        await expect( t3 ).toHaveAttribute('p3','abc');
+        await expect( t3 ).toHaveAttribute('p3','');
 
         t3.querySelector('input')?.focus();
         await userEvent.keyboard('DCE');

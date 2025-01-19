@@ -791,34 +791,42 @@ CustomElement extends HTMLElement
                 const transform = this.transform = ()=>
                 {   if(this.#inTransform){ debugger }
                     this.#inTransform = 1;
+                    const renderModel = ()=>
+                    {
+                        const ff = xp.map( (p,i) =>
+                        {   const f = p.transformToFragment(x.ownerDocument, document)
+                            if( !f )
+                                console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
+                            return f
+                        });
+                        ff.map( f =>
+                        {   if( !f )
+                                return;
+                            assureUnique(f);
+                            merge( this, f.childNodes )
+                        })
+                        let attrChangedCount = 0;
+                        Object.entries(hardcodedAttributes).map(( [a,v] )=>
+                        {   if( !this.hasAttribute(a) && v !== attr(this,a) )
+                            {   this.setAttribute( a, v );
+                                this.#applyAttribute( a, v );
+                                attrChangedCount++;
+                            }
+                        });
 
-                    const ff = xp.map( (p,i) =>
-                    {   const f = p.transformToFragment(x.ownerDocument, document)
-                        if( !f )
-                            console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
-                        return f
-                    });
-                    ff.map( f =>
-                    {   if( !f )
-                            return;
-                        assureUnique(f);
-                        merge( this, f.childNodes )
-                    })
-
-                    Object.entries(hardcodedAttributes).map(( [a,v] )=>
-                    {   if( !this.hasAttribute(a) && v !== attr(this,a) )
-                        {   this.setAttribute( a, v );
-                            this.#applyAttribute( a, v );
-                        }
-                    });
-
-                    Object.keys(exposedAttributes).map( a =>
-                    {   let v = attr(this.firstElementChild,a);
-                        if( v !== attr(this,a) )
-                        {   this.setAttribute( a, v );
-                            this.#applyAttribute( a, v );
-                        }
-                    });
+                        Object.keys(exposedAttributes).map( a =>
+                        {   let v = attr(this.firstElementChild,a);
+                            if( v !== attr(this,a) )
+                            {   this.setAttribute( a, v );
+                                this.#applyAttribute( a, v );
+                                attrChangedCount++;
+                            }
+                        });
+                        return attrChangedCount;
+                    };
+                    if( renderModel() )
+                        if( renderModel() )
+                            console.warn("model update should not be the result of transform more than once");
 
                     function getSliceTarget(el)
                     {   let r = el;
@@ -914,7 +922,7 @@ CustomElement extends HTMLElement
                 {   a = create( name, newValue, this.xml );
                     attrs.append( a );
                 }
-                attrs.setAttribute(name,newValue);
+                this.#inTransform || attrs.setAttribute(name,newValue);
 
                 this.dispatchEvent(new CustomEvent('change', { bubbles: true,detail: { [name]: newValue }}))
             }
