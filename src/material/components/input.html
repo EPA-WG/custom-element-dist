@@ -86,7 +86,7 @@
     </section>
     <custom-element tag="cem-input" hidden>
         <template id="cem-input">
-            <attribute name="value"   select="//selected  " ></attribute>
+            <attribute name="value"   select="//selected[//selected/event] ?? //attributes/@value" ></attribute>
             <attribute name="name"           ></attribute>
             <attribute name="type"           ></attribute>
             <attribute name="autocapitalize" ></attribute>
@@ -195,7 +195,7 @@
                     <slot name="input">
                         <xhtml:input
                             type="{$type}"
-                            value="{//selected ?? /datadom/attributes/@value}"
+                            value="{/datadom/attributes/value  }"
                             slice="selected" slice-event="input"
                             size="2"
                             >
