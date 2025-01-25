@@ -127,11 +127,11 @@
                     --cem-input-focus-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
                     &:has(input:invalid,input:user-invalid,input:out-of-range, .warn>*:not(:empty) )
-                    {   --cem-filled-text-field-label-text-color: red;
-                        --cem-input-outline-color:var(--cem-filled-text-field-label-text-color,red);
-                        --cem-input-outline: inset 0 -1px 0 var(--cem-input-outline-color,red);
+                    {   --cem-filled-text-field-label-text-color: var(--alert-color,red);
+                        --cem-input-outline-color:var(--cem-filled-text-field-label-text-color);
+                        --cem-input-outline: inset 0 -1px 0 var(--cem-input-outline-color);
                         --cem-outline-color-focus: var(--cem-input-outline-color);
-                        color: var(--cem-filled-text-field-label-text-color,red);
+                        color: var(--cem-filled-text-field-label-text-color);
                         .supporting{ display: none; }
                     }
                     &>label

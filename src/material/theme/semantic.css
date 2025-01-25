@@ -60,7 +60,7 @@
 
     --primary-background-color: var(--ng-azure-90);
     --secondary-background-color: var(--ng-azure-80);
-    --alert-color: var(--ng-magenta-80);
+    --alert-color: var(--ng-error-40);
     --text-color: var(--ng-azure-10);
 
     --cem-action-primary-color: var(--text-color);
