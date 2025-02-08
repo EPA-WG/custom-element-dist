@@ -78,11 +78,17 @@
         <div> <code>label</code> placeholder for label text</div>
         <div> <code>trailing</code> placeholder for trailing icon</div>
         <div> <code>supporting</code> placeholder for supporting text</div>
+        <div> <code>warn</code> warning text, </div>
         <p>
             <code>warn</code> slot content would overlap the <code>supporting</code> slot when not empty.
             Default slot implementation is sensitive to <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage"
                 >validationMessage property</a>.
         </p>
+        <details>
+            <summary>Error handling and styling</summary>
+            Something small enough to escape casual notice.
+        </details>
+
     </section>
     <custom-element tag="cem-input" hidden>
         <template id="cem-input">
@@ -151,6 +157,7 @@
                         color: var(--cem-filled-text-field-label-text-color);
                         position: relative;
                         &>.entry{ display: flex;flex-direction: column; justify-content: center;flex:1; }
+                        label{display: flex;}
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
@@ -354,19 +361,83 @@
 </html-demo-element>
 
 <html-demo-element legend="leading and trailing slots" >
-    <div slot="description"><code>head</code> slot inserted above input,
-        <code>foot</code> slot injected bellow</div>
-    <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
-        <a href="./autocomplete.html">cem-autocomplete</a> uses <code>foot</code> slot for
-        <a href="./menu.html">menu</a> with suggestions.
-    </p>
+    <div slot="description"><code>leading</code> slot inserted before input,
+        <code>trailing</code> slot injected after</div>
+
     <template>
-<cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
+<cem-input label="slots sample" type="text" >
     <div slot="leading"><cem-icon image="edit"></cem-icon></div>
-    <div slot="trailing"><cem-icon image="👁"></cem-icon>️<cem-icon image="close"></cem-icon>️</div>
+    <div slot="trailing">
+        <cem-icon image="👁"></cem-icon>
+        ️<cem-icon image="close"></cem-icon>️
+    </div>
 </cem-input>
     </template>
 </html-demo-element>
+
+
+<html-demo-element legend="password with trailing slots interaction" >
+    <div slot="description"><code>trailing</code> and other slots can become functional </div>
+    <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
+        <a href="./autocomplete.html">cem-autocomplete</a> uses <code>trailing</code> slot for
+        <a href="./menu.html">menu</a> with suggestions.
+    </p>
+    <p>Click in input field to see the focus leading icon <cem-icon image="edit"></cem-icon>
+        changed to <cem-icon image="history_edu"></cem-icon></p>
+    <template>
+<custom-element>
+    <template  id="cem-password">
+        <attribute name="value" select="//password[//password/event]"></attribute>
+
+        <style>
+            .input-focused{ display: none; }
+            .input-unfocused{ display: inline-flex; }
+            &:focus-within{
+                .input-focused{ display: inline-flex; }
+                .input-unfocused{ display:none; }
+            }
+            .eye-contailer
+            {   display: flex;
+                align-items: center;
+            }
+
+            [type="checkbox"],.visible-ico{ display: none; }
+
+            &:has([type="checkbox"]:checked)
+            {
+                .visible-ico{ display: inline-flex; }
+                .invisible-ico{ display: none; }
+            }
+            .invisible-ico
+            {   color:var(--cem-action-primary-color);
+                background-color: var(--cem-action-primary-background);
+                transition: var(--cem-action-transition);
+                &:hover{
+                    background-color: var(--cem-action-primary-background-hover);
+                    box-shadow: var(--cem-action-box-shadow-hover); }
+                &:focus{ background-color: var(--cem-action-primary-background-focus); }
+                &:active{ background-color: var(--cem-action-primary-background-active); }
+            }
+        </style>
+        <input type="checkbox" slice="visible" id="visible-cb" />
+        <cem-input label="password sample" slice="password" value="{//password[//password/event]}">
+            <attribute name="type"><if test="not(//visible='on')">password</if></attribute>
+            <div slot="leading">
+                <cem-icon image="history_edu" class="input-focused"></cem-icon>
+                <cem-icon image="edit" class="input-unfocused"></cem-icon>
+            </div>
+            <div slot="trailing">
+                <label class="eye-contailer" for="visible-cb">
+                    <cem-icon image="visibility" class="visible-ico" tabindex="0"></cem-icon>
+                    <cem-icon image="visibility_off"  class="invisible-ico" tabindex="0"></cem-icon>
+                </label>
+            </div>
+        </cem-input>
+    </template>
+</custom-element>
+    </template>
+</html-demo-element>
+
 
 <html-demo-element legend="Native error support" >
     <div slot="descrition">Native <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation">
