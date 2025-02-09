@@ -1,14 +1,26 @@
-import type { Preview } from "@storybook/web-components";
+import {initialize, mswLoader} from 'msw-storybook-addon';
 
-const preview: Preview = {
-  parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+import {handlers} from "../src/mocks/handlers";
+
+initialize({onUnhandledRequest: 'bypass'});// SB
+
+const preview = {
+    parameters: {
+        controls: {
+            matchers: {
+                color: /(background|color)$/i,
+                date: /Date$/i
+            }
+        },
+        msw: {
+            handlers: {
+                auth: null,
+                others: handlers,
+            },
+        },
     },
-  },
+    loaders: [mswLoader],
+    tags: ['autodocs']
 };
 
 export default preview;

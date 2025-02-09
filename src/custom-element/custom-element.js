@@ -234,6 +234,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
                 const d = xml2dom( '<xhtml/>' )
                 ,     n = d.importNode(r, true);
                 d.replaceChild(n,d.documentElement);
+                n.setAttribute('xmlns',HTML_NS_URL);
                 return xslHtmlNs(n);
             };
             if( e )
