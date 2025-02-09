@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+
+    This page is part of src/stories/module-url.test.stories.ts, test #2
+
+    -->
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>importmap custom-element Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+    <style>
+        dce-root {
+            box-shadow: 0 0 0.5rem lime;
+            padding: 1rem;
+            display: inline-block;
+        }
+    </style>
+    <script type="importmap">
+        {
+          "imports": {
+            "lib-root/": "./lib-dir/",
+            "embed-lib": "./lib-dir/embed-lib.html"
+          }
+        }
+    </script>
+    <script type="module" src="../src/custom-element/location-element.js"></script>
+    <script type="module" src="../src/custom-element/module-url.js"></script>
+    <script type="module" src="../src/custom-element/custom-element.js"></script>
+</head>
+<body>
+<p>Should render tree</p>
+ <custom-element src="./html-template.xhtml#embedded-xsl">
+    <template>whole XSLT is  embedded into HTML body</template>
+</custom-element>
+
+</body>
+</html>
