@@ -5,7 +5,7 @@ const XSL_NS_URL  = 'http://www.w3.org/1999/XSL/Transform'
 
 // const log = x => console.debug( new XMLSerializer().serializeToString( x ) );
 
-const attr = (el, attr)=> el.getAttribute?.(attr)
+const attr = (el, attr)=> el?.getAttribute?.(attr)
 ,   isText = e => e.nodeType === 3
 ,   isString = s => typeof s === 'string'
 ,   isNode = e => e && typeof e.nodeType === 'number'
@@ -295,6 +295,16 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         fr.append(r)
     }
 
+    [...fr.querySelectorAll('[test]')].forEach( n=>{
+        const t = attr(n,'test')
+        ,     r = t.replace(/hasBoolAttribute\((.*?)\)/g,
+            (match, p1, p2,p3,p4)=>
+            {   const a = p1.substring(1);
+                return `(not($${a} = \'false\') and ($${a} = '' or $${a} = '${a}' or $${a} = 'true' ))`
+            });
+        t!== r && n.setAttribute('test',r);
+    });
+
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
     {
         keepAttributes(a,'namespace,name,select');
@@ -318,10 +328,15 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             if( select?.length>1 )
             {   p.removeAttribute('select');
                 const c = $( xslDom, 'template[match="ignore"]>choose').cloneNode(true);
-                // todo multiple ?? operators
                 emptyNode(c.firstElementChild).append( createText(c,'{'+select[0]+'}'));
-                emptyNode(c.lastElementChild ).append( createText(c,'{'+select[1]+'}'));
-                c.firstElementChild.setAttribute('test','string-length('+select[0]+')');
+                c.firstElementChild.setAttribute('test',select[0]);
+                for( let i=1; i<select.length-1; i++)
+                {   const when = c.firstElementChild.cloneNode(true);
+                    emptyNode(when).append( createText(c,'{'+select[i]+'}'));
+                    when.setAttribute('test',select[i]);
+                    c.insertBefore(when, c.lastElementChild);
+                }
+                emptyNode(c.lastElementChild ).append( createText(c,'{'+select[select.length-1]+'}'));
                 p.append(c);
                 val = c.cloneNode(true);
             }else
@@ -330,8 +345,12 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
             a.append(val);
             a.removeAttribute('select');
         }else
-        {   keepAttributes( p, 'name' );
+        {
+            keepAttributes( p, 'name' );
             p.setAttribute('select','/datadom/attributes/'+name)
+
+            if( !hardcodedAttributes[name] )
+                a.remove();
         }
     });
     [...fr.querySelectorAll('[value]')].filter(el=>el.getAttribute('value').match( /\{(.*)\?\?(.*)\}/g )).forEach(el=>
@@ -461,12 +480,15 @@ event2slice( x, sliceNames, ev, dce )
             const v = notChecked? '' : el.value ?? attr( el, 'value' );
             cleanSliceValue();
             if( v === null || v === undefined )
+            {
                 [...s.childNodes].filter(n=>n.localName!=='event').map(n=>n.remove());
+                s.removeAttribute('value');
+            }
             else
-                if( isString(v) )
-                    s.append( createText( d, v) );
-                else
-                    s.append( obj2node(v,'value',s.ownerDocument) )
+            {   const ve = isString(v) ? createText( d, v) : obj2node(v,'value',s.ownerDocument);
+                s.append( ve );
+                s.setAttribute('value',v);
+            }
         }
         return s
     })
@@ -514,11 +536,24 @@ const loadTemplateRoots = async ( src, dce )=>
 export function mergeAttr( from, to )
 {   for( let a of from.attributes)
         try
-        {   a.namespaceURI? to.setAttributeNS( a.namespaceURI, a.name, a.value ) : to.setAttribute( a.name, a.value )
+        {   const name = a.name;
+            if( a.namespaceURI )
+            {   if( !to.hasAttributeNS(a.namespaceURI, name) || to.getAttributeNS(a.namespaceURI, name) !== a.value )
+                    to.setAttributeNS( a.namespaceURI, name, a.value )
+            }else
+            {   if( !to.hasAttribute(name) || to.getAttribute(name) !== a.value )
+                    to.setAttribute( a.name, a.value )
+            }
             if( a.name === 'value')
                 to.value = a.value
         }catch(e)
             { console.warn('attribute assignment error',e?.message || e); }
+    const ea = to.dceExportedAttributes
+        , aa = to.getAttribute('dce-exported-attributes')
+        , em = aa ? new Set( aa.split(' ') ) : null;
+    for( let a of to.getAttributeNames() )
+        if( !from.hasAttribute(a) && !ea?.has(a) && !em?.has(a) )
+            to.removeAttribute(a)
 }
 export function assureUnique(n, id=0)
 {
@@ -682,11 +717,13 @@ CustomElement extends HTMLElement
                                 .map(splitSliceNames).flat();
 
         const { declaredAttributes, hardcodedAttributes, exposedAttributes } = templateDocs[0];
+        const dceExportedAttributes = new Set([...Object.keys(hardcodedAttributes), ...Object.keys(exposedAttributes)]);
 
         class DceElement extends HTMLElement
         {
             static get observedAttributes(){ return declaredAttributes; }
             #inTransform = 0;
+            get dceExportedAttributes(){ return dceExportedAttributes; }
             connectedCallback()
             {   let payload = sanitizeBlankText(this.childNodes);
                 if( this.firstElementChild?.tagName === 'TEMPLATE' )
@@ -720,8 +757,9 @@ CustomElement extends HTMLElement
                 this.innerHTML='';
                 const attrsRoot = injectData( x, 'attributes' , this.attributes, e => createXmlNode( e.nodeName, e.value ) )
                 , inAttrs = a=> this.hasAttribute(a) || [...attrsRoot.children].find(e=>e.localName === a);
+                mergeAttr( this, attrsRoot );
                 Object.keys(hardcodedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a,hardcodedAttributes[a])) );
-                declaredAttributes.map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a)) );
+                Object.keys(exposedAttributes).map(a=> inAttrs(a) || attrsRoot.append(createXmlNode(a)) );
 
                 injectData( x, 'dataset', Object.keys( this.dataset ), k => createXmlNode( k, this.dataset[ k ] ) );
                 const sliceRoot = injectData( x, 'slice', sliceNames, k => createXmlNode( k, '' ) )
@@ -754,34 +792,42 @@ CustomElement extends HTMLElement
                 const transform = this.transform = ()=>
                 {   if(this.#inTransform){ debugger }
                     this.#inTransform = 1;
+                    const renderModel = ()=>
+                    {
+                        const ff = xp.map( (p,i) =>
+                        {   const f = p.transformToFragment(x.ownerDocument, document)
+                            if( !f )
+                                console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
+                            return f
+                        });
+                        ff.map( f =>
+                        {   if( !f )
+                                return;
+                            assureUnique(f);
+                            merge( this, f.childNodes )
+                        })
+                        let attrChangedCount = 0;
+                        Object.entries(hardcodedAttributes).map(( [a,v] )=>
+                        {   if( !this.hasAttribute(a) && v !== attr(this,a) )
+                            {   this.setAttribute( a, v );
+                                this.#applyAttribute( a, v );
+                                attrChangedCount++;
+                            }
+                        });
 
-                    const ff = xp.map( (p,i) =>
-                    {   const f = p.transformToFragment(x.ownerDocument, document)
-                        if( !f )
-                            console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
-                        return f
-                    });
-                    ff.map( f =>
-                    {   if( !f )
-                            return;
-                        assureUnique(f);
-                        merge( this, f.childNodes )
-                    })
-
-                    Object.entries(hardcodedAttributes).map(( [a,v] )=>
-                    {   if( !this.hasAttribute(a) && v !== attr(this,a) )
-                        {   this.setAttribute( a, v );
-                            this.#applyAttribute( a, v );
-                        }
-                    });
-
-                    Object.keys(exposedAttributes).map( a =>
-                    {   let v = attr(this.firstElementChild,a);
-                        if( v !== attr(this,a) )
-                        {   this.setAttribute( a, v );
-                            this.#applyAttribute( a, v );
-                        }
-                    });
+                        Object.keys(exposedAttributes).map( a =>
+                        {   let v = attr(this.firstElementChild,a);
+                            if( v !== attr(this,a) )
+                            {   this.setAttribute( a, v );
+                                this.#applyAttribute( a, v );
+                                attrChangedCount++;
+                            }
+                        });
+                        return attrChangedCount;
+                    };
+                    if( renderModel() )
+                        if( renderModel() )
+                            console.warn("model update should not be the result of transform more than once");
 
                     function getSliceTarget(el)
                     {   let r = el;
@@ -869,13 +915,15 @@ CustomElement extends HTMLElement
             #applyAttribute(name, newValue)
             {   if( 'value' === name )
                     this.value = newValue;
+                const attrs = this.xml.querySelector('attributes');
                 let a = this.xml.querySelector(`attributes>${name}`);
                 if( a )
                     emptyNode(a).append( createText(a,newValue) );
                 else
                 {   a = create( name, newValue, this.xml );
-                    this.xml.querySelector('attributes').append( a );
+                    attrs.append( a );
                 }
+                this.#inTransform || attrs.setAttribute(name,newValue);
 
                 this.dispatchEvent(new CustomEvent('change', { bubbles: true,detail: { [name]: newValue }}))
             }
