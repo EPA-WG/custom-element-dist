@@ -13,10 +13,7 @@ const preview = {
             }
         },
         msw: {
-            handlers: {
-                auth: null,
-                others: handlers,
-            },
+            handlers:  handlers,
         },
     },
     loaders: [mswLoader],
