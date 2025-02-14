@@ -170,7 +170,7 @@ export const AttributesRuntimeChange:Story  =
         </template>
     </custom-element>
     <section>
-        <dce-link2  id="dce2" p1="123" p2="override ignored as select is defined"></dce-link2> <br>
+        <dce-link2  id="dce2" p1="123" p2="override ignored as select is defined"></dce-link2> <br/>
         <div><input id="i1" value="P1">  <button onclick="dce2.setAttribute('p1',i1.value)"> set p1</button> </div>
         <div><input id="i2" value="P2">  <button onclick="dce2.setAttribute('p2',i2.value)"> set p2</button> </div>
         <div><input id="i3" value="P3">  <button onclick="dce2.setAttribute('p3',i3.value)"> set p3</button> </div>
@@ -209,7 +209,7 @@ export const InstanceAttributes:Story  =
         <template>
             <attribute name="p1">default_P1                </attribute>
             <attribute name="p2" select="'always_p2'"      ></attribute>
-            <attribute name="p3" select="//attributes/@p3 ?? 'def_P3' "></attribute>
+            <attribute name="p3" select="//attributes/p3 ?? 'def_P3' "></attribute>
             p1: <code data-testid="p1">{$p1}</code> <br/>
             p2: <code data-testid="p2">{$p2}</code> <br/>
             p3: <code data-testid="p3">{$p3}</code>
@@ -222,7 +222,7 @@ export const InstanceAttributes:Story  =
         const titleText = AttributeDefaults.args!.title as string;
         const canvas = within(canvasElement)
         , code = async (id) => (await canvas.findByTestId(id)).textContent.trim();
-        await sleep(20)
+        await sleep(200)
         expect( await code('p1') ).toEqual('123' );
         expect( await code('p2') ).toEqual('always_p2'  );
         expect( await code('p3') ).toEqual('qwe'     );

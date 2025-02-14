@@ -234,6 +234,8 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
                 const d = xml2dom( '<xhtml/>' )
                 ,     n = d.importNode(r, true);
                 d.replaceChild(n,d.documentElement);
+                if( n.namespaceURI === HTML_NS_URL && !attr(n,'xmlns'))
+                    n.setAttribute('xmlns',HTML_NS_URL);
                 return xslHtmlNs(n);
             };
             if( e )
@@ -685,7 +687,7 @@ CustomElement extends HTMLElement
     async connectedCallback()
     {
         if(this.firstElementChild && this.firstElementChild.localName !== 'template')
-            console.warn('custom-element used without template wrapping content\n', this.outerHTML);
+            console.log('custom-element used without template wrapping content\n', this.outerHTML);
         const templateRoots = await loadTemplateRoots( attr( this, 'src' ), this )
         ,               tag = attr( this, 'tag' )
         ,           tagName = tag ? tag : 'dce-'+crypto.randomUUID();

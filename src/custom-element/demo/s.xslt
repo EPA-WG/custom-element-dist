@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml"
                 xmlns:dce="urn:schemas-epa-wg:dce" xmlns:exsl="http://exslt.org/common" version="1.0"
                 exclude-result-prefixes="exsl">
@@ -14,54 +13,79 @@
         <xsl:value-of select="."/>
     </xsl:template>
     <xsl:template mode="payload" match="attributes">
-        <xsl:param name="p1" select="/datadom/attributes/p1">default_P1</xsl:param>
-        <xsl:param name="p2" select="'always_p2'"/>
-        <xsl:param name="p3">
+        <xsl:param name="v">
             <xsl:choose>
-                <xsl:when test="string-length(//p3)>0 ">RRRR
-                    <xsl:value-of select="count(//p3)"/>
-                    +<xsl:value-of select="//p3 "/>=
+                <xsl:when test="//s[//s/event] ">
+                    <xsl:value-of select="//s[//s/event] "/>
                 </xsl:when>
-                <xsl:otherwise>OOO
-                    <xsl:value-of select=" 'def_P3' "/>
+                <xsl:when test=" //attributes/@v ">
+                    <xsl:value-of select=" //attributes/@v "/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select=" 'def' "/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:param>
         <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" data-dce-id="1">
-            <xsl:attribute name="p1">default_P1</xsl:attribute>
-            <xsl:attribute name="p2">
-                <xsl:value-of select="'always_p2'"/>
-            </xsl:attribute>
-            <xsl:attribute name="p3">
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="has-input"
+                          select="count(//s/*) &gt; 0"/>
+            <xsl:attribute name="v">
                 <xsl:choose>
-                    <xsl:when test="//p3 ">
-                        <xsl:value-of select="//p3 "/>
+                    <xsl:when test="//s[//s/event] ">
+                        <xsl:value-of select="//s[//s/event] "/>
+                    </xsl:when>
+                    <xsl:when test=" //attributes/@v ">
+                        <xsl:value-of select=" //attributes/@v "/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select=" 'def_P3' "/>
+                        <xsl:value-of select=" 'def' "/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
             <dce-text xmlns="" data-dce-id="2">
-                p1:
+
+                //attributes/v='<xsl:value-of select="//attributes/v"/>'
             </dce-text>
-            <code xmlns="" data-testid="p1" data-dce-id="3">
-                <xsl:value-of select="$p1"/>
-            </code>
-            <br xmlns="" data-dce-id="4"/>
-            <dce-text xmlns="" data-dce-id="5">
-                p2:
+            <br xmlns="" data-dce-id="3"/>
+            <dce-text xmlns="" data-dce-id="4">
+                //attributes/@v='<xsl:value-of select="//attributes/@v"/>'
             </dce-text>
-            <code xmlns="" data-testid="p2" data-dce-id="6">
-                <xsl:value-of select="$p2"/>
-            </code>
+            <br xmlns="" data-dce-id="5"/>
+            <dce-text xmlns="" data-dce-id="6">
+                $v='<xsl:value-of select="$v"/>'
+            </dce-text>
             <br xmlns="" data-dce-id="7"/>
             <dce-text xmlns="" data-dce-id="8">
-                p3:
+                //s='<xsl:value-of select="//s"/>'
             </dce-text>
-            <code xmlns="" data-testid="p3" data-dce-id="9">
-                <xsl:value-of select="$p3"/>
-            </code>
+            <br xmlns="" data-dce-id="9"/>
+            <dce-text xmlns="" data-dce-id="10">
+                A='<xsl:value-of select="//s[//s/event] | //attributes/v[not(//s/event)]"/>'
+            </dce-text>
+            <br xmlns="" data-dce-id="11"/>
+            <dce-text xmlns="" data-dce-id="12">
+                has-input =<xsl:value-of select=" $has-input "/>
+            </dce-text>
+            <br xmlns="" data-dce-id="13"/>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="in-value">
+                <xsl:choose>
+                    <xsl:when test="//s/event">
+                        <xsl:value-of select="//s">
+                        </xsl:value-of>
+                    </xsl:when>
+                    <xsl:when test="//attributes/@v">
+                        <xsl:value-of select="//attributes/@v">
+                        </xsl:value-of>
+                    </xsl:when>
+                    <xsl:otherwise>def</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="xx"
+                          select="//s[//s/event] ?? //attributes/@v ?? 'def' "/>
+            <input xmlns="" slice="s" slice-event="input" value="{$in-value}" data-dce-id="14"/>
+            <dce-text xmlns="" data-dce-id="15">$in-value:<xsl:value-of select="$in-value"/> | $xx:<xsl:value-of
+                    select="$xx"/>
+            </dce-text>
         </dce-root>
     </xsl:template>
     <xsl:template match="/">
