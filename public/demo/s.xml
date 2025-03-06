@@ -1,12 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datadom>
-    <payload xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
-    <attributes>
-        <id>dce1</id>
-        <p1>default_P1</p1>
-        <p2>always_p2</p2>
-        <p3></p3>
+    <payload xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml" slot="leading" data-dce-id="4">
+            <cem-icon image="history_edu" class="input-focused" data-dce-id="5">
+                <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                          xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1">
+                    <span xmlns="" class="icon material-icons" data-dce-id="5">history_edu</span>
+                </dce-root>
+            </cem-icon>
+            <cem-icon image="edit" class="input-unfocused" data-dce-id="6">
+                <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                          xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1">
+                    <span xmlns="" class="icon material-icons" data-dce-id="5">edit</span>
+                </dce-root>
+            </cem-icon>
+        </div>
+        <div xmlns="http://www.w3.org/1999/xhtml" slot="trailing" data-dce-id="7">
+            <label class="eye-contailer" for="visible-cb" data-dce-id="8">
+                <cem-icon image="visibility" class="visible-ico" tabindex="0" data-dce-id="9">
+                    <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                              xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1">
+                        <span xmlns="" class="icon material-icons" data-dce-id="5">visibility</span>
+                    </dce-root>
+                </cem-icon>
+                <cem-icon image="visibility_off" class="invisible-ico" tabindex="0" data-dce-id="10">
+                    <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                              xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1">
+                        <span xmlns="" class="icon material-icons" data-dce-id="5">visibility_off</span>
+                    </dce-root>
+                </cem-icon>
+            </label>
+            <cem-icon image="close" class="clear" tabindex="0" slice="password" slice-event="click" slice-value="''"
+                      data-dce-id="11">
+                <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                          xmlns:dce="urn:schemas-epa-wg:dce" data-dce-id="1">
+                    <span xmlns="" class="icon material-icons" data-dce-id="5">close</span>
+                </dce-root>
+            </cem-icon>
+            <dce-text data-dce-id="12">️
+            </dce-text>
+        </div>
+    </payload>
+    <attributes xmlns="" label="password sample" value="secret word" slice="password" data-dce-id="3" type="">
+        <xmlns/>
+        <label>password sample</label>
+        <value>secret word</value>
+        <slice>password</slice>
+        <data-dce-id>3</data-dce-id>
+        <type></type>
     </attributes>
-    <dataset/>
-    <slice/>
+    <dataset>
+        <dceId>3</dceId>
+    </dataset>
+    <slice>
+        <selected/>
+        <password image="close" class="clear" tabindex="0" slice="password" slice-event="click" slice-value="''"
+                  data-dce-id="11">
+            <event isTrusted="true" sliceProcessed="1" pointerId="1" width="1" height="1" pressure="0" tiltX="0"
+                   tiltY="0" azimuthAngle="0" altitudeAngle="1.5707963267948966" tangentialPressure="0" twist="0"
+                   pointerType="mouse" isPrimary="false" persistentDeviceId="0" screenX="345" screenY="682"
+                   clientX="345" clientY="595" ctrlKey="false" shiftKey="false" altKey="false" metaKey="false"
+                   button="0" buttons="0" pageX="345" pageY="4354" x="345" y="595" offsetX="14" offsetY="15"
+                   movementX="0" movementY="0" layerX="248" layerY="27" detail="1" which="1" type="click" eventPhase="3"
+                   bubbles="true" cancelable="true" defaultPrevented="false" composed="true"
+                   timeStamp="1974517.2999999523" returnValue="true" cancelBubble="false" NONE="0" CAPTURING_PHASE="1"
+                   AT_TARGET="2" BUBBLING_PHASE="3">
+                <relatedTarget/>
+                <fromElement/>
+                <toElement/>
+                <sourceCapabilities firesTouchEvents="false"/>
+            </event>
+        </password>
+    </slice>
 </datadom>

@@ -51,9 +51,16 @@
 /*#region semantic colors  */
 :root, .cem-theme-default, .cem-theme-azure{
 
+    --cem-icon-size: 2rem;
+    --cem-icon-size-small: 1rem;
+    --cem-icon-size-large: 3rem;
+
+    --cem-sys-body-small-size: .75rem;
+    --cem-form-field-subscript-text-size: var(--cem-sys-body-small-size);
+
     --primary-background-color: var(--ng-azure-90);
     --secondary-background-color: var(--ng-azure-80);
-    --alert-color: var(--ng-magenta-80);
+    --alert-color: var(--ng-error-40);
     --text-color: var(--ng-azure-10);
 
     --cem-action-primary-color: var(--text-color);
@@ -75,12 +82,17 @@
     --cem-app-surface-variant: var(--ng-azure-variant-90);
     --cem-app-on-surface: var(--ng-azure-variant-70);
     --cem-app-primary: var(--ng-azure-variant-60);
+    --cem-on-surface-variant: var(--cem-action-secondary-color);
 
     --cem-filled-text-field-container-color: var(--ng-azure-variant-90);
+    --cem-filled-text-field-container-color-hover: var(--ng-azure-variant-80);
     --cem-filled-text-field-label-text-color: var(--ng-azure-variant-30);
     --cem-filled-text-field-input-text-color: var(--ng-azure-variant-0);
     --cem-filled-text-field-caret-color: var(--ng-azure-variant-10);
     --cem-outline-color-focus: var(--ng-azure-40);
+    --cem-focus-outline-height: 3px;
+    --cem-input-outline-color: black;
+    --cem-input-outline: inset 0 -1px 0 var(--cem-input-outline-color,black);
 
     --cem-list-background-color: var(--ng-azure-neutral-94);
     --cem-list-background-color-hover: var(--ng-azure-variant-90);
@@ -93,6 +105,13 @@
     --cem-menu-item-hover-color: black;
     --cem-menu-item-padding: 0.5rem;
     --cem-menu-item-font-weight: bold;
+
+    --cem-badge-color-primary: var(--ng-azure-50);
+    --cem-badge-color-secondary: var(--ng-magenta-50);
+    --cem-badge-color-success: var(--ng-cyan-60);
+    --cem-badge-color-alert: var(--ng-error-50);
+    --cem-badge-color: var(--cem-badge-color-primary);
+
 }
 
 .cem-theme-teal{

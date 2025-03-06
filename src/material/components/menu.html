@@ -56,16 +56,18 @@
             <attribute name="direction"></attribute>
             <attribute name="justify"></attribute>
             <style>
+
+                &[direction="column"]>*{ flex-direction: column;  }
+                &[direction="row"   ]>*{ flex-direction: row;     }
+                &[justify="end"     ]>*{ justify-content: flex-end;  }
+                &[justify="start"   ]>*{ justify-content: flex-start;}
+
                 dce-root
                 {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    &[direction="column"]{ flex-direction: column;  }
-                    &[direction="row"   ]{ flex-direction: row;     }
-                    &[justify="end"  ]{ justify-content: flex-end;  }
-                    &[justify="start"]{ justify-content: flex-start;}
-
+                    &>style{display: none !important;}
                     &>*
                     {   display: flex;
                         align-items: center;

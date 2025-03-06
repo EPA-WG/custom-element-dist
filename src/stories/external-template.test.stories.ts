@@ -4,7 +4,7 @@ import type { StoryObj }             from '@storybook/web-components';
 import {expect, getByTestId, within} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
-import {Demo, SrcAttribute}          from './location-element.test.stories';
+import {frameCanvas} from "./frame.canvas";
 
 type TProps = { title: string; body:string};
 
@@ -75,7 +75,7 @@ export const ExternalSvg:Story  =
         <template><i>loading from SVG ...</i></template>
     </custom-element>
     <dce-external></dce-external>
-    <custom-element src="confused.svg">
+    <custom-element src="/confused.svg">
         <i>inline DCE loading from SVG ...</i>
     </custom-element>
     <custom-element src="no.svg">
@@ -92,7 +92,7 @@ export const ExternalSvg:Story  =
         // needs separate test
         // await expect( await canvas.findByText('loading from SVG ...')).toBeInTheDocument();
 
-        expect(canvasElement.querySelector('[src="confused.svg"]').innerHTML).to.include('loading from SVG ...');
+        expect(canvasElement.querySelector('[src="/confused.svg"]').innerHTML).to.include('loading from SVG ...');
         await expect(await canvas.findByText('fallback for missing image')).toBeInTheDocument();
         await expect(await canvas.findByTitle('Confused')).toBeInTheDocument();
     },
@@ -188,32 +188,34 @@ export const SvgWithinHtmlFile:Story  =
 };
 
 export const MathMLWithinHtmlFile:Story  =
-{   args : {title: 'external HTML template - MathML by id', body:`
-        <custom-element src="/html-template.html#sophomores-dream">
-            <template><i>loading MathML from HTML file ...</i></template>
-        </custom-element>
+{   args : {title: '6. external HTML template - MathML by id', body:`
+                <iframe src="/demo/external-templates-sb-6.html" data-testid="fr"></iframe>
+
 `}
 ,   play: async ({canvasElement}) =>
     {
         const canvas = within(canvasElement);
         await canvas.findByText(MathMLWithinHtmlFile.args!.title as string);
-        const ml = await canvas.findByTestId('ml-test');
+        const frCanvas = await frameCanvas('fr',canvas);
+
+        const ml = await frCanvas.findByTestId('ml-test');
         expect(ml.firstElementChild.localName).toEqual('mrow');
     },
 };
 
 export const ByIdWithinXsltFile:Story  =
-{   args : {title: 'external XHTML template - xsl by id', body:`
-        <custom-element src="/html-template.xhtml#embedded-xsl">
-            <template>whole XSLT is  embedded into HTML body</template>
-        </custom-element>
+{   args : {title: '7. external XHTML template - xsl by id', body:`
+        <iframe src="/demo/external-templates-sb-7.html" data-testid="fr"></iframe>
+
 `}
 ,   play: async ({canvasElement}) =>
     {
         const canvas = within(canvasElement);
         await canvas.findByText(ByIdWithinXsltFile.args!.title as string);
-        const ml = await canvas.findByTestId('src');
-        expect(ml.textContent).to.include('/html-template.xhtml#embedded-xsl');
+        const frCanvas = await frameCanvas('fr',canvas);
+
+        await expect( await frCanvas.findByText('whole XSLT is embedded into HTML body') ).toBeInTheDocument();
+        await expect( await frCanvas.findByText('./html-template.xhtml#embedded-xsl') ).toBeInTheDocument();
     },
 };
 export const MissingIdWithinXsltFile:Story  =

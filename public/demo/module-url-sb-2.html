@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+
+    This page is part of src/stories/module-url.test.stories.ts, test #2
+
+    -->
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>importmap custom-element Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+    <script type="importmap">
+        {
+          "imports": {
+            "lib-root/": "./lib-dir/",
+            "embed-lib": "./lib-dir/embed-lib.html"
+          }
+        }
+    </script>
+    <script type="module" src="../src/custom-element/location-element.js"></script>
+    <script type="module" src="../src/custom-element/module-url.js"></script>
+    <script type="module" src="../src/custom-element/custom-element.js"></script>
+</head>
+<body>
+    <p><code>embed-lib</code> resolved to <code>./lib-dir/embed-lib.html</code> by page <i>importmap</i></p>
+        <custom-element>
+            <template>
+                <module-url slice="lib-url" src="embed-lib"></module-url>
+                <if test="//lib-url/@error">
+                    <p>error: <b>{//lib-url/@error}</b></p>
+                </if>
+                <span data-testid="check">check the link:</span>
+                <a href="{//lib-url}">
+                    <custom-element src="embed-lib#embed-lib-component">
+                        failed to load
+                    </custom-element>
+                </a>
+            </template>
+        </custom-element>
+
+</body>
+</html>

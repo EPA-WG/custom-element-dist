@@ -30,11 +30,15 @@
             &>p{ min-width: 90%; }
             html-demo-element{flex:1; width: 100%; }
         }
+        html-demo-element.flat-attr{
+            .token.attr-name:before{content:'\A    '; }
+        }
     </style>
 </head>
 
 <body>
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
+<custom-element hidden src="./icon.html#cem-icon" tag="cem-icon"></custom-element>
 
 
 <header class="cem-theme-teal">
@@ -42,19 +46,54 @@
 </header>
 <pre>
     TODO
-    * bypass all INPUT attributes
-    * error handling
+    * error handling & styling
     * link to form error handling
-    * docs
+    * password show text 👁️ & clear button
+    * slice propagation to owner DCE
+    * tokens as in https://material-web.dev/components/text-field/#filled-text-field-tokens
+        or by css in https://material.angular.io/components/input/overview
+    * outlined variation
+    * docs w/ how to use
 </pre>
 <main>
-    <p><code>cem-input</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
-        <a href="https://material.io/components" >Material Design specification</a>.
-    </p>
+    <section>
+        <p><code>cem-input</code> is text input component from &lt;custom-element&gt; Material suite based on the
+            <a href="https://material.io/components" >Material Design specification</a>,
+            <a href="https://m3.material.io/components/text-fields/specs" >text fields</a> in particular.
+        </p>
+        <p>Other implementations: <a href="https://material-web.dev/components/text-field/">Material Web</a>(Lit),
+            <a href="https://material.angular.io/components/input/overview">Angular Material</a>
+        </p>
+        <h1>Attributes</h1>
+        <div> <code>leading, label, trailing, supporting </code> attributes define the text when slot
+            with same name is omitted.
+            </div>
+        <div> <code>leading</code>, <code>trailing</code> attributes defines the
+                <a href="./icon.html">cem-icon</a> source.
+            </div>
+        <div> <code>label</code> attribute defines the label text.
+            </div>
+        <h1>Slots</h1>
+        <div> <code>leading</code> placeholder for leading icon</div>
+        <div> <code>label</code> placeholder for label text</div>
+        <div> <code>trailing</code> placeholder for trailing icon</div>
+        <div> <code>supporting</code> placeholder for supporting text</div>
+        <div> <code>warn</code> warning text, </div>
+        <p>
+            <code>warn</code> slot content would overlap the <code>supporting</code> slot when not empty.
+            Default slot implementation is sensitive to <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage"
+                >validationMessage property</a>.
+        </p>
+        <details>
+            <summary>Error handling and styling</summary>
+            Something small enough to escape casual notice.
+        </details>
+
+    </section>
     <custom-element tag="cem-input" hidden>
-        <template>
+        <template id="cem-input">
+            <attribute name="value"   select="//selected[//selected/event] ?? //attributes/@value" ></attribute>
             <attribute name="name"           ></attribute>
-            <attribute name="label"          ></attribute>
             <attribute name="type"           ></attribute>
             <attribute name="autocapitalize" ></attribute>
             <attribute name="disabled"       ></attribute>
@@ -76,31 +115,49 @@
             <attribute name="pattern"        ></attribute>
             <attribute name="placeholder"    ></attribute>
             <attribute name="title"          ></attribute>
-            <attribute name="value"          ></attribute>
+            <attribute name="leading"       aria-description="leading icon"  ></attribute>
+            <attribute name="trailing"      aria-description="trailing icon" ></attribute>
+            <attribute name="label"         aria-description="label text"    ></attribute>
+            <attribute name="supporting"    aria-description="Supporting text"    ></attribute>
 
             <style>
-                dce-root
+
+                &>dce-root
                 {
                     display: flex; flex-direction: column; justify-content: center;
                     --input-padding: 0;
 
-                    --cem-input-outline: inset 0 -1px 0 black;
-                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
                     --cem-input-container-shape: 0.25rem;
                     --cem-input-background-color: var(--cem-list-background-color);
                     --cem-input-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+                    --cem-input-focus-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
-                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
-
+                    &:has(input:invalid,input:user-invalid,input:out-of-range, .warn>*:not(:empty) )
+                    {   --cem-filled-text-field-label-text-color: var(--alert-color,red);
+                        --cem-input-outline-color:var(--cem-filled-text-field-label-text-color);
+                        --cem-input-outline: inset 0 -1px 0 var(--cem-input-outline-color);
+                        --cem-outline-color-focus: var(--cem-input-outline-color);
+                        color: var(--cem-filled-text-field-label-text-color);
+                        .supporting{ display: none; }
+                    }
                     &>label
-                    {   display: flex; flex-direction: column; justify-content: center;
-                        flex: 1; padding: 0.5rem 1rem;
+                    {   display: flex; flex: 1; gap: 0.5rem;
+                        padding: 0.5rem 1rem;
+                        background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
+                        &:hover
+                        {   --cem-filled-text-field-container-color: var(--cem-filled-text-field-container-color-hover,silver);
+                            --cem-input-outline-color:var(--text-color,black);
+                            box-shadow:  inset 0 -1px 0 var(--cem-input-outline-color,black);
+                            color:var(--text-color,black)
+                        }
                         box-shadow: var(--cem-input-outline);
                         transition: var(--drop-transition);
                         box-sizing: border-box;
                         min-height: 3.5rem;
                         color: var(--cem-filled-text-field-label-text-color);
-
+                        position: relative;
+                        &>.entry{ display: flex;flex-direction: column; justify-content: center;flex:1; }
+                        label{display: flex;}
                         input
                         {   background: none; padding: var(--input-padding);
                             &,&:focus,&:focus-visible{ border: none; outline: none; }
@@ -113,54 +170,100 @@
                             font-size: 1rem;
                             transition: var(--drop-transition);
                         }
+                        &:after{ display: block; width: 0; height: 0;  content: ' ';
+                            left:0;
+                            transition: var(--cem-input-focus-transition);
+                            position: absolute; align-self: center;
+                            bottom: var(--cem-focus-outline-height);
+                        }
                     }
                     &:focus-within
                     {
                         &> label
-                        {   box-shadow: var(--cem-input-outline-focus);
-                            font-size: small; justify-content: space-between;
+                        {   font-size: small; justify-content: space-between;
+                            color: var(--cem-outline-color-focus);
+                            input{ caret-color: var(--cem-outline-color-focus); }
+                            &:after{  width: 100%; height: var(--cem-focus-outline-height);
+                                left:0;
+                                background: none;
+                                box-shadow: 0 var(--cem-focus-outline-height) 0 var(--cem-outline-color-focus);
+                                align-self: center;
+                                transition: var(--cem-input-focus-transition);
+                            }
                         }
                     }
                     label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
                     slice{display: none;}
+                    .warn,.supporting
+                    {
+                        padding: 0.25rem 1rem;
+                        font-size: var(--cem-form-field-subscript-text-size, var(--cem-sys-body-small-size));
+                    }
+                    [slot="trailing"],[slot="leading"]{display: flex;}
                 }
             </style>
-            <slot name="head"></slot>
-            <slot name="input"><label>{$label}<xhtml:input
-                    type="{$type}"
-                    value="{//selected ?? $value}"
-                    slice="selected" slice-event="input"
-                    >
-                    <if test="$required"        ><attribute name="required"         >{$required         }</attribute></if>
-                    <if test="$autocapitalize"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
-                    <if test="$disabled"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
-                    <if test="$multiple"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
-                    <if test="$readonly"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
-                    <if test="$incremental"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
-                    <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
-                    <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
-                    <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
-                    <if test="$minlength"       ><attribute name="minlength"        >{$minlength        }</attribute></if>
-                    <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
-                    <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
-                    <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
-                    <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
-                    <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
-                    <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
-                    <if test="$list"            ><attribute name="list"             >{$list             }</attribute></if>
-                    <if test="$name"            ><attribute name="name"             >{$name             }</attribute></if>
-                    <if test="$pattern"         ><attribute name="pattern"          >{$pattern          }</attribute></if>
-                    <if test="$placeholder"     ><attribute name="placeholder"      >{$placeholder      }</attribute></if>
-                    <if test="$title"           ><attribute name="title"            >{$title            }</attribute></if>
+            <label>
+                <slot name="leading">
+                    <if test="$leading">
+                        <cem-icon image="{$leading}"></cem-icon>
+                    </if>
+                </slot>
+                <div class="entry">
+                    <slot name="label">
+                        <if test="$label">
+                            <span class="label">{$label}</span>
+                        </if>
+                    </slot>
+                    <slot name="input">
+                        <xhtml:input
+                            type="{$type}"
+                            value="{/datadom/attributes/value  }"
+                            slice="selected" slice-event="input"
+                            size="2"
+                            >
+                            <if test="hasBoolAttribute($required)"        ><attribute name="required"         >{$required         }</attribute></if>
+                            <if test="hasBoolAttribute($disabled)"        ><attribute name="disabled"         >{$disabled         }</attribute></if>
+                            <if test="hasBoolAttribute($multiple)"        ><attribute name="multiple"         >{$multiple         }</attribute></if>
+                            <if test="hasBoolAttribute($readonly)"        ><attribute name="readonly"         >{$readonly         }</attribute></if>
+                            <if test="hasBoolAttribute($incremental)"     ><attribute name="incremental"      >{$incremental      }</attribute></if>
+                            <if test="$max"             ><attribute name="max"              >{$max              }</attribute></if>
+                            <if test="$maxlength"       ><attribute name="maxlength"        >{$maxlength        }</attribute></if>
+                            <if test="$min"             ><attribute name="min"              >{$min              }</attribute></if>
+                            <if test="$minlength"       ><attribute name="minlength"        >{$minlength        }</attribute></if>
+                            <if test="$size"            ><attribute name="size"             >{$size             }</attribute></if>
+                            <if test="$step"            ><attribute name="step"             >{$step             }</attribute></if>
+                            <if test="$tabindex"        ><attribute name="tabindex"         >{$tabindex         }</attribute></if>
+                            <if test="$autocapitalize"  ><attribute name="autocapitalize"   >{$autocapitalize   }</attribute></if>
+                            <if test="$autocomplete"    ><attribute name="autocomplete"     >{$autocomplete     }</attribute></if>
+                            <if test="$form"            ><attribute name="form"             >{$form             }</attribute></if>
+                            <if test="$id"              ><attribute name="id"               >{$id               }</attribute></if>
+                            <if test="$list"            ><attribute name="list"             >{$list             }</attribute></if>
+                            <if test="$name"            ><attribute name="name"             >{$name             }</attribute></if>
+                            <if test="$pattern"         ><attribute name="pattern"          >{$pattern          }</attribute></if>
+                            <if test="$placeholder"     ><attribute name="placeholder"      >{$placeholder      }</attribute></if>
+                            <if test="$title"           ><attribute name="title"            >{$title            }</attribute></if>
 
-                    <slice name="focused" slice-event="blur" slice-value="0"></slice>
-                    <slice name="focused" slice-event="focus" slice-value="1"></slice>
-                    <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
-                </xhtml:input></label></slot>
-                                <if test="$required"        >$required:{$required         }</if>
-
-            <slot name="warn"></slot>
-            <slot name="foot"></slot>
+                            <slice name="focused" slice-event="blur" slice-value="0"></slice>
+                            <slice name="focused" slice-event="focus" slice-value="1"></slice>
+                        </xhtml:input>
+                    </slot>
+                </div>
+                <slot name="trailing">
+                    <if test="$trailing">
+                        <cem-icon image="{$trailing}"></cem-icon>
+                    </if>
+                </slot>
+            </label>
+            <div class="supporting">
+                <slot name="supporting">
+                    <if test="$supporting">
+                        {$supporting}
+                    </if>
+                </slot>
+            </div>
+            <div class="warn">
+                <slot name="warn">{//warn}</slot>
+            </div>
         </template>
     </custom-element>
 
@@ -212,7 +315,7 @@
         <attribute name="slice" ></attribute>
         <attribute name="value" select="//val"></attribute>
         <style>input,label{ width: 100%; } </style>
-        <label>{$slice}<input slice="val" /></label>
+        <label>{$slice}<input slice="val" value="{$value}"/></label>
     </template>
 </custom-element>
 
@@ -225,13 +328,26 @@
     </template>
 </custom-element>
 
+<html-demo-element legend="Most features" description="Focus to see the cursor in input with label shifted upward "
+    class="flat-attr"
+    >
+    <template>
+<cem-input label="String field with leading and trailing icon "
+    placeholder="type here"
+    supporting="required field. Clear to see placeholder."
+    leading="search"
+    trailing="close"
+    ></cem-input>
+    </template>
+</html-demo-element>
+
 <html-demo-element legend="No value" description="Focus to see the cursor in input with label shifted upward ">
     <template>
 <cem-input label="String field" ></cem-input>
     </template>
 </html-demo-element>
 
-<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text">
+<html-demo-element legend="No value with placeholder" description="focus to see the placeholder text" class="flat-attr">
     <template>
 <cem-input label="Number" type="number" placeholder="Enter the numeric value">
 </cem-input>
@@ -244,20 +360,84 @@
     </template>
 </html-demo-element>
 
-<html-demo-element legend="head and foot slots" >
-    <div slot="description"><code>head</code> slot inserted above input,
-        <code>foot</code> slot injected bellow</div>
-    <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
-        <a href="./autocomplete.html">cem-autocomplete</a> uses <code>foot</code> slot for
-        <a href="./menu.html">menu</a> with suggestions.
-    </p>
+<html-demo-element legend="leading and trailing slots" >
+    <div slot="description"><code>leading</code> slot inserted before input,
+        <code>trailing</code> slot injected after</div>
+
     <template>
-<cem-input label="slots sample" type="text" placeholder="Enter the fruit name">
-    <div slot="head"> 🍎 <code>head</code> slot  </div>
-    <div slot="foot"> 🍓 <code>foot</code> slot  </div>
+<cem-input label="slots sample" type="text" >
+    <div slot="leading"><cem-icon image="edit"></cem-icon></div>
+    <div slot="trailing">
+        <cem-icon image="👁"></cem-icon>
+        ️<cem-icon image="close"></cem-icon>️
+    </div>
 </cem-input>
     </template>
 </html-demo-element>
+
+
+<html-demo-element legend="password with trailing slots interaction" >
+    <div slot="description"><code>trailing</code> and other slots can become functional </div>
+    <p>Those slots can be used for error or hint UI; persistent or triggered by hover/focus.<br/>
+        <a href="./autocomplete.html">cem-autocomplete</a> uses <code>trailing</code> slot for
+        <a href="./menu.html">menu</a> with suggestions.
+    </p>
+    <p>Click in input field to see the focus leading icon <cem-icon image="edit"></cem-icon>
+        changed to <cem-icon image="history_edu"></cem-icon></p>
+    <template>
+<custom-element>
+    <template  id="cem-password">
+        <attribute name="value" select="//password[//password/event]"></attribute>
+
+        <style>
+            .input-focused{ display: none; }
+            .input-unfocused{ display: inline-flex; }
+            &:focus-within{
+                .input-focused{ display: inline-flex; }
+                .input-unfocused{ display:none; }
+            }
+            .eye-contailer
+            {   display: flex;
+                align-items: center;
+            }
+
+            [type="checkbox"],.visible-ico{ display: none; }
+
+            &:has([type="checkbox"]:checked)
+            {
+                .visible-ico{ display: inline-flex; }
+                .invisible-ico{ display: none; }
+            }
+            .invisible-ico
+            {   color:var(--cem-action-primary-color);
+                background-color: var(--cem-action-primary-background);
+                transition: var(--cem-action-transition);
+                &:hover{
+                    background-color: var(--cem-action-primary-background-hover);
+                    box-shadow: var(--cem-action-box-shadow-hover); }
+                &:focus{ background-color: var(--cem-action-primary-background-focus); }
+                &:active{ background-color: var(--cem-action-primary-background-active); }
+            }
+        </style>
+        <input type="checkbox" slice="visible" id="visible-cb" />
+        <cem-input label="password sample" slice="password" value="{//password[//password/event]}">
+            <attribute name="type"><if test="not(//visible='on')">password</if></attribute>
+            <div slot="leading">
+                <cem-icon image="history_edu" class="input-focused"></cem-icon>
+                <cem-icon image="edit" class="input-unfocused"></cem-icon>
+            </div>
+            <div slot="trailing">
+                <label class="eye-contailer" for="visible-cb">
+                    <cem-icon image="visibility" class="visible-ico" tabindex="0"></cem-icon>
+                    <cem-icon image="visibility_off"  class="invisible-ico" tabindex="0"></cem-icon>
+                </label>
+            </div>
+        </cem-input>
+    </template>
+</custom-element>
+    </template>
+</html-demo-element>
+
 
 <html-demo-element legend="Native error support" >
     <div slot="descrition">Native <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation">
@@ -274,17 +454,25 @@
 </html-demo-element>
 
 <html-demo-element legend="Error message">
-    <div slot="description"><code>warn</code> slot is used for warning message</div>
+    <div slot="description"><code>warn</code> attribute and slot is used for warning message</div>
+    <div slot="description"><code>supporting</code> attribute and slot is used for supplementary message,
+        hidden when <code>warn</code> is not empty </div>
     <template>
-<form>
-    <cem-input required></cem-input>
-    <button>Next</button>
-</form>
+
+<cem-input warn="warning message" label="text" value="abc"></cem-input>
+<hr/>
+<cem-input supporting="complimentary message" label="text" value="abc"></cem-input>
+<hr/>
+<cem-input warn="warning message"  supporting="complimentary message is overridden by warning" label="text" value="abc"></cem-input>
+<hr/>
+<cem-input warn="warning message" label="text" value="abc">
+    <div slot="warn"><cem-icon image="report" size="small"></cem-icon><b>abc</b> is not valid value</div>
+</cem-input>
     </template>
 </html-demo-element>
 
 
-<html-demo-element legend="INPUT field attributes playground" id="play">
+<html-demo-element legend="INPUT field attributes playground" id="play" style="flex: 2 2 80vw;">
     <div slot="descrition">
         <p> Underlying implementation uses
             <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">HTML input</a>.
@@ -299,7 +487,6 @@
             }
             label{ display: block; }
         </style>
-        <cem-demo-cb slice="autocapitalize" ></cem-demo-cb>
         <cem-demo-cb slice="disabled"       ></cem-demo-cb>
         <cem-demo-cb slice="multiple"       ></cem-demo-cb>
         <cem-demo-cb slice="readonly"       ></cem-demo-cb>
@@ -312,6 +499,7 @@
         <cem-demo-in slice="size"           ></cem-demo-in>
         <cem-demo-in slice="step"           ></cem-demo-in>
         <cem-demo-in slice="tabindex"       ></cem-demo-in>
+        <cem-demo-tx slice="autocapitalize" title="on sentences off none words characters "></cem-demo-tx>
         <cem-demo-tx slice="autocomplete"   ></cem-demo-tx>
         <cem-demo-tx slice="form"           ></cem-demo-tx>
         <cem-demo-tx slice="id"             ></cem-demo-tx>
@@ -320,26 +508,46 @@
         <cem-demo-tx slice="pattern"        ></cem-demo-tx>
         <cem-demo-tx slice="placeholder"    ></cem-demo-tx>
         <cem-demo-tx slice="title"          ></cem-demo-tx>
-        <cem-demo-tx slice="value"          ></cem-demo-tx>
+        <cem-demo-tx slice="value"       value="abc"   ></cem-demo-tx>
+        &bull;
+        <cem-demo-tx slice="label"        title="label text"      ></cem-demo-tx>
+        <cem-demo-tx slice="leading"      title="leading icon"    ></cem-demo-tx>
+        <cem-demo-tx slice="trailing"     title="trailing icon"   ></cem-demo-tx>
+        <cem-demo-tx slice="supporting"   title="supporting text" ></cem-demo-tx>
+
         <cem-demo-input-types slice="type"></cem-demo-input-types>
 
         <form action="#play">
-            <cem-input type="{//type}" value="123">
-                <if test="//autocapitalize = 'autocapitalize'"  ><attribute name="autocapitalize"   ></attribute></if>
+            <cem-input type="{//type}" >
                 <if test="//disabled = 'disabled'"              ><attribute name="disabled"         ></attribute></if>
                 <if test="//multiple = 'multiple'"              ><attribute name="multiple"         ></attribute></if>
                 <if test="//readonly = 'readonly'"              ><attribute name="readonly"         ></attribute></if>
                 <if test="//required = 'required'"              ><attribute name="required"         ></attribute></if>
                 <if test="//incremental = 'incremental'"        ><attribute name="incremental"      ></attribute></if>
-                <if test="not(//max = '')"                      ><attribute name="max"          >{//max}</attribute></if>
-                <if test="not(//maxlength = '')"                ><attribute name="maxlength"    >{//maxlength}</attribute></if>
-                <if test="not(//min = '')"                      ><attribute name="min"          >{//min}</attribute></if>
-                <if test="not(//minlength = '')"                ><attribute name="minlength"    >{//minlength}</attribute></if>
-                <if test="not(//step = '')"                     ><attribute name="step"         >{//step}</attribute></if>
-                <if test="not(//tabindex = '')"                 ><attribute name="tabindex"     >{//tabindex}</attribute></if>
+                <if test="not(//max          = '')" ><attribute name="max"              >{//max             }</attribute></if>
+                <if test="not(//maxlength    = '')" ><attribute name="maxlength"        >{//maxlength       }</attribute></if>
+                <if test="not(//min          = '')" ><attribute name="min"              >{//min             }</attribute></if>
+                <if test="not(//minlength    = '')" ><attribute name="minlength"        >{//minlength       }</attribute></if>
+                <if test="not(//size         = '')" ><attribute name="size"             >{//size            }</attribute></if>
+                <if test="not(//step         = '')" ><attribute name="step"             >{//step            }</attribute></if>
+                <if test="not(//tabindex     = '')" ><attribute name="tabindex"         >{//tabindex        }</attribute></if>
+                <if test="not(//autocapitalize='')" ><attribute name="autocapitalize"   >{//autocapitalize  }</attribute></if>
+                <if test="not(//autocomplete = '')" ><attribute name="autocomplete"     >{//autocomplete    }</attribute></if>
+                <if test="not(//form         = '')" ><attribute name="form"             >{//form            }</attribute></if>
+                <if test="not(//id           = '')" ><attribute name="id"               >{//id              }</attribute></if>
+                <if test="not(//list         = '')" ><attribute name="list"             >{//list            }</attribute></if>
+                <if test="not(//name         = '')" ><attribute name="name"             >{//name            }</attribute></if>
+                <if test="not(//pattern      = '')" ><attribute name="pattern"          >{//pattern         }</attribute></if>
+                <if test="not(//placeholder  = '')" ><attribute name="placeholder"      >{//placeholder     }</attribute></if>
+                <if test="not(//title        = '')" ><attribute name="title"            >{//title           }</attribute></if>
+                <if test="not(//value        = '')" ><attribute name="value"            >{//value           }</attribute></if>
+                <if test="not(//label        = '')" ><attribute name="label"            >{//label           }</attribute></if>
+                <if test="not(//leading      = '')" ><attribute name="leading"          >{//leading         }</attribute></if>
+                <if test="not(//trailing     = '')" ><attribute name="trailing"         >{//trailing        }</attribute></if>
+                <if test="not(//supporting   = '')" ><attribute name="supporting"       >{//supporting      }</attribute></if>
             </cem-input>
             <button>Next</button>
-            <if test="//required = 'required'" >//req:{//required }</if>
+<if test="//disabled = 'disabled'"              >//disabled = 'disabled' </if>
 
         </form>
     </template>

@@ -1,4 +1,5 @@
-import {initialize, mswLoader} from 'msw-storybook-addon'
+import {initialize, mswLoader} from 'msw-storybook-addon';
+
 import {handlers} from "../src/mocks/handlers";
 
 initialize({onUnhandledRequest: 'bypass'});// SB
@@ -12,14 +13,11 @@ const preview = {
             }
         },
         msw: {
-            handlers: {
-                auth: null,
-                others: handlers,
-            },
+            handlers:  handlers,
         },
     },
     loaders: [mswLoader],
-    tags: ['autodocs', 'autodocs', 'autodocs']
+    tags: ['autodocs']
 };
 
 export default preview;

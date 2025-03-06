@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+
+    This page is part of src/stories/module-url.test.stories.ts, test #2
+
+    -->
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>importmap custom-element Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+    <style>
+        dce-root {
+            box-shadow: 0 0 0.5rem lime;
+            padding: 1rem;
+            display: inline-block;
+        }
+    </style>
+    <script type="importmap">
+        {
+          "imports": {
+            "lib-root/": "./lib-dir/",
+            "embed-lib": "./lib-dir/embed-lib.html"
+          }
+        }
+    </script>
+    <script type="module" src="../src/custom-element/location-element.js"></script>
+    <script type="module" src="../src/custom-element/module-url.js"></script>
+    <script type="module" src="../src/custom-element/custom-element.js"></script>
+</head>
+<body>
+<p>should render '👍 from embed-relative-file' and Vulcan Salute 🖖. Links should open matching page
+</p>
+    <custom-element>
+        <template>
+            <module-url slice="lib-url" src="lib-root/embed-lib.html#embed-relative-file"></module-url>
+            <if test="//lib-url/@error">
+                <p>error: <b>{//lib-url/@error}</b></p>
+            </if>
+            check the link:
+            <a href="{//lib-url}"> lib-root/embed-lib.html#embed-relative-file </a>
+            <custom-element src="lib-root/embed-lib.html#embed-relative-file">
+                failed to load
+            </custom-element>
+        </template>
+    </custom-element>
+
+</body>
+</html>
