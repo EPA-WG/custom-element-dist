@@ -6,6 +6,7 @@ Binary distribution for [@epa-wg/custom-element][git-url] with StoryBook and tes
 | [![NPM version][npm-image]][npm-url]
 | [![coverage][coverage-image]][coverage-url]
 | [StoryBook][sb-url]
+| [Material custom-element][cem-url]
 
 # Content
 [bin/build.sh] generates binaries to be kept as in Git release as in NPM package.
@@ -30,3 +31,4 @@ CDN version of StoryBook.
 [coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.33/coverage/src/custom-element/index.html
 [sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.33/storybook-static/index.html
 [bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.33/dist/custom-element-bundle.js
+[cem-url]:        https://unpkg.com/@epa-wg/custom-element-dist@0.0.33/src/material/components.html
