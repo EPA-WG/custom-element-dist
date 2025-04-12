@@ -11,11 +11,11 @@ as Pattern Recognition and Short-term Memory Capacity.
 
 | `color-` token   |                                                           | sample    |
 |------------------|-----------------------------------------------------------|-----------|
-| `focus`          | main reading background, text color for `focus-invert`    | white     |
-| `focus-invert`   | alternative reading background, text color for `focus`    | black     |
+| `focus`          | main reading background, text color for `focus-invert`    | comfort   |
+| `focus-invert`   | alternative reading background, text color for `focus`    | calm      |
 | ---------------- | --------------------------------------------------------- | --------- |
-| `attention`      | title,primary action background, current selection        | green     |
-| `alert`          | alert action background, error message color              | red       |
+| `attention`      | title,primary action background, current selection        | trust     |
+| `alert`          | alert action background, error message color              | danger    |
 | `brand-1`        | 1st brand color, mostly for interleaving backgrounds      | ?         |
 | `brand-2`        | 2st brand color, mostly for interleaving backgrounds      | ?         |
 | `brand-3`        | 3st brand color, mostly for interleaving backgrounds      | ?         |
@@ -23,9 +23,17 @@ as Pattern Recognition and Short-term Memory Capacity.
 Semantic colors should be expressed via emotional palette tokens
 
 # Emotional Palette
-| `palette-` token |                                                           | sample    |
-|------------------|-----------------------------------------------------------|-----------|
-| `focus`          | main reading background, text color for `focus-invert`    | white     |
+| `palette-` token |                                                                    | warmth  | sample                   |
+|------------------|--------------------------------------------------------------------|---------|--------------------------|
+| `comfort`        | light scene color, the scene is full of object                     | cool    | white                    |
+|                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                          |
+| `calm`           | dark scene color, few objects around                               | cool    | black                    |
+|                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                          |
+| `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                     |
+| `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                      |
+| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | purple                   |
+| `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)    |
+| `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey)  |
 ...
 
 Emotional palette should be expressed via branded palette tokens
