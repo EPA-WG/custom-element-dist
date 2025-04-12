@@ -3,9 +3,23 @@ Based on https://blog.firsov.net/search/label/Semantic%20Theme
 
 # Basic principles
 
-## Variations
+## Variations limit
 [7 design tockens](https://blog.firsov.net/2025/04/7-ux-design-tokens.html) 
 as Pattern Recognition and Short-term Memory Capacity.
+
+## Values proximity
+TBD
+
+Potential reasoning
+* The maximized distance across available range. While the base is outlined more of less strictly, how to choose the max value?
+Extreme light conditions like bright or dark surrounding environment, would elevate the need for high contrast. 
+By either main light theme palette or availability of high contrast color themes and their automatic switch.   
+* Assured difference to guarantee the step recognition as next to each other as in mixed content.
+* Targeted Device capabilities. Some rare devices still have bo be accounted for niche markets. 
+The e-paper with black/white, shades of grey, limited color palette better to be accounted for when app serves 
+the hand-writing and wanted to be listed in compatible apps list. In addition to color palette, such devices are sensitive to 
+the change speed which on its own depends on the color/brightness difference.
+
 
 # Semantic Colors
 
@@ -16,11 +30,11 @@ as Pattern Recognition and Short-term Memory Capacity.
 | ---------------- | --------------------------------------------------------- | --------- |
 | `attention`      | title,primary action background, current selection        | trust     |
 | `alert`          | alert action background, error message color              | danger    |
-| `brand-1`        | 1st brand color, mostly for interleaving backgrounds      | ?         |
-| `brand-2`        | 2st brand color, mostly for interleaving backgrounds      | ?         |
-| `brand-3`        | 3st brand color, mostly for interleaving backgrounds      | ?         |
+| `brand-1`        | 1st emotional color, mostly for interleaving backgrounds  | ?         |
+| `brand-2`        | 2nd emotional color, mostly for interleaving backgrounds  | ?         |
+| `brand-3`        | 3rd emotional color, mostly for interleaving backgrounds  | ?         |
 
-Semantic colors should be expressed via emotional palette tokens
+Semantic colors should be expressed via emotional palette tokens. 7 limit.
 
 # Emotional Palette
 | `palette-` token |                                                                    | warmth  | sample                   |
@@ -36,23 +50,33 @@ Semantic colors should be expressed via emotional palette tokens
 | `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey)  |
 ...
 
-Emotional palette should be expressed via branded palette tokens
+Emotional palette should be expressed via branded palette tokens. 
+The emotions set supports particular application flow. Limit 7 per flow or SPA. 
+
+NOTE. SPA( single page application) usually is not limited to the 1 flow. Settings/profile/contacts, etc. are the sample of separate flows even in SPA.
 
 # Branded palette
 The branded palette establishes a set of base colors and their variations, ensuring adherence to accessibility standards. 
 These variations should follow a specific color transformation formula that takes accessibility into account, as outlined in the ADA guidelines.
 
 To promote inclusivity, sibling color values must be distinct enough to be easily distinguishable, 
-even for individuals with color blindness or visual impairments.
+especially for individuals with color blindness or visual impairments.
 
-Typically, the formula adjusts brightness levels; however, shifts within the color space are also a viable approach.
+Typically, the formula adjusts brightness levels; however, shifts within the color space is also a viable approach.
 
 The minimal number of base color variations is 7.
 
 ## custom-element material branded colors
-| `cem-` token | definition | emotion intent | semantic intent | sample   | angular material |
-|--------------|------------|----------------|-----------------|----------|------------------|
-| `azure`      | light blue | trust, focus   | focus, reading  |  #d7e3ff | --ng-azure-90 |
+| `cem-` token | definition | emotion intent | semantic intent | sample  | angular material            |
+|--------------|------------|----------------|-----------------|---------|-----------------------------|
+| `comfort`    | light blue | light scene    | reading         | #faf9fd | --ng-azure-neutral-98       |
+|              |            |                |                 |         | --mat-sys-surface           |
+| `calm`       | dark cyan  | dark scene     | reading         | #101414 | --ng-cyan-neutral-6         |
+|              |            |                |                 |         | --mat-sys-surface           |
+| `azure`      | light blue | conservative   | brand-1         | #d7e3ff | --ng-azure-90               |
+|              |            |                |                 |         | --mat-sys-primary-container |
+| `cyan`       | dim cyan   | conservative   | brand-1         | #006a6a | --ng-cyan-30                |
+|              |            |                |                 |         | --mat-sys-primary-container |
 ...
 
 # Line thickness, stroke weight
