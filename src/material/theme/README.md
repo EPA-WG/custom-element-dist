@@ -37,17 +37,17 @@ the change speed which on its own depends on the color/brightness difference.
 Semantic colors should be expressed via emotional palette tokens. 7 limit.
 
 # Emotional Palette
-| `palette-` token |                                                                    | warmth  | sample                   |
-|------------------|--------------------------------------------------------------------|---------|--------------------------|
-| `comfort`        | light scene color, the scene is full of object                     | cool    | white                    |
-|                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                          |
-| `calm`           | dark scene color, few objects around                               | cool    | black                    |
-|                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                          |
-| `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                     |
-| `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                      |
-| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | purple                   |
-| `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)    |
-| `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey)  |
+| `palette-` token |                                                                    | warmth  | sample                  |
+|------------------|--------------------------------------------------------------------|---------|-------------------------|
+| `comfort`        | light scene color, the scene is full of object                     | cool    | white                   |
+|                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                         |
+| `calm`           | dark scene color, few objects around                               | cool    | black                   |
+|                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                         |
+| `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                    |
+| `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                     |
+| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | cyan/purple             |
+| `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)   |
+| `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey) |
 ...
 
 Emotional palette should be expressed via branded palette tokens. 
@@ -59,24 +59,29 @@ NOTE. SPA( single page application) usually is not limited to the 1 flow. Settin
 The branded palette establishes a set of base colors and their variations, ensuring adherence to accessibility standards. 
 These variations should follow a specific color transformation formula that takes accessibility into account, as outlined in the ADA guidelines.
 
-To promote inclusivity, sibling color values must be distinct enough to be easily distinguishable, 
-especially for individuals with color blindness or visual impairments.
-
+To promote inclusivity, sibling color values should be sufficiently distinct to ensure easy differentiation, 
+particularly for individuals with color blindness or other visual impairments.
 Typically, the formula adjusts brightness levels; however, shifts within the color space is also a viable approach.
 
 The minimal number of base color variations is 7.
 
 ## custom-element material branded colors
-| `cem-` token | definition | emotion intent | semantic intent | sample  | angular material            |
-|--------------|------------|----------------|-----------------|---------|-----------------------------|
-| `comfort`    | light blue | light scene    | reading         | #faf9fd | --ng-azure-neutral-98       |
-|              |            |                |                 |         | --mat-sys-surface           |
-| `calm`       | dark cyan  | dark scene     | reading         | #101414 | --ng-cyan-neutral-6         |
-|              |            |                |                 |         | --mat-sys-surface           |
-| `azure`      | light blue | conservative   | brand-1         | #d7e3ff | --ng-azure-90               |
-|              |            |                |                 |         | --mat-sys-primary-container |
-| `cyan`       | dim cyan   | conservative   | brand-1         | #006a6a | --ng-cyan-30                |
-|              |            |                |                 |         | --mat-sys-primary-container |
+| `cem-color` token | definition    | emotion intent | semantic intent | sample  | angular material            |
+|-------------------|---------------|----------------|-----------------|---------|-----------------------------|
+| `comfort`         | lightest blue | light scene    | reading         | #faf9fd | --ng-azure-neutral-98       |
+|                   |               |                |                 |         | --mat-sys-surface           |
+| `calm`            | dark cyan     | dark scene     | reading         | #101414 | --ng-cyan-neutral-6         |
+|                   |               |                |                 |         | --mat-sys-surface           |
+| `blue`            | blue          | trust          | attention       | #005cbb | --ng-azure-40               |
+|                   |               |                |                 |         | --mat-sys-primary           |
+| `red`             | red           | danger         | alert           | #ba1a1a | --ng-error-40               |
+|                   |               |                |                 |         | --mat-sys-error             |
+| `azure`           | light blue    | conservative   | brand-1         | #d7e3ff | --ng-azure-90               |
+|                   |               |                |                 |         | --mat-sys-primary-container |
+| `cyan`            | light cyan    | creativity     | brand-2         | #adfffe | --ng-cyan-95                |
+|                   |               |                |                 |         | --mat-sys-primary-container |
+| `orange`          | light orange  | enthusiasm     | brand-3         | #ffdcc7 | --ng-orange-90              |
+|                   |               |                |                 |         |                             |
 ...
 
 # Line thickness, stroke weight
