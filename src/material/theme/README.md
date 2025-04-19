@@ -34,7 +34,45 @@ the change speed which on its own depends on the color/brightness difference.
 | `brand-2`        | 2nd emotional color, mostly for interleaving backgrounds  | ?         |
 | `brand-3`        | 3rd emotional color, mostly for interleaving backgrounds  | ?         |
 
-Semantic colors should be expressed via emotional palette tokens. 7 limit.
+Semantic colors should be expressed via emotional palette tokens. 
+7 base colors limit. 
+
+On `theme variant`( light,dark,dark-contrast...) those base colors can have shift to matching variant brightness.
+## color accent
+The base colors are used in static UX when user interaction not yet engaged. The slight but noticeable base color change is
+used for `elevation` or element state.
+### Elevation
+
+<details>
+    <summary> the concept of elevation of surface </summary>
+
+In UI design, layer elevation refers to a technique using shadows and layering to create a sense of depth and hierarchy 
+between UI elements. 
+It helps distinguish elements, like floating action buttons or cards, by suggesting which ones are above others. 
+
+Elevations are essentially surfaces with visual layering that forms the foundation of the UI, creating a canvas 
+for other elements like text, icons, and backgrounds.
+
+</details>
+
+includes as the visual impression for popping out by adding the shadows, outlines, as the slight surface color change.
+Usually in the direction to opposite brightness ( i.e. for light background the elevated surface would become darker ).
+
+The number of elevations usually is limited, but for in-depth incrementally detailed scenes, the number of layers can 
+become unlimited. In such case the layer darkening would not work efficiently. Instead, the same brightness color shift
+would give a bigger number of color variations. Which is still limited. To make UI serving unlimited elevations, 
+the shifted colors would need a rotation - start the sequence again once reached the last variation in the sequence.
+
+
+
+### element state
+
+<details><summary>
+When UI needs a reflection of element change due to user interaction or result of flow state
+</summary>
+
+
+</details>
 
 # Emotional Palette
 | `palette-` token |                                                                    | warmth  | sample                  |
@@ -66,37 +104,37 @@ Typically, the formula adjusts brightness levels; however, shifts within the col
 The minimal number of base color variations is 7.
 
 ## custom-element material branded colors
-| `cem-color` token | definition    | emotion intent | semantic intent | sample  | angular material            |
-|-------------------|---------------|----------------|-----------------|---------|-----------------------------|
-| `comfort`         | lightest blue | light scene    | reading         | #faf9fd | --ng-azure-neutral-98       |
-|                   |               |                |                 |         | --mat-sys-surface           |
-| `calm`            | dark cyan     | dark scene     | reading         | #101414 | --ng-cyan-neutral-6         |
-|                   |               |                |                 |         | --mat-sys-surface           |
-| `blue`            | blue          | trust          | attention       | #005cbb | --ng-azure-40               |
-|                   |               |                |                 |         | --mat-sys-primary           |
-| `red`             | red           | danger         | alert           | #ba1a1a | --ng-error-40               |
-|                   |               |                |                 |         | --mat-sys-error             |
-| `azure`           | light blue    | conservative   | brand-1         | #d7e3ff | --ng-azure-90               |
-|                   |               |                |                 |         | --mat-sys-primary-container |
-| `cyan`            | light cyan    | creativity     | brand-2         | #adfffe | --ng-cyan-95                |
-|                   |               |                |                 |         | --mat-sys-primary-container |
-| `orange`          | light orange  | enthusiasm     | brand-3         | #ffdcc7 | --ng-orange-90              |
-|                   |               |                |                 |         |                             |
+| `cem-color` token | definition    | emotion intent         | semantic intent | sample  | angular material            |
+|-------------------|---------------|------------------------|-----------------|---------|-----------------------------|
+| `blue-xl`         | lightest blue | `comfort`, light scene | reading         | #faf9fd | --ng-azure-neutral-98       |
+|                   |               |                        |                 |         | --mat-sys-surface           |
+| `cyan-d`          | dark cyan     | dark scene             | reading         | #101414 | --ng-cyan-neutral-6         |
+|                   |               |                        |                 |         | --mat-sys-surface           |
+| `blue`            | blue          | trust                  | attention       | #005cbb | --ng-azure-40               |
+|                   |               |                        |                 |         | --mat-sys-primary           |
+| `red`             | red           | danger                 | alert           | #ba1a1a | --ng-error-40               |
+|                   |               |                        |                 |         | --mat-sys-error             |
+| `blue-l`          | light blue    | conservative           | brand-1         | #d7e3ff | --ng-azure-90               |
+|                   |               |                        |                 |         | --mat-sys-primary-container |
+| `cyan-l`          | light cyan    | creativity             | brand-2         | #adfffe | --ng-cyan-95                |
+|                   |               |                        |                 |         | --mat-sys-primary-container |
+| `orange-l`        | light orange  | enthusiasm             | brand-3         | #ffdcc7 | --ng-orange-90              |
+|                   |               |                        |                 |         |                             |
 ...
 
 # Line thickness, stroke weight
 [Typography Guide Part 2: Weight and Width](https://creativebeacon.com/typography-guide-part-2-weight-and-width/)
     The different weights can be 
 
-| `thickness-` token |                      | [font-weight](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight) |
-|------------------|----------------------|-----------------|
-| `xx-light`       | thin  (Hairline)     | 100             |
-| `x-light`        | extra light,         | 200             |
-| `light`          |                      | 300             |
-| `normal`         | or roman,  regular   | 400             |
-| `bold`           | medium               | 700             |
-| `x-bold`         | extra bold,          | 800             |
-| `xx-bold`        | ultra bold or black, | 900             |
+| `thickness-` token |                      | [font-weight](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)   |
+|--------------------|----------------------|-------------------------------------------------------------------------------|
+| `xx-light`         | thin  (Hairline)     | 100                                                                           |
+| `x-light`          | extra light,         | 200                                                                           |
+| `light`            |                      | 300                                                                           |
+| `normal`           | or roman,  regular   | 400                                                                           |
+| `bold`             | medium               | 700                                                                           |
+| `x-bold`           | extra bold,          | 800                                                                           |
+| `xx-bold`          | ultra bold or black, | 900                                                                           |
 
 
     
