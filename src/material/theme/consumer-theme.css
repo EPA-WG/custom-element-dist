@@ -1,0 +1,58 @@
+:root {
+    /* # custom-element material branded colors */
+    --cem-color-blue-xl: #faf9fd; /* lightest blue | `comfort`, light scene | reading */
+    --cem-color-cyan-d: #101414; /* dark cyan | dark scene | reading */
+    --cem-color-blue: #005cbb; /* blue | trust | attention */
+    --cem-color-red: #ba1a1a; /* red | danger | alert */
+    --cem-color-blue-l: #d7e3ff; /* light blue | conservative | brand-1 */
+    --cem-color-cyan-l: #adfffe; /* light cyan | creativity | brand-2 */
+    --cem-color-orange-l: #ffdcc7; /* light orange | enthusiasm | brand-3 */
+
+    /*
+    # Emotional Palette
+    | `palette-` token | | warmth | sample |
+    |------------------|--------------------------------------------------------------------|---------|-------------------------|
+    | `comfort` | light scene color, the scene is full of object | cool | white |
+    | | Purity, innocence, cleanliness, peace, coldness or emptiness | | |
+    | `calm` | dark scene color, few objects around | cool | black |
+    | | Mystery, elegance, power, evil, mourning, formality, security | | |
+    | `trust` | primary action background, text color for `focus-invert` | cool | blue |
+    | `danger` | Passion, excitement, love, anger, energy, danger | warm | red |
+    | `creativity` | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool | cyan/purple |
+    | `enthusiasm` | Warmth, enthusiasm, happiness, optimism, energy | warm | orange( yellow, pink) |
+    | `conservative` | Natural, earthy, conservative, but also bland or boring | neutral | brown (tan/beige, grey) |
+    */
+
+    --cem-palette-comfort: var(--cem-color-blue-xl, white);
+    --cem-palette-calm: var(--cem-color-cyan-d, black);
+    --cem-palette-trust: var(--cem-color-blue, blue);
+    --cem-palette-danger: var(--cem-color-red, red);
+    --cem-palette-creativity: var(--cem-color-cyan-l, lightcyan);
+    --cem-palette-enthusiasm: var(--cem-color-blue-l, lightblue);
+    --cem-palette-conservative: var(--cem-color-orange-l, lightcoral);
+
+
+    --palette-comfort: var(--cem-color-blue-xl, #faf9fd);
+
+    .action, button, input[type="submit"], input[type="reset"], input[type="button"] { /* default light */
+        @media (prefers-color-scheme: light) {
+            color: black;
+            background-color: white;
+            @media (prefers-contrast: more) {
+
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+
+        }
+        /* variations */
+
+        .primary, [primary] {
+            [disabled] {
+            }
+
+            [selected] {
+            }
+        }
+    }
+}
