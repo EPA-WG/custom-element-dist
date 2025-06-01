@@ -313,7 +313,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         ,  name = attr(a,'name');
 
         declaredAttributes.push(name);
-        if( a.childNodes.length)
+        if( a.childNodes.length )
             hardcodedAttributes[name] = a.textContent;
 
         payload.append(p);
@@ -538,7 +538,7 @@ export function mergeAttr( from, to )
 {   for( let a of from.attributes)
         try
         {   const name = a.name;
-            if( name.startsWith('xmlns'))
+            if( name.startsWith('xmlns') )
                 continue;
             if( a.namespaceURI )
             {   if( !to.hasAttributeNS(a.namespaceURI, name) || to.getAttributeNS(a.namespaceURI, name) !== a.value )
