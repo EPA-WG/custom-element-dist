@@ -194,6 +194,30 @@ export const ReadSystemValidityMessage:Story  =
     },
 };
 
+export const EmbedDCE:Story  =
+{   args : {title: 'Render inner components', body:`
+    <template id="test-icon">
+        <attribute name="img"></attribute>
+        <i>{img}</i>
+    </template>
+    <template id="test-button">
+        <attribute name="text"></attribute>
+        <button>
+            <slot>{text}</slot>
+        </button>
+    </template>
+    
+    <custom-element src="#test-icon" tag="test-icon"></custom-element>
+    <custom-element src="#test-button" tag="test-button"></custom-element>
+    <test-button>icon:<test-icon img="👍"></test-icon></test-button>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await expect(await canvas.findByText('👍')).toBeInTheDocument();
+    },
+};
+
 //#region unit tests
 /* istanbul ignore else -- @preserve */
 if(  'test' === import.meta.env.MODE &&

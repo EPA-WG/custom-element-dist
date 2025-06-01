@@ -538,6 +538,8 @@ export function mergeAttr( from, to )
 {   for( let a of from.attributes)
         try
         {   const name = a.name;
+            if( name.startsWith('xmlns'))
+                continue;
             if( a.namespaceURI )
             {   if( !to.hasAttributeNS(a.namespaceURI, name) || to.getAttributeNS(a.namespaceURI, name) !== a.value )
                     to.setAttributeNS( a.namespaceURI, name, a.value )
