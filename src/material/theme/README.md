@@ -160,17 +160,17 @@ b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
 ( for light theme it is white on the slightly darker surface ).  
 
 # Emotional Palette
-| `palette-` token |                                                                    | warmth  | sample                  |
-|------------------|--------------------------------------------------------------------|---------|-------------------------|
-| `comfort`        | light scene color, the scene is full of object                     | cool    | white                   |
-|                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                         |
-| `calm`           | dark scene color, few objects around                               | cool    | black                   |
-|                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                         |
-| `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                    |
-| `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                     |
-| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | cyan/purple             |
-| `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)   |
-| `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey) |
+| `palette-` token |                                                                    | warmth  | sample                  | system                     |
+|------------------|--------------------------------------------------------------------|---------|-------------------------|----------------------------|
+| `comfort`        | light scene color, the scene is full of object                     | cool    | white                   | Canvas                     |
+|                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                         |                            |
+| `calm`           | dark scene color, few objects around                               | cool    | black                   | CanvasText                 |
+|                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                         |                            |
+| `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                    | Highlight w/ HighlightText |
+| `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                     | N/A                        |
+| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | cyan/purple             | ButtonFace w/ ButtonText   |
+| `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)   | Mark w/ MarkText           |
+| `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey) | GrayText                   |
 ...
 
 Emotional palette should be expressed via branded palette tokens. 
