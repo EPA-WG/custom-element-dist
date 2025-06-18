@@ -26,6 +26,7 @@
         @import "../angular.css";
         @import "../material.css";
         @import "../theme/semantic.css";
+        @import "../theme/consumer-theme.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
@@ -42,13 +43,13 @@
         }
         cem-icon{ margin: 1rem; }
     </style>
+    <script type="module" src="./colors.js"></script>
 </head>
 <!--
 ToDO
 * docs w/ how to use
 -->
 <body>
-
 <custom-element hidden src="../components/icon.html#cem-icon" tag="cem-icon"></custom-element>
 <custom-element hidden src="../components/icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 
@@ -74,44 +75,13 @@ ToDO
         <div> <code>direction</code> attribute defines css <code>row</code> or <code>column</code> flex-direction. </div>
     </aside>
 <section>
-    <html-demo-element legend="Direction attribute">
-        <p slot="description">
-            Defines the text position next to icon. Uses CSS <code>flex-direction</code> values.
-        </p>
-        <custom-element>
-            <template>
-                <variable name="themes-int" ><a>A</a><a>B</a><a>C</a></variable>
-                <variable name="themes" select=""></variable>
-<xsl:for-each select="exslt:node-set($themes-int)//a">
-                    <p>
-                        <xsl:value-of select="."/>
-                    </p>
-                </xsl:for-each>
-
-
-            </template>
-        </custom-element>
-        <template></template>
-    </html-demo-element>
-</section>
-<section>
-
-    <html-demo-element legend="Color">
-        <p slot="description">
-            For font based icons the color is inherited from CSS text <code>color</code>.
-        </p>
-        <template>
-<cem-icon image="fas fa-heart" style="color:red"     > red    </cem-icon>
-<cem-icon image="fas fa-heart" style="color:green"   > green  </cem-icon>
-<cem-icon image="fas fa-heart" style="color:blue"    > blue   </cem-icon>
-        </template>
-    </html-demo-element>
+    <cem-css-rules></cem-css-rules>
 
 </section>
+
 </main>
 <footer>
     <hr/>
-    Powered by Syngrafact Corp. ©2024.<br/>
     <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
 </footer>
 <script src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js" type="module"></script>
