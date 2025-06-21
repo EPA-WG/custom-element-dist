@@ -2,6 +2,7 @@ import ModuleUrl from "../../custom-element/module-url.js";
 
 function cssRule2Obj( parent, /* CSSRule | CSSStyleSheet | CSSStyleRUle | CSSKeyframesRule | CSSNestedDeclarations */ s )
 {
+    const childrenRules =  (s instanceof CSSNestedDeclarations) ? parent: {};
     if( s.cssRules)
         [...s.cssRules].forEach( r => cssRule2Obj( childrenRules, r ) );
 
@@ -30,10 +31,11 @@ export class CssRulesElement extends HTMLElement
     connectedCallback()
     {
         const allRules = {};
-        [ ...document.styleSheets ].forEach( s => { try{ cssRule2Obj( allRules, s) }catch(_){}});
+        [ ...document.styleSheets ].forEach( s => { try{
+            cssRule2Obj( allRules, s) }catch(_){}});
 
         this.value = allRules;
-        // this.dispatchEvent( new Event('change') );
+        this.dispatchEvent( new Event('change') );
     }
 }
 window.customElements.define( 'cem-css-rules', CssRulesElement );
