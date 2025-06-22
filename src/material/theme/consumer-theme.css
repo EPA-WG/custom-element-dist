@@ -77,8 +77,8 @@
 
 
     .cem-theme-dark, [data-theme="cem-theme-dark"]{
-        --cem-palette-comfort       : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-comfort-text:         var(--cem-color-cyan-d, Canvas);
-        --cem-palette-calm          : var(--cem-color-blue-xl   , Canvas        ); --cem-palette-calm-text:            var(--cem-color-blue-xl,CanvasText);
+        --cem-palette-comfort       : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-comfort-text:         var(--cem-color-blue-xl, Canvas);
+        --cem-palette-calm          : var(--cem-color-blue-xl   , Canvas        ); --cem-palette-calm-text:            var(--cem-color-cyan-d,CanvasText);
         --cem-palette-trust         : var(--cem-color-blue      , Highlight     ); --cem-palette-trust-text:           var(--cem-color-cyan-d, CanvasText);
         --cem-palette-danger        : var(--cem-color-red       , red           ); --cem-palette-danger-text:          var(--cem-color-cyan-d, CanvasText);
         --cem-palette-creativity    : var(--cem-color-cyan-l    , ButtonFace    ); --cem-palette-creativity-text:      var(--cem-color-cyan-d, CanvasText);
@@ -87,8 +87,8 @@
     }
     @media (prefers-color-scheme: dark) {
         /* .cem-theme-dark replica */
-        --cem-palette-comfort       : var(--cem-color-cyan-d    , Canvas        ); --cem-palette-comfort-text:         var(--cem-color-cyan-d, CanvasText);
-        --cem-palette-calm          : var(--cem-color-blue-xl   , CanvasText    ); --cem-palette-calm-text:            var(--cem-color-blue-xl, Canvas   );
+        --cem-palette-comfort       : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-comfort-text:         var(--cem-color-blue-xl, Canvas);
+        --cem-palette-calm          : var(--cem-color-blue-xl   , Canvas        ); --cem-palette-calm-text:            var(--cem-color-cyan-d,CanvasText);
         --cem-palette-trust         : var(--cem-color-blue      , Highlight     ); --cem-palette-trust-text:           var(--cem-color-cyan-d, CanvasText);
         --cem-palette-danger        : var(--cem-color-red       , red           ); --cem-palette-danger-text:          var(--cem-color-cyan-d, CanvasText);
         --cem-palette-creativity    : var(--cem-color-cyan-l    , ButtonFace    ); --cem-palette-creativity-text:      var(--cem-color-cyan-d, CanvasText);
