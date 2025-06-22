@@ -94,7 +94,7 @@ ToDO
             <xhtml:table>
                 <xhtml:thead>
                     <xhtml:tr>
-                        <xhtml:th >selector / emotion </xhtml:th>
+                        <xhtml:th > </xhtml:th>
                         <for-each select="exsl:node-set($cem-emotions)/*">
                             <xhtml:th style="min-width:6rem">{@value}</xhtml:th>
                         </for-each>
@@ -114,8 +114,8 @@ ToDO
                                         font-size:x-small;
                                         padding:0.5em"
                                         title="
-background: {$media/*[@dce-object-name = $css-background-name ]}
-text: { $media/*[@dce-object-name = $css-text-name ]}
+{$css-background-name}: {$media/*[@dce-object-name = $css-background-name ]}
+{$css-text-name}: { $media/*[@dce-object-name = $css-text-name ]}
 {@value} : {.}"
                                 >{$media/*[@dce-object-name = $css-background-name ]}
                             <br/>
