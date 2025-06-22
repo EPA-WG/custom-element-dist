@@ -77,43 +77,67 @@ ToDO
 <section>
     <custom-element>
         <template>
+
             <cem-css-rules slice="rules"></cem-css-rules>
             <variable name="cem-emotions">
-<!--                <select comfort calm trust danger creativity enthusiasm concervative>-->
-                <option value="comfort"       warmth="cool"    sample="white" system="Canvas"     text="CanvasText"    >light scene color, the scene is full of object &#10; Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
-                <option value="calm"          warmth="cool"    sample="black" system="CanvasText" text="Canvas"        >dark scene color, few objects around           &#10; Mystery, elegance, power, evil, mourning, formality, security  </option>
-                <option value="trust"         warmth="cool"    sample="blue"  system="Highlight"  text="HighlightText" >primary action background, text color for `focus-invert`             </option>
-                <option value="danger"        warmth="warm"    sample="red"   system="red"        text="CanvasText"    >Passion, excitement, love, anger, energy, danger                     </option>
-                <option value="creativity"    warmth="cool"    sample="cyan"  system="ButtonFace" text="ButtonText"    >Luxury, creativity, royalty, mystery, but also grief or melancholy   </option>
-                <option value="enthusiasm"    warmth="warm"    sample="orange"  system="Mark"     text="MarkText"      >Warmth, enthusiasm, happiness, optimism, energy   </option>
-                <option value="conservative"  warmth="neutral" sample="brown"  system="GrayText"  text="CanvasText"    >Natural, earthy, conservative, but also bland or boring  </option>
-<!--            </select>-->
+                <option value="comfort"       warmth="cool"    sample="white"  system="Canvas"     text="CanvasText"    >light scene color, the scene is full of object &#10; Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
+                <option value="calm"          warmth="cool"    sample="black"  system="CanvasText" text="Canvas"        >dark scene color, few objects around           &#10; Mystery, elegance, power, evil, mourning, formality, security  </option>
+                <option value="trust"         warmth="cool"    sample="blue"   system="Highlight"  text="HighlightText" >primary action background, text color for `focus-invert`             </option>
+                <option value="danger"        warmth="warm"    sample="red"    system="red"        text="CanvasText"    >Passion, excitement, love, anger, energy, danger                     </option>
+                <option value="creativity"    warmth="cool"    sample="cyan"   system="ButtonFace" text="ButtonText"    >Luxury, creativity, royalty, mystery, but also grief or melancholy   </option>
+                <option value="enthusiasm"    warmth="warm"    sample="orange" system="Mark"       text="MarkText"      >Warmth, enthusiasm, happiness, optimism, energy                      </option>
+                <option value="conservative"  warmth="neutral" sample="brown"  system="GrayText"   text="CanvasText"    >Natural, earthy, conservative, but also bland or boring              </option>
             </variable>
-            <variable name="cem-media"><div title="abc">ABC</div></variable>
+            <variable name="cem-media" select="//*[starts-with(./*/@dce-object-name, '--cem-palette-')]"></variable>
 
             <h1>Base cem-palette variables </h1>
+            <xhtml:table>
+                <xhtml:thead>
+                    <xhtml:tr>
+                        <xhtml:th >selector / emotion </xhtml:th>
+                        <for-each select="exsl:node-set($cem-emotions)/*">
+                            <xhtml:th style="min-width:6rem">{@value}</xhtml:th>
+                        </for-each>
+                    </xhtml:tr>
+                </xhtml:thead>
+                <xhtml:tbody>
+                <for-each select="$cem-media">
+                    <xhtml:tr>
+                        <variable name="media" select="."></variable>
+                        <xhtml:td>{@dce-object-name}</xhtml:td>
+                        <for-each select="exsl:node-set($cem-emotions)/*">
+                            <variable name="css-background-name" select=" concat('--cem-palette-', @value) "></variable>
+                            <variable name="css-text-name" select=" concat(concat('--cem-palette-', @value), '-text') "></variable>
+                            <xhtml:td style="
+                                        background-color: { $media/*[@dce-object-name = $css-background-name ]};
+                                        color: { $media/*[@dce-object-name = $css-text-name ]};
+                                        font-size:x-small;
+                                        padding:0.5em"
+                                        title="
+background: {$media/*[@dce-object-name = $css-background-name ]}
+text: { $media/*[@dce-object-name = $css-text-name ]}
+{@value} : {.}"
+                                >{$media/*[@dce-object-name = $css-background-name ]}
+                            <br/>
+                                { $media/*[@dce-object-name = $css-text-name ]}
+                            </xhtml:td>
+                        </for-each>
+                    </xhtml:tr>
+                </for-each>
+                </xhtml:tbody>
+            </xhtml:table>
 
-            <for-each select="exsl:node-set($cem-media)/*">
-                <variable name="category" select="."></variable>
-                <details open>
-                    <summary>{$category/@title}</summary>
-                    <for-each select="exsl:node-set($cem-emotions)/*">
-                        <button style="background-color: var(--cem-palette-{@value})" title="{@value} : {.}"></button>
-                    </for-each>
-                </details>
-            </for-each>
-<hr/>
-            <h1>All variables</h1>
-            <for-each select="//*[starts-with(./*/@dce-object-name, '--')]">
-                <details>
-                    <summary>{@dce-object-name}</summary>
-                    <for-each select="*">
-                        <button style="background-color: {.}" title="{@dce-object-name} : {.}">
-                            </button>
-
-                    </for-each>
-                </details>
-            </for-each>
+<!--<hr/>-->
+<!--            <h1>All variables</h1>-->
+<!--            <for-each select="//*[starts-with(./*/@dce-object-name, '&#45;&#45;')]">-->
+<!--                <details>-->
+<!--                    <summary>{@dce-object-name}</summary>-->
+<!--                    <for-each select="*">-->
+<!--                        <button style="background-color: {.}" title="{@dce-object-name} : {.}"></button>-->
+<!--                    </for-each>-->
+<!--                </details>-->
+<!--            </for-each>-->
+            <hr/>
         </template>
     </custom-element>
 
