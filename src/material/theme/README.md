@@ -85,26 +85,37 @@ A reflection of element change due to user interaction or result of flow state c
 
 </details>
 
-HTML5 element states by props and pseudo-class
+#### HTML5 element states by props and pseudo-class
 
-| prop          | semantic token | description |
-|---------------|----------------|-------------|
-| default       |                | base color  |   
-| checked       | selected       |             |   
-| disabled      | .              |             |      
-| readonly      | .              |             |       
-| required      | .              |             |
+| prop            | semantic token | description                                                         |
+|-----------------|----------------|---------------------------------------------------------------------|
+| default         |                | base color                                                          |   
+| checked         | selected       |                                                                     |   
+| disabled        | .              |                                                                     |      
+| readonly        | .              |                                                                     |       
+| contentEditable | editable       | editable                                                            |       
+| required        | .              |                                                                     |
+| indeterminate   | .              | "select all" checkbox when not all of its sub-controls are checked. |
 
-| pseudo-class  | semantic token | description                      |     
-|---------------|----------------|----------------------------------|
-| active        | .              | pressed down                     |      
-| focus         | .              |                                  |
-| focus-visible | .              | focus triggered by keyboard      |      
-| hover         | .              | mouse over                       |      
-| focus-within  | .              | focus on child element           |      
-| target        | .              | element which matched #id in URL |      
-| read-write    | editable       | is editable by the user          |      
+| pseudo-class  | semantic token | description                                                        |     
+|---------------|----------------|--------------------------------------------------------------------|
+| active        | .              | pressed down                                                       |      
+| focus         | .              | no visual effect, focus outline is not shown                       |
+| focus-visible | .              | focus triggered by keyboard, triggers outline                      |      
+| hover         | .              | mouse over                                                         |      
+| focus-within  | .              | focus on child element, outline on CE and hide outline on children |      
+| target        | .              | element which matched #id in URL                                   |      
+| read-write    | editable       | is editable by the user                                            |      
+| indeterminate | .              | no value available                                                 |      
 
+#### transitional states
+
+* `pending` usually associated with state change when the component temporary is not available and expected to be resolved 
+to another "permanent" state. Applied often to single component(input, button) or group  (form, fieldset) during 
+data retrieval period or action completion. 
+* `in-progress` usually associated with system activities like module loading, often accompanied by "loading..." animation.
+
+Both, `pending` and `in-progress`, do not have the HTML5 reflection but implemented by frameworks. 
 
 ### state, elevation, interleaving colors choice
 
@@ -118,7 +129,7 @@ brightness becomes too dark to keep the text black )
 <button style="background-color:#0074e9;color:white">pressed</button>
 
 3. Interleaving and elevation should not be drastically different and should NOT cross the brightness level which would
-trigger the content text color.
+trigger the change of content text color.
 
 Example of colors sequence with shift by brightness or color wheel.
 
@@ -128,7 +139,7 @@ b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
 .light{
 &.disabled     ,& .disabled         {   background-color: #00F; }     
 &.readonly     ,& .readonly         {   background-color: #00F; }     
-&.read-write   ,& .read-write       {   background-color: #00F; }   
+&.editable     ,& .editable         {   background-color: pink; }   
 &.required     ,& .required         {   background-color: #00F; }     
 &.default      ,& .default          {   background-color: #00F; }      
 &.target       ,& .target           {   background-color: #00F; }       
@@ -138,26 +149,31 @@ b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
 &.hover        ,& .hover            {   background-color: #00F; }        
 &.selected     ,& .selected         {   background-color: #00F; }     
 &.active       ,& .active           {   background-color: #00F; }       
+&.pending      ,& .pending          {   background-color: #00F; }       
 }
 </style>
 
-| pseudo-class  | bg   | light                                    | dark                                | dark-contrast                                | light-contrast                                | 
-|---------------|------|------------------------------------------|-------------------------------------|----------------------------------------------|-----------------------------------------------|
-| disabled      |      | <b class="light disabled">*</b>          | <b class="dark disabled">*</b>      | <b class="dark-contrast disabled">*</b>      | <b class="light-contrast disabled">*</b>      |
-| readonly      |      | <b class="light readonly">*</b>          | <b class="dark readonly">*</b>      | <b class="dark-contrast readonly">*</b>      | <b class="light-contrast readonly">*</b>      |
-| read-write    | ^1   | <b class="light read-write">*</b>        | <b class="dark read-write">*</b>    | <b class="dark-contrast read-write">*</b>    | <b class="light-contrast read-write">*</b>    |
-| required      | no   | <b class="light required">*</b>          | <b class="dark required">*</b>      | <b class="dark-contrast required">*</b>      | <b class="light-contrast required">*</b>      |
-| default       | base | <b class="light default">*</b>           | <b class="dark default">*</b>       | <b class="dark-contrast default">*</b>       | <b class="light-contrast default">*</b>       |
-| target        | no   | <b class="light target">*</b>            | <b class="dark target">*</b>        | <b class="dark-contrast target">*</b>        | <b class="light-contrast target">*</b>        |
-| focus-within  | no   | <b class="light focus-within">*</b>      | <b class="dark focus-within">*</b>  | <b class="dark-contrast focus-within">*</b>  | <b class="light-contrast focus-within">*</b>  |
-| focus         | no   | <b class="light focus">*</b>             | <b class="dark focus">*</b>         | <b class="dark-contrast focus">*</b>         | <b class="light-contrast focus">*</b>         |
-| focus-visible | no   | <b class="light focus-visible">*</b>     | <b class="dark focus-visible">*</b> | <b class="dark-contrast focus-visible">*</b> | <b class="light-contrast focus-visible">*</b> |
-| hover         |      | <b class="light hover">*</b>             | <b class="dark hover">*</b>         | <b class="dark-contrast hover">*</b>         | <b class="light-contrast hover">*</b>         |
-| selected      |      | <b class="light selected">*</b>          | <b class="dark selected">*</b>      | <b class="dark-contrast selected">*</b>      | <b class="light-contrast selected">*</b>      |
-| active        |      | <b class="light active">*</b>            | <b class="dark active">*</b>        | <b class="dark-contrast active">*</b>        | <b class="light-contrast active">*</b>        |
+| token          | bg   | light                                | dark                                | dark-contrast                                | light-contrast                                | 
+|----------------|------|--------------------------------------|-------------------------------------|----------------------------------------------|-----------------------------------------------|
+| disabled       |      | <b class="light disabled">*</b>      | <b class="dark disabled">*</b>      | <b class="dark-contrast disabled">*</b>      | <b class="light-contrast disabled">*</b>      |
+| readonly       |      | <b class="light readonly">*</b>      | <b class="dark readonly">*</b>      | <b class="dark-contrast readonly">*</b>      | <b class="light-contrast readonly">*</b>      |
+| editable       | ^1   | <b class="light editable">*</b>      | <b class="dark editable">*</b>      | <b class="dark-contrast editable">*</b>      | <b class="light-contrast editable">*</b>      |
+| required       | no   | <b class="light required">*</b>      | <b class="dark required">*</b>      | <b class="dark-contrast required">*</b>      | <b class="light-contrast required">*</b>      |
+| default        | base | <b class="light default">*</b>       | <b class="dark default">*</b>       | <b class="dark-contrast default">*</b>       | <b class="light-contrast default">*</b>       |
+| indeterminate  | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="dark-contrast target">*</b>        | <b class="light-contrast target">*</b>        |
+| target         | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="dark-contrast target">*</b>        | <b class="light-contrast target">*</b>        |
+| focus-within   | no   | <b class="light focus-within">*</b>  | <b class="dark focus-within">*</b>  | <b class="dark-contrast focus-within">*</b>  | <b class="light-contrast focus-within">*</b>  |
+| focus          | no   | <b class="light focus">*</b>         | <b class="dark focus">*</b>         | <b class="dark-contrast focus">*</b>         | <b class="light-contrast focus">*</b>         |
+| focus-visible  | no   | <b class="light focus-visible">*</b> | <b class="dark focus-visible">*</b> | <b class="dark-contrast focus-visible">*</b> | <b class="light-contrast focus-visible">*</b> |
+| hover          |      | <b class="light hover">*</b>         | <b class="dark hover">*</b>         | <b class="dark-contrast hover">*</b>         | <b class="light-contrast hover">*</b>         |
+| selected       |      | <b class="light selected">*</b>      | <b class="dark selected">*</b>      | <b class="dark-contrast selected">*</b>      | <b class="light-contrast selected">*</b>      |
+| active         |      | <b class="light active">*</b>        | <b class="dark active">*</b>        | <b class="dark-contrast active">*</b>        | <b class="light-contrast active">*</b>        |
+| pending        | ^2   | <b class="light pending">*</b>       | <b class="dark pending">*</b>       | <b class="dark-contrast pending">*</b>       | <b class="light-contrast pending">*</b>       |
 
-^1 - `read-write` / editable usually uses decorators but Material Design also applies high contrast background
+^1 - `editable`/`:read-write` usually uses decorators but Material Design also applies high contrast background
 ( for light theme it is white on the slightly darker surface ).  
+
+^2 - `pending` often accompanied by `in-progress` animation
 
 # Emotional Palette
 | `palette-` token |                                                                    | warmth  | sample                  | system                     |
@@ -176,7 +192,8 @@ b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
 Emotional palette should be expressed via branded palette tokens. 
 The emotions set supports particular application flow. Limit 7 per flow or SPA. 
 
-NOTE. SPA( single page application) usually is not limited to the 1 flow. Settings/profile/contacts, etc. are the sample of separate flows even in SPA.
+NOTE. SPA( single page application ) usually is not limited to 1 flow. Settings/profile/contacts, etc. are the sample of separate flows even in SPA.
+ 
 
 # Branded palette
 The branded palette establishes a set of base colors and their variations, ensuring adherence to accessibility standards. 
