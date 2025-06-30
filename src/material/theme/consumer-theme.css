@@ -63,6 +63,37 @@
         --cem-palette-creativity    : var(--cem-color-cyan-l  , ButtonFace); --cem-palette-creativity-text:      var(--cem-color-cyan-d, CanvasText);
         --cem-palette-enthusiasm    : var(--cem-color-blue-l  , Mark      ); --cem-palette-enthusiasm-text:      var(--cem-color-cyan-d, CanvasText);
         --cem-palette-conservative  : var(--cem-color-orange-l, GrayText  ); --cem-palette-conservative-text:    var(--cem-color-cyan-d, CanvasText);
+
+        --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-comfort) 70%, black); --cem-action-explicit-disabled-text   : var(--cem-palette-comfort-text    );
+        --cem-action-primary-disabled-background     : var(--cem-palette-trust       ); --cem-action-primary-disabled-text    : var(--cem-palette-trust-text      );
+        --cem-action-contextual-disabled-background  : var(--cem-palette-comfort     ); --cem-action-contextual-disabled-text : var(--cem-palette-comfort-text    );
+        --cem-action-alternate-disabled-background   : var(--cem-palette-creativity  ); --cem-action-alternate-disabled-text  : var(--cem-palette-creativity-text );
+        --cem-action-destructive-disabled-background : var(--cem-palette-danger      ); --cem-action-destructive-disabled-text: var(--cem-palette-danger-text     );
+
+        --cem-action-explicit-readonly-background    : color-mix(in srgb, var(--cem-palette-comfort) 80%, black); --cem-action-explicit-readonly-text   : var(--cem-palette-comfort-text    );
+        --cem-action-primary-readonly-background     : var(--cem-palette-trust       ); --cem-action-primary-readonly-text    : var(--cem-palette-trust-text      );
+        --cem-action-contextual-readonly-background  : var(--cem-palette-comfort     ); --cem-action-contextual-readonly-text : var(--cem-palette-comfort-text    );
+        --cem-action-alternate-readonly-background   : var(--cem-palette-creativity  ); --cem-action-alternate-readonly-text  : var(--cem-palette-creativity-text );
+        --cem-action-destructive-readonly-background : var(--cem-palette-danger      ); --cem-action-destructive-readonly-text: var(--cem-palette-danger-text     );
+
+        --cem-action-explicit-editable-background    : color-mix(in srgb, var(--cem-palette-comfort) 90%, black); --cem-action-explicit-editable-text   : var(--cem-palette-comfort-text    );
+        --cem-action-primary-editable-background     : color-mix(in srgb, var(--cem-palette-trust  ) 90%, black); --cem-action-primary-editable-text    : var(--cem-palette-trust-text      );
+        --cem-action-contextual-editable-background  : var(--cem-palette-comfort     ); --cem-action-contextual-editable-text : var(--cem-palette-comfort-text    );
+        --cem-action-alternate-editable-background   : var(--cem-palette-creativity  ); --cem-action-alternate-editable-text  : var(--cem-palette-creativity-text );
+        --cem-action-destructive-editable-background : var(--cem-palette-danger      ); --cem-action-destructive-editable-text: var(--cem-palette-danger-text     );
+
+        --cem-action-explicit-required-background    : var(--cem-palette-comfort     ); --cem-action-explicit-required-text   : var(--cem-palette-comfort-text    );
+        --cem-action-primary-required-background     : var(--cem-palette-trust       ); --cem-action-primary-required-text    : var(--cem-palette-trust-text      );
+        --cem-action-contextual-required-background  : var(--cem-palette-comfort     ); --cem-action-contextual-required-text : var(--cem-palette-comfort-text    );
+        --cem-action-alternate-required-background   : var(--cem-palette-creativity  ); --cem-action-alternate-required-text  : var(--cem-palette-creativity-text );
+        --cem-action-destructive-required-background : var(--cem-palette-danger      ); --cem-action-destructive-required-text: var(--cem-palette-danger-text     );
+
+        --cem-action-explicit-default-background    : var(--cem-palette-comfort     ); --cem-action-explicit-default-text   : var(--cem-palette-comfort-text    );
+        --cem-action-primary-default-background     : var(--cem-palette-trust       ); --cem-action-primary-default-text    : var(--cem-palette-trust-text      );
+        --cem-action-contextual-default-background  : var(--cem-palette-comfort     ); --cem-action-contextual-default-text : var(--cem-palette-comfort-text    );
+        --cem-action-alternate-default-background   : var(--cem-palette-creativity  ); --cem-action-alternate-default-text  : var(--cem-palette-creativity-text );
+        --cem-action-destructive-default-background : var(--cem-palette-danger      ); --cem-action-destructive-default-text: var(--cem-palette-danger-text     );
+
     }
     @media (prefers-color-scheme: light) {
         /* .cem-theme-light replica */
@@ -132,8 +163,12 @@ bend - corner shape, radius
         box-shadow: var(--cem-action-box-shadow);
         padding: var(--cem-action-box-padding);
 
-        &:hover{
+
+        &:hover,&.hover{
             --cem-action-box-shadow: var(--cem-action-box-shadow-hover);
+        }
+        &[pending],&.pending{
+
         }
         /* flow */
         .primary, [flow="primary"] {
@@ -146,7 +181,7 @@ bend - corner shape, radius
             [selected] {
             }
         }
+
     }
 
 }
-.aa{}
