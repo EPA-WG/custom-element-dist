@@ -151,7 +151,7 @@ ToDO
                 <option value="editable"        base-token="color" complimentary-token="color-text" > . </option>
                 <option value="required"        base-token="color" complimentary-token="color-text" > . </option>
                 <option value="default"         base-token="color" complimentary-token="color-text" > . </option>
-                <option value="indeterminate"   base-token="color" complimentary-token="color-text" > . </option>
+                <option value="indeterminate"   base-token="color" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
                 <option value="target"          base-token="color" complimentary-token="color-text" > . </option>
                 <option value="focus"           base-token="color" complimentary-token="color-text" > . </option>
                 <option value="focus"           base-token="color" complimentary-token="color-text" > . </option>
@@ -169,7 +169,7 @@ ToDO
                         <xhtml:tr>
                             <xhtml:th > </xhtml:th>
                             <for-each select="exsl:node-set($cem-action-intent)/*">
-                                <xhtml:th style="min-width:6rem">{@value}</xhtml:th>
+                                <xhtml:th style="min-width:6rem" title="{.}">{@value}</xhtml:th>
                             </for-each>
                         </xhtml:tr>
                     </xhtml:thead>
@@ -178,7 +178,7 @@ ToDO
                         <xhtml:tr>
                             <variable name="state" select="@value"></variable>
 
-                            <xhtml:td>{@value}</xhtml:td>
+                            <xhtml:td title="{.}">{@value}</xhtml:td>
                             <for-each select="exsl:node-set($cem-action-intent)/*">
                                 <variable name="intent" select="@value"></variable>
                                 <xhtml:td style="
