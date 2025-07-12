@@ -69,7 +69,7 @@ ToDO
                 <li>if value has a slash symbol (<code>/</code>), it is treated as <var>URL</var> for <code>img</code> element </li>
                 <li>if value has a <code>fa-</code> substring, it is treated as <var>favicon</var> </li>
                 <li>if value is not empty, it is treated as <var>material icon</var> </li>
-                
+
             </ol>
         </div>
         <div> <code>direction</code> attribute defines css <code>row</code> or <code>column</code> flex-direction. </div>
@@ -77,6 +77,9 @@ ToDO
 <section>
     <custom-element>
         <template>
+            <style>
+                header{ display: flex; gap: 2rem; align-items: center; label{ display: flex;}}
+            </style>
 
             <cem-css-rules slice="rules"></cem-css-rules>
             <variable name="cem-emotions">
@@ -130,6 +133,12 @@ ToDO
 <hr/>
             <section>
             <h1>Action tokens </h1>
+            <header> Filter with
+                <label class="action"><input slice="filter-colors"  value="color"   title="uses background/text color" type="checkbox" checked /> color   </label>
+                <label class="action"><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox" checked /> outline </label>
+                <label class="action"><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox" checked /> font    </label>
+                <label class="action"><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox" checked /> marker  </label>
+            </header>
             <variable name="cem-theme">
                 <option value="native"              > System driven colors  </option>
                 <option value="light"               > light                 </option>
@@ -146,24 +155,22 @@ ToDO
             </variable>
 
             <variable name="cem-action-state">
-                <option value="disabled"        base-token="color" complimentary-token="color-text" > . </option>
-                <option value="readonly"        base-token="color" complimentary-token="color-text" > . </option>
-                <option value="editable"        base-token="color" complimentary-token="color-text" > . </option>
-                <option value="required"        base-token="color" complimentary-token="color-text" > . </option>
-                <option value="default"         base-token="color" complimentary-token="color-text" > . </option>
-                <option value="indeterminate"   base-token="color" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
-                <option value="target"          base-token="color" complimentary-token="color-text" > . </option>
-                <option value="focus"           base-token="color" complimentary-token="color-text" > . </option>
-                <option value="focus"           base-token="color" complimentary-token="color-text" > . </option>
-                <option value="focus"           base-token="color" complimentary-token="color-text" > . </option>
-                <option value="hover"           base-token="color" complimentary-token="color-text" > . </option>
-                <option value="selected"        base-token="color" complimentary-token="color-text" > . </option>
-                <option value="active"          base-token="color" complimentary-token="color-text" > . </option>
-                <option value="pending"         base-token="color" complimentary-token="color-text" > . </option>
+                <option value="disabled"        tokens="color outline font marker" complimentary-token="color-text" > Disabled </option>
+                <option value="readonly"        tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
+                <option value="editable"        tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
+                <option value="required"        tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
+                <option value="default"         tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
+                <option value="indeterminate"   tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
+                <option value="target"          tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
+                <option value="focus"           tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
+                <option value="hover"           tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
+                <option value="selected"        tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
+                <option value="active"          tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
+                <option value="pending"         tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
             </variable>
 
             <for-each select="exsl:node-set($cem-theme)/*">
-                <h1>Theme <var>cem-theme-{@value}</var>, {.}</h1>
+                <h1><a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme <var>cem-theme-{@value}</var></a></h1>
                 <xhtml:table class="cem-theme-{@value}">
                     <xhtml:thead>
                         <xhtml:tr>
@@ -177,6 +184,7 @@ ToDO
                     <for-each select="exsl:node-set($cem-action-state)/*">
                         <xhtml:tr>
                             <variable name="state" select="@value"></variable>
+                            <variable name="state-description" select="."></variable>
 
                             <xhtml:td title="{.}">{@value}</xhtml:td>
                             <for-each select="exsl:node-set($cem-action-intent)/*">
@@ -187,7 +195,9 @@ ToDO
                                             font-size:x-small;
                                             padding:0.5em"
                                             title="
-    {@value} : {.}"
+    {@value} : {.}
+    {$state} : {$state-description}
+"
                                     >
                                     --cem-action-{ $intent }-{ $state }-background <br/>
                                     --cem-action-{ $intent }-{ $state }-color
