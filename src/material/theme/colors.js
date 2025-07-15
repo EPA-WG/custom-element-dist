@@ -1,16 +1,16 @@
 import ModuleUrl from "../../custom-element/module-url.js";
 
-function cssRule2Obj( parent, /* CSSRule | CSSStyleSheet | CSSStyleRUle | CSSKeyframesRule | CSSNestedDeclarations */ s )
+function cssRule2Obj( parent, /* CSSRule | CSSStyleSheet | CSSStyleRUle | CSSKeyframesRule | CSSNestedDeclarations */ s, j )
 {
     const childrenRules =  (s instanceof CSSNestedDeclarations) ? parent: {};
     if( s.cssRules)
-        [...s.cssRules].forEach( r => cssRule2Obj( childrenRules, r ) );
+        [...s.cssRules].forEach( (r, i) => cssRule2Obj( childrenRules, r, i ) );
 
     if( s.style )
         {   [...s.style].forEach( s1=>{ childrenRules[s1] = s.style.getPropertyValue(s1) }) }
 
     if( s.styleSheet )
-        cssRule2Obj( childrenRules, s.styleSheet );
+        cssRule2Obj( childrenRules, s.styleSheet, 0 );
 
     let key = s.selectorText ||s.keyText || s.href|| s.ownerNode?.id|| s.ownerNode?.tagName;
     switch( s.type ){
@@ -22,7 +22,10 @@ function cssRule2Obj( parent, /* CSSRule | CSSStyleSheet | CSSStyleRUle | CSSKey
     }
 
     if(key)
+    {   if( parent[key] )
+            key = key+'-'+j;
         parent[key] = childrenRules;
+    }
     return parent;
 }
 
@@ -31,8 +34,8 @@ export class CssRulesElement extends HTMLElement
     connectedCallback()
     {
         const allRules = {};
-        [ ...document.styleSheets ].forEach( s => { try{
-            cssRule2Obj( allRules, s) }catch(_){}});
+        [ ...document.styleSheets ].forEach( ((s,i) => { try{
+            cssRule2Obj( allRules, s,i) }catch(_){}}));
 
         this.value = allRules;
         this.dispatchEvent( new Event('change') );
