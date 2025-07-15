@@ -160,7 +160,7 @@ ToDO
             </variable>
 
             <variable name="cem-action-state">
-                <option value="disabled"        tokens="color outline font marker" complimentary-token="color-text" > Disabled </option>
+                <option value="disabled"        tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
                 <option value="readonly"        tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
                 <option value="editable"        tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
                 <option value="required"        tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
@@ -173,6 +173,7 @@ ToDO
                 <option value="active"          tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
                 <option value="pending"         tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
             </variable>
+            <variable name="slices" select="/datadom/slice"></variable>
 
             <for-each select="exsl:node-set($cem-theme)/*">
                 <h1><a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme <var>cem-theme-{@value}</var></a></h1>
@@ -187,11 +188,14 @@ ToDO
                     </xhtml:thead>
                     <xhtml:tbody>
                     <for-each select="exsl:node-set($cem-action-state)/*">
+                        <if test=" contains(@tokens, $slices/filter-outline)">
                         <xhtml:tr>
                             <variable name="state" select="@value"></variable>
                             <variable name="state-description" select="."></variable>
 
-                            <xhtml:td title="{.}">{@value}</xhtml:td>
+                            <xhtml:td title="{.}
+    tokens: {@tokens}
+">{@value}</xhtml:td>
                             <for-each select="exsl:node-set($cem-action-intent)/*">
                                 <variable name="intent" select="@value"></variable>
                                 <xhtml:td style="
@@ -209,10 +213,13 @@ ToDO
                                 </xhtml:td>
                             </for-each>
                         </xhtml:tr>
+                            </if>
                     </for-each>
                     </xhtml:tbody>
                 </xhtml:table>
             </for-each>
+                filter-outline {count(/datadom/slice/*)}
+                filter-outline {($slices/filter-outline)}
 </section>
 <hr/>
             <h1>All variables</h1>
