@@ -56,6 +56,9 @@ ToDO
 <section>
     <custom-element>
         <template>
+            <style>
+                header{ display: flex; gap: 2rem; align-items: center; label{ display: flex;}}
+            </style>
             <variable name="cem-emotions">
                 <option value="comfort"       warmth="cool"    sample="white"  system="Canvas"     text="CanvasText"    >light scene color, the scene is full of object &#10; Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
                 <option value="calm"          warmth="cool"    sample="black"  system="CanvasText" text="Canvas"        >dark scene color, few objects around           &#10; Mystery, elegance, power, evil, mourning, formality, security  </option>
@@ -66,11 +69,11 @@ ToDO
                 <option value="conservative"  warmth="neutral" sample="brown"  system="GrayText"   text="CanvasText"    >Natural, earthy, conservative, but also bland or boring              </option>
             </variable>
             <variable name="cem-media" select="//*[starts-with(./*/@dce-object-name, '--cem-palette-')]"></variable>
-<!--            <style>-->
-<!--                header{ display: flex; gap: 2rem; align-items: center; label{ display: flex;}}-->
-<!--            </style>-->
 
-
+//*[starts-with(./*/@dce-object-name, '--cem-palette-')] {//*[starts-with(./*/@dce-object-name, '--cem-palette-')]} <br/>
+count (//*[starts-with(./*/@dce-object-name, '--cem-palette-')]) { count (//*[starts-with(./*/@dce-object-name, '--cem-palette-')]) } <br/>
+count (//*[@dce-object-name]) { count (//*[@dce-object-name])  } <br/>
+  (//*[@dce-object-name]) {   (//*[@dce-object-name])/@dce-object-name } <br/>
             <cem-css-rules slice="rules"></cem-css-rules>
 
             <h1>Base cem-palette tokens </h1>
