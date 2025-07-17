@@ -84,6 +84,7 @@ ToDO
                     color: lightblue;
                     background: rgba(0,0,0,0.75);
                 }
+                th i, td i{font-size:x-small;}
             </style>
 
             <cem-css-rules slice="rules"></cem-css-rules>
@@ -180,7 +181,7 @@ ToDO
                 <xhtml:table class="cem-theme-{@value}">
                     <xhtml:thead>
                         <xhtml:tr>
-                            <xhtml:th > </xhtml:th>
+                            <xhtml:th > state <br/><i>tokens</i></xhtml:th>
                             <for-each select="exsl:node-set($cem-action-intent)/*">
                                 <xhtml:th style="min-width:6rem" title="{.}">{@value}</xhtml:th>
                             </for-each>
@@ -188,38 +189,43 @@ ToDO
                     </xhtml:thead>
                     <xhtml:tbody>
                     <for-each select="exsl:node-set($cem-action-state)/*">
-                        <if test=" contains(@tokens, $slices/filter-outline)">
-                        <xhtml:tr>
-                            <variable name="state" select="@value"></variable>
-                            <variable name="state-description" select="."></variable>
+                        <if test="
+                                ($slices/filter-colors  != '' and contains(@tokens, $slices/filter-colors ) ) or
+                                ($slices/filter-outline != '' and contains(@tokens, $slices/filter-outline) ) or
+                                ($slices/filter-font    != '' and contains(@tokens, $slices/filter-font   ) ) or
+                                ($slices/filter-marker  != '' and contains(@tokens, $slices/filter-marker ) )
+                                ">
+                            <xhtml:tr>
+                                <variable name="state" select="@value"></variable>
+                                <variable name="state-description" select="."></variable>
 
-                            <xhtml:td title="{.}
-    tokens: {@tokens}
-">{@value}</xhtml:td>
-                            <for-each select="exsl:node-set($cem-action-intent)/*">
-                                <variable name="intent" select="@value"></variable>
-                                <xhtml:td style="
-                                            background-color: var(--cem-action-{ $intent }-{ $state }-background);
-                                            color:            var(--cem-action-{ $intent }-{ $state }-text);
-                                            font-size:x-small;
-                                            padding:0.5em"
-                                            title="
-    {@value} : {.}
-    {$state} : {$state-description}
-"
-                                    >
-                                    --cem-action-{ $intent }-{ $state }-background <br/>
-                                    --cem-action-{ $intent }-{ $state }-color
+                                <xhtml:td
+                                        title="{.}
+                                            tokens: {@tokens}
+                                        ">{@value} <br/> <i>{@tokens}<small>
                                 </xhtml:td>
-                            </for-each>
-                        </xhtml:tr>
-                            </if>
+                                <for-each select="exsl:node-set($cem-action-intent)/*">
+                                    <variable name="intent" select="@value"></variable>
+                                    <xhtml:td style="
+                                                background-color: var(--cem-action-{ $intent }-{ $state }-background);
+                                                color:            var(--cem-action-{ $intent }-{ $state }-text);
+                                                font-size:x-small;
+                                                padding:0.5em"
+                                                title="{@value} : {.}
+                                                    {$state} : {$state-description}
+                                                "
+                                        >
+                                        --cem-action-{ $intent }-{ $state }-background <br/>
+                                        --cem-action-{ $intent }-{ $state }-color
+                                    </xhtml:td>
+                                </for-each>
+                            </xhtml:tr>
+                        </if>
                     </for-each>
                     </xhtml:tbody>
                 </xhtml:table>
             </for-each>
-                filter-outline {count(/datadom/slice/*)}
-                filter-outline {($slices/filter-outline)}
+
 </section>
 <hr/>
             <h1>All variables</h1>
