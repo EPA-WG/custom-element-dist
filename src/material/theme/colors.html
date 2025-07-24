@@ -141,9 +141,10 @@ ToDO
             <h1>Action tokens </h1>
             <header> Filter with
                 <label class="action"><input slice="filter-colors"  value="color"   title="uses background/text color" type="checkbox" checked /> color   </label>
-                <label class="action"><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox" checked /> outline </label>
-                <label class="action"><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox" checked /> font    </label>
-                <label class="action"><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox" checked /> marker  </label>
+                <label class="action"><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox"         /> outline </label>
+                <label class="action"><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox"         /> font    </label>
+                <label class="action"><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox"         /> marker  </label>
+                <label class="action"><input slice="filter-bend"    value="bend"    title="uses marker like *"         type="checkbox"         /> bend  </label>
             </header>
             <variable name="cem-theme">
                 <option value="native"              > System driven colors  </option>
@@ -228,6 +229,14 @@ ToDO
 
 </section>
 <hr/>
+<section>
+    <h6>ToDo</h6>
+    <pre>
+        * color matrix per theme to include base shape - action, input, etc.
+        * bend
+        * dimensions
+    </pre>
+</section>
             <h1>All variables</h1>
             <for-each select="//*[starts-with(./*/@dce-object-name, '--')]">
                 <details>
