@@ -24,16 +24,16 @@
     --cem-color-blue-xl: #faf9fd; /* lightest blue    | `comfort`, light scene | reading   */
     /*--cem-color-cyan-d: #adfffe; !* dark cyan       | dark scene             | reading *!*/
     --cem-color-blue        : #abc7ff; /* blue        | trust | attention */
-    --cem-color-blue-d   : #3f3fA0; /* blue        | trust | attention */
-    --cem-color-red-l       : #ffb4ab; /* red   light | danger | alert | --ng-error-80 */
-    --cem-color-red         : #ba1a1a; /* red         | danger | alert | --ng-error-40 */
-    --cem-color-red-d       : #410002; /* red    dark | danger | alert | --ng-error-10 */
-    --cem-color-grey-d      : #1a1c18; /* dark   grey | conservative   | brand-1  | --ng-green-neutral-10  */
-    --cem-color-grey-l      : #c6c7c1; /* light  grey | conservative   | brand-1  | --ng-green-neutral-80  */
-    --cem-color-cyan-d      : #002020; /* dark   cyan | creativity     | brand-2 */
-    --cem-color-cyan-l      : #adfffe; /* light  cyan | !creativity    | brand-2  | --ng-cyan-10           */
-    --cem-color-orange-l    : #ffb787; /* light orange | enthusiasm | brand-3   | --ng-orange-80         */
-    --cem-color-orange-d    : #311300; /* dark orange | enthusiasm hype| brand-3 */
+    --cem-color-blue-d      : #3f3fA0; /* blue        | trust | attention */
+    --cem-color-red-l       : #ffb4ab; /* red   light | danger | alert  | --ng-error-80 */
+    --cem-color-red         : #ba1a1a; /* red         | danger | alert  | --ng-error-40 */
+    --cem-color-red-d       : #410002; /* red    dark | danger | alert  | --ng-error-10 */
+    --cem-color-grey-d      : #1a1c18; /* dark   grey | conservative    | brand-1  | --ng-green-neutral-10  */
+    --cem-color-grey-l      : #c6c7c1; /* light  grey | conservative    | brand-1  | --ng-green-neutral-80  */
+    --cem-color-cyan-d      : #002020; /* dark   cyan | creativity      | brand-2  | --ng-cyan-10           */
+    --cem-color-cyan-l      : #adfffe; /* light  cyan | !creativity     | brand-2  | --ng-cyan-10           */
+    --cem-color-orange-l    : #ffe082; /* light orange | enthusiasm     | brand-3  | --mat-amber-200        */
+    --cem-color-orange-d    : #311300; /* dark orange  | enthusiasm hype| brand-3  | --ng-orange-10         */
 
     /*
 # Emotional Palette
@@ -82,7 +82,7 @@
         --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-conservative    ) 50%, var(--cem-palette-conservative-x )); --cem-action-explicit-disabled-text   : var(--cem-palette-conservative-text-x );
         --cem-action-primary-disabled-background     : color-mix(in srgb, var(--cem-palette-trust           ) 50%, var(--cem-palette-conservative-x )); --cem-action-primary-disabled-text    : var(--cem-palette-conservative-text-x );
         --cem-action-contextual-disabled-background  : color-mix(in srgb, var(--cem-palette-comfort         ) 40%, var(--cem-palette-conservative-x )); --cem-action-contextual-disabled-text : var(--cem-palette-conservative-text-x );
-        --cem-action-alternate-disabled-background   : color-mix(in srgb, var(--cem-palette-enthusiasm      ) 50%, var(--cem-palette-conservative-x )); --cem-action-alternate-disabled-text  : var(--cem-palette-conservative-text-x   );
+        --cem-action-alternate-disabled-background   : color-mix(in srgb, var(--cem-palette-enthusiasm      ) 40%, var(--cem-palette-conservative-x )); --cem-action-alternate-disabled-text  : var(--cem-palette-conservative-text-x   );
         --cem-action-destructive-disabled-background : color-mix(in srgb, var(--cem-palette-danger          ) 50%, var(--cem-palette-conservative-x )); --cem-action-destructive-disabled-text: var(--cem-palette-conservative-text-x       );
 
         /* readonly */
