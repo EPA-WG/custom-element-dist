@@ -37,7 +37,7 @@ the change speed which on its own depends on the color/brightness difference.
 Semantic colors should be expressed via emotional palette tokens. 
 7 base colors limit. 
 
-On `theme variant`( light,dark,dark-contrast...) those base colors can have shift to matching variant brightness.
+On `theme variant`( light,dark,contrast-dark...) those base colors can have shift to matching variant brightness.
 ## color accent
 The base colors are used in static UX when user interaction not yet engaged. The slight but noticeable base color change is
 used for `elevation` or element state.
@@ -153,22 +153,22 @@ b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
 }
 </style>
 
-| token          | bg   | light                                | dark                                | dark-contrast                                | light-contrast                                | 
+| token          | bg   | light                                | dark                                | contrast-dark                                | contrast-light                                | 
 |----------------|------|--------------------------------------|-------------------------------------|----------------------------------------------|-----------------------------------------------|
-| disabled       |      | <b class="light disabled">*</b>      | <b class="dark disabled">*</b>      | <b class="dark-contrast disabled">*</b>      | <b class="light-contrast disabled">*</b>      |
-| readonly       |      | <b class="light readonly">*</b>      | <b class="dark readonly">*</b>      | <b class="dark-contrast readonly">*</b>      | <b class="light-contrast readonly">*</b>      |
-| editable       | ^1   | <b class="light editable">*</b>      | <b class="dark editable">*</b>      | <b class="dark-contrast editable">*</b>      | <b class="light-contrast editable">*</b>      |
-| required       | no   | <b class="light required">*</b>      | <b class="dark required">*</b>      | <b class="dark-contrast required">*</b>      | <b class="light-contrast required">*</b>      |
-| default        | base | <b class="light default">*</b>       | <b class="dark default">*</b>       | <b class="dark-contrast default">*</b>       | <b class="light-contrast default">*</b>       |
-| indeterminate  | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="dark-contrast target">*</b>        | <b class="light-contrast target">*</b>        |
-| target         | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="dark-contrast target">*</b>        | <b class="light-contrast target">*</b>        |
-| focus-within   | no   | <b class="light focus-within">*</b>  | <b class="dark focus-within">*</b>  | <b class="dark-contrast focus-within">*</b>  | <b class="light-contrast focus-within">*</b>  |
-| focus          | no   | <b class="light focus">*</b>         | <b class="dark focus">*</b>         | <b class="dark-contrast focus">*</b>         | <b class="light-contrast focus">*</b>         |
-| focus-visible  | no   | <b class="light focus-visible">*</b> | <b class="dark focus-visible">*</b> | <b class="dark-contrast focus-visible">*</b> | <b class="light-contrast focus-visible">*</b> |
-| hover          |      | <b class="light hover">*</b>         | <b class="dark hover">*</b>         | <b class="dark-contrast hover">*</b>         | <b class="light-contrast hover">*</b>         |
-| selected       |      | <b class="light selected">*</b>      | <b class="dark selected">*</b>      | <b class="dark-contrast selected">*</b>      | <b class="light-contrast selected">*</b>      |
-| active         |      | <b class="light active">*</b>        | <b class="dark active">*</b>        | <b class="dark-contrast active">*</b>        | <b class="light-contrast active">*</b>        |
-| pending        | ^2   | <b class="light pending">*</b>       | <b class="dark pending">*</b>       | <b class="dark-contrast pending">*</b>       | <b class="light-contrast pending">*</b>       |
+| disabled       |      | <b class="light disabled">*</b>      | <b class="dark disabled">*</b>      | <b class="contrast-dark disabled">*</b>      | <b class="contrast-light disabled">*</b>      |
+| readonly       |      | <b class="light readonly">*</b>      | <b class="dark readonly">*</b>      | <b class="contrast-dark readonly">*</b>      | <b class="contrast-light readonly">*</b>      |
+| editable       | ^1   | <b class="light editable">*</b>      | <b class="dark editable">*</b>      | <b class="contrast-dark editable">*</b>      | <b class="contrast-light editable">*</b>      |
+| required       | no   | <b class="light required">*</b>      | <b class="dark required">*</b>      | <b class="contrast-dark required">*</b>      | <b class="contrast-light required">*</b>      |
+| default        | base | <b class="light default">*</b>       | <b class="dark default">*</b>       | <b class="contrast-dark default">*</b>       | <b class="contrast-light default">*</b>       |
+| indeterminate  | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="contrast-dark target">*</b>        | <b class="contrast-light target">*</b>        |
+| target         | no   | <b class="light target">*</b>        | <b class="dark target">*</b>        | <b class="contrast-dark target">*</b>        | <b class="contrast-light target">*</b>        |
+| focus-within   | no   | <b class="light focus-within">*</b>  | <b class="dark focus-within">*</b>  | <b class="contrast-dark focus-within">*</b>  | <b class="contrast-light focus-within">*</b>  |
+| focus          | no   | <b class="light focus">*</b>         | <b class="dark focus">*</b>         | <b class="contrast-dark focus">*</b>         | <b class="contrast-light focus">*</b>         |
+| focus-visible  | no   | <b class="light focus-visible">*</b> | <b class="dark focus-visible">*</b> | <b class="contrast-dark focus-visible">*</b> | <b class="contrast-light focus-visible">*</b> |
+| hover          |      | <b class="light hover">*</b>         | <b class="dark hover">*</b>         | <b class="contrast-dark hover">*</b>         | <b class="contrast-light hover">*</b>         |
+| selected       |      | <b class="light selected">*</b>      | <b class="dark selected">*</b>      | <b class="contrast-dark selected">*</b>      | <b class="contrast-light selected">*</b>      |
+| active         |      | <b class="light active">*</b>        | <b class="dark active">*</b>        | <b class="contrast-dark active">*</b>        | <b class="contrast-light active">*</b>        |
+| pending        | ^2   | <b class="light pending">*</b>       | <b class="dark pending">*</b>       | <b class="contrast-dark pending">*</b>       | <b class="contrast-light pending">*</b>       |
 
 ^1 - `editable`/`:read-write` usually uses decorators but Material Design also applies high contrast background
 ( for light theme it is white on the slightly darker surface ).  
