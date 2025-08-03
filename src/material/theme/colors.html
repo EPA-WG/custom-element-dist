@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -29,10 +31,8 @@
         @import "../theme/consumer-theme.css";
         @import "../demo.css";
         main {
-            display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
             &>p{ min-width: 90%; }
+            &>aside, &>h1{ padding-left: 1rem; }
             html-demo-element
             {   overflow: visible;
                 [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
@@ -42,6 +42,8 @@
             var{ color: darkgreen; font-weight: bold; }
         }
         cem-icon{ margin: 1rem; }
+        h1{ font-size: large; }
+
     </style>
     <script type="module" src="./colors.js"></script>
 </head>
@@ -74,81 +76,88 @@ ToDO
         </div>
         <div><code>direction</code> attribute defines css <code>row</code> or <code>column</code> flex-direction.</div>
     </aside>
-    <section>
-        <custom-element>
-            <template>
-                <style>
-                    header{
-                        position: sticky;                             top: 0;
-                        display: flex; gap: 1rem; flex-direction: column;
-                        color: lightblue;
-                        background: rgba(0, 0, 0, 0.75);
-                        &>*{ display: flex; gap: 2rem; align-items: center; label{ display: flex;} }
+    <h1>Action tokens </h1>
+    <custom-element>
+        <template>
+            <style>
+                header{
+                    position: sticky;                             top: 0;
+                    display: flex; gap: 1rem; flex-direction: column;
+                    color: lightblue;
+                    background: rgba(0, 0, 0, 0.75);
+                    &>*{ display: flex; gap: 2rem; align-items: center; label{ display: flex;} }
+                }
+                th i, td i,.small{font-size:x-small;}
+                td{ padding: 0.5rem; &:first-of-type{ padding-left: 0 }}
+                summary{ padding: 0.5rem 0;
+                    &:hover{
+                        background-color: cyan;
+                        cursor: pointer;
                     }
-                    th i, td i,.small{font-size:x-small;}
-                    td{ padding: 0.5rem; }
-                </style>
+                }
+                section[data-theme]{ padding: 1rem; }
+            </style>
 
-                <cem-css-rules slice="rules"></cem-css-rules>
+            <cem-css-rules slice="rules"></cem-css-rules>
 
-                <section>
-                    <h1>Action tokens </h1>
-                    <header>
-                        <div>show
-                            <label><input slice="filter-emotional"  value="emotional-palette" title="trigger visibility of emotional palette"        type="checkbox" checked /> emotional palette    </label>
-                            <label><input slice="filter-state"      value="state-pallette"    title="trigger visibility of state variations palette" type="checkbox" checked /> state variations     </label>
-                        </div>
-                        <div> state tokens with
-                            <label><input slice="filter-colors"  value="color"   title="uses background/text color" type="checkbox" checked /> color   </label>
-                            <label><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox"         /> outline </label>
-                            <label><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox"         /> font    </label>
-                            <label><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox"         /> marker  </label>
-                            <label><input slice="filter-bend"    value="bend"    title="uses marker like *"         type="checkbox"         /> bend  </label>
-                        </div>
-                    </header>
-                    <variable name="cem-theme">
-                        <option value="native"> System driven colors</option>
-                        <option value="light"> light</option>
-                        <option value="dark"> dark</option>
-                        <option value="light-contrast"> hight-contrast light</option>
-                        <option value="dark-contrast"> high-contrast dark</option>
-                    </variable>
-                    <variable name="cem-emotional-tokens">
-                <option value="comfort"         warms="cool"    sample="white"                  system="Canvas"                     > light scene color, the scene is full of object. Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
-                <option value="calm"            warms="cool"    sample="black"                  system="CanvasText"                 > dark scene color, few objects around. Mystery, elegance, power, evil, mourning, formality, security           </option>
-                <option value="trust"           warms="cool"    sample="blue"                   system="Highlight w/ HighlightText" > primary action background, text color for `focus-invert`                                                      </option>
-                <option value="danger"          warms="warm"    sample="red"                    system="N/A , red"                  > Passion, excitement, love, anger, energy, danger                                                              </option>
-                <option value="creativity"      warms="cool"    sample="cyan,purple"            system="ButtonFace w/ ButtonText"   > Luxury, creativity, royalty, mystery, but also grief or melancholy                                            </option>
-                <option value="enthusiasm"      warms="warm"    sample="orange,yellow,pink"     system="Mark w/ MarkText"           > Warmth, enthusiasm, happiness, optimism, energy                                                               </option>
-                <option value="conservative"    warms="neutral" sample="brown,tan,beige,grey"   system="GrayText"                   > Natural, earthy, conservative, but also bland or boring                                                       </option>
-                    </variable>
-                    <variable name="cem-action-intent">
-                <option value="explicit"      base-color="white" > user explicitly/intentionally clicks or activates    </option>
-                <option value="primary"       base-color="black" > default, confirmatory, implicit. Triggered by ENTER  </option>
-                <option value="contextual"    base-color="blue"  > integrated within a specific context, Toolbar/menu   </option>
-                <option value="alternate"     base-color="red"   > triggering not usual alternative flow                </option>
-                <option value="destructive"   base-color="red"   > risky, potentially harmful, requires caution         </option>
-                    </variable>
+            <section>
+                <header>
+                    <div>show
+                        <label><input slice="filter-emotional"  value="emotional-palette" title="trigger visibility of emotional palette"        type="checkbox" checked /> emotional palette    </label>
+                        <label><input slice="filter-state"      value="state-pallette"    title="trigger visibility of state variations palette" type="checkbox" checked /> state variations     </label>
+                    </div>
+                    <div> state tokens with
+                        <label><input slice="filter-colors"  value="color"   title="uses background/text color" type="checkbox" checked /> color   </label>
+                        <label><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox"         /> outline </label>
+                        <label><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox"         /> font    </label>
+                        <label><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox"         /> marker  </label>
+                        <label><input slice="filter-bend"    value="bend"    title="uses marker like *"         type="checkbox"         /> bend  </label>
+                    </div>
+                </header>
+                <variable name="cem-theme">
+                    <option value="native"> System driven colors</option>
+                    <option value="light"> light</option>
+                    <option value="dark"> dark</option>
+                    <option value="contrast-light"> hight-contrast light</option>
+                    <option value="contrast-dark"> high-contrast dark</option>
+                </variable>
+                <variable name="cem-emotional-tokens">
+            <option value="comfort"         warms="cool"    sample="white"                  system="Canvas"                     > light scene color, the scene is full of object. Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
+            <option value="calm"            warms="cool"    sample="black"                  system="CanvasText"                 > dark scene color, few objects around. Mystery, elegance, power, evil, mourning, formality, security           </option>
+            <option value="trust"           warms="cool"    sample="blue"                   system="Highlight w/ HighlightText" > primary action background, text color for `focus-invert`                                                      </option>
+            <option value="danger"          warms="warm"    sample="red"                    system="N/A , red"                  > Passion, excitement, love, anger, energy, danger                                                              </option>
+            <option value="creativity"      warms="cool"    sample="cyan,purple"            system="ButtonFace w/ ButtonText"   > Luxury, creativity, royalty, mystery, but also grief or melancholy                                            </option>
+            <option value="enthusiasm"      warms="warm"    sample="orange,yellow,pink"     system="Mark w/ MarkText"           > Warmth, enthusiasm, happiness, optimism, energy                                                               </option>
+            <option value="conservative"    warms="neutral" sample="brown,tan,beige,grey"   system="GrayText"                   > Natural, earthy, conservative, but also bland or boring                                                       </option>
+                </variable>
+                <variable name="cem-action-intent">
+            <option value="explicit"      base-color="white" > user explicitly/intentionally clicks or activates    </option>
+            <option value="primary"       base-color="black" > default, confirmatory, implicit. Triggered by ENTER  </option>
+            <option value="contextual"    base-color="blue"  > integrated within a specific context, Toolbar/menu   </option>
+            <option value="alternate"     base-color="red"   > triggering not usual alternative flow                </option>
+            <option value="destructive"   base-color="red"   > risky, potentially harmful, requires caution         </option>
+                </variable>
 
-                    <variable name="cem-action-state">
-                <option value="disabled"        tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
-                <option value="readonly"        tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
-                <option value="editable"        tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
-                <option value="required"        tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
-                <option value="default"         tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
-                <option value="indeterminate"   tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
-                <option value="target"          tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
-                <option value="focus"           tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
-                <option value="hover"           tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
-                <option value="selected"        tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
-                <option value="active"          tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
-                <option value="pending"         tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
-                    </variable>
-                    <variable name="slices" select="/datadom/slice"></variable>
+                <variable name="cem-action-state">
+            <option value="disabled"        tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
+            <option value="readonly"        tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
+            <option value="editable"        tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
+            <option value="required"        tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
+            <option value="default"         tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
+            <option value="indeterminate"   tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
+            <option value="target"          tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
+            <option value="focus"           tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
+            <option value="hover"           tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
+            <option value="selected"        tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
+            <option value="active"          tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
+            <option value="pending"         tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
+                </variable>
+                <variable name="slices" select="/datadom/slice"></variable>
 
-                    <for-each select="exsl:node-set($cem-theme)/*">
-                <h1><a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme <var>cem-theme-{@value}</var></a></h1>
-                        <xhtml:table class="cem-theme-{@value}">
+                <for-each select="exsl:node-set($cem-theme)/*">
+                    <section data-theme="cem-theme-{@value}">
+                        <h1><a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme <var>cem-theme-{@value}</var></a></h1>
+                        <xhtml:table >
                             <xsl:if test="not($slices/filter-emotional = 'emotional-palette' )">
                                 <attribute name="hidden"></attribute>
                             </xsl:if>
@@ -211,7 +220,7 @@ ToDO
 
                             </xhtml:tbody>
                         </xhtml:table>
-                        <xhtml:table class="cem-theme-{@value}">
+                        <xhtml:table>
                             <xsl:if test="not($slices/filter-state = 'state-pallette' )">
                                 <attribute name="hidden"></attribute>
                             </xsl:if>
@@ -260,32 +269,33 @@ ToDO
                                 </for-each>
                             </xhtml:tbody>
                         </xhtml:table>
-                    </for-each>
+                    </section>
 
-                </section>
-                <hr/>
-                <section>
-                    <h6>ToDo</h6>
-                    <pre>
-        * color matrix per theme to include base shape - action, input, etc.
-        * bend
-        * dimensions
-    </pre>
-                </section>
-                <h1>All variables</h1>
-                <for-each select="//*[starts-with(./*/@dce-object-name, '--')]">
-                    <details>
-                        <summary>{@dce-object-name}</summary>
-                        <for-each select="*">
-                            <button style="background-color: {.}" title="{@dce-object-name} : {.}"></button>
-                        </for-each>
-                    </details>
                 </for-each>
-                <hr/>
-            </template>
-        </custom-element>
 
-    </section>
+            </section>
+            <hr/>
+            <h1>ToDo</h1>
+            <section>
+                <pre>
+    * color matrix per theme to include base shape - action, input, etc.
+    * bend
+    * dimensions
+</pre>
+            </section>
+            <h1>All variables</h1>
+            <for-each select="//*[starts-with(./*/@dce-object-name, '--')]">
+                <details>
+                    <summary>{@dce-object-name}</summary>
+                    <for-each select="*">
+                        <button style="background-color: {.}" title="{@dce-object-name} : {.}"></button>
+                    </for-each>
+                </details>
+            </for-each>
+            <hr/>
+        </template>
+    </custom-element>
+
 
 </main>
 <footer>
