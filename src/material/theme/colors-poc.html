@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:exslt="http://exslt.org/common"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+</head>
+
+<body>
+<style>
+    :root{
+        --bg: light-dark(blue, pink);
+        .dark{ color-scheme: dark; }
+        .light{ color-scheme: light;  }
+        button{ background-color: var(--bg)}
+        .native{
+            --bg: Highlight; /* should be single value from system palette, light mode switch implied */
+        }
+        .contrast{
+            --bg: light-dark(green, violet); /* should be single value from system palette */
+        }
+        :root {
+  --palette-comfort:      #FFFFFF; /* white */
+  --palette-calm:         #1A1A1A; /* near-black */
+  --palette-trust:        #0078D4; /* vibrant blue */
+  --palette-danger:       #D13438; /* vivid red */
+  --palette-creativity:   #8764B8; /* muted purple */
+  --palette-enthusiasm:   #FF8C00; /* rich orange */
+  --palette-conservative: #8E7C6F; /* earthy taupe */
+}
+    }
+</style>
+
+<button>def</button>
+<button style="color-scheme: only light"> color-scheme: only light </button>
+<button style="color-scheme: only dark" > color-scheme: only dark </button>
+<button class="light"> class="light" </button>
+<button class="dark" > class="dark"  </button>
+
+<fieldset class="native">
+    <legend>native</legend>
+
+    <button>def</button>
+    <button style="color-scheme: only light"> color-scheme: only light </button>
+    <button style="color-scheme: only dark" > color-scheme: only dark </button>
+    <button class="light"> class="light" </button>
+    <button class="dark" > class="dark"  </button>
+
+</fieldset>
+<fieldset class="contrast">
+    <legend>contrast</legend>
+
+    <button>def</button>
+    <button style="color-scheme: only light"> color-scheme: only light </button>
+    <button style="color-scheme: only dark" > color-scheme: only dark </button>
+    <button class="light"> class="light" </button>
+    <button class="dark" > class="dark"  </button>
+
+</fieldset>
+</body>
+</html>

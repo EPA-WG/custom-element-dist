@@ -1,116 +1,150 @@
 :root {
-    /*
+/* region custom-element material branded colors     */
 
-## custom-element material branded colors
+    --cem-color-cyan-xl     : #f1fefe; /* light  cyan   | ??? off creativity      | reading bg      | --ng-cyan-?99         */
+    --cem-color-cyan-l      : #00fbfb; /* dark   cyan   | ??? off creativity      | reading bg      | --ng-cyan-90          */
+    --cem-color-cyan-d      : #006a6a; /* light  cyan   | ??? off creativity      | reading bg      | --ng-cyan-40          */
+    --cem-color-cyan-xd     : #001010; /* dark   cyan   | ??? off creativity      | reading bg      | --ng-cyan-?5          */
 
-| `cem-color` token | definition    | emotion intent         | semantic intent | sample  | angular material            |
-|-------------------|---------------|------------------------|-----------------|---------|-----------------------------|
-| `blue-xl`         | lightest blue | `comfort`, light scene | reading         | #faf9fd | --ng-azure-neutral-98       |
-|                   |               |                        |                 |         | --mat-sys-surface           |
-| `cyan-d`          | dark cyan     | dark scene             | reading         | #101414 | --ng-cyan-neutral-6         |
-|                   |               |                        |                 |         | --mat-sys-surface           |
-| `blue`            | blue          | trust                  | attention       | #005cbb | --ng-azure-40               |
-|                   |               |                        |                 |         | --mat-sys-primary           |
-| `red`             | red           | danger                 | alert           | #ba1a1a | --ng-error-40               |
-|                   |               |                        |                 |         | --mat-sys-error             |
-| `blue-l`          | light blue    | conservative           | brand-1         | #d7e3ff | --ng-azure-90               |
-|                   |               |                        |                 |         | --mat-sys-primary-container |
-| `cyan-l`          | light cyan    | creativity             | brand-2         | #adfffe | --ng-cyan-95                |
-|                   |               |                        |                 |         | --mat-sys-primary-container |
-| `orange-l`        | light orange  | enthusiasm             | brand-3         | #ffdcc7 | --ng-orange-90              |
-| `orange-d`        | dark orange   | enthusiasm   hype      | brand-3         | #ffdcc7 | --ng-orange-10              |
+    --cem-color-blue-xl     : #faf9fd; /* lightest blue | `comfort`, light scene  | attention       | --ng-azure-neutral-98 */
+    --cem-color-blue-l      : #d7e3ff; /* blue          | trust                   | attention       | --ng-azure-90         */
+    --cem-color-blue-d      : #002f65; /* blue          | trust                   | attention       | --ng-azure-20         */
+    --cem-color-blue-xd     : #1a1b1f; /* darkest  blue | `comfort`, dark  scene  | attention       | --ng-azure-neutral-10 */
 
-     */
-    --cem-color-blue-xl: #faf9fd; /* lightest blue    | `comfort`, light scene | reading  | --ng-azure-neutral-98 */
-    --cem-color-blue-xd: #1a1b1f; /* darkest  blue    | `comfort`, dark  scene | reading  | --ng-azure-neutral-10 */
-    /*--cem-color-cyan-d: #adfffe; !* dark cyan       | dark scene             | reading *!*/
-    --cem-color-blue        : #d7e3ff; /* blue        | trust  | attention | --ng-azure-90 */
-    --cem-color-blue-d      : #002f65; /* blue        | trust  | attention | --ng-azure-20 */
-    --cem-color-red-l       : #ffb4ab; /* red   light | danger | alert     | --ng-error-80 */
-    --cem-color-red         : #ba1a1a; /* red         | danger | alert     | --ng-error-60 */
-    --cem-color-red-d       : #410002; /* red    dark | danger | alert     | --ng-error-10 */
-    --cem-color-grey-d      : #1a1c18; /* dark   grey | conservative       | brand-1  | --ng-green-neutral-10  */
-    --cem-color-grey-l      : #f1f1eb; /* light  grey | conservative       | brand-1  | --ng-green-neutral-80  */
-    --cem-color-cyan-d      : #002020; /* dark   cyan | creativity         | brand-2  | --ng-cyan-10           */
-    --cem-color-cyan-l      : #adfffe; /* light  cyan | !creativity        | brand-2  | --ng-cyan-10           */
-    --cem-color-orange-l    : #ffe082; /* light orange | enthusiasm        | brand-3  | --mat-amber-200        */
-    --cem-color-orange-d    : #311300; /* dark orange  | enthusiasm hype   | brand-3  | --ng-orange-10         */
-    --cem-color-yellow-d    : #323200; /* dark yellow | -ng-yellow-20 */
+    --cem-color-red-xl      : #ffb4ab; /* red   light   | danger                  | alert           | --ng-error-80         */
+    --cem-color-red-l       : #ba1a1a; /* red  xlight   | danger                  | alert           | --ng-error-60         */
+    --cem-color-red-d       : #690005; /* red    dark   | danger                  | alert           | --ng-error-20         */
+    --cem-color-red-xd      : #410002; /* red   xdark   | danger                  | alert           | --ng-error-10         */
+
+    --cem-color-purple-xl   : #f3e5f5; /* purple xlight | creativity              | brand-1         | --mat-purple-50  */
+    --cem-color-purple-l    : #e1bee7; /* purple  light | creativity              | brand-1         | --mat-purple-100 */
+    --cem-color-purple-d    : #6a1b9a; /* purple   dark | creativity              | brand-1         | --mat-purple-800 */
+    --cem-color-purple-xd   : #4a148c; /* purple  xdark | creativity              | brand-1         | --mat-purple-900 */
+
+    --cem-color-orange-xl   : #f0f070; /* dark yellow   | ??                      | brand-2         | --ng-yellow-??80   */
+    --cem-color-orange-l    : #ffe082; /* light orange  | enthusiasm              | brand-2         | --mat-amber-200  */
+    --cem-color-orange-d    : #723600; /* dark orange   | enthusiasm hype         | brand-2         | --ng-orange-30   */
+    --cem-color-orange-xd   : #502400; /* dark yellow   | ??                      | brand-2         | --ng-orange-20   */
+
+    --cem-color-brown-xl   : #d7ccc8; /* brown   xlight | conservative            | brand-3         | --mat-brown-100 */
+    --cem-color-brown-l    : #a1887f; /* brown    light | conservative            | brand-3         | --mat-brown-300 */
+    --cem-color-brown-d    : #4e342e; /* brown     dark | conservative            | brand-3         | --mat-brown-800 */
+    --cem-color-brown-xd   : #3e2723; /* brown    xdark | conservative            | brand-3         | --mat-brown-900 */
+
+    --cem-color-grey-l      : #f1f1eb; /* light  grey   | ??? conservative        | ??? brand-1     | --ng-green-neutral-80 */
+    --cem-color-grey-d      : #1a1c18; /* dark   grey   | ??? conservative        | ??? brand-1     | --ng-green-neutral-10 */
+
+
+
+/* endregion custom-element material branded colors */
+
+
+
     /*
 # Emotional Palette
 
 | `palette-` token |                                                                    | warmth  | sample                  | system                     |
 |------------------|--------------------------------------------------------------------|---------|-------------------------|----------------------------|
-| `comfort`        | light scene color, the scene is full of object                     | cool    | white                   | Canvas                     |
+| `comfort`        | light scene color, the scene is full of object                     | cool    | cyan/white              | Canvas                     |
 |                  | Purity, innocence, cleanliness, peace,  coldness or emptiness      |         |                         |                            |
-| `calm`           | dark scene color, few objects around                               | cool    | black                   | CanvasText                 |
+| `calm`           | dark scene color, few objects around                               | cool    | cyan/black              | CanvasText                 |
 |                  | Mystery, elegance, power, evil, mourning, formality, security      |         |                         |                            |
 | `trust`          | primary action background, text color for `focus-invert`           | cool    | blue                    | Highlight w/ HighlightText |
 | `danger`         | Passion, excitement, love, anger, energy, danger                   | warm    | red                     | N/A                        |
-| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | cyan/purple             | ButtonFace w/ ButtonText   |
+| `creativity`     | Luxury, creativity, royalty, mystery, but also grief or melancholy | cool    | purple             | ButtonFace w/ ButtonText   |
 | `enthusiasm`     | Warmth, enthusiasm, happiness, optimism, energy                    | warm    | orange( yellow, pink)   | Mark w/ MarkText           |
 | `conservative`   | Natural, earthy, conservative, but also bland or boring            | neutral | brown (tan/beige, grey) | GrayText                   |
 
     */
 
-    /* region default rules matching light theme, clone into @media if changed */
-        --cem-palette-comfort       : var(--cem-color-blue-xl   , Canvas        ); --cem-palette-comfort-text:          var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-comfort-x     : var(--cem-color-yellow-d  , Canvas        ); --cem-palette-comfort-text-x:        white;
-        --cem-palette-calm          : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-calm-text:             var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-calm-x        : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-calm-text-x:           var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-trust         : var(--cem-color-blue      , Highlight     ); --cem-palette-trust-text:            var(--cem-color-cyan-d  , Canvas     );
-        --cem-palette-trust-x       : var(--cem-color-blue-d    , Highlight     ); --cem-palette-trust-text-x:          var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-danger        : var(--cem-color-red       , red           ); --cem-palette-danger-text:           var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-danger-x      : var(--cem-color-red-d     , darkred       ); --cem-palette-danger-text-x:         var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-creativity    : var(--cem-color-cyan-l    , GrayText      ); --cem-palette-creativity-text:       var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-creativity-x  : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-creativity-text-x:     var(--cem-color-blue-xl , CanvasText );
-        --cem-palette-enthusiasm    : var(--cem-color-orange-l  , Mark          ); --cem-palette-enthusiasm-text:       var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-enthusiasm-x  : var(--cem-color-orange-d  , Mark          ); --cem-palette-enthusiasm-text-x:     var(--cem-color-blue-xl  , Canvas     );
-        --cem-palette-conservative  : var(--cem-color-grey-l    , ButtonFace    ); --cem-palette-conservative-text:     var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-conservative-x: var(--cem-color-grey-d    , CanvasText    ); --cem-palette-conservative-text-x:   white;
+    /* region default rules matching light/dark theme,            light                             dark            */
+        --cem-palette-comfort               : light-dark(var( --cem-color-cyan-xl   ), var( --cem-color-cyan-xd     ));
+        --cem-palette-comfort-text          : light-dark(var( --cem-color-cyan-xd   ), var( --cem-color-cyan-xl     ));
+        --cem-palette-comfort-x             : light-dark(var( --cem-color-cyan-xd   ), var( --cem-color-cyan-xl     ));
+        --cem-palette-comfort-text-x        : light-dark(var( --cem-color-cyan-xl   ), var( --cem-color-cyan-xd     ));
+
+        --cem-palette-calm                  : light-dark(var( --cem-color-cyan-l    ), var( --cem-color-cyan-d      ));
+        --cem-palette-calm-text             : var( --cem-palette-comfort-text );
+        --cem-palette-calm-x                : light-dark(var( --cem-color-cyan-d    ), var( --cem-color-cyan-l      ));
+        --cem-palette-calm-text-x           : var( --cem-palette-comfort-text-x );
+
+        --cem-palette-trust                 : light-dark(var( --cem-color-blue-l    ), var( --cem-color-blue-d      ));
+        --cem-palette-trust-text            : light-dark(var( --cem-palette-comfort-text ), white );
+        --cem-palette-trust-x               : light-dark(var( --cem-color-blue-d    ), var( --cem-color-blue-l      ));
+        --cem-palette-trust-text-x          : var( --cem-palette-comfort-text-x );
+
+        --cem-palette-danger                : light-dark(var( --cem-color-red-l             ), var( --cem-color-red-d           ));
+        --cem-palette-danger-text           : light-dark(var( --cem-palette-comfort-text-x  ), var( --cem-palette-comfort-text  ));
+        --cem-palette-danger-x              : light-dark(var( --cem-color-red-d             ), var( --cem-color-red-l           ));
+        --cem-palette-danger-text-x         : light-dark(var( --cem-color-orange-xl         ), var( --cem-color-orange-xl       ));
+
+        --cem-palette-creativity            : light-dark(var( --cem-color-purple-l  ), var( --cem-color-purple-d    ));
+        --cem-palette-creativity-text       : var( --cem-palette-comfort-text );
+        --cem-palette-creativity-x          : light-dark(var( --cem-color-purple-d  ), var( --cem-color-purple-l    ));
+        --cem-palette-creativity-text-x     : var( --cem-palette-comfort-text-x );
+
+        --cem-palette-enthusiasm            : light-dark(var( --cem-color-orange-l  ), var( --cem-color-orange-d    ));
+        --cem-palette-enthusiasm-text       : light-dark(var( --cem-palette-comfort-text ), white );
+        --cem-palette-enthusiasm-x          : light-dark(var( --cem-color-orange-xd  ), var( --cem-color-orange-xl    ));
+        --cem-palette-enthusiasm-text-x     : var( --cem-palette-comfort-text-x );
+
+        --cem-palette-conservative          : light-dark(var( --cem-color-grey-l    ), var( --cem-color-grey-d      ));
+        --cem-palette-conservative-text     : var( --cem-palette-comfort-text );
+        --cem-palette-conservative-x        : light-dark(var( --cem-color-grey-d    ), var( --cem-color-grey-l      ));
+        --cem-palette-conservative-text-x   : var( --cem-palette-comfort-text-x );
     /* endregion */
 
     .cem-theme-light, [data-theme="cem-theme-light"] {
-        /* inherit from default rules ^^ */
+        color-scheme: light;
     }
-    @media (prefers-color-scheme: light) {
-        /* inherit from default rules */
+    .cem-theme-dark, [data-theme*="cem-theme-dark"]{
+        color-scheme: dark;
     }
 
 
     .cem-theme-native,[data-theme="cem-theme-native"]{
-        --cem-palette-comfort:      Canvas;         --cem-palette-comfort-text:         CanvasText;
-        --cem-palette-calm:         CanvasText;     --cem-palette-calm-text:            Canvas;
-        --cem-palette-trust:        Highlight;      --cem-palette-trust-text:           Canvas;
-        --cem-palette-danger:       red;            --cem-palette-danger-text:          Canvas;
-        --cem-palette-creativity:   ButtonFace;     --cem-palette-creativity-text:      CanvasText;
-        --cem-palette-enthusiasm:   Mark;           --cem-palette-enthusiasm-text:      CanvasText;
-        --cem-palette-conservative: GrayText;       --cem-palette-conservative-text:    Canvas;
+
+        /*--cem-palette-comfort:      Canvas;         --cem-palette-comfort-text:         CanvasText;*/
+        /*--cem-palette-calm:         CanvasText;     --cem-palette-calm-text:            Canvas;*/
+        /*--cem-palette-trust:        Highlight;      --cem-palette-trust-text:           Canvas;*/
+        /*--cem-palette-danger:       red;            --cem-palette-danger-text:          Canvas;*/
+        /*--cem-palette-creativity:   ButtonFace;     --cem-palette-creativity-text:      CanvasText;*/
+        /*--cem-palette-enthusiasm:   Mark;           --cem-palette-enthusiasm-text:      CanvasText;*/
+        /*--cem-palette-conservative: GrayText;       --cem-palette-conservative-text:    Canvas;*/
+
+
+        --cem-palette-comfort               : Canvas       ;
+        --cem-palette-comfort-text          : CanvasText   ;
+        --cem-palette-comfort-x             : Canvas       ;
+        --cem-palette-comfort-text-x        : Canvas       ; /* white */
+        --cem-palette-calm                  : CanvasText   ;
+        --cem-palette-calm-text             : Canvas       ;
+        --cem-palette-calm-x                : CanvasText   ;
+        --cem-palette-calm-text-x           : Canvas       ;
+        --cem-palette-trust                 : Highlight    ;
+        --cem-palette-trust-text            : Canvas       ;
+        --cem-palette-trust-x               : Highlight    ;
+        --cem-palette-trust-text-x          : Canvas       ;
+        --cem-palette-danger                : red          ;
+        --cem-palette-danger-text           : Canvas       ;
+        --cem-palette-danger-x              : darkred      ;
+        --cem-palette-danger-text-x         : Canvas       ;
+        --cem-palette-creativity            : GrayText     ;
+        --cem-palette-creativity-text       : CanvasText   ;
+        --cem-palette-creativity-x          : CanvasText   ;
+        --cem-palette-creativity-text-x     : CanvasText   ;
+        --cem-palette-enthusiasm            : Mark         ;
+        --cem-palette-enthusiasm-text       : CanvasText   ;
+        --cem-palette-enthusiasm-x          : Mark         ;
+        --cem-palette-enthusiasm-text-x     : Canvas       ;
+        --cem-palette-conservative          : ButtonFace   ;
+        --cem-palette-conservative-text     : CanvasText   ;
+        --cem-palette-conservative-x        : CanvasText   ;
+        --cem-palette-conservative-text-x   : Canvas       ; /* white */
+
     }
 
 
-
-    .cem-theme-dark, [data-theme*="cem-theme-dark"]{
-        /* region emotional palette, clone into @media if changed */
-        --cem-palette-comfort       : var(--cem-color-blue-xd   , Canvas        ); --cem-palette-comfort-text:          var(--cem-color-blue-xl  , CanvasText );
-        --cem-palette-comfort-x     : var(--cem-color-blue      , Canvas        ); --cem-palette-comfort-text-x:        black;
-        --cem-palette-calm          : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-calm-text:             var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-calm-x        : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-calm-text-x:           var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-trust         : var(--cem-color-blue      , Highlight     ); --cem-palette-trust-text:            var(--cem-color-cyan-d  , Canvas     );
-        --cem-palette-trust-x       : var(--cem-color-blue-d    , Highlight     ); --cem-palette-trust-text-x:          var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-danger        : var(--cem-color-red       , red           ); --cem-palette-danger-text:           var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-danger-x      : var(--cem-color-red-d     , darkred       ); --cem-palette-danger-text-x:         var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-creativity    : var(--cem-color-cyan-l    , GrayText      ); --cem-palette-creativity-text:       var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-creativity-x  : var(--cem-color-cyan-d    , CanvasText    ); --cem-palette-creativity-text-x:     var(--cem-color-blue-xl , CanvasText );
-        --cem-palette-enthusiasm    : var(--cem-color-orange-l  , Mark          ); --cem-palette-enthusiasm-text:       var(--cem-color-cyan-d  , CanvasText );
-        --cem-palette-enthusiasm-x  : var(--cem-color-orange-d  , Mark          ); --cem-palette-enthusiasm-text-x:     var(--cem-color-blue-xl , Canvas     );
-        --cem-palette-conservative  : var(--cem-color-grey-d    , ButtonFace    ); --cem-palette-conservative-text:     var(--cem-color-cyan-l  , CanvasText );
-        --cem-palette-conservative-x: var(--cem-color-grey-l    , CanvasText    ); --cem-palette-conservative-text-x:   black;
-        /* endregion */
-    }
-    @media (prefers-color-scheme: dark) {
-        /* .cem-theme-dark replica */
-    }
     /* common for cem themes */
     [data-theme*="cem-theme-"],
     .cem-theme-light,
@@ -120,11 +154,11 @@
         color: var(--cem-palette-comfort-text, CanvasText);
 
         /* region disabled */
-        --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-conservative    ) 40%, var(--cem-palette-conservative-x )); --cem-action-explicit-disabled-text   : var(--cem-palette-conservative-text-x );
-        --cem-action-primary-disabled-background     : color-mix(in srgb, var(--cem-palette-trust           ) 40%, var(--cem-palette-conservative-x )); --cem-action-primary-disabled-text    : var(--cem-palette-conservative-text-x );
-        --cem-action-contextual-disabled-background  : color-mix(in srgb, var(--cem-palette-comfort         ) 40%, var(--cem-palette-conservative-x )); --cem-action-contextual-disabled-text : var(--cem-palette-conservative-text-x );
-        --cem-action-alternate-disabled-background   : color-mix(in srgb, var(--cem-palette-enthusiasm      ) 40%, var(--cem-palette-conservative-x )); --cem-action-alternate-disabled-text  : var(--cem-palette-conservative-text-x   );
-        --cem-action-destructive-disabled-background : color-mix(in srgb, var(--cem-palette-danger          ) 40%, var(--cem-palette-conservative-x )); --cem-action-destructive-disabled-text: var(--cem-palette-conservative-text-x       );
+        --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-conservative    ) 30%, var(--cem-palette-conservative-x )); --cem-action-explicit-disabled-text   : var(--cem-palette-conservative-text-x );
+        --cem-action-primary-disabled-background     : color-mix(in srgb, var(--cem-palette-trust           ) 30%, var(--cem-palette-conservative-x )); --cem-action-primary-disabled-text    : var(--cem-palette-conservative-text-x );
+        --cem-action-contextual-disabled-background  : color-mix(in srgb, var(--cem-palette-comfort         ) 30%, var(--cem-palette-conservative-x )); --cem-action-contextual-disabled-text : var(--cem-palette-conservative-text-x );
+        --cem-action-alternate-disabled-background   : color-mix(in srgb, var(--cem-palette-enthusiasm      ) 30%, var(--cem-palette-conservative-x )); --cem-action-alternate-disabled-text  : var(--cem-palette-conservative-text-x   );
+        --cem-action-destructive-disabled-background : color-mix(in srgb, var(--cem-palette-danger          ) 30%, var(--cem-palette-conservative-x )); --cem-action-destructive-disabled-text: var(--cem-palette-conservative-text-x       );
         /* endregion */
 
         /* region readonly */
@@ -256,19 +290,21 @@ bend - corner shape, radius, curve
         &:hover,&.hover{
             --cem-action-box-shadow: var(--cem-action-box-shadow-hover);
         }
+        /*
         &[pending],&.pending{
 
-        }
+        } 
+        */
         /* flow */
         .primary, [flow="primary"] {
             --cem-action-background-color: var(--cem-palette-trust);
             --cem-action-text-color: var(--cem-palette-trust-text);
 
-            [disabled] {
+            /* [disabled] {
             }
 
             [selected] {
-            }
+            } */
         }
 
     }
