@@ -2,6 +2,7 @@
 Based on https://blog.firsov.net/search/label/Semantic%20Theme
 
 # Basic principles
+[Consumer Semantic Theme tokens](https://github.com/EPA-WG/custom-element-dist/discussions/14)
 
 ## Variations limit
 [7 design tockens](https://blog.firsov.net/2025/04/7-ux-design-tokens.html) 
