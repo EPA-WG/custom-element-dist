@@ -24,16 +24,16 @@ the change speed which on its own depends on the color/brightness difference.
 
 # Semantic Colors
 
-| `color-` token   |                                                           | sample    |
-|------------------|-----------------------------------------------------------|-----------|
-| `focus`          | main reading background, text color for `focus-invert`    | comfort   |
-| `focus-invert`   | alternative reading background, text color for `focus`    | calm      |
-| ---------------- | --------------------------------------------------------- | --------- |
-| `attention`      | title,primary action background, current selection        | trust     |
-| `alert`          | alert action background, error message color              | danger    |
-| `brand-1`        | 1st emotional color, mostly for interleaving backgrounds  | ?         |
-| `brand-2`        | 2nd emotional color, mostly for interleaving backgrounds  | ?         |
-| `brand-3`        | 3rd emotional color, mostly for interleaving backgrounds  | ?         |
+| `color-` token   |                                                           | sample          |
+|------------------|-----------------------------------------------------------|-----------------|
+| `focus`          | main reading background, text color for `focus-invert`    | comfort         |
+| `focus-invert`   | alternative reading background, text color for `focus`    | calm            |
+| ---------------- | --------------------------------------------------------- | --------------- |
+| `attention`      | title,primary action background, current selection        | trust           |
+| `alert`          | alert action background, error message color              | danger          |
+| `brand-1`        | 1st emotional color, mostly for interleaving backgrounds  | ? creativity    |
+| `brand-2`        | 2nd emotional color, mostly for interleaving backgrounds  | ? enthusiasm    |
+| `brand-3`        | 3rd emotional color, mostly for interleaving backgrounds  | ? conservative  |
 
 Semantic colors should be expressed via emotional palette tokens. 
 7 base colors limit. 
@@ -200,9 +200,13 @@ NOTE. SPA( single page application ) usually is not limited to 1 flow. Settings/
 The branded palette establishes a set of base colors and their variations, ensuring adherence to accessibility standards. 
 These variations should follow a specific color transformation formula that takes accessibility into account, as outlined in the ADA guidelines.
 
+Browsers provide a [System colors](https://developer.mozilla.org/en-US/docs/Web/CSS/system-color) as universal 
+out-of-the-box branded palette which comply to the user settings on OS level.
+
 To promote inclusivity, sibling color values should be sufficiently distinct to ensure easy differentiation, 
 particularly for individuals with color blindness or other visual impairments.
 Typically, the formula adjusts brightness levels; however, shifts within the color space is also a viable approach.
+
 
 The minimal number of base color variations is 7.
 
