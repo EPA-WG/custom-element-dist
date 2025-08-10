@@ -18,14 +18,5 @@
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#ff0000;"></span> | `#ff0000` |
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#00ff00;"></span> | `#00ff00` |
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#0000ff;"></span> | `#0000ff` |
-| {\fcolorbox{blue}{yellow}{text}}                                                                                    | .         |
 
-<svg><rect width="1rem" height="1rem" fill="green" /></svg>
-
-reusable Markdown table with inline SVG color boxes so you only type the color codes once.
-
-| Swatch | Name |
-|-------:|------|
-| <span style="color:#2ecc71" title="#2ecc71"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#2ecc71"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Emerald |
-| <span style="color:#f39c12" title="#f39c12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#f39c12"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Orange |
-| <span style="color:#3498db" title="#3498db"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#3498db"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Blue |
+<img alt='blue' src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDA4MEZGIiBjbGFzcz0ibWwtMSBib3JkZXIgY2lyY2xlIGNvbG9yLWJvcmRlci1zdWJ0bGUiID4gPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPiA8L3N2Z2c+Cg=='/>
