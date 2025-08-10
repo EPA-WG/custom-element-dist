@@ -11,3 +11,10 @@
 | contextual  | comfort        | <div style="background:white"      > ⬤ </div> | <div style="background:Canvas"      > ⬤ </div>  | Canvas          | 
 | alternate   | enthusiasm     | <div style="background:yellow"     > ⬤ </div> | <div style="background:Mark"        > ⬤ </div>  | Mark            | 
 | destructive | danger         | <div style="background:red"        > ⬤ </div> | <div style="background:ActiveText"  > ⬤ </div>  | FF:ActiveText   | 
+
+
+| Color | Hex     |
+|-------|---------|
+| <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#ff0000;"></span> | `#ff0000` |
+| <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#00ff00;"></span> | `#00ff00` |
+| <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#0000ff;"></span> | `#0000ff` |
