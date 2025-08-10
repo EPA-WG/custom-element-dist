@@ -21,3 +21,11 @@
 | {\fcolorbox{blue}{yellow}{text}}                                                                                    | .         |
 
 <svg><rect width="1rem" height="1rem" fill="green" /></svg>
+
+reusable Markdown table with inline SVG color boxes so you only type the color codes once.
+
+| Swatch | Name |
+|-------:|------|
+| <span style="color:#2ecc71" title="#2ecc71"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#2ecc71"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Emerald |
+| <span style="color:#f39c12" title="#f39c12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#f39c12"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Orange |
+| <span style="color:#3498db" title="#3498db"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" role="img" aria-label="#3498db"><rect width="100%" height="100%" fill="currentColor" rx="2" ry="2"/></svg></span> | Blue |
