@@ -18,4 +18,4 @@
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#ff0000;"></span> | `#ff0000` |
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#00ff00;"></span> | `#00ff00` |
 | <span style="display:inline-block;width:1.5em;height:1.5em;border:1px solid #000;background-color:#0000ff;"></span> | `#0000ff` |
-| \fcolorbox{blue}{yellow}{text}                                                                                      | .         |
+| {\fcolorbox{blue}{yellow}{text}}                                                                                    | .         |
