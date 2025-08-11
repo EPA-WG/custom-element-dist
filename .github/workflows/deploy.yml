@@ -81,4 +81,4 @@ jobs:
           local_path: './src/*'
           remote_path: "${{ steps.dir.outputs.server_dir }}/src"
           sftp_only: false
-          sftpArgs: '-o ConnectTimeout=5'
+          sftpArgs: '-o ConnectTimeout=5 -oHostKeyAlgorithms=+ssh-rsa,ssh-dss'
