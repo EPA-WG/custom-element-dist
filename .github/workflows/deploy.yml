@@ -1,0 +1,70 @@
+name: Deploy SRC to web hosting
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # If you don't build (pure HTML/PHP), delete this build block
+#      - name: Setup Node
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '20'
+#          cache: 'npm'
+#      - name: Install & Build
+#        run: |
+#          npm ci
+#          npm run build
+
+      - name: Compute remote deploy directory
+        id: dir
+        run: |
+          BR="${GITHUB_REF_NAME}"
+          REPOROOT="EPA-WG/custom-element-dist/blob/"
+          if [ "$BR" = "main" ]; then
+            echo "server_dir=$REPOROOT/main/" >> "$GITHUB_OUTPUT"
+          elif [ "$BR" = "dev" ]; then
+            echo "server_dir=$REPOROOT/dev/" >> "$GITHUB_OUTPUT"
+          else
+            echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
+          username: ${{ secrets.BRANCH_DEPLOY_USER }}
+          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
+          protocol: ftps  # try "ftps" first; if your plan only supports ftp, change to "ftp"
+          # If  build step above, change local-dir to "deploy/"
+          # If you skip the build step above, change local-dir to "."
+          local-dir: src/
+          server-dir: ${{ steps.dir.outputs.server_dir }}
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/*.map
+            **/.DS_Store
+          # Uncomment the next line the first time if you need a clean slate (dangerous: deletes remote files not in your build)
+          # dangerous-clean-slate: true
