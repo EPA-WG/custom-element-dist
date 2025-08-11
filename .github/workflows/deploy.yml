@@ -47,6 +47,8 @@ jobs:
           else
             echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
           fi
+          echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
+          echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
 
 #      - name: Deploy via FTPS
 #        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -75,8 +77,8 @@ jobs:
           username: ${{ secrets.BRANCH_DEPLOY_USER }}
           server: ${{ secrets.BRANCH_DEPLOY_HOST }}
           password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
+          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
           local_path: './src/*'
           remote_path: "${{ steps.dir.outputs.server_dir }}/src"
-          sftp_only: true
-#          sftpArgs: '-o ConnectTimeout=5'
+          sftp_only: false
+          sftpArgs: '-o ConnectTimeout=5'
