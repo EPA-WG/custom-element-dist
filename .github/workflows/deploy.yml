@@ -48,23 +48,35 @@ jobs:
             echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
-          username: ${{ secrets.BRANCH_DEPLOY_USER }}
-          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
-          protocol: ftps  # try "ftps" first; if your plan only supports ftp, change to "ftp"
-          # If  build step above, change local-dir to "deploy/"
-          # If you skip the build step above, change local-dir to "."
-          local-dir: src/
-          server-dir: ${{ steps.dir.outputs.server_dir }}
-          exclude: |
-            **/.git*
-            **/.github/**
-            **/node_modules/**
-            **/*.map
-            **/.DS_Store
+#      - name: Deploy via FTPS
+#        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+#        with:
+#          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
+#          username: ${{ secrets.BRANCH_DEPLOY_USER }}
+#          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+#          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
+#          protocol: ftps  # try "ftps" first; if your plan only supports ftp, change to "ftp"
+#          # If  build step above, change local-dir to "deploy/"
+#          # If you skip the build step above, change local-dir to "."
+#          local-dir: src/
+#          server-dir: ${{ steps.dir.outputs.server_dir }}
+#          exclude: |
+#            **/.git*
+#            **/.github/**
+#            **/node_modules/**
+#            **/*.map
+#            **/.DS_Store
           # Uncomment the next line the first time if you need a clean slate (dangerous: deletes remote files not in your build)
           # dangerous-clean-slate: true
+
+      - name: Deploy to Server
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          username: ${{ secrets.BRANCH_DEPLOY_USER }}
+          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
+          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
+          local_path: './src/*'
+          remote_path: "${{ steps.dir.outputs.server_dir }}/src"
+          sftp_only: true
+#          sftpArgs: '-o ConnectTimeout=5'
