@@ -37,69 +37,15 @@ jobs:
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
 
       - name: Deploy to web host
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: milanmk/actions-file-deployer@master
         with:
-          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
-          username: ${{ secrets.BRANCH_DEPLOY_USER }}
-          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-          protocol: ftps
-          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
-          local-dir: ./src/
-          remote-dir: "${{ steps.dir.outputs.server_dir }}/src"
-
-      # If you don't build (pure HTML/PHP), delete this build block
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#          cache: 'npm'
-#      - name: Install & Build
-#        run: |
-#          npm ci
-#          npm run build
-
-#      - name: Deploy via FTPS
-#        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-#        with:
-#          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
-#          username: ${{ secrets.BRANCH_DEPLOY_USER }}
-#          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-#          port: ${{ secrets.BRANCH_DEPLOY_PORT || 21 }}
-#          protocol: ftps  # try "ftps" first; if your plan only supports ftp, change to "ftp"
-#          # If  build step above, change local-dir to "deploy/"
-#          # If you skip the build step above, change local-dir to "."
-#          local-dir: src/
-#          server-dir: ${{ steps.dir.outputs.server_dir }}
-#          exclude: |
-#            **/.git*
-#            **/.github/**
-#            **/node_modules/**
-#            **/*.map
-#            **/.DS_Store
-          # Uncomment the next line the first time if you need a clean slate (dangerous: deletes remote files not in your build)
-          # dangerous-clean-slate: true
-#
-#      - name: Deploy to Server
-#        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-#        with:
-#          username: ${{ secrets.BRANCH_DEPLOY_USER }}
-#          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
-#          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-#          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
-#          local_path: './src/*'
-#          remote_path: "${{ steps.dir.outputs.server_dir }}/src"
-#          sftp_only: false
-#          sftpArgs: '-o ConnectTimeout=5 -oHostKeyAlgorithms=+ssh-rsa,ssh-dss'
-
-#  deploy:
-#    runs-on: ubuntu-latest
-#    env:
-#      RSYNC_PASSWORD: ${{ secrets.BRANCH_DEPLOY_PASS }}   # daemon user’s password
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Deploy (rsync daemon)
-#        run: |
-#          rsync -avz --delete \
-#            ./dist/ \
-#            ${{ secrets.BRANCH_DEPLOY_USER }}@${{ secrets.BRANCH_DEPLOY_HOST }}::${{ vars.RSYNC_MODULE }}/
-#          # Example target: user@example.com::www/
+          remote-protocol: "sftp"
+          remote-host: ${{ secrets.BRANCH_DEPLOY_HOST }}
+          remote-user: ${{ secrets.BRANCH_DEPLOY_USER }}
+          remote-password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+          remote-port: ${{ secrets.BRANCH_DEPLOY_PORT }}
+          local-path: "./src/"
+          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
+          sync: "delta"
+          # If your server only offers ssh-rsa host key, you may need:
+          ssh-options: "-oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa"
