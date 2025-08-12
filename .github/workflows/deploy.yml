@@ -37,7 +37,7 @@ jobs:
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
 
       - name: Deploy to web host
-        uses: SamKirkland/FTP-Deploy-Action@4.3.5 # or the latest version
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.BRANCH_DEPLOY_HOST }}
           username: ${{ secrets.BRANCH_DEPLOY_USER }}
