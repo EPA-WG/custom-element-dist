@@ -38,6 +38,9 @@ jobs:
           echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
           echo "server_dir: $REPOROOT/${BR}/" 
+          echo "REMOTE_PATH=/EPA-WG/custom-element-dist/tree/${BR}/src" >> "$GITHUB_OUTPUT"
+          echo "REMOTE_PATH=/EPA-WG/custom-element-dist/tree/${BR}/src" 
+
 
       - name: Deploy to web host
         uses: milanmk/actions-file-deployer@master
@@ -48,7 +51,7 @@ jobs:
           remote-password: ${{ secrets.BRANCH_DEPLOY_PASS }}
           remote-port: ${{ secrets.BRANCH_DEPLOY_PORT }}
           local-path: "./src"
-          remote-path: /EPA-WG/custom-element-dist/tree/${{steps.dir.outputs.branch_name}}/src
+          remote-path: ${{steps.dir.outputs.REMOTE_PATH}}
 #          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
           sync: "full"
 #          sync: "delta"
