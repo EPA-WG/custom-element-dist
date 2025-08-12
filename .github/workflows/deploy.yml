@@ -27,20 +27,22 @@ jobs:
         id: dir
         run: |
           BR="${GITHUB_REF_NAME}"
-          REPOROOT=/EPA-WG/custom-element-dist/tree
+          REPOROOT=${{ github.repository }}/tree
           if [ "$BR" = "main" ]; then
-            echo "server_dir=$REPOROOT/main/" >> "$GITHUB_OUTPUT"
+            echo "server_dir=$REPOROOT/main" >> "$GITHUB_OUTPUT"
           else
-            echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
+            echo "server_dir=$REPOROOT/${BR}" >> "$GITHUB_OUTPUT"
           fi
           echo "branch_name=${BR}" >> "$GITHUB_OUTPUT"
           echo "branch_name=${BR}"
           echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
-          echo "server_dir: $REPOROOT/${BR}/" 
-          echo "REMOTE_PATH=/EPA-WG/custom-element-dist/tree/${BR}/src" >> "$GITHUB_OUTPUT"
-          echo "REMOTE_PATH=/EPA-WG/custom-element-dist/tree/${BR}/src" 
-
+          echo "REMOTE_PATH=$REPOROOT/tree/${BR}/src" >> "$GITHUB_OUTPUT"
+          echo "REMOTE_PATH=$REPOROOT/tree/${BR}/src"
+          echo "ZZZZZZZZZZZZZZ Repository: ${{ github.repository }}"
+          echo "ZZZZZZZZZZZZZZ Branch: ${{ github.ref_name }}"
+          echo "ZZZZZZZZZZZZZZ Full Ref: ${{ github.ref }}"
+          echo "ZZZZZZZZZZZZZZ Workspace: $GITHUB_WORKSPACE"
 
       - name: Deploy to web host
         uses: milanmk/actions-file-deployer@master
