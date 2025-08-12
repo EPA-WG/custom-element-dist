@@ -42,7 +42,7 @@ jobs:
           server: ${{ secrets.BRANCH_DEPLOY_HOST }}
           username: ${{ secrets.BRANCH_DEPLOY_USER }}
           password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-          protocol: sftp # Specify SFTP protocol
+          protocol: ftps
           port: ${{ secrets.BRANCH_DEPLOY_PORT }}
           local-dir: ./src/
           remote-dir: "${{ steps.dir.outputs.server_dir }}/src"
