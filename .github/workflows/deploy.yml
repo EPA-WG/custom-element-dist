@@ -45,8 +45,9 @@ jobs:
           remote-user: ${{ secrets.BRANCH_DEPLOY_USER }}
           remote-password: ${{ secrets.BRANCH_DEPLOY_PASS }}
           remote-port: ${{ secrets.BRANCH_DEPLOY_PORT }}
-          local-path: "./src/"
-          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
+#          local-path: "./src/"
+          remote-path: "/src"
+#          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
           sync: "delta"
           # If your server only offers ssh-rsa host key, you may need:
           ssh-options: "-oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa"
