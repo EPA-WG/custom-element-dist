@@ -33,6 +33,8 @@ jobs:
           else
             echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
           fi
+          echo "branch_name=${BR}" >> "$GITHUB_OUTPUT"
+          echo "branch_name=${BR}"
           echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
           echo "server_dir: $REPOROOT/${BR}/" 
@@ -46,7 +48,7 @@ jobs:
           remote-password: ${{ secrets.BRANCH_DEPLOY_PASS }}
           remote-port: ${{ secrets.BRANCH_DEPLOY_PORT }}
           local-path: "./src"
-          remote-path: "/src"
+          remote-path: "/EPA-WG/custom-element-dist/tree/${{ steps.dir.outputs.branch_name }}/src"
 #          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
           sync: "full"
 #          sync: "delta"
