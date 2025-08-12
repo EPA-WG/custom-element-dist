@@ -27,16 +27,15 @@ jobs:
         id: dir
         run: |
           BR="${GITHUB_REF_NAME}"
-          REPOROOT="EPA-WG/custom-element-dist/blob/"
+          REPOROOT=/EPA-WG/custom-element-dist/tree
           if [ "$BR" = "main" ]; then
             echo "server_dir=$REPOROOT/main/" >> "$GITHUB_OUTPUT"
-          elif [ "$BR" = "dev" ]; then
-            echo "server_dir=$REPOROOT/dev/" >> "$GITHUB_OUTPUT"
           else
             echo "server_dir=$REPOROOT/${BR}/" >> "$GITHUB_OUTPUT"
           fi
           echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
+          echo "server_dir: $REPOROOT/${BR}/" 
 
       - name: Deploy to web host
         uses: milanmk/actions-file-deployer@master
