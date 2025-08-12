@@ -16,25 +16,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy-src:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      # If you don't build (pure HTML/PHP), delete this build block
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#          cache: 'npm'
-#      - name: Install & Build
-#        run: |
-#          npm ci
-#          npm run build
-
       - name: Compute remote deploy directory
         id: dir
         run: |
@@ -49,6 +35,28 @@ jobs:
           fi
           echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
+
+      - name: Deploy to web host
+        uses: SamKirkland/FTP-Deploy-Action@4.3.5 # or the latest version
+        with:
+          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
+          username: ${{ secrets.BRANCH_DEPLOY_USER }}
+          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+          protocol: sftp # Specify SFTP protocol
+          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
+          local-dir: ./src/
+          remote-dir: "${{ steps.dir.outputs.server_dir }}/src"
+
+      # If you don't build (pure HTML/PHP), delete this build block
+#      - name: Setup Node
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '20'
+#          cache: 'npm'
+#      - name: Install & Build
+#        run: |
+#          npm ci
+#          npm run build
 
 #      - name: Deploy via FTPS
 #        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -70,15 +78,28 @@ jobs:
 #            **/.DS_Store
           # Uncomment the next line the first time if you need a clean slate (dangerous: deletes remote files not in your build)
           # dangerous-clean-slate: true
+#
+#      - name: Deploy to Server
+#        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+#        with:
+#          username: ${{ secrets.BRANCH_DEPLOY_USER }}
+#          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
+#          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+#          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
+#          local_path: './src/*'
+#          remote_path: "${{ steps.dir.outputs.server_dir }}/src"
+#          sftp_only: false
+#          sftpArgs: '-o ConnectTimeout=5 -oHostKeyAlgorithms=+ssh-rsa,ssh-dss'
 
-      - name: Deploy to Server
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          username: ${{ secrets.BRANCH_DEPLOY_USER }}
-          server: ${{ secrets.BRANCH_DEPLOY_HOST }}
-          password: ${{ secrets.BRANCH_DEPLOY_PASS }}
-          port: ${{ secrets.BRANCH_DEPLOY_PORT }}
-          local_path: './src/*'
-          remote_path: "${{ steps.dir.outputs.server_dir }}/src"
-          sftp_only: false
-          sftpArgs: '-o ConnectTimeout=5 -oHostKeyAlgorithms=+ssh-rsa,ssh-dss'
+#  deploy:
+#    runs-on: ubuntu-latest
+#    env:
+#      RSYNC_PASSWORD: ${{ secrets.BRANCH_DEPLOY_PASS }}   # daemon user’s password
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Deploy (rsync daemon)
+#        run: |
+#          rsync -avz --delete \
+#            ./dist/ \
+#            ${{ secrets.BRANCH_DEPLOY_USER }}@${{ secrets.BRANCH_DEPLOY_HOST }}::${{ vars.RSYNC_MODULE }}/
+#          # Example target: user@example.com::www/
