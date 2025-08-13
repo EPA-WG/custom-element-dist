@@ -27,7 +27,7 @@ jobs:
         id: dir
         run: |
           BR="${GITHUB_REF_NAME}"
-          REPOROOT=${{ github.repository }}/tree
+          REPOROOT=${{ github.repository }}
           if [ "$BR" = "main" ]; then
             echo "server_dir=$REPOROOT/main" >> "$GITHUB_OUTPUT"
           else
@@ -39,10 +39,8 @@ jobs:
           echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
           echo "REMOTE_PATH=$REPOROOT/tree/${BR}/src" >> "$GITHUB_OUTPUT"
           echo "REMOTE_PATH=$REPOROOT/tree/${BR}/src"
-          echo "ZZZZZZZZZZZZZZ Repository: ${{ github.repository }}"
-          echo "ZZZZZZZZZZZZZZ Branch: ${{ github.ref_name }}"
-          echo "ZZZZZZZZZZZZZZ Full Ref: ${{ github.ref }}"
-          echo "ZZZZZZZZZZZZZZ Workspace: $GITHUB_WORKSPACE"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
 
       - name: Deploy to web host
         uses: milanmk/actions-file-deployer@master
