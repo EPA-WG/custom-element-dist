@@ -222,34 +222,40 @@
 
         /* https://developer.mozilla.org/en-US/docs/Web/CSS/system-color */
 
-        --cem-palette-comfort               : Canvas       ;
-        --cem-palette-comfort-text          : CanvasText   ;
-        --cem-palette-comfort-x             : CanvasText   ;
-        --cem-palette-comfort-text-x        : Canvas       ;
-        --cem-palette-calm                  : CanvasText   ;
-        --cem-palette-calm-text             : Canvas       ;
-        --cem-palette-calm-x                : CanvasText   ;
-        --cem-palette-calm-text-x           : Canvas       ;
-        --cem-palette-trust                 : Highlight    ;
-        --cem-palette-trust-text            : Canvas       ;
-        --cem-palette-trust-x               : Highlight    ;
-        --cem-palette-trust-text-x          : Canvas       ;
-        --cem-palette-danger                : red          ;
-        --cem-palette-danger-text           : Canvas       ;
-        --cem-palette-danger-x              : darkred      ;
-        --cem-palette-danger-text-x         : Canvas       ;
-        --cem-palette-creativity            : GrayText     ;
-        --cem-palette-creativity-text       : CanvasText   ;
-        --cem-palette-creativity-x          : CanvasText   ;
-        --cem-palette-creativity-text-x     : CanvasText   ;
-        --cem-palette-enthusiasm            : Mark         ;
-        --cem-palette-enthusiasm-text       : CanvasText   ;
-        --cem-palette-enthusiasm-x          : Mark         ;
-        --cem-palette-enthusiasm-text-x     : Canvas       ;
-        --cem-palette-conservative          : ButtonFace   ;
-        --cem-palette-conservative-text     : CanvasText   ;
-        --cem-palette-conservative-x        : CanvasText   ;
-        --cem-palette-conservative-text-x   : Canvas       ;
+        --cem-palette-comfort               : Canvas        ;
+        --cem-palette-comfort-text          : CanvasText    ;
+        --cem-palette-comfort-x             : CanvasText    ;
+        --cem-palette-comfort-text-x        : Canvas        ;
+
+        --cem-palette-calm                  : CanvasText    ;
+        --cem-palette-calm-text             : Canvas        ;
+        --cem-palette-calm-x                : CanvasText    ;
+        --cem-palette-calm-text-x           : Canvas        ;
+
+        --cem-palette-trust                 : Highlight     ;
+        --cem-palette-trust-text            : HighlightText ;
+        --cem-palette-trust-x               : light-dark(color-mix(in srgb, VisitedText 30%, black), color-mix(in srgb, VisitedText 30%, white));
+        --cem-palette-trust-text-x          : Canvas        ;
+
+        --cem-palette-danger                : red           ;
+        --cem-palette-danger-text           : Canvas        ;
+        --cem-palette-danger-x              :    light-dark(color-mix(in srgb, red 30%, black), color-mix(in srgb, red 30%, white))    ;
+        --cem-palette-danger-text-x         : Canvas        ;
+
+        --cem-palette-creativity            : ButtonFace    ;
+        --cem-palette-creativity-text       : CanvasText    ;
+        --cem-palette-creativity-x          :   light-dark(color-mix(in srgb, CanvasText 30%, var( purple)), color-mix(in srgb, CanvasText 30%, lightpink)) ;
+        --cem-palette-creativity-text-x     : Canvas        ;
+
+        --cem-palette-enthusiasm            : Mark          ;
+        --cem-palette-enthusiasm-text       : CanvasText    ;
+        --cem-palette-enthusiasm-x          : light-dark(color-mix(in srgb, Mark 30%, black), color-mix(in srgb, Mark 30%, white));
+        --cem-palette-enthusiasm-text-x     : Canvas        ;
+
+        --cem-palette-conservative          : ButtonFace    ;
+        --cem-palette-conservative-text     : CanvasText    ;
+        --cem-palette-conservative-x        : CanvasText    ;
+        --cem-palette-conservative-text-x   : Canvas        ;
 
 
         /* region disabled */
