@@ -248,7 +248,7 @@
         --cem-palette-creativity-text-x     : Canvas        ;
 
         --cem-palette-enthusiasm            : Mark          ;
-        --cem-palette-enthusiasm-text       : CanvasText    ;
+        --cem-palette-enthusiasm-text       : MarkText    ;
         --cem-palette-enthusiasm-x          : light-dark(color-mix(in srgb, Mark 30%, black), color-mix(in srgb, Mark 30%, white));
         --cem-palette-enthusiasm-text-x     : Canvas        ;
 
