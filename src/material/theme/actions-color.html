@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:exslt="http://exslt.org/common"
+>
+<!-- https://simulationlabs.com/github/EPA-WG/custom-element-dist/tree/develop/src/material/theme/colors.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Components - custom-element - Material Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+    <script src="../../custom-element/http-request.js" type="module"></script>
+    <style>
+        @import "../angular.css";
+        @import "../material.css";
+        @import "../theme/semantic.css";
+        @import "../theme/consumer-theme.css";
+        @import "../demo.css";
+        main {
+            &>p{ min-width: 90%; }
+            &>aside, &>h1{ padding-left: 1rem; }
+            html-demo-element
+            {   overflow: visible;
+                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
+                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="description"] dd{ padding: 0; }
+                }
+            var{ color: darkgreen; font-weight: bold; }
+        }
+        cem-icon{ margin: 1rem; }
+        h1{ font-size: large; }
+
+    </style>
+    <script type="module" src="./colors.js"></script>
+</head>
+<!--
+ToDO
+* docs w/ how to use
+-->
+<body>
+<custom-element hidden src="../components/icon.html#cem-icon" tag="cem-icon"></custom-element>
+<custom-element hidden src="../components/icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
+
+<header class="cem-theme-teal">
+    <custom-element src="../index.html#nav-head"></custom-element>
+</header>
+<main>
+    <aside>
+        <p> Discussion:
+            <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14">Consumer Semantic Theme tokens</a>.
+        </p>
+    </aside>
+    <h1>Action Colors </h1>
+    <custom-element>
+        <template>
+            <style>
+
+            </style>
+            <http-request
+                    url="./theme-data.xhtml"
+                    slice="theme-data"
+                    type="text"
+                    mode="cors"
+                    ></http-request>
+
+            <section>
+                <variable name="cem-theme" select="/datadom/slice/theme-data//*[@id='theme']/*"></variable>
+                <for-each select="$cem-theme">
+                    <b>{@value}</b>: {.} &bull;
+                </for-each>
+
+            </section>
+            <hr/>
+        </template>
+    </custom-element>
+
+
+</main>
+<footer>
+    <hr/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+<script src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js" type="module"></script>
+
+</body>
+</html>
