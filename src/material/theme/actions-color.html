@@ -45,6 +45,9 @@
         }
         cem-icon{ margin: 1rem; }
         h1{ font-size: large; }
+        .action, button, input[type="submit"], input[type="reset"], input[type="button"]{
+            min-width: 14em;
+        }
 
     </style>
     <script type="module" src="./colors.js"></script>
@@ -81,8 +84,27 @@ ToDO
 
             <section>
                 <variable name="cem-theme" select="/datadom/slice/theme-data//*[@id='theme']/*"></variable>
+                <variable name="cem-action-state" select="/datadom/slice/theme-data//*[@id='cem-action-state']/*"></variable>
+                <variable name="cem-action-intent" select="/datadom/slice/theme-data//*[@id='cem-action-intent']/*"></variable>
                 <for-each select="$cem-theme">
-                    <b>{@value}</b>: {.} &bull;
+                    <fieldset data-theme="cem-theme-{@value}">
+                        <legend> {@value} </legend>
+                        {.}
+                        <hr/>
+                        <for-each select="$cem-action-state">
+                            <variable name="state" select="@value"></variable>
+                            <for-each select="$cem-action-intent">
+                                <variable name="intent" select="@value"></variable>
+                                <button>
+                                    <attribute name="{$intent}"></attribute>
+                                    <attribute name="{$state}"></attribute>
+                                    {$state}&nbsp;{$intent}
+                                </button>
+                            </for-each>
+                            <br/>
+                        </for-each>
+                    </fieldset>
+
                 </for-each>
 
             </section>
