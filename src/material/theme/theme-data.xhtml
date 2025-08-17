@@ -3,23 +3,93 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
-    <title>Consumer Semantic Theme definitions</title>
+    <title>Consumer Semantic Theme tokens</title>
     <link rel="stylesheet" href="consumer-theme.css"/>
+    <style>
+
+        datalist
+        {   display: block;
+            option::before { content: attr(value) " "; font-weight: bold; font-family: monospace; color: var(--cem-palette-creativity-x)}
+        }
+        figcaption{ font-weight: bolder; background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text); padding: 1rem;}
+    </style>
 </head>
 <body>
-<h1>Consumer Semantic Theme definitions</h1>
+<style>
+</style>
+
+<h1>Consumer Semantic Theme tokens</h1>
     <p>
     The content of this file is used for supplementary documentation.
 </p>
 <figure>
     <figcaption>Color Themes</figcaption>
-    <select multiple="multiple" id="theme">
-        <option value="native"> System driven colors</option>
-        <option value="light"> Light</option>
-        <option value="dark"> Dark</option>
-        <option value="contrast-light"> Hight-Contrast Light</option>
-        <option value="contrast-dark"> High-Contrast Dark</option>
-    </select>
+    <fieldset >
+        <legend>Theme names</legend>
+        <datalist id="theme">
+            <option value="native"         >System driven colors  </option>
+            <option value="light"          >Light                 </option>
+            <option value="dark"           >Dark                  </option>
+            <option value="contrast-light" >Hight-Contrast Light  </option>
+            <option value="contrast-dark"  >High-Contrast Dark    </option>
+        </datalist>
+
+    </fieldset>
+    <fieldset>
+        <legend>Emotional tokens</legend>
+        <datalist id="cem-emotional-tokens">
+            <option value="comfort"       warms="cool"     sample="white"                  system="Canvas"                     > light scene color, the scene is full of object. Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
+            <option value="calm"          warms="cool"     sample="black"                  system="CanvasText"                 > dark scene color, few objects around. Mystery, elegance, power, evil, mourning, formality, security           </option>
+            <option value="trust"         warms="cool"     sample="blue"                   system="Highlight w/ HighlightText" > primary action background, text color for `focus-invert`                                                      </option>
+            <option value="danger"        warms="warm"     sample="red"                    system="N/A , red"                  > Passion, excitement, love, anger, energy, danger                                                              </option>
+            <option value="creativity"    warms="cool"     sample="cyan,purple"            system="ButtonFace w/ ButtonText"   > Luxury, creativity, royalty, mystery, but also grief or melancholy                                            </option>
+            <option value="enthusiasm"    warms="warm"     sample="orange,yellow,pink"     system="Mark w/ MarkText"           > Warmth, enthusiasm, happiness, optimism, energy                                                               </option>
+            <option value="conservative"  warms="neutral"  sample="brown,tan,beige,grey"   system="GrayText"                   > Natural, earthy, conservative, but also bland or boring                                                       </option>
+        </datalist>
+    </fieldset>
+</figure>
+<figure>
+    <figcaption>Actions</figcaption>
+    <fieldset >
+        <legend>Action selectors</legend>
+        <datalist id="action-selector-variants">
+            <span class="action">.action</span>
+            <button>button</button>
+            <input type="submit" value="input[type='submit']" />
+            <input type="reset"  value="input[type='reset']"  />
+            <input type="button" value="input[type='button']" />
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Action intent</legend>
+        <datalist id="cem-action-intent">
+            <option value="explicit"    base-color="white"  > user explicitly/intentionally clicks or activates    </option>
+            <option value="primary"     base-color="black"  > default, confirmatory, implicit. Triggered by ENTER  </option>
+            <option value="contextual"  base-color="blue"   > integrated within a specific context, Toolbar/menu   </option>
+            <option value="alternate"   base-color="yellow" > triggering not usual alternative flow                </option>
+            <option value="destructive" base-color="red"    > risky, potentially harmful, requires caution         </option>
+        </datalist>
+    </fieldset>
+    <fieldset>
+        <legend>Action states</legend>
+        <datalist id="cem-action-state">
+            <option value="disabled"      tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
+            <option value="readonly"      tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
+            <option value="editable"      tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
+            <option value="required"      tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
+            <option value="default"       tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
+            <option value="indeterminate" tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
+            <option value="target"        tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
+            <option value="focus"         tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
+            <option value="hover"         tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
+            <option value="selected"      tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
+            <option value="active"        tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
+            <option value="pending"       tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
+
+        </datalist>
+    </fieldset>
+
 </figure>
 </body>
 </html>

@@ -379,20 +379,14 @@ bend - corner shape, radius, curve
 
 
     .action, button, input[type="submit"], input[type="reset"], input[type="button"] { /* default light */
-        --cem-action-background-color: var(--cem-palette-calm);
-        --cem-action-color: var(--cem-palette-comfort);
+        --cem-action-background-color: var(--cem-action-explicit-default-background);
+        --cem-action-color: var(--cem-action-explicit-default-text);
         --cem-action-border-radius: var(--cem-bend);
         --cem-action-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
         --cem-action-box-shadow-hover: 0px 3px 3px -2px rgba(0, 0, 0, .2), 0px 3px 4px 0px rgba(0, 0, 0, .14), 0px 1px 8px 0px rgba(0, 0, 0, .12);
         --cem-action-transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
         --cem-action-box-padding: 1em;
 
-        background-color: var(--cem-action-background-color);
-        color: var(--cem-action-color);
-        border: none;
-        border-radius: var(--cem-action-border-radius);
-        box-shadow: var(--cem-action-box-shadow);
-        padding: var(--cem-action-box-padding);
 
 
         &:hover,&.hover{
@@ -404,17 +398,264 @@ bend - corner shape, radius, curve
         } 
         */
         /* flow */
-        .primary, [flow="primary"] {
-            --cem-action-background-color: var(--cem-palette-trust);
-            --cem-action-text-color: var(--cem-palette-trust-text);
-
-            /* [disabled] {
+        &.explicit, &[flow="explicit"], &[explicit] {
+            --cem-action-background-color: var(--cem-action-explicit-default-background);
+            --cem-action-color: var(--cem-action-explicit-default-text);
+            &[disabled] {
+                --cem-action-background-color: var(--cem-action-explicit-disabled-background);
+                --cem-action-color: var(--cem-action-explicit-disabled-text);
+            }
+            &[readonly] {
+                --cem-action-background-color: var(--cem-action-explicit-readonly-background);
+                --cem-action-color: var(--cem-action-explicit-readonly-text);
+            }
+            &[editable] {
+                --cem-action-background-color: var(--cem-action-explicit-editable-background);
+                --cem-action-color: var(--cem-action-explicit-editable-text);
+            }
+            &[required] {
+                --cem-action-background-color: var(--cem-action-explicit-required-background);
+                --cem-action-color: var(--cem-action-explicit-required-text);
+            }
+            &[indeterminate] {
+                --cem-action-background-color: var(--cem-action-explicit-indeterminate-background);
+                --cem-action-color: var(--cem-action-explicit-indeterminate-text);
+            }
+            &[target], &:target, &:target-within {
+                --cem-action-background-color: var(--cem-action-explicit-target-background);
+                --cem-action-color: var(--cem-action-explicit-target-text);
+            }
+            &[focus],&:focus, &:focus-visible, &:focus-within {
+                --cem-action-background-color: var(--cem-action-explicit-focus-background);
+                --cem-action-color: var(--cem-action-explicit-focus-text);
+            }
+            &[hover],&:hover {
+                --cem-action-background-color: var(--cem-action-explicit-hover-background);
+                --cem-action-color: var(--cem-action-explicit-hover-text);
+            }
+            &[selected] {
+                --cem-action-background-color: var(--cem-action-explicit-selected-background);
+                --cem-action-color: var(--cem-action-explicit-selected-text);
+            }
+            &[active],&:active {
+                --cem-action-background-color: var(--cem-action-explicit-active-background);
+                --cem-action-color: var(--cem-action-explicit-active-text);
+            }
+            &[pending] {
+                --cem-action-background-color: var(--cem-action-explicit-pending-background);
+                --cem-action-color: var(--cem-action-explicit-pending-text);
             }
 
-            [selected] {
-            } */
+
+        }
+        &.primary, &[flow="primary"], &[primary] {
+            --cem-action-background-color: var(--cem-action-primary-default-background);
+            --cem-action-color: var(--cem-action-primary-default-text);
+            &[disabled] {
+                --cem-action-background-color: var(--cem-action-primary-disabled-background);
+                --cem-action-color: var(--cem-action-primary-disabled-text);
+            }
+            &[readonly] {
+                --cem-action-background-color: var(--cem-action-primary-readonly-background);
+                --cem-action-color: var(--cem-action-primary-readonly-text);
+            }
+            &[editable] {
+                --cem-action-background-color: var(--cem-action-primary-editable-background);
+                --cem-action-color: var(--cem-action-primary-editable-text);
+            }
+            &[required] {
+                --cem-action-background-color: var(--cem-action-primary-required-background);
+                --cem-action-color: var(--cem-action-primary-required-text);
+            }
+            &[indeterminate] {
+                --cem-action-background-color: var(--cem-action-primary-indeterminate-background);
+                --cem-action-color: var(--cem-action-primary-indeterminate-text);
+            }
+            &[target], &:target, &:target-within {
+                --cem-action-background-color: var(--cem-action-primary-target-background);
+                --cem-action-color: var(--cem-action-primary-target-text);
+            }
+            &[focus],&:focus, &:focus-visible, &:focus-within {
+                --cem-action-background-color: var(--cem-action-primary-focus-background);
+                --cem-action-color: var(--cem-action-primary-focus-text);
+            }
+            &[hover],&:hover {
+                --cem-action-background-color: var(--cem-action-primary-hover-background);
+                --cem-action-color: var(--cem-action-primary-hover-text);
+            }
+            &[selected] {
+                --cem-action-background-color: var(--cem-action-primary-selected-background);
+                --cem-action-color: var(--cem-action-primary-selected-text);
+            }
+            &[active],&:active {
+                --cem-action-background-color: var(--cem-action-primary-active-background);
+                --cem-action-color: var(--cem-action-primary-active-text);
+            }
+            &[pending] {
+                --cem-action-background-color: var(--cem-action-primary-pending-background);
+                --cem-action-color: var(--cem-action-primary-pending-text);
+            }
+
+
+        }
+        &.contextual, &[flow="contextual"], &[contextual] {
+            --cem-action-background-color: var(--cem-action-contextual-default-background);
+            --cem-action-color: var(--cem-action-contextual-default-text);
+            &[disabled] {
+                --cem-action-background-color: var(--cem-action-contextual-disabled-background);
+                --cem-action-color: var(--cem-action-contextual-disabled-text);
+            }
+            &[readonly] {
+                --cem-action-background-color: var(--cem-action-contextual-readonly-background);
+                --cem-action-color: var(--cem-action-contextual-readonly-text);
+            }
+            &[editable] {
+                --cem-action-background-color: var(--cem-action-contextual-editable-background);
+                --cem-action-color: var(--cem-action-contextual-editable-text);
+            }
+            &[required] {
+                --cem-action-background-color: var(--cem-action-contextual-required-background);
+                --cem-action-color: var(--cem-action-contextual-required-text);
+            }
+            &[indeterminate] {
+                --cem-action-background-color: var(--cem-action-contextual-indeterminate-background);
+                --cem-action-color: var(--cem-action-contextual-indeterminate-text);
+            }
+            &[target], &:target, &:target-within {
+                --cem-action-background-color: var(--cem-action-contextual-target-background);
+                --cem-action-color: var(--cem-action-contextual-target-text);
+            }
+            &[focus],&:focus, &:focus-visible, &:focus-within {
+                --cem-action-background-color: var(--cem-action-contextual-focus-background);
+                --cem-action-color: var(--cem-action-contextual-focus-text);
+            }
+            &[hover],&:hover {
+                --cem-action-background-color: var(--cem-action-contextual-hover-background);
+                --cem-action-color: var(--cem-action-contextual-hover-text);
+            }
+            &[selected] {
+                --cem-action-background-color: var(--cem-action-contextual-selected-background);
+                --cem-action-color: var(--cem-action-contextual-selected-text);
+            }
+            &[active],&:active {
+                --cem-action-background-color: var(--cem-action-contextual-active-background);
+                --cem-action-color: var(--cem-action-contextual-active-text);
+            }
+            &[pending] {
+                --cem-action-background-color: var(--cem-action-contextual-pending-background);
+                --cem-action-color: var(--cem-action-contextual-pending-text);
+            }
+
+
+        }
+        &.alternate, &[flow="alternate"], &[alternate] {
+            --cem-action-background-color: var(--cem-action-alternate-default-background);
+            --cem-action-color: var(--cem-action-alternate-default-text);
+            &[disabled] {
+                --cem-action-background-color: var(--cem-action-alternate-disabled-background);
+                --cem-action-color: var(--cem-action-alternate-disabled-text);
+            }
+            &[readonly] {
+                --cem-action-background-color: var(--cem-action-alternate-readonly-background);
+                --cem-action-color: var(--cem-action-alternate-readonly-text);
+            }
+            &[editable] {
+                --cem-action-background-color: var(--cem-action-alternate-editable-background);
+                --cem-action-color: var(--cem-action-alternate-editable-text);
+            }
+            &[required] {
+                --cem-action-background-color: var(--cem-action-alternate-required-background);
+                --cem-action-color: var(--cem-action-alternate-required-text);
+            }
+            &[indeterminate] {
+                --cem-action-background-color: var(--cem-action-alternate-indeterminate-background);
+                --cem-action-color: var(--cem-action-alternate-indeterminate-text);
+            }
+            &[target], &:target, &:target-within {
+                --cem-action-background-color: var(--cem-action-alternate-target-background);
+                --cem-action-color: var(--cem-action-alternate-target-text);
+            }
+            &[focus],&:focus, &:focus-visible, &:focus-within {
+                --cem-action-background-color: var(--cem-action-alternate-focus-background);
+                --cem-action-color: var(--cem-action-alternate-focus-text);
+            }
+            &[hover],&:hover {
+                --cem-action-background-color: var(--cem-action-alternate-hover-background);
+                --cem-action-color: var(--cem-action-alternate-hover-text);
+            }
+            &[selected] {
+                --cem-action-background-color: var(--cem-action-alternate-selected-background);
+                --cem-action-color: var(--cem-action-alternate-selected-text);
+            }
+            &[active],&:active {
+                --cem-action-background-color: var(--cem-action-alternate-active-background);
+                --cem-action-color: var(--cem-action-alternate-active-text);
+            }
+            &[pending] {
+                --cem-action-background-color: var(--cem-action-alternate-pending-background);
+                --cem-action-color: var(--cem-action-alternate-pending-text);
+            }
+
+
+        }
+        &.destructive, &[flow="destructive"], &[destructive] {
+            --cem-action-background-color: var(--cem-action-destructive-default-background);
+            --cem-action-color: var(--cem-action-destructive-default-text);
+            &[disabled] {
+                --cem-action-background-color: var(--cem-action-destructive-disabled-background);
+                --cem-action-color: var(--cem-action-destructive-disabled-text);
+            }
+            &[readonly] {
+                --cem-action-background-color: var(--cem-action-destructive-readonly-background);
+                --cem-action-color: var(--cem-action-destructive-readonly-text);
+            }
+            &[editable] {
+                --cem-action-background-color: var(--cem-action-destructive-editable-background);
+                --cem-action-color: var(--cem-action-destructive-editable-text);
+            }
+            &[required] {
+                --cem-action-background-color: var(--cem-action-destructive-required-background);
+                --cem-action-color: var(--cem-action-destructive-required-text);
+            }
+            &[indeterminate] {
+                --cem-action-background-color: var(--cem-action-destructive-indeterminate-background);
+                --cem-action-color: var(--cem-action-destructive-indeterminate-text);
+            }
+            &[target], &:target, &:target-within {
+                --cem-action-background-color: var(--cem-action-destructive-target-background);
+                --cem-action-color: var(--cem-action-destructive-target-text);
+            }
+            &[focus],&:focus, &:focus-visible, &:focus-within {
+                --cem-action-background-color: var(--cem-action-destructive-focus-background);
+                --cem-action-color: var(--cem-action-destructive-focus-text);
+            }
+            &[hover],&:hover {
+                --cem-action-background-color: var(--cem-action-destructive-hover-background);
+                --cem-action-color: var(--cem-action-destructive-hover-text);
+            }
+            &[selected] {
+                --cem-action-background-color: var(--cem-action-destructive-selected-background);
+                --cem-action-color: var(--cem-action-destructive-selected-text);
+            }
+            &[active],&:active {
+                --cem-action-background-color: var(--cem-action-destructive-active-background);
+                --cem-action-color: var(--cem-action-destructive-active-text);
+            }
+            &[pending] {
+                --cem-action-background-color: var(--cem-action-destructive-pending-background);
+                --cem-action-color: var(--cem-action-destructive-pending-text);
+            }
+
+
         }
 
+
+        background-color: var(--cem-action-background-color);
+        color: var(--cem-action-color);
+        border: none;
+        border-radius: var(--cem-action-border-radius);
+        box-shadow: var(--cem-action-box-shadow);
+        padding: var(--cem-action-box-padding);
     }
 
 }
