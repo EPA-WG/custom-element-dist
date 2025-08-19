@@ -1,5 +1,15 @@
+@keyframes cem-slide-x {
+    from {
+        background-position-x: 0%;
+    }
+    to {
+        background-position-x: 100%;
+    }
+}
 :root {
-/* region custom-element material branded colors     */
+    --sem-animation-speed: 3s; /* animation has 2 phases 1.5s each */
+
+    /* region custom-element material branded colors     */
 
     --cem-color-cyan-xl     : #f1fefe; /* light  cyan   | ??? off creativity      | reading bg      | --ng-cyan-?99         */
     --cem-color-cyan-l      : #00fbfb; /* dark   cyan   | ??? off creativity      | reading bg      | --ng-cyan-90          */
@@ -382,21 +392,27 @@ bend - corner shape, radius, curve
         --cem-action-background-color: var(--cem-action-explicit-default-background);
         --cem-action-color: var(--cem-action-explicit-default-text);
         --cem-action-border-radius: var(--cem-bend);
-        --cem-action-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
-        --cem-action-box-shadow-hover: 0px 3px 3px -2px rgba(0, 0, 0, .2), 0px 3px 4px 0px rgba(0, 0, 0, .14), 0px 1px 8px 0px rgba(0, 0, 0, .12);
+        --cem-action-box-shadow         : 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+        --cem-action-box-shadow-hover   : 0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12); /* Slightly larger shadow on hover */
+        --cem-action-box-shadow-active  : 0px 1px 1px -1px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12); /* Subtler shadow for active state */
+        --cem-action-box-shadow-pending : var(--cem-action-box-shadow);
+
+
         --cem-action-transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
         --cem-action-box-padding: 1em;
 
 
-
-        &:hover,&.hover{
+        &:hover,&.hover,&[hover]{
             --cem-action-box-shadow: var(--cem-action-box-shadow-hover);
         }
-        /*
-        &[pending],&.pending{
+        &:active,&.active,&[active]{
+            --cem-action-box-shadow: var(--cem-action-box-shadow-active);
+        }
 
-        } 
-        */
+        &[pending],&.pending{
+            --cem-action-box-shadow: var(--cem-action-box-shadow-pending);
+        }
+
         /* flow */
         &.explicit, &[flow="explicit"], &[explicit] {
             --cem-action-background-color: var(--cem-action-explicit-default-background);
@@ -417,31 +433,31 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-explicit-required-background);
                 --cem-action-color: var(--cem-action-explicit-required-text);
             }
-            &[indeterminate] {
+            &[indeterminate], &:indeterminate, &.indeterminate {
                 --cem-action-background-color: var(--cem-action-explicit-indeterminate-background);
                 --cem-action-color: var(--cem-action-explicit-indeterminate-text);
             }
-            &[target], &:target, &:target-within {
+            &[target], &:target, &:target-within, &.target {
                 --cem-action-background-color: var(--cem-action-explicit-target-background);
                 --cem-action-color: var(--cem-action-explicit-target-text);
             }
-            &[focus],&:focus, &:focus-visible, &:focus-within {
+            &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
                 --cem-action-background-color: var(--cem-action-explicit-focus-background);
                 --cem-action-color: var(--cem-action-explicit-focus-text);
             }
-            &[hover],&:hover {
+            &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-explicit-hover-background);
                 --cem-action-color: var(--cem-action-explicit-hover-text);
             }
-            &[selected] {
+            &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-explicit-selected-background);
                 --cem-action-color: var(--cem-action-explicit-selected-text);
             }
-            &[active],&:active {
+            &[active],&:active,&.active {
                 --cem-action-background-color: var(--cem-action-explicit-active-background);
                 --cem-action-color: var(--cem-action-explicit-active-text);
             }
-            &[pending] {
+            &[pending],&.pending {
                 --cem-action-background-color: var(--cem-action-explicit-pending-background);
                 --cem-action-color: var(--cem-action-explicit-pending-text);
             }
@@ -467,31 +483,31 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-primary-required-background);
                 --cem-action-color: var(--cem-action-primary-required-text);
             }
-            &[indeterminate] {
+            &[indeterminate], &:indeterminate, &.indeterminate {
                 --cem-action-background-color: var(--cem-action-primary-indeterminate-background);
                 --cem-action-color: var(--cem-action-primary-indeterminate-text);
             }
-            &[target], &:target, &:target-within {
+            &[target], &:target, &:target-within, &.target {
                 --cem-action-background-color: var(--cem-action-primary-target-background);
                 --cem-action-color: var(--cem-action-primary-target-text);
             }
-            &[focus],&:focus, &:focus-visible, &:focus-within {
+            &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
                 --cem-action-background-color: var(--cem-action-primary-focus-background);
                 --cem-action-color: var(--cem-action-primary-focus-text);
             }
-            &[hover],&:hover {
+            &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-primary-hover-background);
                 --cem-action-color: var(--cem-action-primary-hover-text);
             }
-            &[selected] {
+            &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-primary-selected-background);
                 --cem-action-color: var(--cem-action-primary-selected-text);
             }
-            &[active],&:active {
+            &[active],&:active,&.active {
                 --cem-action-background-color: var(--cem-action-primary-active-background);
                 --cem-action-color: var(--cem-action-primary-active-text);
             }
-            &[pending] {
+            &[pending],&.pending {
                 --cem-action-background-color: var(--cem-action-primary-pending-background);
                 --cem-action-color: var(--cem-action-primary-pending-text);
             }
@@ -517,31 +533,31 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-contextual-required-background);
                 --cem-action-color: var(--cem-action-contextual-required-text);
             }
-            &[indeterminate] {
+            &[indeterminate], &:indeterminate, &.indeterminate {
                 --cem-action-background-color: var(--cem-action-contextual-indeterminate-background);
                 --cem-action-color: var(--cem-action-contextual-indeterminate-text);
             }
-            &[target], &:target, &:target-within {
+            &[target], &:target, &:target-within, &.target {
                 --cem-action-background-color: var(--cem-action-contextual-target-background);
                 --cem-action-color: var(--cem-action-contextual-target-text);
             }
-            &[focus],&:focus, &:focus-visible, &:focus-within {
+            &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
                 --cem-action-background-color: var(--cem-action-contextual-focus-background);
                 --cem-action-color: var(--cem-action-contextual-focus-text);
             }
-            &[hover],&:hover {
+            &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-contextual-hover-background);
                 --cem-action-color: var(--cem-action-contextual-hover-text);
             }
-            &[selected] {
+            &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-contextual-selected-background);
                 --cem-action-color: var(--cem-action-contextual-selected-text);
             }
-            &[active],&:active {
+            &[active],&:active,&.active {
                 --cem-action-background-color: var(--cem-action-contextual-active-background);
                 --cem-action-color: var(--cem-action-contextual-active-text);
             }
-            &[pending] {
+            &[pending],&.pending {
                 --cem-action-background-color: var(--cem-action-contextual-pending-background);
                 --cem-action-color: var(--cem-action-contextual-pending-text);
             }
@@ -567,31 +583,31 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-alternate-required-background);
                 --cem-action-color: var(--cem-action-alternate-required-text);
             }
-            &[indeterminate] {
+            &[indeterminate], &:indeterminate, &.indeterminate {
                 --cem-action-background-color: var(--cem-action-alternate-indeterminate-background);
                 --cem-action-color: var(--cem-action-alternate-indeterminate-text);
             }
-            &[target], &:target, &:target-within {
+            &[target], &:target, &:target-within, &.target {
                 --cem-action-background-color: var(--cem-action-alternate-target-background);
                 --cem-action-color: var(--cem-action-alternate-target-text);
             }
-            &[focus],&:focus, &:focus-visible, &:focus-within {
+            &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
                 --cem-action-background-color: var(--cem-action-alternate-focus-background);
                 --cem-action-color: var(--cem-action-alternate-focus-text);
             }
-            &[hover],&:hover {
+            &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-alternate-hover-background);
                 --cem-action-color: var(--cem-action-alternate-hover-text);
             }
-            &[selected] {
+            &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-alternate-selected-background);
                 --cem-action-color: var(--cem-action-alternate-selected-text);
             }
-            &[active],&:active {
+            &[active],&:active,&.active {
                 --cem-action-background-color: var(--cem-action-alternate-active-background);
                 --cem-action-color: var(--cem-action-alternate-active-text);
             }
-            &[pending] {
+            &[pending],&.pending {
                 --cem-action-background-color: var(--cem-action-alternate-pending-background);
                 --cem-action-color: var(--cem-action-alternate-pending-text);
             }
@@ -617,31 +633,31 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-destructive-required-background);
                 --cem-action-color: var(--cem-action-destructive-required-text);
             }
-            &[indeterminate] {
+            &[indeterminate], &:indeterminate, &.indeterminate {
                 --cem-action-background-color: var(--cem-action-destructive-indeterminate-background);
                 --cem-action-color: var(--cem-action-destructive-indeterminate-text);
             }
-            &[target], &:target, &:target-within {
+            &[target], &:target, &:target-within, &.target {
                 --cem-action-background-color: var(--cem-action-destructive-target-background);
                 --cem-action-color: var(--cem-action-destructive-target-text);
             }
-            &[focus],&:focus, &:focus-visible, &:focus-within {
+            &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
                 --cem-action-background-color: var(--cem-action-destructive-focus-background);
                 --cem-action-color: var(--cem-action-destructive-focus-text);
             }
-            &[hover],&:hover {
+            &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-destructive-hover-background);
                 --cem-action-color: var(--cem-action-destructive-hover-text);
             }
-            &[selected] {
+            &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-destructive-selected-background);
                 --cem-action-color: var(--cem-action-destructive-selected-text);
             }
-            &[active],&:active {
+            &[active],&:active,&.active {
                 --cem-action-background-color: var(--cem-action-destructive-active-background);
                 --cem-action-color: var(--cem-action-destructive-active-text);
             }
-            &[pending] {
+            &[pending],&.pending {
                 --cem-action-background-color: var(--cem-action-destructive-pending-background);
                 --cem-action-color: var(--cem-action-destructive-pending-text);
             }
@@ -649,6 +665,11 @@ bend - corner shape, radius, curve
 
         }
 
+        &[pending],&.pending{
+            background: linear-gradient(90deg, var(--cem-action-background-color), var(--cem-palette-calm-x), var(--cem-action-background-color), var(--cem-palette-calm-x));
+            background-size: 300% 100%;
+            animation: cem-slide-x var(--sem-animation-speed) ease-in-out infinite;
+        }
 
         background-color: var(--cem-action-background-color);
         color: var(--cem-action-color);
