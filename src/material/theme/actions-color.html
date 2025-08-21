@@ -48,8 +48,7 @@
         .action, button, input[type="submit"], input[type="reset"], input[type="button"]{
             min-width: 14em;
         }
-        button{Zmargin: 0.2rem;}
-
+        .hoverlined:hover{ outline: dotted limegreen 4px ; }
     </style>
     <script type="module" src="./colors.js"></script>
 </head>
@@ -94,15 +93,16 @@ ToDO
                         <hr/>
                         <for-each select="$cem-action-state">
                             <variable name="state" select="@value"></variable>
-                            <for-each select="$cem-action-intent">
-                                <variable name="intent" select="@value"></variable>
-                                <button>
-                                    <attribute name="{$intent}"></attribute>
-                                    <attribute name="{$state}"></attribute>
-                                    {$state}&nbsp;{$intent}
-                                </button>
-                            </for-each>
-                            <br/>
+                            <div class="hoverlined">
+                                <for-each select="$cem-action-intent">
+                                    <variable name="intent" select="@value"></variable>
+                                    <button>
+                                        <attribute name="{$intent}"></attribute>
+                                        <attribute name="{$state}"></attribute>
+                                        {$state}&nbsp;{$intent}
+                                    </button>
+                                </for-each>
+                            </div>
                         </for-each>
                     </fieldset>
 
