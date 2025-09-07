@@ -49,6 +49,10 @@
             min-width: 14em;
         }
         .hoverlined:hover{ outline: dotted limegreen 4px ; }
+        label{ font-weight: lighter;}
+        main:has(#spacing:checked){
+            .hoverlined>*{ margin:.75rem; }
+        }
     </style>
     <script type="module" src="./colors.js"></script>
 </head>
@@ -74,9 +78,12 @@ ToDO
           <a href="./colors-light.html"     > light theme colors    </a> &bull;
           <a href="./colors-native.html"    > native browser colors </a> &bull;
           <a href="./colors-poc.html"       > colors POC            </a> &bull;
+          <a href=".//theme-data.xhtml"     > tokens list           </a> &bull;
+          <a href="https://simulationlabs.com/github/EPA-WG/custom-element-dist/tree/develop/src/material/theme/actions-color.html"
+            > dev demo </a>
         </details>
     </aside>
-    <h1>Action Colors </h1>
+    <h1>Action Colors <label><input type="checkbox" id="spacing" checked> space around buttons</label></h1>
     <custom-element>
         <template>
             <style>
