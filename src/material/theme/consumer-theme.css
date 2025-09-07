@@ -361,7 +361,22 @@
     }
 
     [data-theme*="cem-theme-contrast-"],.cem-theme-contrast-light,.cem-theme-contrast-dark{
-        background-color: light-dark( white, black );
+        --cem-action-background-color               : var(--cem-palette-comfort, Canvas );
+        --cem-action-explicit-default-background    : var(--cem-action-background-color );
+        --cem-action-primary-default-background     : var(--cem-action-background-color );
+        --cem-action-contextual-default-background  : var(--cem-action-background-color );
+        --cem-action-alternate-default-background   : var(--cem-action-background-color );
+        --cem-action-destructive-default-background : var(--cem-action-background-color );
+
+        background-color: var(--cem-palette-comfort, Canvas );
+        color: var(--cem-palette-comfort-text, CanvasText);
+
+        .action, button, input[type="submit"], input[type="reset"], input[type="button"] {
+            --cem-action-box-shadow: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-background-color);
+            /*background-color: var(--cem-palette-comfort, Canvas );*/
+            color: var(--cem-palette-comfort-text, CanvasText );
+
+        }
     }
     @media (forced-colors: active){
         background-color: light-dark( white, black );
@@ -435,8 +450,8 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-explicit-indeterminate-background);
                 --cem-action-color: var(--cem-action-explicit-indeterminate-text);
             }
-            &[target], &:target, &:target-within, &.target {
-                --cem-action-background-color: var(--cem-action-explicit-target-background);
+            &[target], &:target, /*&:target-within, */ &.target {
+                --cem-action-background-color: var(--cem-action-explicit-indeterminate-background);
                 --cem-action-color: var(--cem-action-explicit-target-text);
             }
             &[focus],&:focus, &:focus-visible, &:focus-within, &.focus {
@@ -485,7 +500,7 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-primary-indeterminate-background);
                 --cem-action-color: var(--cem-action-primary-indeterminate-text);
             }
-            &[target], &:target, &:target-within, &.target {
+            &[target], &:target, /*&:target-within, */ &.target {
                 --cem-action-background-color: var(--cem-action-primary-target-background);
                 --cem-action-color: var(--cem-action-primary-target-text);
             }
@@ -535,7 +550,7 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-contextual-indeterminate-background);
                 --cem-action-color: var(--cem-action-contextual-indeterminate-text);
             }
-            &[target], &:target, &:target-within, &.target {
+            &[target], &:target, /*&:target-within, */ &.target {
                 --cem-action-background-color: var(--cem-action-contextual-target-background);
                 --cem-action-color: var(--cem-action-contextual-target-text);
             }
@@ -585,7 +600,7 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-alternate-indeterminate-background);
                 --cem-action-color: var(--cem-action-alternate-indeterminate-text);
             }
-            &[target], &:target, &:target-within, &.target {
+            &[target], &:target, /*&:target-within, */ &.target {
                 --cem-action-background-color: var(--cem-action-alternate-target-background);
                 --cem-action-color: var(--cem-action-alternate-target-text);
             }
@@ -635,7 +650,7 @@ bend - corner shape, radius, curve
                 --cem-action-background-color: var(--cem-action-destructive-indeterminate-background);
                 --cem-action-color: var(--cem-action-destructive-indeterminate-text);
             }
-            &[target], &:target, &:target-within, &.target {
+            &[target], &:target, /*&:target-within, */ &.target {
                 --cem-action-background-color: var(--cem-action-destructive-target-background);
                 --cem-action-color: var(--cem-action-destructive-target-text);
             }
