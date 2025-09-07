@@ -164,7 +164,7 @@
         /* region target */
         --cem-action-explicit-target-background    : var(--cem-palette-creativity  ); --cem-action-explicit-target-text   : var(--cem-palette-creativity-text );
         --cem-action-primary-target-background     : var(--cem-palette-trust       ); --cem-action-primary-target-text    : var(--cem-palette-trust-text      );
-        --cem-action-contextual-target-background  : var(--cem-palette-comfort     ); --cem-action-contextual-target-text : var(--cem-palette-comfort-text    );
+        --cem-action-contextual-target-background  : color-mix(in srgb, var(--cem-palette-comfort        ) 80%, var(--cem-palette-comfort-x      )); --cem-action-contextual-target-text : var(--cem-palette-comfort-text    );
         --cem-action-alternate-target-background   : var(--cem-palette-enthusiasm  ); --cem-action-alternate-target-text  : var(--cem-palette-enthusiasm-text );
         --cem-action-destructive-target-background : var(--cem-palette-danger      ); --cem-action-destructive-target-text: var(--cem-palette-danger-text     );
         /* endregion */
@@ -172,7 +172,7 @@
         /* region focus */
         --cem-action-explicit-focus-background    : var(--cem-palette-creativity  ); --cem-action-explicit-focus-text   : var(--cem-palette-creativity-text );
         --cem-action-primary-focus-background     : var(--cem-palette-trust       ); --cem-action-primary-focus-text    : var(--cem-palette-trust-text      );
-        --cem-action-contextual-focus-background  : var(--cem-palette-comfort     ); --cem-action-contextual-focus-text : var(--cem-palette-comfort-text    );
+        --cem-action-contextual-focus-background  :color-mix(in srgb, var(--cem-palette-comfort        ) 70%, var(--cem-palette-comfort-x      ));--cem-action-contextual-focus-text : var(--cem-palette-comfort-text    );
         --cem-action-alternate-focus-background   : var(--cem-palette-enthusiasm  ); --cem-action-alternate-focus-text  : var(--cem-palette-enthusiasm-text );
         --cem-action-destructive-focus-background : var(--cem-palette-danger      ); --cem-action-destructive-focus-text: var(--cem-palette-danger-text     );
         /* endregion */
