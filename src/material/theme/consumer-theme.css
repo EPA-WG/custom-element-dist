@@ -373,6 +373,7 @@
 
         .action, button, input[type="submit"], input[type="reset"], input[type="button"] {
             --cem-action-box-shadow: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-background-color);
+            --cem-action-box-shadow-hover: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-background-color);
             /*background-color: var(--cem-palette-comfort, Canvas );*/
             color: var(--cem-palette-comfort-text, CanvasText );
 
@@ -461,6 +462,7 @@ bend - corner shape, radius, curve
             &[hover],&:hover,&.hover {
                 --cem-action-background-color: var(--cem-action-explicit-hover-background);
                 --cem-action-color: var(--cem-action-explicit-hover-text);
+                text-decoration: blink;
             }
             &[selected],&.selected {
                 --cem-action-background-color: var(--cem-action-explicit-selected-background);
