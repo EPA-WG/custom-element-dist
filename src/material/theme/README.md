@@ -135,24 +135,7 @@ trigger the change of content text color.
 Example of colors sequence with shift by brightness or color wheel.
 
 The tokens sequence in low to more emphasized importance/attention:
-<style>
-b{ display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; }
-.light{
-&.disabled     ,& .disabled         {   background-color: #00F; }     
-&.readonly     ,& .readonly         {   background-color: #00F; }     
-&.editable     ,& .editable         {   background-color: pink; }   
-&.required     ,& .required         {   background-color: #00F; }     
-&.default      ,& .default          {   background-color: #00F; }      
-&.target       ,& .target           {   background-color: #00F; }       
-&.focus-within ,& .focus-within     {   background-color: #00F; } 
-&.focus        ,& .focus            {   background-color: #00F; }        
-&.focus-visible,& .focus-visible    {   background-color: #00F; }
-&.hover        ,& .hover            {   background-color: #00F; }        
-&.selected     ,& .selected         {   background-color: #00F; }     
-&.active       ,& .active           {   background-color: #00F; }       
-&.pending      ,& .pending          {   background-color: #00F; }       
-}
-</style>
+
 
 | token          | bg   | light                                | dark                                | contrast-dark                                | contrast-light                                | 
 |----------------|------|--------------------------------------|-------------------------------------|----------------------------------------------|-----------------------------------------------|
@@ -248,3 +231,26 @@ The minimal number of base color variations is 7.
 # Text Tracking/Spacing
 [wiki](https://en.wikipedia.org/wiki/Letter_spacing), 
 [units](https://css-tricks.com/keeping-track-letter-spacing-guidelines/)
+
+
+# Outline
+
+
+| tokens                              | scope                                     | CSS key                         | value                                                                                                      | comment                                                                        |
+|-------------------------------------|-------------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| `box-shadow`                        | `.action`                                 | box-shadow:                     | var(--cem-action-box-shadow)                                                                               | base applied to `box-shadow` rule                                              |
+| `box-shadow`                        | `.action`                                 | --cem-action-box-shadow         | 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12) | default, all themes. Button shadow.                                            |
+| `hover`                             | `.action`                                 | --cem-action-box-shadow-hover   | 0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12) | default, all themes. Slightly larger shadow on hover                           |
+| `hover`                             | `.action:hover`                           | --cem-action-box-shadow         | var(--cem-action-box-shadow-hover)                                                                         | state-specific prop                                                            |
+| high contrast                       | `[data-theme*="cem-theme-contrast-"]`     |                                 |                                                                                                            |                                                                                |
+| `box-shadow`                        | `.action`                                 | --cem-action-box-shadow         | var(-cem-action-box-shadow-default)                                                                        | state-specific prop. 2px zebra                                                 |
+| `box-shadow`                        | `.action`                                 | --cem-action-box-shadow-default | 0 0 0 2px var(--cem-palette-comfort), 0 0 0 4px var(--cem-action-box-shadow-color)                         | state-specific prop. 2px zebra                                                 |
+| `box-shadow` `hover`                | `.action`                                 | --cem-action-box-shadow-hover   | 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-box-shadow-color)                         | state-specific prop. Slightly larger shadow on hover                           |
+| `box-shadow` `hover`                | `.action:hover`                           | --cem-action-box-shadow         | var(--cem-action-box-shadow-hover)                                                                         | colors escalation from default where default is contrast on comfort background |
+| `explicit`   `box-shadow` `hover`   | `.action.explicit:hover`                  | --cem-action-box-shadow-color   | blue                                                                                                       | colors escalation from default where default is contrast on comfort background |
+| `explicit`   `box-shadow` `{STATE}` | `.action.explicit[{STATE}]`               | --cem-action-box-shadow-color   | color elevation by STATE relative to `default`                                                             | colors escalation from default where default is contrast on comfort background |
+| `contextual` `box-shadow` `default` | `.action.contextual[ not( all {STATE}) ]` | --cem-action-box-shadow         | `none`                                                                                                     | hide outline for `default` state                                               |
+
+`contextual` does not have an outline in default state, making the rule 
+
+
