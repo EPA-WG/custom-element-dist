@@ -243,7 +243,7 @@ The minimal number of base color variations is 7.
 | `hover`                             | `.action`                                 | --cem-action-box-shadow-hover   | 0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12) | default, all themes. Slightly larger shadow on hover                           |
 | `hover`                             | `.action:hover`                           | --cem-action-box-shadow         | var(--cem-action-box-shadow-hover)                                                                         | state-specific prop                                                            |
 | high contrast                       | `[data-theme*="cem-theme-contrast-"]`     |                                 |                                                                                                            |                                                                                |
-| `box-shadow`                        | `.action`                                 | --cem-action-box-shadow         | var(-cem-action-box-shadow-default)                                                                        | state-specific prop. 2px zebra                                                 |
+| `box-shadow`                        | `.action`                                 | --cem-action-box-shadow         | var(-cem-action-box-shadow-default)                                                                        | default in contrast theme                                                      |
 | `box-shadow`                        | `.action`                                 | --cem-action-box-shadow-default | 0 0 0 2px var(--cem-palette-comfort), 0 0 0 4px var(--cem-action-box-shadow-color)                         | state-specific prop. 2px zebra                                                 |
 | `box-shadow` `hover`                | `.action`                                 | --cem-action-box-shadow-hover   | 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-box-shadow-color)                         | state-specific prop. Slightly larger shadow on hover                           |
 | `box-shadow` `hover`                | `.action:hover`                           | --cem-action-box-shadow         | var(--cem-action-box-shadow-hover)                                                                         | colors escalation from default where default is contrast on comfort background |
@@ -251,6 +251,12 @@ The minimal number of base color variations is 7.
 | `explicit`   `box-shadow` `{STATE}` | `.action.explicit[{STATE}]`               | --cem-action-box-shadow-color   | color elevation by STATE relative to `default`                                                             | colors escalation from default where default is contrast on comfort background |
 | `contextual` `box-shadow` `default` | `.action.contextual[ not( all {STATE}) ]` | --cem-action-box-shadow         | `none`                                                                                                     | hide outline for `default` state                                               |
 
-`contextual` does not have an outline in default state, making the rule 
+`contextual` does not have an outline in default state for all themes, needs an override rule to set `--cem-action-box-shadow: none`
 
+_High contrast mode_ inherits `box-shadow:`  css rule from `.action` top level. There are 2 shapes of outline. 
+Each has 2 strips "zebra" presentation when closest strip is least visible and outer is most contrast.
 
+* default - 2px zebra, used for all states except
+* wide - triggered for real-time actions like hover and pressed (active)
+
+The  color escalation on the state change is combined with zebra size which requires less color gradations for better contrast.
