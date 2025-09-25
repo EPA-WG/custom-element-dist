@@ -372,15 +372,23 @@
         color: var(--cem-palette-comfort-text, CanvasText);
 
         .action, button, input[type="submit"], input[type="reset"], input[type="button"] {
-            --cem-action-box-shadow: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-background-color);
-            --cem-action-box-shadow-hover: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-action-background-color);
-            /*background-color: var(--cem-palette-comfort, Canvas );*/
-            color: var(--cem-palette-comfort-text, CanvasText );
+            --cem-action-box-shadow-default     : 0 0 0 2px var(--cem-action-box-shadow-color), 0 0 0 4px var(--cem-palette-comfort);
+            --cem-action-box-shadow-hover       : 0 0 0 4px var(--cem-action-box-shadow-color), 0 0 0 6px var(--cem-palette-comfort);
+            --cem-action-box-shadow-selected    : 0 0 0 2px var(--cem-action-box-shadow-color), 0 0 0 4px var(--cem-palette-comfort), 0 0 0 6px var(--cem-action-box-shadow-color), 0 0 0 8px var(--cem-palette-comfort);
+            --cem-action-box-shadow-active      : 0 0 0 6px var(--cem-action-box-shadow-color), 0 0 0 8px var(--cem-palette-comfort);
+            --cem-action-box-shadow: var(--cem-action-box-shadow-default);
 
+            --cem-action-box-shadow-color: var(--cem-palette-comfort-text);
+            background-color: var(--cem-palette-comfort, Canvas );
+            color: var(--cem-palette-comfort-text, CanvasText );
+            &:hover ,&.hover ,&[hover ] { --cem-action-box-shadow: var(--cem-action-box-shadow-hover   ); }
+            &:active,&.active,&[active] { --cem-action-box-shadow: var(--cem-action-box-shadow-active  ); }
+            &[selected],&.selected      { --cem-action-box-shadow: var(--cem-action-box-shadow-selected); }
         }
     }
     @media (forced-colors: active){
         background-color: light-dark( white, black );
+        /* clone contrast theme rules ? */
     }
 
 /** # dimensions
