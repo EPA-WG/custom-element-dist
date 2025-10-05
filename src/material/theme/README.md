@@ -263,3 +263,8 @@ Each has 2 strips "zebra" presentation when closest strip is least visible and o
 * wide - triggered for real-time actions like hover and pressed (active)
 
 The  color escalation on the state change is combined with zebra size which requires less color gradations for better contrast.
+
+Chromium adds `:focus-visible` outline. Which has to be hidden when `border-box` is in use.
+```css
+:focus-visible{ outline: -webkit-focus-ring-color auto 1px; }
+```

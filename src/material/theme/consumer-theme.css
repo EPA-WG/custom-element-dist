@@ -114,7 +114,7 @@
         color: var(--cem-palette-comfort-text, CanvasText);
 
         /* region disabled */
-        --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-conservative    ) 30%, var(--cem-palette-conservative-x )); --cem-action-explicit-disabled-text   : var(--cem-palette-conservative-text-x );
+        --cem-action-explicit-disabled-background    : color-mix(in srgb, var(--cem-palette-creativity      ) 30%, var(--cem-palette-conservative-x )); --cem-action-explicit-disabled-text   : var(--cem-palette-conservative-text-x );
         --cem-action-primary-disabled-background     : color-mix(in srgb, var(--cem-palette-trust           ) 30%, var(--cem-palette-conservative-x )); --cem-action-primary-disabled-text    : var(--cem-palette-conservative-text-x );
         --cem-action-contextual-disabled-background  : color-mix(in srgb, var(--cem-palette-comfort         ) 30%, var(--cem-palette-conservative-x )); --cem-action-contextual-disabled-text : var(--cem-palette-conservative-text-x );
         --cem-action-alternate-disabled-background   : color-mix(in srgb, var(--cem-palette-enthusiasm      ) 30%, var(--cem-palette-conservative-x )); --cem-action-alternate-disabled-text  : var(--cem-palette-conservative-text-x   );
