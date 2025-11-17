@@ -9,7 +9,7 @@ implementation in `consumer-theme.css`, documentation in `README.md`, and princi
 ## Phase 1: Document Branded Palette Colors
 
 ### 1.1 Add Branded Color Definitions
-- [ ] Document all `--cem-color-*` tokens with their variants (xl, l, d, xd)
+- [x] Document all `--cem-color-*` tokens with their variants (xl, l, d, xd)
   - Cyan family (cyan-xl, cyan-l, cyan-d, cyan-xd)
   - Blue family (blue-xl, blue-l, blue-d, blue-xd)
   - Red family (red-xl, red-l, red-d, red-xd)
@@ -19,16 +19,16 @@ implementation in `consumer-theme.css`, documentation in `README.md`, and princi
   - Grey family (grey-l, grey-d)
 
 ### 1.2 Map Branded Colors to Material Design
-- [ ] Add mapping table showing correspondence with Angular Material color tokens
-- [ ] Document the hex values for each branded color
-- [ ] Include notes about brightness levels (xl=extra light, l=light, d=dark, xd=extra dark)
+- [x] Add mapping table showing correspondence with Angular Material color tokens
+- [x] Document the hex values for each branded color
+- [x] Include notes about brightness levels (xl=extra light, l=light, d=dark, xd=extra dark)
 
 ---
 
 ## Phase 2: Expand Emotional Palette Documentation
 
 ### 2.1 Add Emotional Palette Variations
-- [ ] Document base emotional tokens with their `-text`, `-x`, and `-text-x` variants
+- [x] Document base emotional tokens with their `-text`, `-x`, and `-text-x` variants
   - `--cem-palette-comfort` and variants
   - `--cem-palette-calm` and variants
   - `--cem-palette-trust` and variants

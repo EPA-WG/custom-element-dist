@@ -304,5 +304,281 @@
 
 
 </figure>
+
+<figure class="with-color">
+    <figcaption>Emotional Palette Variations</figcaption>
+    <p>Emotional palette tokens bridge branded colors and action states. Each emotional token has 4 variants to support automatic light/dark theme switching and text contrast requirements.</p>
+
+    <fieldset>
+        <legend>Token Variant System</legend>
+        <dl>
+            <dt><code>--cem-palette-{emotion}</code></dt>
+            <dd>Base emotional color that automatically switches between light and dark themes using <code>light-dark()</code> CSS function.</dd>
+
+            <dt><code>--cem-palette-{emotion}-text</code></dt>
+            <dd>Text color for use on the base emotional background. Ensures WCAG-compliant contrast (≥4.5:1 for text).</dd>
+
+            <dt><code>--cem-palette-{emotion}-x</code></dt>
+            <dd>Extreme variant (inverted) of the base emotional color. Used in <code>color-mix()</code> formulas for state progressions.</dd>
+
+            <dt><code>--cem-palette-{emotion}-text-x</code></dt>
+            <dd>Text color for use on the extreme variant background. Automatically inverts to maintain contrast.</dd>
+        </dl>
+
+        <p><strong>Usage Pattern:</strong></p>
+        <pre>
+/* Base tokens switch between light/dark mode */
+--cem-palette-comfort: light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+--cem-palette-comfort-text: light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+
+/* State variations use color-mix() to create progression */
+--cem-action-hover-background: color-mix(in srgb, var(--cem-palette-comfort) 60%, var(--cem-palette-comfort-x));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Comfort Palette</legend>
+        <p><strong>Purpose:</strong> Light scene color for reading backgrounds. Represents purity, innocence, cleanliness, peace.</p>
+        <p><strong>System Mapping:</strong> Canvas (system color)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-comfort">
+            <option value="--cem-palette-comfort" style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                Base comfort color | light-dark(cyan-xl, cyan-xd) | Main canvas/background
+            </option>
+            <option value="--cem-palette-comfort-text" style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                Comfort text color | light-dark(cyan-xd, cyan-xl) | Primary text on comfort backgrounds
+            </option>
+            <option value="--cem-palette-comfort-x" style="background-color: var(--cem-palette-comfort-x); color: var(--cem-palette-comfort-text-x);">
+                Comfort extreme variant | light-dark(cyan-xd, cyan-xl) | Used in color-mix for state variations
+            </option>
+            <option value="--cem-palette-comfort-text-x" style="background-color: var(--cem-palette-comfort-x); color: var(--cem-palette-comfort-text-x);">
+                Comfort extreme text | light-dark(cyan-xl, cyan-xd) | Text on extreme variant backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-comfort       : light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+--cem-palette-comfort-text  : light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+--cem-palette-comfort-x     : light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+--cem-palette-comfort-text-x: light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Calm Palette</legend>
+        <p><strong>Purpose:</strong> Dark scene color for minimal object environments. Represents mystery, elegance, power.</p>
+        <p><strong>System Mapping:</strong> CanvasText (system color)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-calm">
+            <option value="--cem-palette-calm" style="background-color: var(--cem-palette-calm); color: var(--cem-palette-calm-text);">
+                Base calm color | light-dark(cyan-l, cyan-d) | Foreground elements
+            </option>
+            <option value="--cem-palette-calm-text" style="background-color: var(--cem-palette-calm); color: var(--cem-palette-calm-text);">
+                Calm text color | Uses comfort-text | Text on calm backgrounds
+            </option>
+            <option value="--cem-palette-calm-x" style="background-color: var(--cem-palette-calm-x); color: var(--cem-palette-calm-text-x);">
+                Calm extreme variant | light-dark(cyan-d, cyan-l) | Inverted calm color
+            </option>
+            <option value="--cem-palette-calm-text-x" style="background-color: var(--cem-palette-calm-x); color: var(--cem-palette-calm-text-x);">
+                Calm extreme text | Uses comfort-text-x | Text on extreme calm backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-calm      : light-dark(var(--cem-color-cyan-l), var(--cem-color-cyan-d));
+--cem-palette-calm-text : var(--cem-palette-comfort-text);
+--cem-palette-calm-x    : light-dark(var(--cem-color-cyan-d), var(--cem-color-cyan-l));
+--cem-palette-calm-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Trust Palette</legend>
+        <p><strong>Purpose:</strong> Primary action backgrounds, attention-grabbing elements. Represents reliability, confidence.</p>
+        <p><strong>System Mapping:</strong> Highlight with HighlightText (system colors)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-trust">
+            <option value="--cem-palette-trust" style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">
+                Base trust color | light-dark(blue-l, blue-d) | Primary actions, highlights
+            </option>
+            <option value="--cem-palette-trust-text" style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">
+                Trust text color | light-dark(comfort-text, white) | Text on trust backgrounds
+            </option>
+            <option value="--cem-palette-trust-x" style="background-color: var(--cem-palette-trust-x); color: var(--cem-palette-trust-text-x);">
+                Trust extreme variant | light-dark(blue-d, blue-l) | Darker/lighter trust variation
+            </option>
+            <option value="--cem-palette-trust-text-x" style="background-color: var(--cem-palette-trust-x); color: var(--cem-palette-trust-text-x);">
+                Trust extreme text | Uses comfort-text-x | Text on extreme trust backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-trust      : light-dark(var(--cem-color-blue-l), var(--cem-color-blue-d));
+--cem-palette-trust-text : light-dark(var(--cem-palette-comfort-text), white);
+--cem-palette-trust-x    : light-dark(var(--cem-color-blue-d), var(--cem-color-blue-l));
+--cem-palette-trust-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Danger Palette</legend>
+        <p><strong>Purpose:</strong> Alert messages, destructive actions, error states. Represents urgency, caution, passion.</p>
+        <p><strong>System Mapping:</strong> N/A (uses red)</p>
+        <p><strong>Warmth:</strong> Warm</p>
+        <datalist id="cem-palette-danger">
+            <option value="--cem-palette-danger" style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">
+                Base danger color | light-dark(red-l, red-d) | Error messages, destructive actions
+            </option>
+            <option value="--cem-palette-danger-text" style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">
+                Danger text color | light-dark(comfort-text-x, comfort-text) | Text on danger backgrounds
+            </option>
+            <option value="--cem-palette-danger-x" style="background-color: var(--cem-palette-danger-x); color: var(--cem-palette-danger-text-x);">
+                Danger extreme variant | light-dark(red-d, red-l) | Darker/lighter danger variation
+            </option>
+            <option value="--cem-palette-danger-text-x" style="background-color: var(--cem-palette-danger-x); color: var(--cem-palette-danger-text-x);">
+                Danger extreme text | Uses orange-xl | High contrast text on extreme danger backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-danger      : light-dark(var(--cem-color-red-l), var(--cem-color-red-d));
+--cem-palette-danger-text : light-dark(var(--cem-palette-comfort-text-x), var(--cem-palette-comfort-text));
+--cem-palette-danger-x    : light-dark(var(--cem-color-red-d), var(--cem-color-red-l));
+--cem-palette-danger-text-x: light-dark(var(--cem-color-orange-xl), var(--cem-color-orange-xl));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Creativity Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-1), creative elements, explicit actions. Represents luxury, innovation, royalty.</p>
+        <p><strong>System Mapping:</strong> ButtonFace with ButtonText (system colors)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-creativity">
+            <option value="--cem-palette-creativity" style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">
+                Base creativity color | light-dark(purple-l, purple-d) | Brand-1, explicit actions
+            </option>
+            <option value="--cem-palette-creativity-text" style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">
+                Creativity text color | Uses comfort-text | Text on creativity backgrounds
+            </option>
+            <option value="--cem-palette-creativity-x" style="background-color: var(--cem-palette-creativity-x); color: var(--cem-palette-creativity-text-x);">
+                Creativity extreme variant | light-dark(purple-d, purple-l) | Darker/lighter creativity variation
+            </option>
+            <option value="--cem-palette-creativity-text-x" style="background-color: var(--cem-palette-creativity-x); color: var(--cem-palette-creativity-text-x);">
+                Creativity extreme text | Uses comfort-text-x | Text on extreme creativity backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-creativity      : light-dark(var(--cem-color-purple-l), var(--cem-color-purple-d));
+--cem-palette-creativity-text : var(--cem-palette-comfort-text);
+--cem-palette-creativity-x    : light-dark(var(--cem-color-purple-d), var(--cem-color-purple-l));
+--cem-palette-creativity-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Enthusiasm Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-2), alternate flow actions, positive feedback. Represents warmth, optimism, energy.</p>
+        <p><strong>System Mapping:</strong> Mark with MarkText (system colors)</p>
+        <p><strong>Warmth:</strong> Warm</p>
+        <datalist id="cem-palette-enthusiasm">
+            <option value="--cem-palette-enthusiasm" style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">
+                Base enthusiasm color | light-dark(orange-l, orange-d) | Brand-2, alternate actions
+            </option>
+            <option value="--cem-palette-enthusiasm-text" style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">
+                Enthusiasm text color | light-dark(comfort-text, white) | Text on enthusiasm backgrounds
+            </option>
+            <option value="--cem-palette-enthusiasm-x" style="background-color: var(--cem-palette-enthusiasm-x); color: var(--cem-palette-enthusiasm-text-x);">
+                Enthusiasm extreme variant | light-dark(orange-xd, orange-xl) | Darker/lighter enthusiasm variation
+            </option>
+            <option value="--cem-palette-enthusiasm-text-x" style="background-color: var(--cem-palette-enthusiasm-x); color: var(--cem-palette-enthusiasm-text-x);">
+                Enthusiasm extreme text | Uses comfort-text-x | Text on extreme enthusiasm backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-enthusiasm      : light-dark(var(--cem-color-orange-l), var(--cem-color-orange-d));
+--cem-palette-enthusiasm-text : light-dark(var(--cem-palette-comfort-text), white);
+--cem-palette-enthusiasm-x    : light-dark(var(--cem-color-orange-xd), var(--cem-color-orange-xl));
+--cem-palette-enthusiasm-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Conservative Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-3), disabled states, neutral elements. Represents stability, earthiness, restraint.</p>
+        <p><strong>System Mapping:</strong> GrayText (system color)</p>
+        <p><strong>Warmth:</strong> Neutral</p>
+        <datalist id="cem-palette-conservative">
+            <option value="--cem-palette-conservative" style="background-color: var(--cem-palette-conservative); color: var(--cem-palette-conservative-text);">
+                Base conservative color | light-dark(grey-l, grey-d) | Brand-3, disabled states
+            </option>
+            <option value="--cem-palette-conservative-text" style="background-color: var(--cem-palette-conservative); color: var(--cem-palette-conservative-text);">
+                Conservative text color | Uses comfort-text | Text on conservative backgrounds
+            </option>
+            <option value="--cem-palette-conservative-x" style="background-color: var(--cem-palette-conservative-x); color: var(--cem-palette-conservative-text-x);">
+                Conservative extreme variant | light-dark(grey-d, grey-l) | Darker/lighter conservative variation
+            </option>
+            <option value="--cem-palette-conservative-text-x" style="background-color: var(--cem-palette-conservative-x); color: var(--cem-palette-conservative-text-x);">
+                Conservative extreme text | Uses comfort-text-x | Text on extreme conservative backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-conservative      : light-dark(var(--cem-color-grey-l), var(--cem-color-grey-d));
+--cem-palette-conservative-text : var(--cem-palette-comfort-text);
+--cem-palette-conservative-x    : light-dark(var(--cem-color-grey-d), var(--cem-color-grey-l));
+--cem-palette-conservative-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Emotional to Action Intent Mapping</legend>
+        <p>Each action intent maps to a specific emotional palette:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action Intent</th>
+                    <th>Emotional Palette</th>
+                    <th>Base Color</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>explicit</code></td>
+                    <td><code>creativity</code></td>
+                    <td style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">Purple</td>
+                    <td>User explicitly/intentionally clicks or activates</td>
+                </tr>
+                <tr>
+                    <td><code>primary</code></td>
+                    <td><code>trust</code></td>
+                    <td style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">Blue</td>
+                    <td>Default, confirmatory, triggered by ENTER</td>
+                </tr>
+                <tr>
+                    <td><code>contextual</code></td>
+                    <td><code>comfort</code></td>
+                    <td style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">Cyan/White</td>
+                    <td>Integrated within specific context (toolbar/menu)</td>
+                </tr>
+                <tr>
+                    <td><code>alternate</code></td>
+                    <td><code>enthusiasm</code></td>
+                    <td style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">Orange/Yellow</td>
+                    <td>Triggering non-usual alternative flow</td>
+                </tr>
+                <tr>
+                    <td><code>destructive</code></td>
+                    <td><code>danger</code></td>
+                    <td style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">Red</td>
+                    <td>Risky, potentially harmful, requires caution</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+</figure>
 </body>
 </html>
