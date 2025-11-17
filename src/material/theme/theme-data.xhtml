@@ -6,7 +6,7 @@
     <title>Consumer Semantic Theme tokens</title>
     <link rel="stylesheet" href="consumer-theme.css"/>
     <style>
-
+        @import url(./consumer-theme.css);
         datalist
         {   display: block;
             option::before { content: attr(value) " "; font-weight: bold; font-family: monospace; color: var(--cem-palette-creativity-x)}
@@ -19,7 +19,7 @@
 
 <h1>Consumer Semantic Theme tokens</h1>
     <p>
-    The content of this file is used for supplementary documentation.
+        The content of this file is used for supplementary documentation and generation of <a href="./consumer-theme.css" >consumer-theme.css</a>.
 </p>
 <figure>
     <figcaption>Color Themes</figcaption>
@@ -88,6 +88,161 @@
 
         </datalist>
     </fieldset>
+
+</figure>
+<figure>
+    <figcaption>Branded Palette Colors</figcaption>
+    <p>The branded palette establishes base colors with brightness variations, ensuring accessibility and adherence to ADA guidelines. Each color family includes up to 4 variants: xl (extra light), l (light), d (dark), xd (extra dark).</p>
+
+        <fieldset>
+        <legend>Brightness Levels</legend>
+        <dl>
+            <dt><code>xl</code> (extra light)</dt>
+            <dd>Lightest variant, typically used in light themes for backgrounds and surfaces. High brightness, low saturation.</dd>
+
+            <dt><code>l</code> (light)</dt>
+            <dd>Light variant, primary color for light themes. Base emotional color in light mode.</dd>
+
+            <dt><code>d</code> (dark)</dt>
+            <dd>Dark variant, primary color for dark themes. Base emotional color in dark mode.</dd>
+
+            <dt><code>xd</code> (extra dark)</dt>
+            <dd>Darkest variant, typically used in dark themes for backgrounds and surfaces. Low brightness, higher saturation.</dd>
+        </dl>
+    </fieldset>
+
+    <fieldset>
+        <legend>Usage in Color System</legend>
+        <p>These branded colors form the foundation of the theme system:</p>
+        <ol>
+            <li><strong>Emotional Palette</strong>: Branded colors map to emotional tokens via <code>light-dark()</code> function</li>
+            <li><strong>State Variations</strong>: Colors are mixed using <code>color-mix()</code> to create state progressions</li>
+            <li><strong>Accessibility</strong>: All color pairs maintain WCAG contrast ratios (≥4.5:1 for text, ≥3:1 for UI elements)</li>
+            <li><strong>Material Design Compatibility</strong>: Tokens align with Angular Material and Material Design 3 color systems</li>
+        </ol>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cyan Family</legend>
+        <datalist id="cem-color-cyan">
+            <option value="--cem-color-cyan-xl" style="background-color: var(--cem-color-cyan-xl); color: var(--cem-color-cyan-xd);">
+                #f1fefe | Extra light cyan | Used for comfort palette (light scenes) | Maps to --ng-cyan-99
+            </option>
+            <option value="--cem-color-cyan-l" style="background-color: var(--cem-color-cyan-l); color: var(--cem-color-cyan-xd);">
+                #00fbfb | Light cyan | Calm palette, creativity accent | Maps to --ng-cyan-90
+            </option>
+            <option value="--cem-color-cyan-d" style="background-color: var(--cem-color-cyan-d); color: var(--cem-color-cyan-xl);">
+                #006a6a | Dark cyan | Calm palette (dark theme) | Maps to --ng-cyan-40
+            </option>
+            <option value="--cem-color-cyan-xd" style="background-color: var(--cem-color-cyan-xd); color: var(--cem-color-cyan-xl);">
+                #001010 | Extra dark cyan | Used for comfort palette (dark scenes) | Maps to --ng-cyan-5
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Blue Family</legend>
+        <datalist id="cem-color-blue">
+            <option value="--cem-color-blue-xl" style="background-color: var(--cem-color-blue-xl); color: var(--cem-color-blue-xd);">
+                #faf9fd | Lightest blue | Comfort/trust emotion (light scene) | Maps to --ng-azure-neutral-98, --mat-sys-surface
+            </option>
+            <option value="--cem-color-blue-l" style="background-color: var(--cem-color-blue-l); color: var(--cem-color-blue-d);">
+                #d7e3ff | Light blue | Trust palette, attention semantic | Maps to --ng-azure-90, --mat-sys-primary-container
+            </option>
+            <option value="--cem-color-blue-d" style="background-color: var(--cem-color-blue-d); color: var(--cem-color-blue-l);">
+                #002f65 | Dark blue | Trust palette (dark theme) | Maps to --ng-azure-20
+            </option>
+            <option value="--cem-color-blue-xd" style="background-color: var(--cem-color-blue-xd); color: var(--cem-color-blue-xl);">
+                #1a1b1f | Darkest blue | Comfort/trust emotion (dark scene) | Maps to --ng-azure-neutral-10
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Red Family</legend>
+        <datalist id="cem-color-red">
+            <option value="--cem-color-red-xl" style="background-color: var(--cem-color-red-xl); color: var(--cem-color-red-xd);">
+                #ffb4ab | Extra light red | Danger palette (light theme) | Maps to --ng-error-80
+            </option>
+            <option value="--cem-color-red-l" style="background-color: var(--cem-color-red-l); color: var(--cem-color-red-xl);">
+                #ba1a1a | Light red | Danger emotion, alert semantic | Maps to --ng-error-60, --mat-sys-error
+            </option>
+            <option value="--cem-color-red-d" style="background-color: var(--cem-color-red-d); color: var(--cem-color-red-xl);">
+                #690005 | Dark red | Danger palette (dark theme) | Maps to --ng-error-20
+            </option>
+            <option value="--cem-color-red-xd" style="background-color: var(--cem-color-red-xd); color: var(--cem-color-red-xl);">
+                #410002 | Extra dark red | Danger palette (dark theme, extreme) | Maps to --ng-error-10
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Purple Family</legend>
+        <datalist id="cem-color-purple">
+            <option value="--cem-color-purple-xl" style="background-color: var(--cem-color-purple-xl); color: var(--cem-color-purple-xd);">
+                #f3e5f5 | Extra light purple | Creativity palette (light theme) | Maps to --mat-purple-50
+            </option>
+            <option value="--cem-color-purple-l" style="background-color: var(--cem-color-purple-l); color: var(--cem-color-purple-xd);">
+                #e1bee7 | Light purple | Creativity emotion, brand-1 | Maps to --mat-purple-100
+            </option>
+            <option value="--cem-color-purple-d" style="background-color: var(--cem-color-purple-d); color: var(--cem-color-purple-l);">
+                #6a1b9a | Dark purple | Creativity palette (dark theme) | Maps to --mat-purple-800
+            </option>
+            <option value="--cem-color-purple-xd" style="background-color: var(--cem-color-purple-xd); color: var(--cem-color-purple-xl);">
+                #4a148c | Extra dark purple | Creativity palette (dark theme, extreme) | Maps to --mat-purple-900
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Orange/Yellow Family</legend>
+        <datalist id="cem-color-orange">
+            <option value="--cem-color-orange-xl" style="background-color: var(--cem-color-orange-xl); color: var(--cem-color-orange-xd);">
+                #f0f070 | Extra light yellow | Enthusiasm palette (light theme) | Maps to --ng-yellow-80
+            </option>
+            <option value="--cem-color-orange-l" style="background-color: var(--cem-color-orange-l); color: var(--cem-color-orange-xd);">
+                #ffe082 | Light orange | Enthusiasm emotion, brand-2 | Maps to --mat-amber-200
+            </option>
+            <option value="--cem-color-orange-d" style="background-color: var(--cem-color-orange-d); color: var(--cem-color-orange-l);">
+                #723600 | Dark orange | Enthusiasm hype (dark theme) | Maps to --ng-orange-30
+            </option>
+            <option value="--cem-color-orange-xd" style="background-color: var(--cem-color-orange-xd); color: var(--cem-color-orange-xl);">
+                #502400 | Extra dark orange | Enthusiasm palette (dark theme, extreme) | Maps to --ng-orange-20
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Brown Family</legend>
+        <datalist id="cem-color-brown">
+            <option value="--cem-color-brown-xl" style="background-color: var(--cem-color-brown-xl); color: var(--cem-color-brown-xd);">
+                #d7ccc8 | Extra light brown | Conservative palette (light theme) | Maps to --mat-brown-100
+            </option>
+            <option value="--cem-color-brown-l" style="background-color: var(--cem-color-brown-l); color: var(--cem-color-brown-xd);">
+                #a1887f | Light brown | Conservative emotion, brand-3 | Maps to --mat-brown-300
+            </option>
+            <option value="--cem-color-brown-d" style="background-color: var(--cem-color-brown-d); color: var(--cem-color-brown-xl);">
+                #4e342e | Dark brown | Conservative palette (dark theme) | Maps to --mat-brown-800
+            </option>
+            <option value="--cem-color-brown-xd" style="background-color: var(--cem-color-brown-xd); color: var(--cem-color-brown-xl);">
+                #3e2723 | Extra dark brown | Conservative palette (dark theme, extreme) | Maps to --mat-brown-900
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Grey Family</legend>
+        <datalist id="cem-color-grey">
+            <option value="--cem-color-grey-l" style="background-color: var(--cem-color-grey-l); color: var(--cem-color-grey-d);">
+                #f1f1eb | Light grey | Conservative palette, neutral backgrounds | Maps to --ng-green-neutral-80
+            </option>
+            <option value="--cem-color-grey-d" style="background-color: var(--cem-color-grey-d); color: var(--cem-color-grey-l);">
+                #1a1c18 | Dark grey | Conservative palette (dark theme) | Maps to --ng-green-neutral-10
+            </option>
+        </datalist>
+        <p><small>Note: Grey family has only 2 variants (l, d) as neutral colors require fewer gradations.</small></p>
+    </fieldset>
+
 
 </figure>
 </body>
