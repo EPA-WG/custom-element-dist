@@ -1,0 +1,42 @@
+
+datalist {
+    display: block;
+
+    option::before {
+        content: attr(value) " ";
+        font-weight: bold;
+        font-family: monospace;
+        color: var(--cem-palette-creativity-x)
+    }
+}
+
+.with-color {
+    option {
+        color: var(--cem-palette-comfort-text);
+        &::before {
+            color: var(--cem-palette-comfort-text);
+        }
+
+        &:nth-child(3), &:last-of-type {
+            color: var(--cem-palette-comfort-text-x);
+            &::before {
+                color: var(--cem-palette-comfort-text-x);
+            }
+        }
+    }
+}
+
+figcaption {
+    font-weight: bolder;
+    background-color: var(--cem-palette-creativity);
+    color: var(--cem-palette-creativity-text);
+    padding: 1rem;
+}
+
+code {
+    font-family: monospace;
+    color: var(--cem-palette-creativity-text);
+    background-color: var(--cem-palette-creativity);
+    padding: 0 0.5rem;
+    font-weight: bold;
+}

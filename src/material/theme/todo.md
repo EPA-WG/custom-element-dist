@@ -1,7 +1,8 @@
 # Theme Metadata Documentation Plan for theme-data.xhtml
 
 ## Overview
-This plan outlines the tasks needed to fill out the theme metadata in `theme-data.xhtml` based on the existing implementation in `consumer-theme.css`, documentation in `README.md`, and principles in `Base-Principles.md`.
+This plan outlines the tasks needed to fill out the theme metadata in `theme-data.xhtml` based on the existing 
+implementation in `consumer-theme.css`, documentation in `README.md`, and principles in `Base-Principles.md`.
 
 ---
 
