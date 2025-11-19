@@ -307,22 +307,89 @@
 
 <figure class="with-color">
     <figcaption>Emotional Palette Variations</figcaption>
-    <p>Emotional palette tokens bridge branded colors and action states. Each emotional token has 4 variants to support automatic light/dark theme switching and text contrast requirements.</p>
-
+    <p> Emotional palette tokens create the bridge between branded colors and action states.
+        The emotional palette is defined by marketing strategy and expressed through branded colors using design rationale.
+        Should your app aims to be aggressively seductive, calmy relaxing, or office focused will affect the choice of emotional palette.
+    </p>
+    <p> Emotional palette tokens form the link between branded colors and action states,
+        so users consistently feel what the interface intends to communicate.
+    </p>
+    <fieldset>
+        <legend>Emotional to Action Intent Mapping</legend>
+        <p>Each action intent maps to a specific emotional palette:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action Intent</th>
+                    <th>Emotional Palette</th>
+                    <th>Base Color</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>explicit</code></td>
+                    <td><code>creativity</code></td>
+                    <td style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">Purple</td>
+                    <td>User explicitly/intentionally clicks or activates</td>
+                </tr>
+                <tr>
+                    <td><code>primary</code></td>
+                    <td><code>trust</code></td>
+                    <td style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">Blue</td>
+                    <td>Default, confirmatory, triggered by ENTER</td>
+                </tr>
+                <tr>
+                    <td><code>contextual</code></td>
+                    <td><code>comfort</code></td>
+                    <td style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">Cyan/White</td>
+                    <td>Integrated within specific context (toolbar/menu)</td>
+                </tr>
+                <tr>
+                    <td><code>alternate</code></td>
+                    <td><code>enthusiasm</code></td>
+                    <td style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">Orange/Yellow</td>
+                    <td>Triggering non-usual alternative flow</td>
+                </tr>
+                <tr>
+                    <td><code>destructive</code></td>
+                    <td><code>danger</code></td>
+                    <td style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">Red</td>
+                    <td>Risky, potentially harmful, requires caution</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
     <fieldset>
         <legend>Token Variant System</legend>
+        <p> Each emotional token comes in four base variants to ensure reliable text contrast and accessibility.
+            Intermediate colors are generated between these variants to represent nuances such as action state importance.
+        </p>
         <dl>
-            <dt><code>--cem-palette-{emotion}</code></dt>
-            <dd>Base emotional color that automatically switches between light and dark themes using <code>light-dark()</code> CSS function.</dd>
+            <dt><b>color per light theme</b></dt>
+            <dd>Each of four emotion variations bellow have own values in each of
+                light/dark/contrast/native theme. <br/>
+                For light and dark themes the <code>light-dark()</code> CSS function switches the same variation
+                to theme specific one.  </dd>
 
-            <dt><code>--cem-palette-{emotion}-text</code></dt>
-            <dd>Text color for use on the base emotional background. Ensures WCAG-compliant contrast (≥4.5:1 for text).</dd>
+            <dt><code>--cem-palette-{emotion}</code></dt>
+            <dd>Base emotional color. Used as background/base surface/ primary filler color.
+                 </dd>
 
             <dt><code>--cem-palette-{emotion}-x</code></dt>
-            <dd>Extreme variant (inverted) of the base emotional color. Used in <code>color-mix()</code> formulas for state progressions.</dd>
+            <dd>Extreme variant (inverted) of the base emotional color. Used by <code>color-mix()</code> formulas for state progression in
+                <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14#discussioncomment-14060329">Emotional palette gradations</a>
+            </dd>
+
+            <dt><code>--cem-palette-{emotion}-text</code></dt>
+            <dd>Ink/Text color for use on the base emotional background. Ensures WCAG-compliant contrast (≥4.5:1 for text).</dd>
 
             <dt><code>--cem-palette-{emotion}-text-x</code></dt>
-            <dd>Text color for use on the extreme variant background. Automatically inverts to maintain contrast.</dd>
+            <dd>Ink/Text color for use on the extreme variant background. The color is triggered from
+                <code>--cem-palette-{emotion}-text</code> when background become close to
+                <code>--cem-palette-{emotion}-x</code> for contrast maintaining and to emphasize the significance of deviation.
+                As in `active/pending` states of `actions`
+            </dd>
         </dl>
 
         <p><strong>Usage Pattern:</strong></p>
@@ -530,53 +597,6 @@
 --cem-palette-conservative-x    : light-dark(var(--cem-color-grey-d), var(--cem-color-grey-l));
 --cem-palette-conservative-text-x: var(--cem-palette-comfort-text-x);
         </pre>
-    </fieldset>
-
-    <fieldset>
-        <legend>Emotional to Action Intent Mapping</legend>
-        <p>Each action intent maps to a specific emotional palette:</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Action Intent</th>
-                    <th>Emotional Palette</th>
-                    <th>Base Color</th>
-                    <th>Purpose</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>explicit</code></td>
-                    <td><code>creativity</code></td>
-                    <td style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">Purple</td>
-                    <td>User explicitly/intentionally clicks or activates</td>
-                </tr>
-                <tr>
-                    <td><code>primary</code></td>
-                    <td><code>trust</code></td>
-                    <td style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">Blue</td>
-                    <td>Default, confirmatory, triggered by ENTER</td>
-                </tr>
-                <tr>
-                    <td><code>contextual</code></td>
-                    <td><code>comfort</code></td>
-                    <td style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">Cyan/White</td>
-                    <td>Integrated within specific context (toolbar/menu)</td>
-                </tr>
-                <tr>
-                    <td><code>alternate</code></td>
-                    <td><code>enthusiasm</code></td>
-                    <td style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">Orange/Yellow</td>
-                    <td>Triggering non-usual alternative flow</td>
-                </tr>
-                <tr>
-                    <td><code>destructive</code></td>
-                    <td><code>danger</code></td>
-                    <td style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">Red</td>
-                    <td>Risky, potentially harmful, requires caution</td>
-                </tr>
-            </tbody>
-        </table>
     </fieldset>
 
 </figure>
