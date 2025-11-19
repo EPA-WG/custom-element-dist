@@ -815,7 +815,13 @@
         <p><small>The triple-selector pattern ensures compatibility across different framework conventions and coding styles.</small></p>
     </fieldset>
     <fieldset>
-        <legend>Action states</legend>
+        <legend>Action States Overview</legend>
+        <p>Action states represent different conditions and user interactions. States are categorized into two visual systems:</p>
+        <ul>
+            <li><strong>Background-driven states:</strong> disabled, readonly, editable, required, default, indeterminate, hover, active, pending</li>
+            <li><strong>Outline-driven states (zebra):</strong> selected, focus, target</li>
+        </ul>
+
         <datalist id="cem-action-state">
             <option value="disabled"      tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
             <option value="readonly"      tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
@@ -829,8 +835,191 @@
             <option value="selected"      tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
             <option value="active"        tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
             <option value="pending"       tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
-
         </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>State Progression &amp; Color-Mix Formulas</legend>
+        <p>States progress from least to most emphasized through <code>color-mix()</code> formulas that blend the base emotional color with its extreme variant:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Background-Driven State Progression</strong></figcaption>
+            <pre style="font-size: 0.9em; line-height: 1.8;">
+<strong>disabled</strong>    → <strong>readonly</strong>   → <strong>editable</strong>   → <strong>default</strong> → <strong>indeterminate</strong> → <strong>hover</strong>    → <strong>active</strong>  → <strong>pending</strong>
+(30% mix)      (80% mix)     (90% mix)     (base)      (90% mix)         (60-70% mix)  (25% mix)   (5% mix)
+
+├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+  Toward conservative color      Toward extreme variant (-x)
+  (less emphasized)              (more emphasized, inverted text)</pre>
+        </figure>
+
+        <dl>
+            <dt><strong>disabled</strong> (30% mix with conservative-x)</dt>
+            <dd>
+                Most desaturated state. Mixes 30% of the intent's emotional color with 70% conservative extreme color.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 30%, var(--cem-palette-conservative-x))</code>
+                <br/>Text: Uses <code>--cem-palette-conservative-text-x</code> (grey text)
+            </dd>
+
+            <dt><strong>readonly</strong> (80% mix)</dt>
+            <dd>
+                Subtly indicates non-editable content. 80% base color, 20% extreme variant.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 80%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>editable</strong> (90% mix)</dt>
+            <dd>
+                Nearly full base color with slight intensity. 90% base color, 10% extreme variant.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 90%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>default</strong> (base, 100%)</dt>
+            <dd>
+                Pure emotional palette color without mixing. Baseline state.
+                <br/><code>var(--cem-palette-{emotion})</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>indeterminate</strong> (90% mix)</dt>
+            <dd>
+                Same formula as editable. Used for indeterminate checkboxes or undefined values.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 90%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>hover</strong> (60-70% mix)</dt>
+            <dd>
+                Noticeable darkening/intensifying on hover. Mix percentage varies by intent (explicit/alternate: 70%, others: 60%).
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 60-70%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>active</strong> (25% mix)</dt>
+            <dd>
+                Pressed/clicked state. Heavily mixed toward extreme variant, triggering text color inversion.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 25%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text-x</code> (inverted text)
+            </dd>
+
+            <dt><strong>pending</strong> (5% mix)</dt>
+            <dd>
+                Most extreme background state during async operations. Nearly fully inverted, with animated stripes.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 5%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text-x</code> (inverted text)
+                <br/>Special: Animated diagonal stripes using <code>linear-gradient</code> and <code>background-position</code> animation
+            </dd>
+        </dl>
+    </fieldset>
+
+    <fieldset>
+        <legend>Complete Token Reference (Intent × State)</legend>
+        <p>All action states generate CSS custom properties in the format:</p>
+        <ul>
+            <li><code>--cem-action-{intent}-{state}-background</code></li>
+            <li><code>--cem-action-{intent}-{state}-text</code></li>
+        </ul>
+
+        <details>
+            <summary><strong>Token Matrix: Explicit Intent</strong></summary>
+            <table style="font-size: 0.85em;">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Background Token</th>
+                        <th>Text Token</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>disabled</td><td><code>--cem-action-explicit-disabled-background</code></td><td><code>--cem-action-explicit-disabled-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>readonly</td><td><code>--cem-action-explicit-readonly-background</code></td><td><code>--cem-action-explicit-readonly-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>editable</td><td><code>--cem-action-explicit-editable-background</code></td><td><code>--cem-action-explicit-editable-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>required</td><td><code>--cem-action-explicit-required-background</code></td><td><code>--cem-action-explicit-required-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>default</td><td><code>--cem-action-explicit-default-background</code></td><td><code>--cem-action-explicit-default-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>indeterminate</td><td><code>--cem-action-explicit-indeterminate-background</code></td><td><code>--cem-action-explicit-indeterminate-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>target</td><td><code>--cem-action-explicit-target-background</code></td><td><code>--cem-action-explicit-target-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>focus</td><td><code>--cem-action-explicit-focus-background</code></td><td><code>--cem-action-explicit-focus-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>hover</td><td><code>--cem-action-explicit-hover-background</code></td><td><code>--cem-action-explicit-hover-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>selected</td><td><code>--cem-action-explicit-selected-background</code></td><td><code>--cem-action-explicit-selected-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>active</td><td><code>--cem-action-explicit-active-background</code></td><td><code>--cem-action-explicit-active-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>pending</td><td><code>--cem-action-explicit-pending-background</code></td><td><code>--cem-action-explicit-pending-text</code></td><td>✓ Defined</td></tr>
+                </tbody>
+            </table>
+        </details>
+
+        <p><small><strong>Note:</strong> The same token pattern applies to all intents: <code>primary</code>, <code>contextual</code>, <code>alternate</code>, and <code>destructive</code>. States marked "Undefined" rely on zebra outlines rather than background colors.</small></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Zebra Outline System</legend>
+        <p>Three states use <strong>zebra striped outlines</strong> instead of background color changes: <code>selected</code>, <code>focus</code>, and <code>target</code>. This approach separates selection/navigation from action state.</p>
+
+        <h4>Zebra Color Tokens</h4>
+        <dl>
+            <dt><code>--cem-zebra-color-0</code></dt>
+            <dd>Innermost stripe (base surface). Default: <code>Canvas</code></dd>
+
+            <dt><code>--cem-zebra-color-1</code></dt>
+            <dd>Second stripe (focus indicator). Changes to <code>CanvasText</code> when focused.</dd>
+
+            <dt><code>--cem-zebra-color-2</code></dt>
+            <dd>Third stripe (selection indicator). Changes to <code>SelectedItem</code> when selected (native theme).</dd>
+
+            <dt><code>--cem-zebra-color-3</code></dt>
+            <dd>Outermost stripe (target indicator). Changes to <code>SelectedItem</code> when targeted by URL hash (native theme).</dd>
+        </dl>
+
+        <h4>Zebra Implementation</h4>
+        <p>Zebra outlines are implemented using <code>box-shadow</code> with multiple layers:</p>
+        <pre>
+--cem-action-box-shadow:
+    0 0 0 2px var(--cem-zebra-color-1),  /* 2px wide stripe */
+    0 0 0 4px var(--cem-zebra-color-2),  /* 2px wide stripe (4px - 2px) */
+    0 0 0 6px var(--cem-zebra-color-3);  /* 2px wide stripe (6px - 4px) */
+        </pre>
+
+        <h4>State-Specific Zebra Behavior</h4>
+        <dl>
+            <dt><strong>Focus</strong> (<code>:focus</code>, <code>:focus-visible</code>, <code>:focus-within</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-1</code> to visible contrast color (typically <code>CanvasText</code>).
+                <br/>Creates innermost colored stripe to indicate keyboard focus.
+                <br/>Selectors: <code>&amp;[focus], &amp;:focus, &amp;:focus-visible, &amp;:focus-within, &amp;.focus</code>
+            </dd>
+
+            <dt><strong>Selected</strong> (<code>[selected]</code>, <code>.selected</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-2</code> to selection color (typically <code>SelectedItem</code> or trust palette).
+                <br/>Creates middle stripe to indicate item selection (checkboxes, radio buttons, menu items).
+                <br/>Selectors: <code>&amp;[selected], &amp;.selected</code>
+            </dd>
+
+            <dt><strong>Target</strong> (<code>:target</code>, <code>[target]</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-3</code> to target color (typically <code>SelectedItem</code> or enthusiasm palette).
+                <br/>Creates outermost stripe when element is URL hash target (e.g., <code>#element-id</code>).
+                <br/>Selectors: <code>&amp;[target], &amp;:target, &amp;.target</code>
+            </dd>
+        </dl>
+
+        <h4>Visual Example</h4>
+        <div style="display: flex; gap: 1em; flex-wrap: wrap; margin: 1em 0;">
+            <button class="action primary" style="position: relative;">Default (no zebra)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px currentColor, 0 0 0 6px Canvas;">Focus (zebra-1 active)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px var(--cem-palette-trust), 0 0 0 6px Canvas;">Selected (zebra-2 active)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px Canvas, 0 0 0 6px var(--cem-palette-enthusiasm);">Target (zebra-3 active)</button>
+        </div>
+
+        <h4>Contrast Theme Behavior</h4>
+        <p>In high-contrast themes (<code>contrast-light</code>, <code>contrast-dark</code>):</p>
+        <ul>
+            <li>Backgrounds are <strong>neutralized</strong> to base surface color</li>
+            <li>Zebra stripes become <strong>primary state indicator</strong> for ALL states</li>
+            <li>Zebra thickness increases (4 stripes instead of 3)</li>
+            <li>State color shifts to zebra stripe colors rather than backgrounds</li>
+        </ul>
     </fieldset>
 
 </figure>

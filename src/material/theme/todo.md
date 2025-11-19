@@ -38,20 +38,20 @@ implementation in `consumer-theme.css`, documentation in `README.md`, and princi
   - `--cem-palette-conservative` and variants
 
 ### 2.2 Document Light-Dark Behavior
-- [ ] Explain `light-dark()` CSS function usage
-- [ ] Document how tokens automatically switch between light and dark themes
-- [ ] Add examples of color transitions across themes
+- [x] Explain `light-dark()` CSS function usage
+- [x] Document how tokens automatically switch between light and dark themes
+- [x] Add examples of color transitions across themes
 
 ### 2.3 Map Emotional to Branded Colors
-- [ ] Create comprehensive mapping showing which branded colors are used for each emotional token
-- [ ] Document the color-mix formulas used for state variations
+- [x] Create comprehensive mapping showing which branded colors are used for each emotional token
+- [x] Document the color-mix formulas used for state variations
 
 ---
 
 ## Phase 3: Document Action Intent Token System
 
 ### 3.1 Expand Action Intent Documentation
-- [ ] Add detailed descriptions for each intent:
+- [x] Add detailed descriptions for each intent:
   - `explicit` - user explicitly/intentionally clicks or activates
   - `primary` - default, confirmatory, implicit (triggered by ENTER)
   - `contextual` - integrated within a specific context (toolbar/menu)
@@ -59,7 +59,7 @@ implementation in `consumer-theme.css`, documentation in `README.md`, and princi
   - `destructive` - risky, potentially harmful, requires caution
 
 ### 3.2 Document Intent-to-Emotion Mapping
-- [ ] Map each action intent to its emotional palette color:
+- [x] Map each action intent to its emotional palette color:
   - explicit → creativity (purple)
   - primary → trust (blue)
   - contextual → comfort (cyan/white)
@@ -72,21 +72,21 @@ implementation in `consumer-theme.css`, documentation in `README.md`, and princi
 
 ### 4.1 Add CSS Variable Tokens for All States
 For each combination of (intent × state), document:
-- [ ] Background token: `--cem-action-{intent}-{state}-background`
-- [ ] Text token: `--cem-action-{intent}-{state}-text`
-- [ ] Which tokens have values vs. which are intentionally undefined
+- [x] Background token: `--cem-action-{intent}-{state}-background`
+- [x] Text token: `--cem-action-{intent}-{state}-text`
+- [x] Which tokens have values vs. which are intentionally undefined
 
 ### 4.2 Document State Sequences
-- [ ] Create visual/textual representation of state progression:
+- [x] Create visual/textual representation of state progression:
   ```
   disabled → readonly → editable → default → indeterminate → hover → active → pending
-  (30% mix)  (80% mix)  (90% mix)  (base)    (90% mix)        (70% mix) (25% mix) (5% mix)
+  (30% mix)  (80% mix)  (90% mix)  (base)    (90% mix)        (60-70% mix) (25% mix) (5% mix)
   ```
 
 ### 4.3 Document Zebra Outline States
-- [ ] Explain which states use zebra outlines (selected, focused, target)
-- [ ] Document zebra color tokens (`--cem-zebra-color-0`, `--cem-zebra-color-1`, etc.)
-- [ ] Add examples of zebra outline patterns
+- [x] Explain which states use zebra outlines (selected, focused, target)
+- [x] Document zebra color tokens (`--cem-zebra-color-0`, `--cem-zebra-color-1`, etc.)
+- [x] Add examples of zebra outline patterns
 
 ---
 
