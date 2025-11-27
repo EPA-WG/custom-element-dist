@@ -1843,5 +1843,639 @@ active:   25% blue-d + 75% blue-l
 
 </figure>
 
+<figure>
+    <figcaption>Dimensional Tokens</figcaption>
+    <p>Dimensional tokens control the physical appearance and depth of UI elements through border radius, shadows, and font weight. These tokens work consistently across all themes while adapting to specific theme requirements.</p>
+
+    <fieldset>
+        <legend>Bend/Border-Radius Tokens</legend>
+        <p><strong>Purpose:</strong> The bend token system provides consistent corner styling across all action elements and containers. The term "bend" reflects the visual metaphor of bending a flat surface to create rounded corners.</p>
+
+        <h4>Bend Token Values</h4>
+        <p>Three predefined bend styles are available, each serving different design needs:</p>
+
+        <dl>
+            <dt><code>--cem-bend-smooth</code> — <strong>0.5rem</strong></dt>
+            <dd>
+                Gentle rounded corners that soften the appearance without being overly rounded. This is the default bend style.
+                <br/><strong>Use cases:</strong> Standard buttons, input fields, cards, panels
+                <br/><strong>Visual effect:</strong> Professional, modern, approachable
+                <div style="background: var(--cem-palette-trust); color: var(--cem-palette-trust-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 0.5rem;">
+                    Button with smooth corners
+                </div>
+            </dd>
+
+            <dt><code>--cem-bend-round</code> — <strong>50cqh</strong> (50% container query height)</dt>
+            <dd>
+                Fully rounded/pill-shaped corners. The <code>cqh</code> unit ensures the element becomes a perfect pill regardless of dimensions.
+                <br/><strong>Use cases:</strong> Toggle buttons, chips, tags, floating action buttons
+                <br/><strong>Visual effect:</strong> Playful, friendly, highly interactive
+                <br/><strong>Note:</strong> Falls back to <code>50%</code> in browsers without container query support
+                <div style="background: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 50cqh;">
+                    Pill-shaped button
+                </div>
+            </dd>
+
+            <dt><code>--cem-bend-sharp</code> — <strong>0</strong></dt>
+            <dd>
+                No rounding, sharp 90-degree corners. Minimalist and geometric.
+                <br/><strong>Use cases:</strong> Technical interfaces, data tables, terminal-style UIs, strict grid layouts
+                <br/><strong>Visual effect:</strong> Precise, technical, no-nonsense
+                <div style="background: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 0;">
+                    Sharp-cornered button
+                </div>
+            </dd>
+        </dl>
+
+        <h4>Usage Pattern</h4>
+        <p>The <code>--cem-bend</code> token serves as the active bend value, defaulting to <code>--cem-bend-smooth</code>:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Default bend */
+:root {
+    --cem-bend-smooth: 0.5rem;
+    --cem-bend-round: 50cqh;
+    --cem-bend-sharp: 0;
+
+    --cem-bend: var(--cem-bend-smooth);  /* Default */
+}
+
+/* Apply to action elements */
+.action {
+    --cem-action-border-radius: var(--cem-bend);
+    border-radius: var(--cem-action-border-radius);
+}
+        </pre>
+
+        <h4>Changing Bend Style</h4>
+        <p>Override the bend style at any scope using CSS classes or custom properties:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Via utility classes */
+&lt;button class="action primary cem-bend-round"&gt;Pill Button&lt;/button&gt;
+&lt;button class="action primary cem-bend-sharp"&gt;Sharp Button&lt;/button&gt;
+
+/* Via CSS override */
+.my-component {
+    --cem-bend: var(--cem-bend-round);
+}
+
+/* Per element */
+button.special {
+    --cem-action-border-radius: 1rem;  /* Custom radius */
+}
+        </pre>
+
+        <h4>Bend Classes</h4>
+        <p>Pre-defined utility classes for easy application:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Sets <code>--cem-bend</code> to</th>
+                    <th>Visual Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>.cem-bend-smooth</code></td>
+                    <td><code>var(--cem-bend-smooth)</code> (0.5rem)</td>
+                    <td>Gentle rounded corners</td>
+                </tr>
+                <tr>
+                    <td><code>.cem-bend-round</code></td>
+                    <td><code>var(--cem-bend-round)</code> (50cqh)</td>
+                    <td>Fully rounded/pill shape</td>
+                </tr>
+                <tr>
+                    <td><code>.cem-bend-sharp</code></td>
+                    <td><code>var(--cem-bend-sharp)</code> (0)</td>
+                    <td>Sharp 90° corners</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Visual Examples</h4>
+        <div style="display: flex; gap: 1em; flex-wrap: wrap; margin: 1em 0;">
+            <button class="action primary" style="border-radius: 0.5rem; padding: 0.75em 1.5em;">
+                Smooth (0.5rem)
+            </button>
+            <button class="action explicit" style="border-radius: 50cqh; padding: 0.75em 1.5em;">
+                Round (50cqh)
+            </button>
+            <button class="action alternate" style="border-radius: 0; padding: 0.75em 1.5em;">
+                Sharp (0)
+            </button>
+        </div>
+
+        <h4>Container Query Units</h4>
+        <p>The <code>50cqh</code> value for <code>--cem-bend-round</code> uses container query height units, making pill shapes automatically adapt:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Small button: 2em tall */
+&lt;button style="height: 2em; border-radius: 50cqh;"&gt;
+    /* border-radius computes to 1em (50% of 2em) */
+&lt;/button&gt;
+
+/* Large button: 4em tall */
+&lt;button style="height: 4em; border-radius: 50cqh;"&gt;
+    /* border-radius computes to 2em (50% of 4em) */
+&lt;/button&gt;
+        </pre>
+
+        <p><strong>Browser compatibility:</strong> Container query units are supported in Chrome 105+, Firefox 110+, Safari 16+. For older browsers, provide a fallback:</p>
+
+        <pre style="font-size: 0.85em;">
+.action.round {
+    border-radius: 50%;  /* Fallback */
+    border-radius: 50cqh;  /* Modern browsers */
+}
+        </pre>
+
+        <h4>Design Principles</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same bend style throughout related components</li>
+            <li><strong>Hierarchy:</strong> More important actions can use rounder corners to appear more friendly/inviting</li>
+            <li><strong>Context:</strong> Match bend style to brand personality (playful vs. serious)</li>
+            <li><strong>Accessibility:</strong> Corner radius doesn't affect accessibility, but maintain sufficient padding</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Box Shadow Tokens</legend>
+        <p><strong>Purpose:</strong> Box shadow tokens create depth and elevation for interactive elements. Shadows provide visual feedback for different states, making interactions more intuitive and responsive.</p>
+
+        <h4>Shadow Token System</h4>
+        <p>Four state-specific shadow tokens control the appearance of actions across different interaction states:</p>
+
+        <dl>
+            <dt><code>--cem-action-box-shadow</code> (default)</dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Base shadow for resting state. Provides subtle elevation without being distracting.
+                <br/><strong>Visual effect:</strong> Slight lift from the surface, approximately 2dp elevation (Material Design)
+                <br/><strong>Layers:</strong> Three-layer shadow (ambient, penumbra, umbra) for realistic depth perception
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-hover</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Elevated shadow on hover. Increases perceived elevation to signal interactivity.
+                <br/><strong>Visual effect:</strong> Medium lift, approximately 4dp elevation
+                <br/><strong>Transition:</strong> Smoothly animates from default shadow, creating a "raising" effect
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-active</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 1px 1px -1px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Reduced shadow when pressed/clicked. Simulates button being pushed into the surface.
+                <br/><strong>Visual effect:</strong> Minimal lift, approximately 1dp elevation
+                <br/><strong>Feedback:</strong> Provides tactile-like visual feedback for press actions
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-pending</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)</code> (same as default)
+                <br/><strong>Purpose:</strong> Shadow during async operations. Maintains same elevation as default while background animates.
+                <br/><strong>Visual effect:</strong> Consistent elevation during loading, focus on background animation
+            </dd>
+        </dl>
+
+        <h4>Shadow Progression</h4>
+        <p>Shadows progress through three elevation levels as users interact:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Shadow State Progression</strong></figcaption>
+            <pre style="font-size: 0.85em; line-height: 1.8;">
+<strong>default</strong>   →   <strong>hover</strong>    →   <strong>active</strong>   →   <strong>pending</strong>
+ (2dp)          (4dp)         (1dp)          (2dp)
+
+  ▭            ▭            ▬            ▭
+ subtle      elevated     pressed      loading
+ lift        lift         down         (same as default)
+            </pre>
+        </figure>
+
+        <h4>CSS Implementation</h4>
+        <p>Shadows are applied automatically based on element state:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Base shadow token */
+.action {
+    box-shadow: var(--cem-action-box-shadow);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+/* State-specific shadows */
+.action:hover,
+.action.hover,
+.action[hover] {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-hover);
+}
+
+.action:active,
+.action.active,
+.action[active] {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-active);
+}
+
+.action[pending],
+.action.pending {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-pending);
+}
+        </pre>
+
+        <h4>Visual Comparison</h4>
+        <div style="display: flex; gap: 2em; flex-wrap: wrap; margin: 1em 0; padding: 2em; background: var(--cem-palette-comfort);">
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);">
+                    Default
+                </button>
+                <br/><small>2dp elevation</small>
+            </div>
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12);">
+                    Hover
+                </button>
+                <br/><small>4dp elevation</small>
+            </div>
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12);">
+                    Active
+                </button>
+                <br/><small>1dp elevation</small>
+            </div>
+        </div>
+
+        <h4>Contrast Theme Shadow Overrides (Zebra-Based)</h4>
+        <p>In high-contrast themes (<code>contrast-light</code>, <code>contrast-dark</code>), shadows are replaced with zebra outlines for maximum visibility:</p>
+
+        <pre style="font-size: 0.85em;">
+[data-theme*="contrast"] {
+    /* Replace traditional shadows with zebra outlines */
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),   /* Intent color stripe */
+        0 0 0 6px var(--cem-zebra-color-1),   /* Focus stripe */
+        0 0 0 9px var(--cem-zebra-color-2),   /* Selected stripe */
+        0 0 0 12px var(--cem-zebra-color-3);  /* Target stripe */
+
+    /* State changes affect zebra colors, not shadow depth */
+    .action:hover {
+        /* Zebra-color-0 intensifies, no shadow depth change */
+        --cem-zebra-color-0: color-mix(
+            in srgb,
+            var(--cem-zebra-color-0) 60%,
+            var(--cem-palette-comfort-text) 40%
+        );
+    }
+}
+        </pre>
+
+        <p><strong>Why zebra instead of shadows in contrast themes?</strong></p>
+        <ul>
+            <li><strong>Visibility:</strong> Shadows can be difficult to perceive in high-contrast environments</li>
+            <li><strong>Consistency:</strong> Zebra outlines maintain the same visual weight regardless of lighting</li>
+            <li><strong>Accessibility:</strong> High-contrast outlines are more reliable for users with low vision</li>
+            <li><strong>Forced colors:</strong> Browser high-contrast modes may override shadows, but outlines remain visible</li>
+        </ul>
+
+        <h4>Material Design Elevation Mapping</h4>
+        <p>Shadow tokens correspond to Material Design elevation levels:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Elevation (dp)</th>
+                    <th>Material Design Usage</th>
+                    <th>Component Examples</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>default</code></td>
+                    <td>2dp</td>
+                    <td>Resting elevation for raised buttons</td>
+                    <td>Button, Card (resting)</td>
+                </tr>
+                <tr>
+                    <td><code>hover</code></td>
+                    <td>4dp</td>
+                    <td>Raised elevation on hover</td>
+                    <td>Button (hover), FAB (resting)</td>
+                </tr>
+                <tr>
+                    <td><code>active</code></td>
+                    <td>1dp</td>
+                    <td>Pressed state (lower than resting)</td>
+                    <td>Button (pressed)</td>
+                </tr>
+                <tr>
+                    <td><code>pending</code></td>
+                    <td>2dp</td>
+                    <td>Maintains resting elevation during async</td>
+                    <td>Button (loading)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Customizing Shadows</h4>
+        <p>Override shadows at any scope for custom elevation or theme-specific effects:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Lighter shadows for dark theme */
+[data-theme="dark"] {
+    --cem-action-box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    --cem-action-box-shadow-hover: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+/* No shadows for flat design */
+.flat-design {
+    --cem-action-box-shadow: none;
+    --cem-action-box-shadow-hover: none;
+    --cem-action-box-shadow-active: none;
+}
+
+/* Custom elevation for specific component */
+.floating-action-button {
+    --cem-action-box-shadow: 0px 6px 10px -3px rgba(0, 0, 0, .2),
+                              0px 4px 4px 0px rgba(0, 0, 0, .14),
+                              0px 4px 8px 0px rgba(0, 0, 0, .12);  /* 6dp */
+}
+        </pre>
+
+        <h4>Shadow Anatomy (Three-Layer System)</h4>
+        <p>Each shadow is composed of three layers for realistic depth:</p>
+
+        <dl>
+            <dt><strong>Layer 1: Ambient Shadow</strong> (largest, softest)</dt>
+            <dd>Example: <code>0px 1px 3px 0px rgba(0, 0, 0, .12)</code>
+                <br/>Simulates scattered light, creating overall depth perception</dd>
+
+            <dt><strong>Layer 2: Penumbra Shadow</strong> (medium size, medium softness)</dt>
+            <dd>Example: <code>0px 1px 1px 0px rgba(0, 0, 0, .14)</code>
+                <br/>Transition zone between light and dark, adds realism</dd>
+
+            <dt><strong>Layer 3: Umbra Shadow</strong> (smallest, sharpest)</dt>
+            <dd>Example: <code>0px 2px 1px -1px rgba(0, 0, 0, .2)</code>
+                <br/>Darkest part of shadow directly under element, creates sharp definition</dd>
+        </dl>
+
+        <h4>Animation and Transitions</h4>
+        <p>Shadows should transition smoothly between states:</p>
+
+        <pre style="font-size: 0.85em;">
+.action {
+    box-shadow: var(--cem-action-box-shadow);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Faster transition on press for immediate feedback */
+.action:active {
+    transition-duration: 100ms;
+}
+        </pre>
+
+        <h4>Performance Considerations</h4>
+        <ul>
+            <li><strong>Use <code>box-shadow</code>, not <code>filter: drop-shadow()</code></strong> for better performance</li>
+            <li><strong>Limit shadow layers:</strong> Three layers provide good realism without performance cost</li>
+            <li><strong>Avoid excessive blur radius:</strong> Keep blur values under 10px for most cases</li>
+            <li><strong>Hardware acceleration:</strong> Shadows are GPU-accelerated on modern browsers</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Thickness/Font-Weight Mapping</legend>
+        <p><strong>Purpose:</strong> The thickness token system provides a semantic way to specify font weights, maintaining consistency with the 7-token design principle. These tokens map directly to CSS <code>font-weight</code> values.</p>
+
+        <h4>Seven Thickness Levels</h4>
+        <p>Based on the <a href="https://creativebeacon.com/typography-guide-part-2-weight-and-width/" target="_blank">Typography Guide</a>, seven standardized font weights provide sufficient variation for all UI needs:</p>
+
+        <table style="font-size: 0.9em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Alternative Names</th>
+                    <th>CSS Value</th>
+                    <th>Sample</th>
+                    <th>Common Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>xx-light</code></td>
+                    <td>Thin, Hairline</td>
+                    <td><code>100</code></td>
+                    <td style="font-weight: 100;">The quick brown fox</td>
+                    <td>Large headings, decorative text</td>
+                </tr>
+                <tr>
+                    <td><code>x-light</code></td>
+                    <td>Extra Light, Ultra Light</td>
+                    <td><code>200</code></td>
+                    <td style="font-weight: 200;">The quick brown fox</td>
+                    <td>Secondary headings, captions</td>
+                </tr>
+                <tr>
+                    <td><code>light</code></td>
+                    <td>Light</td>
+                    <td><code>300</code></td>
+                    <td style="font-weight: 300;">The quick brown fox</td>
+                    <td>Body text in light themes, metadata</td>
+                </tr>
+                <tr>
+                    <td><code>normal</code></td>
+                    <td>Regular, Roman, Book</td>
+                    <td><code>400</code></td>
+                    <td style="font-weight: 400;">The quick brown fox</td>
+                    <td>Default body text, paragraphs</td>
+                </tr>
+                <tr>
+                    <td><code>bold</code></td>
+                    <td>Medium, Semi-Bold</td>
+                    <td><code>700</code></td>
+                    <td style="font-weight: 700;">The quick brown fox</td>
+                    <td>Emphasis, buttons, headings, labels</td>
+                </tr>
+                <tr>
+                    <td><code>x-bold</code></td>
+                    <td>Extra Bold</td>
+                    <td><code>800</code></td>
+                    <td style="font-weight: 800;">The quick brown fox</td>
+                    <td>Strong emphasis, primary headings</td>
+                </tr>
+                <tr>
+                    <td><code>xx-bold</code></td>
+                    <td>Ultra Bold, Black, Heavy</td>
+                    <td><code>900</code></td>
+                    <td style="font-weight: 900;">The quick brown fox</td>
+                    <td>Maximum impact, hero headings</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Design Rationale: Why 7 Levels?</h4>
+        <p>The 7-token system aligns with human perception and cognitive limits:</p>
+        <ul>
+            <li><strong>Pattern Recognition:</strong> <a href="https://blog.firsov.net/2025/04/7-ux-design-tokens.html" target="_blank">7 design tokens</a> match human short-term memory capacity</li>
+            <li><strong>Visual Distinction:</strong> Each level is perceptually different enough to be meaningful</li>
+            <li><strong>Common Fonts:</strong> Most font families provide 7-9 weights, aligning with this system</li>
+            <li><strong>Sufficient Range:</strong> From hairline (100) to black (900) covers all practical needs</li>
+        </ul>
+
+        <h4>Token Naming Convention</h4>
+        <p>Token names follow a symmetric pattern around <code>normal</code> (400):</p>
+
+        <pre style="font-size: 0.85em;">
+Lighter ←                → Heavier
+
+xx-light   x-light   light   normal   bold   x-bold   xx-bold
+  (100)     (200)    (300)    (400)   (700)   (800)    (900)
+
+   ↓         ↓         ↓        ↓       ↓       ↓        ↓
+ Thinnest                    Default             Thickest
+        </pre>
+
+        <p><strong>Note:</strong> CSS provides values 100-900 in 100-unit increments, but the 7-token system skips 500 and 600 as they offer minimal perceptual difference from 400 and 700 respectively.</p>
+
+        <h4>Usage in Theme System</h4>
+        <p>While the theme system doesn't currently expose thickness tokens as CSS custom properties, the values guide font-weight choices throughout the components:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Example usage in components */
+.cem-heading-1 {
+    font-weight: 100;  /* xx-light for large display text */
+}
+
+.cem-heading-2 {
+    font-weight: 300;  /* light for secondary headings */
+}
+
+body {
+    font-weight: 400;  /* normal for body text */
+}
+
+.action {
+    font-weight: 700;  /* bold for buttons */
+}
+
+strong, b {
+    font-weight: 700;  /* bold for emphasis */
+}
+
+.cem-menu-item.selected {
+    font-weight: 700;  /* bold for selected menu items */
+}
+        </pre>
+
+        <h4>Font Weight and Accessibility</h4>
+        <p>Font weight impacts readability and should be chosen carefully:</p>
+
+        <dl>
+            <dt><strong>Body Text</strong></dt>
+            <dd>
+                Use <code>normal</code> (400) or <code>light</code> (300) for optimal readability
+                <br/>Avoid weights below 300 for body text, especially at small sizes
+                <br/>In dark themes, consider <code>light</code> (300) to compensate for light-on-dark contrast
+            </dd>
+
+            <dt><strong>Headings</strong></dt>
+            <dd>
+                Larger headings (H1, H2) can use lighter weights (100-300) effectively
+                <br/>Smaller headings (H3-H6) should use <code>bold</code> (700) for distinction
+            </dd>
+
+            <dt><strong>Interactive Elements</strong></dt>
+            <dd>
+                Buttons and links benefit from <code>bold</code> (700) for clear affordance
+                <br/>Selected/active states should increase weight for visual feedback
+            </dd>
+
+            <dt><strong>Small Text</strong></dt>
+            <dd>
+                Text below 14px should avoid weights lighter than <code>normal</code> (400)
+                <br/>Thin fonts at small sizes can cause readability issues, especially for low-vision users
+            </dd>
+        </dl>
+
+        <h4>Font Weight Progression</h4>
+        <p>Use weight changes to create visual hierarchy:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Example: Heading Hierarchy</strong></figcaption>
+            <div style="padding: 1em; background: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                <h1 style="font-weight: 100; font-size: 3em; margin: 0.5em 0;">Hero Title (100)</h1>
+                <h2 style="font-weight: 300; font-size: 2em; margin: 0.5em 0;">Section Heading (300)</h2>
+                <h3 style="font-weight: 700; font-size: 1.5em; margin: 0.5em 0;">Subsection (700)</h3>
+                <p style="font-weight: 400; font-size: 1em; margin: 0.5em 0;">Body paragraph text uses normal weight (400) for optimal readability.</p>
+                <p style="font-weight: 700; font-size: 1em; margin: 0.5em 0;"><strong>Emphasized text</strong> uses bold weight (700) to stand out.</p>
+            </div>
+        </figure>
+
+        <h4>Variable Fonts</h4>
+        <p>Modern <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target="_blank">variable fonts</a> support continuous weight adjustment (100-900), but the 7-token system still provides meaningful checkpoints:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Variable font with custom weights */
+@font-face {
+    font-family: 'MyVariableFont';
+    src: url('font.woff2') format('woff2-variations');
+    font-weight: 100 900;  /* Supports full range */
+}
+
+/* Still use the 7 semantic tokens for consistency */
+h1 { font-weight: 100; }  /* xx-light */
+h2 { font-weight: 300; }  /* light */
+p  { font-weight: 400; }  /* normal */
+strong { font-weight: 700; }  /* bold */
+        </pre>
+
+        <h4>Font Weight in Themes</h4>
+        <p>Font weight may need adjustment across different themes:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Light theme: normal weight sufficient */
+[data-theme="light"] body {
+    font-weight: 400;
+}
+
+/* Dark theme: slightly lighter weight to compensate for contrast */
+[data-theme="dark"] body {
+    font-weight: 300;  /* or keep 400, font-dependent */
+}
+
+/* High contrast: use bolder weights for maximum clarity */
+[data-theme*="contrast"] {
+    body {
+        font-weight: 400;  /* Ensure normal weight minimum */
+    }
+    strong, .emphasis {
+        font-weight: 800;  /* Extra bold for clear distinction */
+    }
+}
+        </pre>
+
+        <h4>Cross-Platform Considerations</h4>
+        <ul>
+            <li><strong>macOS:</strong> System fonts render weights smoothly; thin weights (100-200) work well</li>
+            <li><strong>Windows:</strong> ClearType rendering can make thin weights harder to read; consider 300+ minimum</li>
+            <li><strong>Mobile:</strong> Smaller screens may benefit from slightly bolder default weights</li>
+            <li><strong>Web fonts:</strong> Ensure font files for all 7 weights are loaded to prevent faux-bold rendering</li>
+        </ul>
+
+        <h4>Best Practices</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same weight for similar content types (all buttons bold, all body text normal)</li>
+            <li><strong>Hierarchy:</strong> Create clear distinction between heading levels through weight variation</li>
+            <li><strong>Readability:</strong> Never sacrifice legibility for aesthetic—test with actual users</li>
+            <li><strong>Performance:</strong> Limit font weight variants to 3-4 per page to reduce font file overhead</li>
+            <li><strong>Fallbacks:</strong> Always specify a weight-agnostic fallback font family</li>
+        </ul>
+    </fieldset>
+
+</figure>
+
 </body>
 </html>

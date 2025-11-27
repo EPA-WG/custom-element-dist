@@ -114,22 +114,22 @@ For each combination of (intent × state), document:
 ## Phase 6: Document Dimensional Tokens
 
 ### 6.1 Bend/Border-Radius Tokens
-- [ ] Document `--cem-bend` token system:
+- [x] Document `--cem-bend` token system:
   - `--cem-bend-smooth` (0.5rem)
   - `--cem-bend-round` (50cqh)
   - `--cem-bend-sharp` (0)
-- [ ] Add examples showing different corner styles
+- [x] Add examples showing different corner styles
 
 ### 6.2 Box Shadow Tokens
-- [ ] Document shadow tokens for each state:
+- [x] Document shadow tokens for each state:
   - `--cem-action-box-shadow` (default)
   - `--cem-action-box-shadow-hover`
   - `--cem-action-box-shadow-active`
   - `--cem-action-box-shadow-pending`
-- [ ] Explain contrast theme shadow overrides (zebra-based)
+- [x] Explain contrast theme shadow overrides (zebra-based)
 
 ### 6.3 Thickness/Font-Weight Mapping
-- [ ] Document 7 thickness levels from README.md:
+- [x] Document 7 thickness levels from README.md:
   - xx-light (100), x-light (200), light (300), normal (400), bold (700), x-bold (800), xx-bold (900)
 
 ---
