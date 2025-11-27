@@ -263,7 +263,7 @@
 </figure>
 
 <figure class="with-color">
-    <figcaption>Emotional Palette Variations</figcaption>
+    <figcaption>Emotional Palette</figcaption>
     <p> Emotional palette tokens create the bridge between branded colors and action states.
         The emotional palette is defined by marketing strategy and expressed through branded colors using design rationale.
         Should your app aims to be aggressively seductive, calmy relaxing, or office focused will affect the choice of emotional palette.
@@ -318,7 +318,7 @@
         </table>
     </fieldset>
     <fieldset>
-        <legend>Token Variant System</legend>
+        <legend>Emotional Token Variants</legend>
         <p> Each emotional token comes in four base variants to ensure reliable text contrast and accessibility.
             Intermediate colors are generated between these variants to represent nuances such as action state importance.
         </p>
@@ -576,6 +576,15 @@
         <legend>Action Intent Categories</legend>
         <p>Action intents categorize user interactions by their purpose and consequence, guiding both visual design and user expectations. Each intent maps to a specific emotional palette to create consistent psychological associations.</p>
 
+        <datalist id="cem-action-intent">
+            <option value="explicit"    base-color="white"  > user explicitly/intentionally clicks or activates    </option>
+            <option value="primary"     base-color="black"  > default, confirmatory, implicit. Triggered by ENTER  </option>
+            <option value="contextual"  base-color="blue"   > integrated within a specific context, Toolbar/menu   </option>
+            <option value="alternate"   base-color="yellow" > triggering not usual alternative flow                </option>
+            <option value="destructive" base-color="red"    > risky, potentially harmful, requires caution         </option>
+        </datalist>
+        <hr/>
+
         <details>
             <summary><strong>Explicit Intent</strong> — <code>.explicit</code>, <code>[flow="explicit"]</code>, <code>[explicit]</code></summary>
             <dl>
@@ -732,17 +741,10 @@
             </dl>
         </details>
 
-        <datalist id="cem-action-intent">
-            <option value="explicit"    base-color="white"  > user explicitly/intentionally clicks or activates    </option>
-            <option value="primary"     base-color="black"  > default, confirmatory, implicit. Triggered by ENTER  </option>
-            <option value="contextual"  base-color="blue"   > integrated within a specific context, Toolbar/menu   </option>
-            <option value="alternate"   base-color="yellow" > triggering not usual alternative flow                </option>
-            <option value="destructive" base-color="red"    > risky, potentially harmful, requires caution         </option>
-        </datalist>
     </fieldset>
 
     <fieldset>
-        <legend>Intent-to-Emotion-to-Color Mapping</legend>
+        <legend>Intent ➢ Emotion ➢ Color Mapping</legend>
         <p>This table shows the complete chain from action intent through emotional palette to branded colors:</p>
         <table>
             <thead>
@@ -797,7 +799,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Selector Patterns</legend>
+        <legend>CSS Selector Patterns</legend>
         <p>Each intent can be applied using multiple selector patterns for maximum compatibility:</p>
         <pre>
 /* Class selector */
@@ -812,11 +814,12 @@
 .action[explicit] { }
 .action[primary] { }
         </pre>
-        <p><small>The triple-selector pattern ensures compatibility across different framework conventions and coding styles.</small></p>
+        <p><small>The triple-selector pattern ensures compatibility across different framework conventions and coding styles.
+            On application level it is sufficient to choose only one. </small></p>
     </fieldset>
     <fieldset>
         <legend>Action States Overview</legend>
-        <p>Action states represent different conditions and user interactions. States are categorized into two visual systems:</p>
+        <p>Action states represent different conditions and user interactions. States can be reflected by two visual aspects:</p>
         <ul>
             <li><strong>Background-driven states:</strong> disabled, readonly, editable, required, default, indeterminate, hover, active, pending</li>
             <li><strong>Outline-driven states (zebra):</strong> selected, focus, target</li>
@@ -843,7 +846,8 @@
         <p>States progress from least to most emphasized through <code>color-mix()</code> formulas that blend the base emotional color with its extreme variant:</p>
 
         <figure style="margin: 1em 0;">
-            <figcaption><strong>Background-Driven State Progression</strong></figcaption>
+            <figcaption><strong>Background-Driven State Progression</strong>
+                ( <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14#discussioncomment-14060329">discussion + diagram</a> ) </figcaption>
             <pre style="font-size: 0.9em; line-height: 1.8;">
 <strong>disabled</strong>    → <strong>readonly</strong>   → <strong>editable</strong>   → <strong>default</strong> → <strong>indeterminate</strong> → <strong>hover</strong>    → <strong>active</strong>  → <strong>pending</strong>
 (30% mix)      (80% mix)     (90% mix)     (base)      (90% mix)         (60-70% mix)  (25% mix)   (5% mix)
@@ -1020,6 +1024,813 @@
             <li>Zebra thickness increases (4 stripes instead of 3)</li>
             <li>State color shifts to zebra stripe colors rather than backgrounds</li>
         </ul>
+    </fieldset>
+
+</figure>
+
+<figure>
+    <figcaption>Theme Variants</figcaption>
+    <p>The theme system supports multiple visual themes that adapt to different user preferences, accessibility needs, and system settings. Each theme maintains consistent token structure while adjusting color values and visual emphasis techniques.</p>
+
+    <fieldset>
+        <legend>Native Theme</legend>
+        <p><strong>Purpose:</strong> The Native theme honors operating system and browser color preferences, using system-provided colors to ensure seamless integration with the user's environment. This theme automatically respects OS-level settings like dark mode, high contrast, and forced colors.</p>
+
+        <h4>System Color Mappings</h4>
+        <p>The Native theme maps emotional palette tokens to
+            <a href="./colors-native.html" >CSS system colors</a>, allowing the interface to adapt automatically
+            to user preferences in OS/browser settings:</p>
+
+        <table style="font-size: 0.9em;">
+            <thead>
+                <tr>
+                    <th>Emotional Token</th>
+                    <th>System Color (Background)</th>
+                    <th>System Color (Text)</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>comfort</code></td>
+                    <td><code>Canvas</code></td>
+                    <td><code>CanvasText</code></td>
+                    <td>Main reading surface and body text</td>
+                </tr>
+                <tr>
+                    <td><code>calm</code></td>
+                    <td><code>CanvasText</code></td>
+                    <td><code>Canvas</code></td>
+                    <td>Inverted surface (dark elements on light themes)</td>
+                </tr>
+                <tr>
+                    <td><code>trust</code></td>
+                    <td><code>Highlight</code></td>
+                    <td><code>HighlightText</code></td>
+                    <td>Primary action buttons, selected text background</td>
+                </tr>
+                <tr>
+                    <td><code>creativity</code></td>
+                    <td><code>ButtonFace</code></td>
+                    <td><code>ButtonText</code></td>
+                    <td>Standard button backgrounds</td>
+                </tr>
+                <tr>
+                    <td><code>enthusiasm</code></td>
+                    <td><code>Mark</code></td>
+                    <td><code>MarkText</code></td>
+                    <td>Marked/highlighted content (HTML <code>&lt;mark&gt;</code>)</td>
+                </tr>
+                <tr>
+                    <td><code>conservative</code></td>
+                    <td><code>GrayText</code></td>
+                    <td><code>Canvas</code></td>
+                    <td>Disabled states, secondary text</td>
+                </tr>
+                <tr>
+                    <td><code>danger</code></td>
+                    <td>N/A (uses red)</td>
+                    <td><code>CanvasText</code></td>
+                    <td>Errors, destructive actions (no system equivalent)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Zebra Outline System Colors</h4>
+        <p>The zebra outline system for focus, selected, and target states also uses system colors:</p>
+        <dl>
+            <dt><strong>Focused</strong> — <code>--cem-zebra-color-1</code></dt>
+            <dd>
+                <strong>Focused:</strong> <code>CanvasText</code> (visible focus indicator)
+                <br/><strong>Unfocused:</strong> <code>Canvas</code> (invisible, blends with background)
+            </dd>
+
+            <dt><strong>Selected</strong> — <code>--cem-zebra-color-2</code></dt>
+            <dd>
+                <strong>Selected:</strong> <code>SelectedItem</code> (system selection color)
+                <br/><strong>Unselected:</strong> <code>Canvas</code> (invisible)
+            </dd>
+
+            <dt><strong>Target</strong> — <code>--cem-zebra-color-3</code></dt>
+            <dd>
+                <strong>Targeted:</strong> <code>SelectedItem</code> (marks URL hash target)
+                <br/><strong>Not targeted:</strong> <code>Canvas</code> (invisible)
+            </dd>
+        </dl>
+
+        <h4>Fallback Behavior</h4>
+        <p>When system colors are unavailable or not supported by the browser, the Native theme falls back to branded color tokens:</p>
+        <pre style="font-size: 0.85em;">
+/* System color with fallback */
+--cem-palette-comfort: Canvas;
+/* If Canvas unavailable, fallback chain: */
+--cem-palette-comfort: var(--cem-surface, var(--cem-color-cyan-xl));
+
+/* Selection color fallback */
+--cem-zebra-color-2: SelectedItem;
+/* If SelectedItem unavailable: */
+--cem-zebra-color-2: var(--cem-accent-600, var(--cem-palette-trust));
+        </pre>
+
+        <table style="font-size: 0.85em; margin-top: 1em;">
+            <thead>
+                <tr>
+                    <th>System Color</th>
+                    <th>Fallback Token</th>
+                    <th>Final Fallback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>Canvas</code></td><td><code>--cem-surface</code></td><td><code>--cem-color-cyan-xl</code> (light) / <code>--cem-color-cyan-xd</code> (dark)</td></tr>
+                <tr><td><code>CanvasText</code></td><td><code>--cem-ink-strong</code></td><td><code>--cem-color-cyan-xd</code> (light) / <code>--cem-color-cyan-xl</code> (dark)</td></tr>
+                <tr><td><code>SelectedItem</code></td><td><code>--cem-accent-600</code></td><td><code>--cem-palette-trust</code></td></tr>
+                <tr><td><code>SelectedItemText</code></td><td><code>--cem-ink-on-accent</code></td><td><code>--cem-palette-trust-text</code></td></tr>
+                <tr><td><code>Highlight</code></td><td><code>--cem-palette-trust</code></td><td><code>--cem-color-blue-l</code> (light) / <code>--cem-color-blue-d</code> (dark)</td></tr>
+                <tr><td><code>HighlightText</code></td><td><code>--cem-palette-trust-text</code></td><td><code>white</code> / <code>--cem-color-blue-xl</code></td></tr>
+                <tr><td><code>GrayText</code></td><td><code>--cem-palette-conservative</code></td><td><code>--cem-color-grey-l</code> (light) / <code>--cem-color-grey-d</code> (dark)</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Forced-Colors Mode Support</h4>
+        <p>The Native theme provides full support for Windows High Contrast Mode and other forced-colors environments through the <code>@media (forced-colors: active)</code> media query:</p>
+        <pre style="font-size: 0.85em;">
+@media (forced-colors: active) {
+    /* All custom colors are overridden by system colors */
+    /* Backgrounds become Canvas or ButtonFace */
+    /* All text becomes CanvasText or ButtonText */
+    /* Borders and outlines use system colors automatically */
+
+    .action {
+        /* System enforces color choices for maximum contrast */
+        background-color: ButtonFace;
+        color: ButtonText;
+        border-color: ButtonText;
+    }
+
+    .action:hover {
+        /* System provides hover colors */
+        background-color: SelectedItem;
+        color: SelectedItemText;
+    }
+}
+        </pre>
+
+        <p><strong>Key behaviors in forced-colors mode:</strong></p>
+        <ul>
+            <li>Browser overrides custom colors with system-defined high-contrast colors</li>
+            <li>All branded color tokens automatically resolve to appropriate system colors</li>
+            <li>Zebra outlines adapt to use system border colors for maximum visibility</li>
+            <li>Background color variations are flattened; state indication relies more on borders and outlines</li>
+            <li><code>color-mix()</code> formulas are bypassed in favor of system color assignments</li>
+        </ul>
+
+        <h4>Advantages of Native Theme</h4>
+        <ul>
+            <li><strong>Accessibility:</strong> Automatically respects user's OS-level accessibility preferences</li>
+            <li><strong>Consistency:</strong> Matches system UI conventions users are familiar with</li>
+            <li><strong>Performance:</strong> No complex color calculations or theme switching logic needed</li>
+            <li><strong>Privacy:</strong> Respects privacy settings like reduced motion and high contrast without detection</li>
+            <li><strong>Future-proof:</strong> Adapts to new system color schemes automatically</li>
+        </ul>
+
+        <h4>Example CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+[data-theme="native"],
+.cem-theme-native {
+    /* Emotional palette → System colors */
+    --cem-palette-comfort: Canvas;
+    --cem-palette-comfort-text: CanvasText;
+    --cem-palette-trust: Highlight;
+    --cem-palette-trust-text: HighlightText;
+    --cem-palette-creativity: ButtonFace;
+    --cem-palette-creativity-text: ButtonText;
+
+    /* Zebra colors */
+    --cem-zebra-color-0: Canvas;
+    --cem-zebra-color-1: Canvas; /* Changes to CanvasText on :focus */
+    --cem-zebra-color-2: Canvas; /* Changes to SelectedItem on [selected] */
+    --cem-zebra-color-3: Canvas; /* Changes to SelectedItem on :target */
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Light and Dark Themes</legend>
+        <p><strong>Purpose:</strong> Light and Dark themes use the emotional palette with branded colors, automatically switching between light and dark variants based on the user's <code>color-scheme</code> preference or explicit theme selection.</p>
+
+        <h4>Color-Scheme Declarations</h4>
+        <p>The theme switching mechanism relies on the CSS <code>color-scheme</code> property and the <code>light-dark()</code> function:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Light theme */
+[data-theme="light"],
+.cem-theme-light {
+    color-scheme: light;
+}
+
+/* Dark theme */
+[data-theme="dark"],
+.cem-theme-dark {
+    color-scheme: dark;
+}
+
+/* Automatic (respects user preference) */
+:root {
+    color-scheme: light dark;  /* Supports both schemes */
+}
+        </pre>
+
+        <p><strong>How it works:</strong></p>
+        <ul>
+            <li>Setting <code>color-scheme: light</code> instructs the browser that the page uses a light color palette</li>
+            <li>Setting <code>color-scheme: dark</code> instructs the browser that the page uses a dark color palette</li>
+            <li>Setting <code>color-scheme: light dark</code> allows the browser to choose based on <code>prefers-color-scheme</code> media query</li>
+            <li>The <code>color-scheme</code> property also affects form controls, scrollbars, and browser UI to match the theme</li>
+        </ul>
+
+        <h4>Automatic Theme Switching via <code>light-dark()</code></h4>
+        <p>All emotional palette tokens use the <code>light-dark()</code> CSS function to automatically select appropriate colors based on the active color scheme:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Comfort palette - switches from light cyan to dark cyan */
+--cem-palette-comfort: light-dark(
+    var(--cem-color-cyan-xl),   /* Light theme: extra light cyan (#f1fefe) */
+    var(--cem-color-cyan-xd)    /* Dark theme: extra dark cyan (#001010) */
+);
+
+--cem-palette-comfort-text: light-dark(
+    var(--cem-color-cyan-xd),   /* Light theme: dark text on light bg */
+    var(--cem-color-cyan-xl)    /* Dark theme: light text on dark bg */
+);
+
+/* Trust palette - switches from light blue to dark blue */
+--cem-palette-trust: light-dark(
+    var(--cem-color-blue-l),    /* Light theme: light blue (#d7e3ff) */
+    var(--cem-color-blue-d)     /* Dark theme: dark blue (#002f65) */
+);
+
+/* Danger palette - switches from light red to dark red */
+--cem-palette-danger: light-dark(
+    var(--cem-color-red-l),     /* Light theme: light red (#ba1a1a) */
+    var(--cem-color-red-d)      /* Dark theme: dark red (#690005) */
+);
+        </pre>
+
+        <p><strong>Key principle:</strong> Text colors are inverted relative to background colors to maintain proper contrast:</p>
+        <ul>
+            <li>Light theme: light backgrounds (<code>-xl</code>, <code>-l</code>) with dark text (<code>-xd</code>, <code>-d</code>)</li>
+            <li>Dark theme: dark backgrounds (<code>-xd</code>, <code>-d</code>) with light text (<code>-xl</code>, <code>-l</code>)</li>
+        </ul>
+
+        <h4>Complete Token Switching Pattern</h4>
+        <p>Each emotional palette has four variants that switch in coordinated pairs:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Light Theme Value</th>
+                    <th>Dark Theme Value</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>--cem-palette-trust</code></td>
+                    <td><code>blue-l</code> (#d7e3ff)</td>
+                    <td><code>blue-d</code> (#002f65)</td>
+                    <td>Base color</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-text</code></td>
+                    <td><code>comfort-text</code> (dark)</td>
+                    <td><code>white</code></td>
+                    <td>Text on base</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-x</code></td>
+                    <td><code>blue-d</code> (#002f65)</td>
+                    <td><code>blue-l</code> (#d7e3ff)</td>
+                    <td>Extreme variant (inverted)</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-text-x</code></td>
+                    <td><code>comfort-text-x</code> (light)</td>
+                    <td><code>comfort-text-x</code> (dark)</td>
+                    <td>Text on extreme</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>State Progression in Light/Dark Themes</h4>
+        <p>The <code>color-mix()</code> formulas work consistently across both themes because they mix the base emotional color with its extreme variant:</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 1em 0;">
+            <div>
+                <h5>Light Theme Progression</h5>
+                <pre style="font-size: 0.75em;">
+/* Trust palette in light theme */
+Base:   blue-l (#d7e3ff) ──┐
+                           │ mix
+Extreme: blue-d (#002f65) ──┘
+
+default: 100% blue-l
+hover:    60% blue-l + 40% blue-d
+         (gets darker)
+active:   25% blue-l + 75% blue-d
+         (very dark, inverted text)
+                </pre>
+            </div>
+            <div>
+                <h5>Dark Theme Progression</h5>
+                <pre style="font-size: 0.75em;">
+/* Trust palette in dark theme */
+Base:   blue-d (#002f65) ──┐
+                           │ mix
+Extreme: blue-l (#d7e3ff) ──┘
+
+default: 100% blue-d
+hover:    60% blue-d + 40% blue-l
+         (gets lighter)
+active:   25% blue-d + 75% blue-l
+         (very light, inverted text)
+                </pre>
+            </div>
+        </div>
+
+        <p><strong>Result:</strong> In light themes, interactions make colors darker and more saturated. In dark themes, interactions make colors lighter and more vibrant. The direction is opposite, but the perceptual emphasis (increased contrast and intensity) is consistent.</p>
+
+        <h4>Theme-Specific Overrides</h4>
+        <p>While most tokens use <code>light-dark()</code> for automatic switching, specific cases may require explicit overrides:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Example: Different shadow styles per theme */
+[data-theme="light"] {
+    --cem-action-box-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+    --cem-action-box-shadow-hover: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Example: Adjusting opacity for dark theme */
+[data-theme="dark"] {
+    --cem-surface-overlay-opacity: 0.12;  /* More visible on dark */
+}
+
+[data-theme="light"] {
+    --cem-surface-overlay-opacity: 0.08;  /* Subtle on light */
+}
+        </pre>
+
+        <h4>Zebra Outlines in Light/Dark Themes</h4>
+        <p>Zebra stripe colors also adapt to the theme using the same emotional palette tokens:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Zebra Color Variable</th>
+                    <th>Light Theme</th>
+                    <th>Dark Theme</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Focus</td>
+                    <td><code>--cem-zebra-color-1</code></td>
+                    <td><code>comfort-text</code> (dark)</td>
+                    <td><code>comfort-text</code> (light)</td>
+                </tr>
+                <tr>
+                    <td>Selected</td>
+                    <td><code>--cem-zebra-color-2</code></td>
+                    <td><code>trust</code> (blue-l)</td>
+                    <td><code>trust</code> (blue-d)</td>
+                </tr>
+                <tr>
+                    <td>Target</td>
+                    <td><code>--cem-zebra-color-3</code></td>
+                    <td><code>enthusiasm</code> (orange-l)</td>
+                    <td><code>enthusiasm</code> (orange-d)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Browser Support and Fallbacks</h4>
+        <p>The <code>light-dark()</code> function is supported in modern browsers (Chrome 123+, Firefox 120+, Safari 17.5+). For older browsers, provide fallbacks:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Fallback for browsers without light-dark() support */
+:root {
+    /* Default to light theme values */
+    --cem-palette-comfort: var(--cem-color-cyan-xl);
+    --cem-palette-comfort-text: var(--cem-color-cyan-xd);
+}
+
+/* Modern browsers with light-dark() */
+@supports (color: light-dark(white, black)) {
+    :root {
+        --cem-palette-comfort: light-dark(
+            var(--cem-color-cyan-xl),
+            var(--cem-color-cyan-xd)
+        );
+        --cem-palette-comfort-text: light-dark(
+            var(--cem-color-cyan-xd),
+            var(--cem-color-cyan-xl)
+        );
+    }
+}
+
+/* Legacy dark theme support via media query */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --cem-palette-comfort: var(--cem-color-cyan-xd);
+        --cem-palette-comfort-text: var(--cem-color-cyan-xl);
+    }
+}
+        </pre>
+
+        <h4>Example: Switching Between Light and Dark</h4>
+        <div style="display: flex; gap: 1em; margin: 1em 0; flex-wrap: wrap;">
+            <div style="background: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text); padding: 1em; border: 1px solid currentColor; flex: 1; min-width: 200px;">
+                <p><strong>Current Theme</strong></p>
+                <button class="action primary" style="margin: 0.5em 0;">Primary Action</button>
+                <button class="action destructive" style="margin: 0.5em 0;">Delete</button>
+                <p style="font-size: 0.85em;">This box uses <code>light-dark()</code> to automatically adapt.</p>
+            </div>
+        </div>
+
+        <h4>Advantages of Light/Dark Theme System</h4>
+        <ul>
+            <li><strong>Automatic adaptation:</strong> Single token definition works for both light and dark modes</li>
+            <li><strong>DRY principle:</strong> No need to duplicate CSS rules for each theme</li>
+            <li><strong>Consistent logic:</strong> All state transitions use the same formulas regardless of theme</li>
+            <li><strong>User preference:</strong> Automatically respects <code>prefers-color-scheme</code> media query</li>
+            <li><strong>Reduced code:</strong> Eliminates thousands of lines of theme-specific overrides</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Contrast Themes (contrast-light, contrast-dark)</legend>
+        <p><strong>Purpose:</strong> High contrast themes are designed for users with visual impairments or those working in challenging lighting conditions. These themes use a fundamentally different approach: <strong>backgrounds are neutralized</strong> to base surface colors, and <strong>zebra stripes become the primary state indicator</strong> for all states, not just focus/selected/target.</p>
+
+        <h4>Core Design Principle: Zebra-Only State Signaling</h4>
+        <p>Unlike standard light/dark themes that use background color changes for most states, contrast themes:</p>
+        <ul>
+            <li><strong>Neutralize backgrounds:</strong> All action backgrounds use the base comfort palette color (canvas)</li>
+            <li><strong>Signal through stripes:</strong> State information is conveyed exclusively through zebra outline colors</li>
+            <li><strong>Increase stripe count:</strong> Use 4-strip zebra pattern (vs 3-strip in normal themes) for better visibility</li>
+            <li><strong>Thicken outlines:</strong> Increase stripe width from 2px to 3-4px for improved perception</li>
+            <li><strong>Preserve color semantics:</strong> Stripe colors match the intent's emotional palette colors</li>
+        </ul>
+
+        <p><strong>Why this approach?</strong> In high contrast environments, subtle background color variations can be difficult to perceive. By neutralizing backgrounds and using bold, high-contrast outlines, all state information remains clearly visible regardless of ambient lighting or visual acuity.</p>
+
+        <h4>Neutralized Backgrounds</h4>
+        <p>All action state backgrounds collapse to the base surface color:</p>
+
+        <pre style="font-size: 0.85em;">
+/* contrast-light theme */
+[data-theme="contrast-light"] {
+    /* All intents and states use same neutral background */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    --cem-action-explicit-active-background: var(--cem-palette-comfort);
+
+    --cem-action-primary-default-background: var(--cem-palette-comfort);
+    --cem-action-primary-hover-background: var(--cem-palette-comfort);
+    /* ... all other intents and states ... */
+
+    /* Background is always comfort (light canvas) */
+    background-color: var(--cem-palette-comfort);  /* #f1fefe in light */
+}
+
+/* contrast-dark theme */
+[data-theme="contrast-dark"] {
+    /* All intents and states use dark neutral background */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    /* ... backgrounds stay consistent ... */
+
+    /* Background is always comfort (dark canvas) */
+    background-color: var(--cem-palette-comfort);  /* #001010 in dark */
+}
+        </pre>
+
+        <p><strong>Result:</strong> Instead of hover making a button darker, hover changes the zebra stripe color. Instead of active making a button very dark, active makes the zebra stripe more intense.</p>
+
+        <h4>4-Strip Zebra Pattern</h4>
+        <p>Contrast themes expand the zebra system from 3 stripes to 4 stripes, adding an additional layer for intent signaling:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Stripe Layer</th>
+                    <th>Variable</th>
+                    <th>Normal Themes (3-strip)</th>
+                    <th>Contrast Themes (4-strip)</th>
+                    <th>Width</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Layer 0 (innermost)</td>
+                    <td><code>--cem-zebra-color-0</code></td>
+                    <td>Base surface (invisible)</td>
+                    <td><strong>Intent color</strong> (e.g., purple for explicit)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 1</td>
+                    <td><code>--cem-zebra-color-1</code></td>
+                    <td>Focus indicator</td>
+                    <td><strong>Focus indicator</strong> (comfort-text when focused)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 2</td>
+                    <td><code>--cem-zebra-color-2</code></td>
+                    <td>Selected indicator</td>
+                    <td><strong>Selected indicator</strong> (trust color when selected)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 3 (outermost)</td>
+                    <td><code>--cem-zebra-color-3</code></td>
+                    <td>Target indicator</td>
+                    <td><strong>Target indicator</strong> (enthusiasm color when targeted)</td>
+                    <td>3px</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Key difference:</strong> In normal themes, <code>--cem-zebra-color-0</code> is the base surface (invisible). In contrast themes, it becomes the <strong>innermost visible stripe</strong> carrying the intent's emotional color.</p>
+
+        <h4>Zebra Color Assignment in Contrast Themes</h4>
+        <p>Each action intent gets its own base zebra color that matches its emotional palette:</p>
+
+        <pre style="font-size: 0.85em;">
+/* contrast-light or contrast-dark */
+[data-theme*="contrast"] {
+    /* Layer 0: Intent-specific base color */
+    .action.explicit {
+        --cem-zebra-color-0: var(--cem-palette-creativity);  /* Purple */
+    }
+    .action.primary {
+        --cem-zebra-color-0: var(--cem-palette-trust);       /* Blue */
+    }
+    .action.contextual {
+        --cem-zebra-color-0: var(--cem-palette-comfort-text); /* Text color */
+    }
+    .action.alternate {
+        --cem-zebra-color-0: var(--cem-palette-enthusiasm);  /* Orange */
+    }
+    .action.destructive {
+        --cem-zebra-color-0: var(--cem-palette-danger);      /* Red */
+    }
+
+    /* Layers 1-3: State-dependent (focus, selected, target) */
+    /* These change from transparent to visible when state activates */
+}
+        </pre>
+
+        <h4>State Variations via Zebra Intensity</h4>
+        <p>Since backgrounds are neutral, state progressions (hover, active, pending) are shown through zebra color mixing:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Default state: Base intent color in zebra-0 */
+.action.primary {
+    --cem-zebra-color-0: var(--cem-palette-trust);  /* Pure blue */
+}
+
+/* Hover state: Mix toward extreme variant */
+.action.primary:hover {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 60%,
+        var(--cem-palette-trust-x) 40%
+    );
+}
+
+/* Active state: Heavy mix toward extreme */
+.action.primary:active {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 25%,
+        var(--cem-palette-trust-x) 75%
+    );
+}
+
+/* Disabled state: Mix toward conservative */
+.action.primary:disabled {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 30%,
+        var(--cem-palette-conservative-x) 70%
+    );
+}
+        </pre>
+
+        <p><strong>Visual effect:</strong> The innermost stripe changes intensity/hue based on state, while maintaining high contrast against the neutral background.</p>
+
+        <h4>Increased Outline Thickness</h4>
+        <p>Contrast themes use thicker stripes for improved visibility:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Theme Type</th>
+                    <th>Stripe Width</th>
+                    <th>Total Outline Width</th>
+                    <th>Stripe Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Light / Dark</td>
+                    <td>2px per stripe</td>
+                    <td>6px (3 × 2px)</td>
+                    <td>3 stripes</td>
+                </tr>
+                <tr>
+                    <td>Contrast Light / Dark</td>
+                    <td>3px per stripe</td>
+                    <td>12px (4 × 3px)</td>
+                    <td>4 stripes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <pre style="font-size: 0.85em;">
+/* Normal themes */
+--cem-zebra-strip-size: 2px;
+--cem-action-box-shadow:
+    0 0 0 2px var(--cem-zebra-color-1),  /* 2px stripe */
+    0 0 0 4px var(--cem-zebra-color-2),  /* 2px stripe */
+    0 0 0 6px var(--cem-zebra-color-3);  /* 2px stripe */
+
+/* Contrast themes */
+[data-theme*="contrast"] {
+    --cem-zebra-strip-size: 3px;
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),   /* NEW: 3px intent stripe */
+        0 0 0 6px var(--cem-zebra-color-1),   /* 3px focus stripe */
+        0 0 0 9px var(--cem-zebra-color-2),   /* 3px selected stripe */
+        0 0 0 12px var(--cem-zebra-color-3);  /* 3px target stripe */
+}
+        </pre>
+
+        <h4>Contrast Requirements</h4>
+        <p>High contrast themes enforce stricter contrast ratios to ensure visibility:</p>
+        <ul>
+            <li><strong>Stripe-to-background contrast:</strong> ≥7:1 (AAA level) for all visible stripes</li>
+            <li><strong>Adjacent stripe contrast:</strong> ≥3:1 between neighboring stripes</li>
+            <li><strong>Text contrast:</strong> ≥7:1 against neutral background</li>
+            <li><strong>State distinction:</strong> ≥3:1 contrast change between states (default vs hover)</li>
+        </ul>
+
+        <h4>Visual Comparison: Normal vs Contrast Themes</h4>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 1em 0;">
+            <div>
+                <h5>Normal Theme (Light)</h5>
+                <ul style="font-size: 0.85em; list-style: none; padding: 0;">
+                    <li>✓ Background colors vary by state</li>
+                    <li>✓ 3-strip zebra for focus/selected/target only</li>
+                    <li>✓ 2px stripe width</li>
+                    <li>✓ Subtle color progressions</li>
+                </ul>
+                <div style="background: #d7e3ff; color: #002f65; padding: 1em; border: 2px solid #002f65;">
+                    Primary button (background-driven)
+                </div>
+            </div>
+            <div>
+                <h5>Contrast Theme (contrast-light)</h5>
+                <ul style="font-size: 0.85em; list-style: none; padding: 0;">
+                    <li>✓ All backgrounds neutral (same color)</li>
+                    <li>✓ 4-strip zebra for ALL states</li>
+                    <li>✓ 3px stripe width (thicker)</li>
+                    <li>✓ Bold, high-contrast stripes</li>
+                </ul>
+                <div style="background: #f1fefe; color: #001010; padding: 1em; box-shadow: 0 0 0 3px #d7e3ff, 0 0 0 6px transparent, 0 0 0 9px transparent, 0 0 0 12px transparent;">
+                    Primary button (zebra-driven)
+                </div>
+            </div>
+        </div>
+
+        <h4>Contrast-Light vs Contrast-Dark</h4>
+        <p>The two contrast theme variants differ only in their base surface color and text inversion:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>contrast-light</th>
+                    <th>contrast-dark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Base background</td>
+                    <td><code>--cem-color-cyan-xl</code> (#f1fefe, very light)</td>
+                    <td><code>--cem-color-cyan-xd</code> (#001010, very dark)</td>
+                </tr>
+                <tr>
+                    <td>Base text</td>
+                    <td><code>--cem-color-cyan-xd</code> (very dark)</td>
+                    <td><code>--cem-color-cyan-xl</code> (very light)</td>
+                </tr>
+                <tr>
+                    <td>Zebra stripe colors</td>
+                    <td>Use light palette values (blue-l, purple-l, etc.)</td>
+                    <td>Use dark palette values (blue-d, purple-d, etc.)</td>
+                </tr>
+                <tr>
+                    <td>Stripe visibility</td>
+                    <td>Bold colors on white canvas</td>
+                    <td>Bold colors on black canvas</td>
+                </tr>
+                <tr>
+                    <td>State indication</td>
+                    <td colspan="2">Both use same 4-strip zebra system</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Implementation Example</h4>
+        <pre style="font-size: 0.85em;">
+[data-theme="contrast-light"],
+[data-theme="contrast-dark"] {
+    /* Neutralize all backgrounds to comfort */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    --cem-action-explicit-active-background: var(--cem-palette-comfort);
+    /* ... repeat for all intents and states ... */
+
+    /* Increase zebra thickness */
+    --cem-zebra-strip-size: 3px;
+
+    /* Add 4th zebra layer */
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),
+        0 0 0 6px var(--cem-zebra-color-1),
+        0 0 0 9px var(--cem-zebra-color-2),
+        0 0 0 12px var(--cem-zebra-color-3);
+}
+
+/* Intent-specific zebra base colors */
+[data-theme*="contrast"] .action.explicit {
+    --cem-zebra-color-0: var(--cem-palette-creativity);
+}
+[data-theme*="contrast"] .action.primary {
+    --cem-zebra-color-0: var(--cem-palette-trust);
+}
+[data-theme*="contrast"] .action.destructive {
+    --cem-zebra-color-0: var(--cem-palette-danger);
+}
+
+/* State modifiers adjust zebra-color-0 intensity */
+[data-theme*="contrast"] .action:hover {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-zebra-color-0) 60%,
+        var(--cem-palette-comfort-text) 40%
+    );
+}
+        </pre>
+
+        <h4>Accessibility Benefits</h4>
+        <ul>
+            <li><strong>Maximum contrast:</strong> Always uses extreme color pairs (AAA level, ≥7:1)</li>
+            <li><strong>Clear state indication:</strong> Bold outlines are easier to perceive than subtle background changes</li>
+            <li><strong>Consistent surface:</strong> Neutral backgrounds reduce visual noise and cognitive load</li>
+            <li><strong>Multiple cues:</strong> 4 stripe layers provide redundant state information</li>
+            <li><strong>Intent preservation:</strong> Color semantics maintained through zebra colors, not backgrounds</li>
+            <li><strong>Low vision friendly:</strong> Thick outlines remain visible even with reduced acuity</li>
+            <li><strong>Screen reader compatible:</strong> State information also conveyed through ARIA attributes</li>
+        </ul>
+
+        <h4>When to Use Contrast Themes</h4>
+        <p>Contrast themes are recommended for:</p>
+        <ul>
+            <li>Users with low vision or visual impairments</li>
+            <li>Environments with poor lighting conditions (very bright or very dim)</li>
+            <li>Users with light sensitivity (photophobia)</li>
+            <li>Compliance with WCAG AAA standards</li>
+            <li>Display devices with poor color reproduction</li>
+            <li>Users who enable "High Contrast" mode in their operating system</li>
+        </ul>
+
+        <p><strong>Auto-activation:</strong> Contrast themes can be automatically enabled when the system reports high contrast preferences:</p>
+        <pre style="font-size: 0.85em;">
+@media (prefers-contrast: more) {
+    :root {
+        /* Auto-switch to contrast theme */
+        /* Respects prefers-color-scheme for light vs dark */
+    }
+}
+        </pre>
     </fieldset>
 
 </figure>
