@@ -93,21 +93,21 @@ For each combination of (intent × state), document:
 ## Phase 5: Document Theme Variants
 
 ### 5.1 Native Theme
-- [ ] Document system color mappings:
+- [x] Document system color mappings:
   - Canvas, CanvasText, Highlight, HighlightText, etc.
-- [ ] Explain fallback behavior when system colors unavailable
-- [ ] Document forced-colors mode support
+- [x] Explain fallback behavior when system colors unavailable
+- [x] Document forced-colors mode support
 
 ### 5.2 Light and Dark Themes
-- [ ] Document color-scheme declarations
-- [ ] Explain automatic switching via `light-dark()`
-- [ ] Add examples of theme-specific overrides
+- [x] Document color-scheme declarations
+- [x] Explain automatic switching via `light-dark()`
+- [x] Add examples of theme-specific overrides
 
 ### 5.3 Contrast Themes (contrast-light, contrast-dark)
-- [ ] Document neutralized backgrounds principle
-- [ ] Explain zebra-only state signaling
-- [ ] Document 4-strip zebra pattern (vs 3-strip in normal themes)
-- [ ] Add notes about increased outline thickness
+- [x] Document neutralized backgrounds principle
+- [x] Explain zebra-only state signaling
+- [x] Document 4-strip zebra pattern (vs 3-strip in normal themes)
+- [x] Add notes about increased outline thickness
 
 ---
 
@@ -259,3 +259,4 @@ For each combination of (intent × state), document:
 - The 7-token limit is a key design principle to maintain
 - Zebra outlines are distinctive for focus/selected/target states
 - Contrast themes use zebra-only signaling with neutralized backgrounds
+                                                                ````
