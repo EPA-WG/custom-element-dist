@@ -1041,9 +1041,10 @@
             <a href="./colors-native.html" >CSS system colors</a>, allowing the interface to adapt automatically
             to user preferences in OS/browser settings:</p>
 
-        <table style="font-size: 0.9em;">
+        <table style="font-size: 0.9em;" id="system-color-mapping-table">
             <thead>
                 <tr>
+                    <th>👁️</th>
                     <th>Emotional Token</th>
                     <th>System Color (Background)</th>
                     <th>System Color (Text)</th>
@@ -1052,42 +1053,49 @@
             </thead>
             <tbody>
                 <tr>
+                    <td style="background: Canvas; color: CanvasText; ">⬤</td>
                     <td><code>comfort</code></td>
                     <td><code>Canvas</code></td>
                     <td><code>CanvasText</code></td>
                     <td>Main reading surface and body text</td>
                 </tr>
                 <tr>
+                    <td style="background: CanvasText; color: Canvas; ">⬤</td>
                     <td><code>calm</code></td>
                     <td><code>CanvasText</code></td>
                     <td><code>Canvas</code></td>
                     <td>Inverted surface (dark elements on light themes)</td>
                 </tr>
                 <tr>
+                    <td style="background: Highlight; color: HighlightText; ">⬤</td>
                     <td><code>trust</code></td>
                     <td><code>Highlight</code></td>
                     <td><code>HighlightText</code></td>
                     <td>Primary action buttons, selected text background</td>
                 </tr>
                 <tr>
+                    <td style="background: ButtonFace; color: ButtonText; ">⬤</td>
                     <td><code>creativity</code></td>
                     <td><code>ButtonFace</code></td>
                     <td><code>ButtonText</code></td>
                     <td>Standard button backgrounds</td>
                 </tr>
                 <tr>
+                    <td style="background: Mark; color: MarkText; ">⬤</td>
                     <td><code>enthusiasm</code></td>
                     <td><code>Mark</code></td>
                     <td><code>MarkText</code></td>
                     <td>Marked/highlighted content (HTML <code>&lt;mark&gt;</code>)</td>
                 </tr>
                 <tr>
+                    <td style="background: Canvas; color: GrayText; ">⬤</td>
                     <td><code>conservative</code></td>
                     <td><code>GrayText</code></td>
                     <td><code>Canvas</code></td>
                     <td>Disabled states, secondary text</td>
                 </tr>
                 <tr>
+                    <td style="background: var(--cem-palette-danger); color: var(--cem-palette-danger-text); ">⬤</td>
                     <td><code>danger</code></td>
                     <td>N/A (uses red)</td>
                     <td><code>CanvasText</code></td>
@@ -1242,8 +1250,8 @@
 
         <p><strong>How it works:</strong></p>
         <ul>
-            <li>Setting <code>color-scheme: light</code> instructs the browser that the page uses a light color palette</li>
-            <li>Setting <code>color-scheme: dark</code> instructs the browser that the page uses a dark color palette</li>
+            <li>Setting <code>color-scheme: light</code> instructs the browser that the page section uses a light color palette</li>
+            <li>Setting <code>color-scheme: dark</code> instructs the browser that the page section uses a dark color palette</li>
             <li>Setting <code>color-scheme: light dark</code> allows the browser to choose based on <code>prefers-color-scheme</code> media query</li>
             <li>The <code>color-scheme</code> property also affects form controls, scrollbars, and browser UI to match the theme</li>
         </ul>
@@ -1330,8 +1338,8 @@
                 <h5>Light Theme Progression</h5>
                 <pre style="font-size: 0.75em;">
 /* Trust palette in light theme */
-Base:   blue-l (#d7e3ff) ──┐
-                           │ mix
+Base:   blue-l (#d7e3ff)  ──┐
+                            │ mix
 Extreme: blue-d (#002f65) ──┘
 
 default: 100% blue-l
@@ -1345,8 +1353,8 @@ active:   25% blue-l + 75% blue-d
                 <h5>Dark Theme Progression</h5>
                 <pre style="font-size: 0.75em;">
 /* Trust palette in dark theme */
-Base:   blue-d (#002f65) ──┐
-                           │ mix
+Base:   blue-d (#002f65)  ──┐
+                            │ mix
 Extreme: blue-l (#d7e3ff) ──┘
 
 default: 100% blue-d
@@ -1480,7 +1488,7 @@ active:   25% blue-d + 75% blue-l
         <ul>
             <li><strong>Neutralize backgrounds:</strong> All action backgrounds use the base comfort palette color (canvas)</li>
             <li><strong>Signal through stripes:</strong> State information is conveyed exclusively through zebra outline colors</li>
-            <li><strong>Increase stripe count:</strong> Use 4-strip zebra pattern (vs 3-strip in normal themes) for better visibility</li>
+            <li><strong>Increase stripe count:</strong> Use 4-strip zebra pattern (vs 3-strip in normal themes) reflecting increased variations</li>
             <li><strong>Thicken outlines:</strong> Increase stripe width from 2px to 3-4px for improved perception</li>
             <li><strong>Preserve color semantics:</strong> Stripe colors match the intent's emotional palette colors</li>
         </ul>
