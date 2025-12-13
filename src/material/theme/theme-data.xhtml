@@ -2477,5 +2477,450 @@ strong { font-weight: 700; }  /* bold */
 
 </figure>
 
+<figure>
+    <figcaption>Timing Tokens</figcaption>
+    <p>Timing tokens control motion and animation behavior across the design system. Based on Material Design 3 motion principles, these tokens define how UI elements transition between states, ensuring consistent and meaningful animations that enhance user experience.</p>
+
+    <fieldset>
+        <legend>Duration Tokens</legend>
+        <p><strong>Purpose:</strong> Duration tokens define how long transitions take, based on user perception rather than arbitrary millisecond values. The naming reflects how users experience the timing.</p>
+
+        <h4>Three Duration Levels</h4>
+        <dl>
+            <dt><code>--cem-duration-instant</code> — <strong>50ms</strong></dt>
+            <dd>
+                Micro-interactions that should feel immediate. Used when feedback must appear to happen without delay.
+                <br/><strong>Use cases:</strong> Button press feedback, checkbox toggles, ripple effects, input focus
+                <br/><strong>Perception:</strong> "Did that just happen?" — so fast it feels instantaneous
+            </dd>
+
+            <dt><code>--cem-duration-noticeable</code> — <strong>250ms</strong></dt>
+            <dd>
+                Mid-sized UI changes that users should register but not dwell on. The default duration for most transitions.
+                <br/><strong>Use cases:</strong> Menu opening, dropdown expansion, tab switching, color transitions
+                <br/><strong>Perception:</strong> "I saw that change" — noticeable but doesn't interrupt flow
+            </dd>
+
+            <dt><code>--cem-duration-lingering</code> — <strong>300ms</strong></dt>
+            <dd>
+                Larger transitions or emotionally resonant changes that invite attention.
+                <br/><strong>Use cases:</strong> Modal dialogs, page transitions, overlay appearances, route changes
+                <br/><strong>Perception:</strong> "That felt significant" — draws attention to important changes
+            </dd>
+        </dl>
+
+        <h4>CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+:root {
+    --cem-duration-instant: 50ms;
+    --cem-duration-noticeable: 250ms;
+    --cem-duration-lingering: 300ms;
+
+    /* Default duration for general use */
+    --cem-duration: var(--cem-duration-noticeable);
+}
+
+/* Usage examples */
+.action {
+    transition-duration: var(--cem-duration-instant);  /* Quick feedback */
+}
+
+.menu {
+    transition-duration: var(--cem-duration-noticeable);  /* Standard opening */
+}
+
+.modal {
+    transition-duration: var(--cem-duration-lingering);  /* Significant appearance */
+}
+        </pre>
+
+        <h4>Reduced Motion Support</h4>
+        <p>For users who prefer reduced motion, durations should be minimized:</p>
+        <pre style="font-size: 0.85em;">
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --cem-duration-instant: 0ms;
+        --cem-duration-noticeable: 0ms;
+        --cem-duration-lingering: 0ms;
+    }
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Easing Tokens</legend>
+        <p><strong>Purpose:</strong> Easing tokens define acceleration curves that shape how animations feel. Named by consumer intent rather than technical implementation.</p>
+
+        <h4>Easing Token System</h4>
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Original MD3</th>
+                    <th>CSS Value</th>
+                    <th>Intended Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>--cem-easing-smooth</code></td>
+                    <td>standard (ease-in-out)</td>
+                    <td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td>
+                    <td>Balanced start and end; the "default" feel</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-smooth-start</code></td>
+                    <td>standard.accelerate (ease-in)</td>
+                    <td><code>cubic-bezier(0.4, 0, 1, 1)</code></td>
+                    <td>Quickly ramps up; good for entrance animations</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-smooth-end</code></td>
+                    <td>standard.decelerate (ease-out)</td>
+                    <td><code>cubic-bezier(0, 0, 0.2, 1)</code></td>
+                    <td>Slows into final state; good for exit animations</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted</code></td>
+                    <td>emphasized (ease-in-out)</td>
+                    <td><code>cubic-bezier(0.2, 0, 0, 1)</code></td>
+                    <td>Adds drama to both start and end; draws attention</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted-start</code></td>
+                    <td>emphasized.accelerate (ease-in)</td>
+                    <td><code>cubic-bezier(0.3, 0, 0.8, 0.15)</code></td>
+                    <td>Dramatic lift-off; emphasizes entry</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted-end</code></td>
+                    <td>emphasized.decelerate (ease-out)</td>
+                    <td><code>cubic-bezier(0.05, 0.7, 0.1, 1)</code></td>
+                    <td>Dramatic finish; emphasizes exit</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-uniform</code></td>
+                    <td>linear</td>
+                    <td><code>linear</code></td>
+                    <td>Constant speed; for mechanical or subtle motion</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-classic</code></td>
+                    <td>legacy</td>
+                    <td><code>ease</code></td>
+                    <td>Classic curves retained for compatibility</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Guidance for Use</h4>
+        <dl>
+            <dt><strong>Smooth variants</strong></dt>
+            <dd>Use for everyday transitions where motion should feel natural and unobtrusive.</dd>
+
+            <dt><strong>Highlighted variants</strong></dt>
+            <dd>Use when motion's purpose is to draw the user's eye or emphasize a state change.</dd>
+
+            <dt><strong>Start variants (-start)</strong></dt>
+            <dd>Use for introducing new UI elements — they accelerate into view.</dd>
+
+            <dt><strong>End variants (-end)</strong></dt>
+            <dd>Use for dismissing UI elements — they decelerate as they exit.</dd>
+
+            <dt><strong>Uniform</strong></dt>
+            <dd>Use for neutral motion (progress bars, loading indicators) or when avoiding acceleration/deceleration.</dd>
+
+            <dt><strong>Classic</strong></dt>
+            <dd>Use only when maintaining legacy patterns or supporting older components.</dd>
+        </dl>
+
+        <h4>CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+:root {
+    --cem-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --cem-easing-smooth-start: cubic-bezier(0.4, 0, 1, 1);
+    --cem-easing-smooth-end: cubic-bezier(0, 0, 0.2, 1);
+    --cem-easing-highlighted: cubic-bezier(0.2, 0, 0, 1);
+    --cem-easing-highlighted-start: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --cem-easing-highlighted-end: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --cem-easing-uniform: linear;
+    --cem-easing-classic: ease;
+
+    /* Default easing for general use */
+    --cem-easing: var(--cem-easing-smooth);
+}
+
+/* Usage examples */
+.action {
+    transition: all var(--cem-duration) var(--cem-easing);
+}
+
+.menu-enter {
+    animation: slideIn var(--cem-duration-noticeable) var(--cem-easing-smooth-start);
+}
+
+.menu-exit {
+    animation: slideOut var(--cem-duration-noticeable) var(--cem-easing-smooth-end);
+}
+
+.attention-element {
+    animation: pulse var(--cem-duration-lingering) var(--cem-easing-highlighted);
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Spring Tokens</legend>
+        <p><strong>Purpose:</strong> Spring tokens define physics-based motion with damping and stiffness for expressive transitions. Springs create more natural, organic movement than easing curves alone.</p>
+
+        <h4>Spring Token Dimensions</h4>
+        <p>Springs are organized along three axes, creating a 2 × 2 × 3 matrix of combinations:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Axis</th>
+                    <th>Original MD3</th>
+                    <th>CEM Token</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Focus</strong><br/>(what property)</td>
+                    <td>Spatial</td>
+                    <td><code>reposition</code></td>
+                    <td>Motions that move or resize elements (positions, layouts)</td>
+                </tr>
+                <tr>
+                    <td>Effects</td>
+                    <td><code>highlight</code></td>
+                    <td>Non-spatial changes (opacity, color) that draw attention</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Feel</strong><br/>(how lively)</td>
+                    <td>Standard</td>
+                    <td><code>functional</code></td>
+                    <td>Little overshoot; for utilitarian interactions</td>
+                </tr>
+                <tr>
+                    <td>Expressive</td>
+                    <td><code>delight</code></td>
+                    <td>Overshoot/bounce; adds emotional emphasis</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><strong>Speed</strong><br/>(how long)</td>
+                    <td>Fast</td>
+                    <td><code>instant</code></td>
+                    <td>Micro-interactions that shouldn't interrupt</td>
+                </tr>
+                <tr>
+                    <td>Default</td>
+                    <td><code>noticeable</code></td>
+                    <td>User should register but not dwell</td>
+                </tr>
+                <tr>
+                    <td>Slow</td>
+                    <td><code>lingering</code></td>
+                    <td>Large or emotionally resonant transitions</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Spring Token Naming Convention</h4>
+        <p>Tokens combine the three axes: <code>--cem-spring-{focus}-{feel}-{speed}</code></p>
+
+        <pre style="font-size: 0.85em;">
+/* Example spring token names */
+--cem-spring-reposition-functional-instant
+--cem-spring-reposition-functional-noticeable
+--cem-spring-reposition-functional-lingering
+--cem-spring-reposition-delight-instant
+--cem-spring-reposition-delight-noticeable
+--cem-spring-reposition-delight-lingering
+--cem-spring-highlight-functional-instant
+--cem-spring-highlight-functional-noticeable
+--cem-spring-highlight-functional-lingering
+--cem-spring-highlight-delight-instant
+--cem-spring-highlight-delight-noticeable
+--cem-spring-highlight-delight-lingering
+        </pre>
+
+        <h4>When to Use Springs vs Easing</h4>
+        <dl>
+            <dt><strong>Use Springs for:</strong></dt>
+            <dd>
+                <ul>
+                    <li>Drag-and-drop interactions that need physical feedback</li>
+                    <li>Bounce effects on notifications or alerts</li>
+                    <li>Pull-to-refresh gestures</li>
+                    <li>Expressive micro-interactions</li>
+                    <li>Elements that should "settle" into place</li>
+                </ul>
+            </dd>
+
+            <dt><strong>Use Easing for:</strong></dt>
+            <dd>
+                <ul>
+                    <li>Simple fades and opacity changes</li>
+                    <li>Color transitions</li>
+                    <li>Legacy component support</li>
+                    <li>Reduced-motion fallbacks</li>
+                    <li>Cases where overshoot would be distracting</li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h4>CSS Spring Implementation</h4>
+        <p>CSS doesn't natively support spring physics, but can be approximated with keyframes or the Web Animations API:</p>
+
+        <pre style="font-size: 0.85em;">
+/* CSS Variables for spring parameters */
+:root {
+    /* Functional springs (little overshoot) */
+    --cem-spring-stiffness-functional: 300;
+    --cem-spring-damping-functional: 25;
+
+    /* Delight springs (expressive overshoot) */
+    --cem-spring-stiffness-delight: 200;
+    --cem-spring-damping-delight: 15;
+}
+
+/* Approximated spring animation via CSS */
+@keyframes spring-bounce {
+    0% { transform: scale(0.95); }
+    40% { transform: scale(1.02); }
+    60% { transform: scale(0.99); }
+    80% { transform: scale(1.005); }
+    100% { transform: scale(1); }
+}
+
+.spring-enter {
+    animation: spring-bounce var(--cem-duration-noticeable) var(--cem-easing-highlighted-end);
+}
+        </pre>
+
+        <h4>JavaScript Spring Usage</h4>
+        <p>For true spring physics, use the Web Animations API or a library:</p>
+
+        <pre style="font-size: 0.85em;">
+// Using CSS custom properties for spring configuration
+const springConfig = {
+    reposition: {
+        functional: { stiffness: 300, damping: 25 },
+        delight: { stiffness: 200, damping: 15 }
+    },
+    highlight: {
+        functional: { stiffness: 400, damping: 30 },
+        delight: { stiffness: 250, damping: 18 }
+    }
+};
+
+// Apply to animation library of choice
+element.animate(
+    { transform: ['translateX(0)', 'translateX(100px)'] },
+    { duration: 250, easing: 'spring(1, 300, 25, 0)' }  // If supported
+);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Combined Timing Usage</legend>
+        <p><strong>Purpose:</strong> This section shows how duration, easing, and spring tokens work together for cohesive motion design.</p>
+
+        <h4>Standard Action Timing</h4>
+        <pre style="font-size: 0.85em;">
+.action {
+    /* Combine duration and easing */
+    transition:
+        background-color var(--cem-duration-instant) var(--cem-easing-smooth),
+        box-shadow var(--cem-duration-noticeable) var(--cem-easing-smooth),
+        transform var(--cem-duration-instant) var(--cem-easing-smooth);
+}
+
+.action:hover {
+    box-shadow: var(--cem-action-box-shadow-hover);
+}
+
+.action:active {
+    transform: scale(0.98);
+}
+        </pre>
+
+        <h4>Modal/Overlay Timing</h4>
+        <pre style="font-size: 0.85em;">
+.modal {
+    /* Entry: decelerate into view */
+    animation: modalEnter var(--cem-duration-lingering) var(--cem-easing-highlighted-end);
+}
+
+.modal.closing {
+    /* Exit: accelerate out */
+    animation: modalExit var(--cem-duration-noticeable) var(--cem-easing-highlighted-start);
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalExit {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+}
+        </pre>
+
+        <h4>Timing Token Summary</h4>
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Tokens</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Duration</strong></td>
+                    <td>instant, noticeable, lingering</td>
+                    <td>How long animations take</td>
+                </tr>
+                <tr>
+                    <td><strong>Easing</strong></td>
+                    <td>smooth, highlighted × start, end | uniform | classic</td>
+                    <td>Acceleration curves</td>
+                </tr>
+                <tr>
+                    <td><strong>Spring</strong></td>
+                    <td>2 focus × 2 feel × 3 speed</td>
+                    <td>Physics-based motion</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Best Practices</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same timing tokens for similar interactions across the application</li>
+            <li><strong>Purpose:</strong> Choose tokens based on the intent of the motion, not arbitrary aesthetic preference</li>
+            <li><strong>Accessibility:</strong> Always respect <code>prefers-reduced-motion</code> user preference</li>
+            <li><strong>Performance:</strong> Animate only transform and opacity for best performance (GPU-accelerated)</li>
+            <li><strong>Subtlety:</strong> Motion should enhance, not distract — when in doubt, use shorter durations</li>
+        </ul>
+    </fieldset>
+
+</figure>
+
 </body>
 </html>
