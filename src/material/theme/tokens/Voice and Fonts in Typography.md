@@ -366,9 +366,9 @@ This section defines *what developers apply*. Each role is a stable semantic end
 
 ### 6.1 Reading
 
-Used for:
-- explanations, help text, descriptions, articles, long content
-![2 column page in opened book](./columns-page.png)
+Used for | .
+--- | ---
+explanations, help text, descriptions, articles, long content | ![2 column page in opened book](./columns-page.png)
 
 Behavior:
 
