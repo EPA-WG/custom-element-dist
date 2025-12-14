@@ -229,9 +229,33 @@ The minimal number of base color variations is 7.
 
     
 # Text Tracking/Spacing
-[wiki](https://en.wikipedia.org/wiki/Letter_spacing), 
+[wiki](https://en.wikipedia.org/wiki/Letter_spacing),
 [units](https://css-tricks.com/keeping-track-letter-spacing-guidelines/)
 
+# Typography and Voice
+
+See [Voice and Fonts in Typography](./tokens/voice-fonts-typography.md) for the complete semantic typography system.
+
+Typography tokens are organized into three layers:
+- **Fontography** — font families and feature policies
+- **Typography** — size, line-height, spacing, and layout
+- **Voice** — cross-modal prominence (ink weight + speech prosody)
+
+## Voice-to-Thickness Mapping
+
+Voice tokens map to thickness tokens for visual weight:
+
+| Voice Level | Thickness Token | Weight | Semantic Use |
+|-------------|-----------------|--------|--------------|
+| `whisper`   | `xx-light`      | 100    | Minimal emphasis |
+| `soft`      | `x-light`       | 200    | Subtle, secondary |
+| `gentle`    | `light`         | 300    | Calm, understated |
+| `regular`   | `normal`        | 400    | Baseline (default) |
+| `firm`      | `bold`          | 700    | Confident emphasis |
+| `strong`    | `x-bold`        | 800    | Strong assertion |
+| `loud`      | `xx-bold`       | 900    | Maximum impact |
+
+All 7 thickness levels are utilized with distinct voice mappings.
 
 # Outline
 

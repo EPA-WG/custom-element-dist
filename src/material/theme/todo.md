@@ -132,6 +132,18 @@ For each combination of (intent × state), document:
 - [x] Document 7 thickness levels from README.md:
   - xx-light (100), x-light (200), light (300), normal (400), bold (700), x-bold (800), xx-bold (900)
 
+### 6.4 Typography and Voice Tokens
+- [x] Create voice-fonts-typography.md with complete typography token system
+- [x] Document Fontography tokens (font families and feature policies)
+- [x] Document Typography tokens (size, line-height, spacing scales)
+- [x] Document Voice tokens (cross-modal prominence)
+- [x] Define voice-to-thickness mapping (all 7 levels utilized):
+  - whisper→xx-light(100), soft→x-light(200), gentle→light(300), regular→normal(400)
+  - firm→bold(700), strong→x-bold(800), loud→xx-bold(900)
+- [x] Add cross-reference in README.md
+- [ ] Implement typography tokens in consumer-theme.css
+- [ ] Add typography examples to theme-data.xhtml
+
 ---
 
 ## Phase 7: Add Interactive Examples
