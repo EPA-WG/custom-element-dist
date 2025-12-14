@@ -391,8 +391,9 @@ Behavior:
 
 ### 6.2 UI (scan/navigate)
 
-Used for:
-- navigation, button labels, form labels, menus, secondary text
+Used for | .
+--- | ---
+navigation, button labels, form labels, menus, secondary text | ![navigation buttons image](./nav-buttons.png)
 
 Behavior:
 
@@ -410,8 +411,11 @@ Behavior:
 
 ### 6.3 Tag
 
-Used for:
-- compact labels, chips, metadata, status tags
+
+Used for | .
+--- | ---
+compact labels, chips, metadata, status tags | ![chips example image](./chips.png)
+
 
 Behavior:
 
@@ -427,8 +431,10 @@ Behavior:
 
 ### 6.4 Script
 
-Used for:
-- code blocks, commands, identifiers that must be copy-safe
+Used for | .
+--- | ---
+code blocks, commands, identifiers that must be copy-safe | ![script example image](./script.png)
+
 
 Behavior:
 
@@ -465,11 +471,13 @@ Behavior:
   font-variant-numeric: var(--cem-typography-data-font-variant-numeric);
 }
 ```
-
+![script example image](./cem-data-vs-reading-numerals.svg)
 ### 6.6 Initialism
 
-Used for:
-- acronyms, avatar initials, short codes meant to be “badge-like”
+Used for | .
+--- | ---
+acronyms, avatar initials, short codes meant to be “badge-like” | ![initials button example image](./initials.png)
+
 
 Behavior:
 
@@ -487,8 +495,9 @@ Behavior:
 
 ### 6.7 Iconized
 
-Used for:
-- letter-as-icon (monograms, single-letter pictograms)
+Used for | .
+--- | ---
+letter-as-icon (monograms, single-letter pictograms) | ![initials button example image](./typography-icons.png)
 
 Behavior:
 
