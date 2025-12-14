@@ -4,7 +4,7 @@
 > This revision focuses on **consumer-flow purpose** (what the user is trying to do) and **semantic meaning** 
 > (what the content *is*), and translates that into **speech**, **fontography** and **typography** tokens 
 > that can be used consistently across products.
-
+[discussion](https://github.com/EPA-WG/custom-element-dist/discussions/21) | [git](https://github.com/EPA-WG/custom-element-dist/blob/develop/src/material/theme/tokens/voice-fonts-typography.md)
 ---
 ![Sufler reading the text with various font sizes](./cem-article-illustration-4x1-letterbox-2000x500.png)
 
