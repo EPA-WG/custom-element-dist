@@ -115,6 +115,10 @@ Numbers and identifiers require predictable alignment and glyph selection.
    * (consumer meaning first)
    * ========================= */
 
+  /* Rule: font family stacks are theme-invariant (light/dark/contrast).
+   * Override families only for brand, platform, or locale coverage.
+   */
+
   /* Long-form reading / comprehension */
   --cem-fontography-reading-family:
     "Roboto","Source Sans Pro",
@@ -155,7 +159,9 @@ Numbers and identifiers require predictable alignment and glyph selection.
 
   /* =========================
    * 3) Typography — 7-step size scale (rem-based)
-   * ========================= */
+   * =========================  *
+   * Rule: size scale is theme-invariant. Contrast modes adjust ink/decoration, not the global scale.
+   */
   --cem-typography-size-xxs: 0.75rem;
   --cem-typography-size-xs:  0.8125rem;
   --cem-typography-size-s:   0.875rem;
@@ -268,7 +274,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-reading-font-size: var(--cem-typography-size-m);
   --cem-typography-reading-line-height: var(--cem-typography-line-height-reading);
   --cem-typography-reading-letter-spacing: var(--cem-typography-letter-spacing-reading);
-  --cem-typography-reading-font-weight: var(--cem-thickness-normal);
+  --cem-typography-reading-font-weight: var(--cem-voice-regular-ink-thickness);
   --cem-typography-reading-speech-volume: var(--cem-voice-regular-speech-volume);
   --cem-typography-reading-speech-rate:   var(--cem-voice-regular-speech-rate);
   --cem-typography-reading-speech-pitch:  var(--cem-voice-regular-speech-pitch);
@@ -279,7 +285,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-ui-font-size: var(--cem-typography-size-m);
   --cem-typography-ui-line-height: var(--cem-typography-line-height-ui);
   --cem-typography-ui-letter-spacing: var(--cem-typography-letter-spacing-ui);
-  --cem-typography-ui-font-weight: var(--cem-thickness-normal);
+  --cem-typography-ui-font-weight: var(--cem-voice-gentle-ink-thickness);
   --cem-typography-ui-speech-volume: var(--cem-voice-gentle-speech-volume);
   --cem-typography-ui-speech-rate:   var(--cem-voice-gentle-speech-rate);
   --cem-typography-ui-speech-pitch:  var(--cem-voice-gentle-speech-pitch);
@@ -290,7 +296,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-tag-font-size: var(--cem-typography-size-s);
   --cem-typography-tag-line-height: var(--cem-typography-line-height-ui);
   --cem-typography-tag-letter-spacing: var(--cem-typography-letter-spacing-ui);
-  --cem-typography-tag-font-weight: var(--cem-thickness-bold);
+  --cem-typography-tag-font-weight: var(--cem-voice-firm-ink-thickness);
   --cem-typography-tag-speech-volume: var(--cem-voice-firm-speech-volume);
   --cem-typography-tag-speech-rate:   var(--cem-voice-firm-speech-rate);
   --cem-typography-tag-speech-pitch:  var(--cem-voice-firm-speech-pitch);
@@ -301,7 +307,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-script-font-size: var(--cem-typography-size-s);
   --cem-typography-script-line-height: var(--cem-typography-line-height-script);
   --cem-typography-script-letter-spacing: normal;
-  --cem-typography-script-font-weight: var(--cem-thickness-normal);
+  --cem-typography-script-font-weight: var(--cem-voice-regular-ink-thickness);
   --cem-typography-script-font-variant-ligatures: var(--cem-typography-feature-ligatures-script);
   --cem-typography-script-speech-volume: var(--cem-voice-regular-speech-volume);
   --cem-typography-script-speech-rate:   var(--cem-voice-gentle-speech-rate);
@@ -313,7 +319,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-data-font-size: var(--cem-typography-size-m);
   --cem-typography-data-line-height: var(--cem-typography-line-height-ui);
   --cem-typography-data-letter-spacing: var(--cem-typography-letter-spacing-ui);
-  --cem-typography-data-font-weight: var(--cem-thickness-normal);
+  --cem-typography-data-font-weight: var(--cem-voice-regular-ink-thickness);
   --cem-typography-data-font-variant-numeric: var(--cem-typography-feature-numeric-data);
   --cem-typography-data-speech-volume: var(--cem-voice-regular-speech-volume);
   --cem-typography-data-speech-rate:   var(--cem-voice-firm-speech-rate);
@@ -325,7 +331,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-initialism-font-size: var(--cem-typography-size-s);
   --cem-typography-initialism-line-height: var(--cem-typography-line-height-badge);
   --cem-typography-initialism-letter-spacing: var(--cem-typography-letter-spacing-caps);
-  --cem-typography-initialism-font-weight: var(--cem-thickness-bold);
+  --cem-typography-initialism-font-weight: var(--cem-voice-firm-ink-thickness);
   --cem-typography-initialism-text-transform: uppercase;
   --cem-typography-initialism-speech-volume: var(--cem-voice-firm-speech-volume);
   --cem-typography-initialism-speech-rate:   var(--cem-voice-firm-speech-rate);
@@ -337,23 +343,57 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-iconized-font-size: calc(var(--cem-typography-size-m) * 2);
   --cem-typography-iconized-line-height: var(--cem-typography-line-height-badge);
   --cem-typography-iconized-letter-spacing: var(--cem-typography-letter-spacing-caps);
-  --cem-typography-iconized-font-weight: var(--cem-thickness-x-bold);
+  --cem-typography-iconized-font-weight: var(--cem-voice-strong-ink-thickness);
   --cem-typography-iconized-text-transform: uppercase;
-  --cem-typography-iconized-speech-volume: var(--cem-voice-firm-speech-volume);
-  --cem-typography-iconized-speech-rate:   var(--cem-voice-firm-speech-rate);
-  --cem-typography-iconized-speech-pitch:  var(--cem-voice-firm-speech-pitch);
-  --cem-typography-iconized-ssml-emphasis: var(--cem-voice-firm-ssml-emphasis);
+  --cem-typography-iconized-speech-volume: var(--cem-voice-strong-speech-volume);
+  --cem-typography-iconized-speech-rate:   var(--cem-voice-strong-speech-rate);
+  --cem-typography-iconized-speech-pitch:  var(--cem-voice-strong-speech-pitch);
+  --cem-typography-iconized-ssml-emphasis: var(--cem-voice-strong-ssml-emphasis);
 
   /* Brand / Display */
   --cem-typography-brand-font-family: var(--cem-fontography-brand-family);
   --cem-typography-brand-font-size: var(--cem-typography-size-xxl);
   --cem-typography-brand-line-height: 1.1;
   --cem-typography-brand-letter-spacing: normal;
-  --cem-typography-brand-font-weight: var(--cem-thickness-x-bold);
+  --cem-typography-brand-font-weight: var(--cem-voice-strong-ink-thickness);
   --cem-typography-brand-speech-volume: var(--cem-voice-strong-speech-volume);
   --cem-typography-brand-speech-rate:   var(--cem-voice-strong-speech-rate);
   --cem-typography-brand-speech-pitch:  var(--cem-voice-strong-speech-pitch);
   --cem-typography-brand-ssml-emphasis: var(--cem-voice-strong-ssml-emphasis);
+}
+```
+
+### 5.3 Theme projections (dark and contrast)
+
+Themes should *not* swap font families or rescale the type ramp. Instead, they project semantics into
+**ink** (weight/stroke) and **decoration** (outlines/underlines), keeping layout stable.
+
+**Dark theme:** slightly lighter ink weight to compensate for perceived boldness on dark backgrounds.
+
+```css
+:root[data-cem-theme="dark"] {
+  /* Keep families and size scale unchanged; only adjust ink projection. */
+  --cem-voice-whisper-ink-thickness: 100;
+  --cem-voice-soft-ink-thickness:    180;
+  --cem-voice-gentle-ink-thickness:  280;
+  --cem-voice-regular-ink-thickness: 350; /* ≈ 400 but lighter */
+  --cem-voice-firm-ink-thickness:    650; /* ≈ 700 but lighter */
+  --cem-voice-strong-ink-thickness:  750; /* ≈ 800 but lighter */
+  --cem-voice-loud-ink-thickness:    850; /* ≈ 900 but lighter */
+}
+```
+
+**High-contrast theme:** preserve sizes; increase ink and add non-color cues where needed.
+
+```css
+:root[data-cem-theme="contrast"] {
+  /* Prefer stronger ink steps (or nearest available weights for non-variable fonts). */
+  --cem-voice-gentle-ink-thickness:  400;
+  --cem-voice-regular-ink-thickness: 500;
+  --cem-voice-firm-ink-thickness:    750;
+  --cem-voice-strong-ink-thickness:  850;
+
+  /* Optional: add decoration cues at component level (not shown here). */
 }
 ```
 
@@ -570,6 +610,14 @@ In compact density, prefer smaller sizes for UI and tags while keeping Reading s
 - Keep critical UI actions at `1rem`.
 - Avoid reducing Reading line-height below `1.45`.
 - Use `rem` so user scaling works.
+
+### 8.3 Contrast modes
+
+- **Do not** change font families as part of a contrast mode.
+- **Do not** rescale the global type ramp for contrast modes; rely on user text scaling (`rem`) and density tokens.
+- Contrast modes project primarily into **ink** (voice → `--cem-voice-*-ink-thickness`) and **non-color cues**
+  (underlines, outlines, separators) to avoid layout shifts.
+
 
 ---
 
