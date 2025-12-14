@@ -202,10 +202,13 @@ Numbers and identifiers require predictable alignment and glyph selection.
    * (same semantics for ink + speech)
    * ========================= */
 
-  /* Ink projection (font weight / icon stroke strength) */
-  --cem-voice-whisper-ink-thickness: var(--cem-thickness-x-light);
-  --cem-voice-soft-ink-thickness:    var(--cem-thickness-light);
-  --cem-voice-gentle-ink-thickness:  var(--cem-thickness-normal);
+  /* Ink projection (font weight / icon stroke strength)
+   * All 7 thickness levels used for distinct voice-to-weight mapping:
+   * whisper(100) → soft(200) → gentle(300) → regular(400) → firm(700) → strong(800) → loud(900)
+   */
+  --cem-voice-whisper-ink-thickness: var(--cem-thickness-xx-light);
+  --cem-voice-soft-ink-thickness:    var(--cem-thickness-x-light);
+  --cem-voice-gentle-ink-thickness:  var(--cem-thickness-light);
   --cem-voice-regular-ink-thickness: var(--cem-thickness-normal);
   --cem-voice-firm-ink-thickness:    var(--cem-thickness-bold);
   --cem-voice-strong-ink-thickness:  var(--cem-thickness-x-bold);
@@ -313,7 +316,7 @@ Numbers and identifiers require predictable alignment and glyph selection.
   --cem-typography-data-font-weight: var(--cem-thickness-normal);
   --cem-typography-data-font-variant-numeric: var(--cem-typography-feature-numeric-data);
   --cem-typography-data-speech-volume: var(--cem-voice-regular-speech-volume);
-  --cem-typography-data-speech-rate:   0.98;
+  --cem-typography-data-speech-rate:   var(--cem-voice-firm-speech-rate);
   --cem-typography-data-speech-pitch:  var(--cem-voice-regular-speech-pitch);
   --cem-typography-data-ssml-emphasis: var(--cem-voice-regular-ssml-emphasis);
 
