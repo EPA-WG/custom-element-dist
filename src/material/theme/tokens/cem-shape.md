@@ -14,6 +14,51 @@
 
 ---
 
+## Table of Contents
+
+1. [Purpose and scope](#1-purpose-and-scope)
+2. [Why "bend" (token naming rationale)](#2-why-bend-token-naming-rationale)
+3. [CEM alignment principles applied to shape](#3-cem-alignment-principles-applied-to-shape)
+   - [3.1 Semantic intent first](#31-semantic-intent-first)
+   - [3.2 Bounded variation](#32-bounded-variation)
+   - [3.3 Layering (basis → semantic endpoints → adapters)](#33-layering-basis--semantic-endpoints--adapters)
+4. [Minimal bend basis (complexity-compliant)](#4-minimal-bend-basis-complexity-compliant)
+5. [Semantic endpoints (product-facing contract)](#5-semantic-endpoints-product-facing-contract)
+6. [Shape mode knob (brand expression)](#6-shape-mode-knob-brand-expression)
+   - [6.1 Mode meanings](#61-mode-meanings)
+   - [6.2 Mode implementation (recommended)](#62-mode-implementation-recommended)
+   - [6.3 Helper classes (optional; scoped overrides)](#63-helper-classes-optional-scoped-overrides)
+7. [Directional and asymmetric patterns](#7-directional-and-asymmetric-patterns)
+   - [7.1 Attachment pattern](#71-attachment-pattern-one-pattern-not-many-tokens)
+   - [7.2 When to use asymmetric corners](#72-when-to-use-asymmetric-corners)
+   - [7.3 Implementation guidance](#73-implementation-guidance)
+   - [7.4 Common recipes](#74-common-recipes)
+8. [Accessibility and inclusive design requirements](#8-accessibility-and-inclusive-design-requirements)
+   - [8.1 Shape must not be the only signal](#81-shape-must-not-be-the-only-signal)
+   - [8.2 High-contrast and forced-colors resilience](#82-high-contrast-and-forced-colors-resilience)
+   - [8.3 Focus indicators must respect the target](#83-focus-indicators-must-respect-the-target)
+   - [8.4 Pointer target size and spacing](#84-pointer-target-size-and-spacing-bend--d2-size--d1-separation)
+   - [8.5 Bend vs inset readability](#85-bend-vs-inset-readability-bend--d1-padding)
+   - [8.6 Minimum test checklist](#86-minimum-test-checklist)
+9. [Consumer vocabulary for "round ends" (capsules)](#9-consumer-vocabulary-for-round-ends-capsules)
+10. [Component mapping](#10-component-mapping)
+    - [10.1 Action binding (existing)](#101-action-binding-existing)
+    - [10.2 Extended component mapping](#102-extended-component-mapping)
+    - [10.3 Local alias pattern](#103-local-alias-pattern-preferred-for-variants)
+11. [Notes on external systems (adapter-only)](#11-notes-on-external-systems-adapter-only)
+12. [Quick adoption checklist](#12-quick-adoption-checklist)
+13. [Governance and versioning](#13-governance-and-versioning)
+    - [13.1 What counts as breaking (MAJOR)](#131-what-counts-as-breaking-major)
+    - [13.2 What is non-breaking (MINOR / PATCH)](#132-what-is-non-breaking-minor--patch)
+    - [13.3 Deprecation policy (recommended)](#133-deprecation-policy-recommended)
+    - [13.4 Canonical token summary](#134-canonical-token-summary-contract-surface)
+
+**Appendices**
+- [Appendix A — Material 3 shape scale reference](#appendix-a--material-3-shape-scale-reference-adapter-mapping)
+- [References](#references)
+
+---
+
 ## 1. Purpose and scope
 
 This spec defines **shape tokens beyond actions** — a consumer-semantic subsystem for **edge softness** and **corner roundedness**.
