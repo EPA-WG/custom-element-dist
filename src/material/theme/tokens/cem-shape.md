@@ -146,11 +146,11 @@ personality. It is intentionally coarse-grained: three modes are usually enough.
 
 ### 6.1 Mode meanings
 
-| Mode | Product intent | Typical bend policy (what changes) | Perceived feel |
-|------|----------------|-----------------------------------|----------------|
-| `sharp` | Technical, precise, enterprise | Default bend moves toward `--cem-bend-sharp`; surfaces/overlays may remain slightly bent to preserve grouping and layer separation | Formal, authoritative |
-| `smooth` | Balanced, modern (default) | Canonical defaults (base `--cem-bend-smooth`, surfaces at D1 "small") | Friendly, professional |
-| `round` | Consumer, welcoming, approachable | Surfaces step up (e.g., D1 "medium"); optional capsule controls via `--cem-bend-control-round-ends` where the product uses them consistently | Warm, inviting |
+| Mode      | Product intent                    | Typical bend policy (what changes)                                                                                                           | Perceived feel         |
+|-----------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| `sharp`   | Technical, precise, enterprise    | Default bend moves toward `--cem-bend-sharp`; surfaces/overlays may remain slightly bent to preserve grouping and layer separation           | Formal, authoritative  |
+| `smooth`  | Balanced, modern (default)        | Canonical defaults (base `--cem-bend-smooth`, surfaces at D1 "small")                                                                        | Friendly, professional |
+| `round`   | Consumer, welcoming, approachable | Surfaces step up (e.g., D1 "medium"); optional capsule controls via `--cem-bend-control-round-ends` where the product uses them consistently | Warm, inviting         |
 
 **Critical constraint:** shape modes must not change meaning. A user should not need to infer state or priority from
 roundness alone (see §8 Accessibility section).
@@ -424,25 +424,25 @@ The mapping below is consistent with common practices across modern systems:
 
 **Table: map components to CEM endpoints**
 
-| Component family | Recommended token / basis | Rationale (consumer + system) |
-|------------------|---------------------------|-------------------------------|
-| **Buttons** | `--cem-bend-control` | Standard interactive affordance (default feel) |
-| **Icon buttons (circular variants)** | Local alias → `border-radius: var(--cem-bend-circle)` | Icon buttons often present as circles; use basis circle via local alias (do not mint a global "icon radius") |
-| **FAB** | Circle variant → `--cem-bend-circle`; Extended FAB → `--cem-bend-control-round-ends` | Prominent control; circular (classic FAB) or capsule (extended FAB) |
-| **Chips / Tags** | `--cem-bend-control-round-ends` | "Capsule" shape signals lightweight, removable, filter-like affordance |
-| **Badges / Counters** | `--cem-bend-smooth` (or `--cem-bend-control`) | Small rounding prevents harsh micro-shapes; keep subtle |
-| **Text fields / Select** | `--cem-bend-field` | Field geometry should match the product's primary control feel |
-| **Switches / Toggles** | Track: `--cem-bend-round`; Thumb: `--cem-bend-circle` | Track is a pill; thumb is a circle (distinct affordance) |
-| **Cards / Panels** | `--cem-bend-surface` | Container grouping and boundaries |
-| **Tables / Dense list rows** | `--cem-bend-sharp` (or none) | Grid-aligned surfaces should remain formal/structural; avoid decorative rounding |
-| **Dialogs / Sheets** | `--cem-bend-modal` (+ attachment pattern for sheets) | High salience overlays; larger bend supports "layered" reading and separation |
-| **Menus / Dropdowns / Popovers** | `--cem-bend-overlay` | Transient overlays; match default bend feel |
-| **Tooltips** | `--cem-bend-overlay` | Small transient overlay; keep consistent with menus |
-| **Snackbars / Toasts** | `--cem-bend-overlay` (policy may choose sharper) | Notification surfaces should not demand attention via shape alone |
-| **Navigation rail / App bar** | `--cem-bend-sharp` | Structural navigation regions read more stable with sharp edges |
-| **Tabs** | Underline tabs: `--cem-bend-sharp`; Pill tabs: `--cem-bend-control-round-ends` | Keep minimal unless the design intentionally uses pill tabs |
-| **Avatars / Personas** | `--cem-bend-avatar` (`50%`) | Circular identity affordance |
-| **Media thumbnails** | `--cem-bend-media` | Gentle rounding to match overall feel without obscuring content edges |
+| Component family                     | Recommended token / basis                                                            | Rationale (consumer + system)                                                                                |
+|--------------------------------------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| **Buttons**                          | `--cem-bend-control`                                                                 | Standard interactive affordance (default feel)                                                               |
+| **Icon buttons (circular variants)** | Local alias → `border-radius: var(--cem-bend-circle)`                                | Icon buttons often present as circles; use basis circle via local alias (do not mint a global "icon radius") |
+| **FAB**                              | Circle variant → `--cem-bend-circle`; Extended FAB → `--cem-bend-control-round-ends` | Prominent control; circular (classic FAB) or capsule (extended FAB)                                          |
+| **Chips / Tags**                     | `--cem-bend-control-round-ends`                                                      | "Capsule" shape signals lightweight, removable, filter-like affordance                                       |
+| **Badges / Counters**                | `--cem-bend-smooth` (or `--cem-bend-control`)                                        | Small rounding prevents harsh micro-shapes; keep subtle                                                      |
+| **Text fields / Select**             | `--cem-bend-field`                                                                   | Field geometry should match the product's primary control feel                                               |
+| **Switches / Toggles**               | Track: `--cem-bend-round`; Thumb: `--cem-bend-circle`                                | Track is a pill; thumb is a circle (distinct affordance)                                                     |
+| **Cards / Panels**                   | `--cem-bend-surface`                                                                 | Container grouping and boundaries                                                                            |
+| **Tables / Dense list rows**         | `--cem-bend-sharp` (or none)                                                         | Grid-aligned surfaces should remain formal/structural; avoid decorative rounding                             |
+| **Dialogs / Sheets**                 | `--cem-bend-modal` (+ attachment pattern for sheets)                                 | High salience overlays; larger bend supports "layered" reading and separation                                |
+| **Menus / Dropdowns / Popovers**     | `--cem-bend-overlay`                                                                 | Transient overlays; match default bend feel                                                                  |
+| **Tooltips**                         | `--cem-bend-overlay`                                                                 | Small transient overlay; keep consistent with menus                                                          |
+| **Snackbars / Toasts**               | `--cem-bend-overlay` (policy may choose sharper)                                     | Notification surfaces should not demand attention via shape alone                                            |
+| **Navigation rail / App bar**        | `--cem-bend-sharp`                                                                   | Structural navigation regions read more stable with sharp edges                                              |
+| **Tabs**                             | Underline tabs: `--cem-bend-sharp`; Pill tabs: `--cem-bend-control-round-ends`       | Keep minimal unless the design intentionally uses pill tabs                                                  |
+| **Avatars / Personas**               | `--cem-bend-avatar` (`50%`)                                                          | Circular identity affordance                                                                                 |
+| **Media thumbnails**                 | `--cem-bend-media`                                                                   | Gentle rounding to match overall feel without obscuring content edges                                        |
 
 ### 10.3 Local alias pattern (preferred for variants)
 
@@ -547,24 +547,24 @@ Treat as minor/patch if you:
 
 The table below distinguishes **required CEM contract tokens** from **optional adapter aliases**.
 
-| Token | Category | Required | Notes |
-|-------|----------|:--------:|-------|
-| `--cem-bend-sharp` | Bend basis | Yes | No bend (sharp corners) |
-| `--cem-bend-smooth` | Bend basis | Yes | Small bend; binds to D1 `--cem-dim-x-small` |
-| `--cem-bend-round` | Bend basis (geometry) | Yes | Round-ends (capsule): `½ height` |
-| `--cem-bend-circle` | Bend basis (geometry) | Yes | Circle: `50%` |
-| `--cem-bend` | Active alias | Yes | Mode-switchable default bend |
-| `--cem-bend-control` | Semantic endpoint | Yes | Primary control bend |
-| `--cem-bend-surface` | Semantic endpoint | Yes | Primary container/surface bend |
-| `--cem-bend-overlay` | Semantic endpoint | Yes | Small overlays (menus/tooltips/popovers) |
-| `--cem-bend-field` | Semantic endpoint | Recommended | Usually equals control bend |
-| `--cem-bend-modal` | Semantic endpoint | Recommended | Prominent overlays (dialogs/sheets) |
-| `--cem-bend-control-round-ends` | Semantic endpoint (variant) | Optional | Use only if capsules are a consistent product pattern |
-| `--cem-bend-media` | Semantic endpoint | Recommended | Media thumbnails/previews |
-| `--cem-bend-avatar` | Semantic endpoint | Recommended | Avatar/persona geometry (circle) |
-| `--cem-bend-attached-edge` | Pattern token | Recommended | For asymmetric attachment patterns |
-| `--cem-bend-free-edge` | Pattern token | Recommended | For asymmetric attachment patterns |
-| `--cem-action-border-radius` | Component binding | Yes (existing) | Existing action binding contract |
+| Token                           | Category                    |   Required     | Notes                                                 |
+|---------------------------------|-----------------------------|:--------------:|-------------------------------------------------------|
+| `--cem-bend-sharp`              | Bend basis                  |      Yes       | No bend (sharp corners)                               |
+| `--cem-bend-smooth`             | Bend basis                  |      Yes       | Small bend; binds to D1 `--cem-dim-x-small`           |
+| `--cem-bend-round`              | Bend basis (geometry)       |      Yes       | Round-ends (capsule): `½ height`                      |
+| `--cem-bend-circle`             | Bend basis (geometry)       |      Yes       | Circle: `50%`                                         |
+| `--cem-bend`                    | Active alias                |      Yes       | Mode-switchable default bend                          |
+| `--cem-bend-control`            | Semantic endpoint           |      Yes       | Primary control bend                                  |
+| `--cem-bend-surface`            | Semantic endpoint           |      Yes       | Primary container/surface bend                        |
+| `--cem-bend-overlay`            | Semantic endpoint           |      Yes       | Small overlays (menus/tooltips/popovers)              |
+| `--cem-bend-field`              | Semantic endpoint           |  Recommended   | Usually equals control bend                           |
+| `--cem-bend-modal`              | Semantic endpoint           |  Recommended   | Prominent overlays (dialogs/sheets)                   |
+| `--cem-bend-control-round-ends` | Semantic endpoint (variant) |    Optional    | Use only if capsules are a consistent product pattern |
+| `--cem-bend-media`              | Semantic endpoint           |  Recommended   | Media thumbnails/previews                             |
+| `--cem-bend-avatar`             | Semantic endpoint           |  Recommended   | Avatar/persona geometry (circle)                      |
+| `--cem-bend-attached-edge`      | Pattern token               |  Recommended   | For asymmetric attachment patterns                    |
+| `--cem-bend-free-edge`          | Pattern token               |  Recommended   | For asymmetric attachment patterns                    |
+| `--cem-action-border-radius`    | Component binding           | Yes (existing) | Existing action binding contract                      |
 
 **Adapter-only (optional) aliases**
 
@@ -587,15 +587,15 @@ additional "increased" steps for larger containers in newer guidance.
 
 ### A.1 Canonical M3 `--md-sys-shape-corner-*` steps → CEM
 
-| M3 token | Typical value | CEM mapping (adapter-only) | Prefer applying via CEM endpoints | Perceived quality |
-|----------|---------------|----------------------------|-----------------------------------|-------------------|
-| `--md-sys-shape-corner-none` | 0 | `--cem-bend-sharp` | attached edges, structural bars (`--cem-bend-sharp`) | Sharp, formal, technical |
-| `--md-sys-shape-corner-extra-small` | 4dp | `var(--cem-dim-xx-small)` | rare micro-bend (badges, subtle containers) | Barely rounded, subtle |
-| `--md-sys-shape-corner-small` | 8dp | `--cem-bend-smooth` | `--cem-bend-control`, `--cem-bend-overlay` | Slightly soft |
-| `--md-sys-shape-corner-medium` | 12dp | `var(--cem-dim-small)` | `--cem-bend-surface` | Balanced friendliness |
-| `--md-sys-shape-corner-large` | 16dp | `var(--cem-dim-medium)` | `--cem-bend-surface-strong` (if you expose it) | Noticeably rounded |
-| `--md-sys-shape-corner-extra-large` | 28dp | `--cem-bend-modal` | `--cem-bend-modal` | Very soft, approachable |
-| `--md-sys-shape-corner-full` | pill / 50% | `--cem-bend-round` (capsule) and/or `--cem-bend-circle` (circle) | chips, capsule controls, avatars | Playful, highly rounded |
+| M3 token                            | Typical value  | CEM mapping (adapter-only)                                       | Prefer applying via CEM endpoints                    | Perceived quality        |
+|-------------------------------------|----------------|------------------------------------------------------------------|------------------------------------------------------|--------------------------|
+| `--md-sys-shape-corner-none`        | 0              | `--cem-bend-sharp`                                               | attached edges, structural bars (`--cem-bend-sharp`) | Sharp, formal, technical |
+| `--md-sys-shape-corner-extra-small` | 4dp            | `var(--cem-dim-xx-small)`                                        | rare micro-bend (badges, subtle containers)          | Barely rounded, subtle   |
+| `--md-sys-shape-corner-small`       | 8dp            | `--cem-bend-smooth`                                              | `--cem-bend-control`, `--cem-bend-overlay`           | Slightly soft            |
+| `--md-sys-shape-corner-medium`      | 12dp           | `var(--cem-dim-small)`                                           | `--cem-bend-surface`                                 | Balanced friendliness    |
+| `--md-sys-shape-corner-large`       | 16dp           | `var(--cem-dim-medium)`                                          | `--cem-bend-surface-strong` (if you expose it)       | Noticeably rounded       |
+| `--md-sys-shape-corner-extra-large` | 28dp           | `--cem-bend-modal`                                               | `--cem-bend-modal`                                   | Very soft, approachable  |
+| `--md-sys-shape-corner-full`        | pill / 50%     | `--cem-bend-round` (capsule) and/or `--cem-bend-circle` (circle) | chips, capsule controls, avatars                     | Playful, highly rounded  |
 
 ### A.2 Optional M3-parity aliases (adapter-only)
 
