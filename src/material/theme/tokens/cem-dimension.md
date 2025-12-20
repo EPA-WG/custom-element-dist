@@ -2,11 +2,55 @@
 
 **Status:** Canonical (D1 v1.0)
 
-**Last updated:** December 17, 2025
+**Last updated:** December 19, 2025
 
 **Audience:** Design Systems, Product Design, Front-End Engineering
 
-**Companion spec:** **D2. Coupling & Compactness** (`coupling.md`) — normative for interactive operability.
+**Taxonomy placement:** D1. Space & Rhythm (part of the 7-dimensional CEM token framework)
+
+**Companion specs:**
+- **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — normative for interactive operability
+- **D3. Shape & Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/inset harmony rules
+- **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — reading rhythm validation
+- **D7. Time & Motion** ([`timing.md`](./timing.md)) — rhythm perception
+
+---
+
+## Table of Contents
+
+1. [Scope](#1-scope)
+2. [CEM alignment principles applied to spacing](#2-cem-alignment-principles-applied-to-spacing)
+   - [2.1 Semantic intent first](#21-semantic-intent-first)
+   - [2.2 Bounded variation](#22-bounded-variation)
+   - [2.3 Accessibility and operability by construction](#23-accessibility-and-operability-by-construction)
+3. [Token model](#3-token-model)
+4. [Relation to Dimensional Tokens](#4-relation-to-dimensional-tokens)
+   - [4.1 Dimensional Tokens: where spacing lives](#41-dimensional-tokens-where-spacing-lives)
+   - [4.2 Governance rules (cross-category contracts)](#42-governance-rules-cross-category-contracts)
+5. [Reference spacing scale (semantic)](#5-reference-spacing-scale-semantic)
+   - [5.1 Primary dimension scale](#51-primary-dimension-scale-semanticcss)
+   - [5.2 Mapping to M3 rhythm](#52-mapping-to-m3-rhythm)
+6. [Consumer-semantic spacing taxonomy](#6-consumer-semantic-spacing-taxonomy)
+   - [6.1 Relationship gaps (between items)](#61-relationship-gaps-between-items)
+   - [6.2 Insets (inside a surface)](#62-insets-inside-a-surface)
+   - [6.3 Coupling and interaction safety (D2 cross-reference)](#63-coupling-and-interaction-safety-d2-cross-reference)
+   - [6.4 Reading rhythm (vertical cadence for prose)](#64-reading-rhythm-vertical-cadence-for-prose)
+   - [6.5 Data/scan rhythm (dense but legible)](#65-datascan-rhythm-dense-but-legible)
+7. [Layout rhythm tokens (compositional semantics)](#7-layout-rhythm-tokens-compositional-semantics)
+   - [7.1 Stack rhythm (vertical composition)](#71-stack-rhythm-vertical-composition)
+   - [7.2 Cluster rhythm (horizontal groups)](#72-cluster-rhythm-horizontal-groups)
+   - [7.3 Page gutters (responsive breathing room)](#73-page-gutters-responsive-breathing-room)
+8. [Spacing modes knob (dense / normal / sparse)](#8-spacing-modes-knob-dense--normal--sparse)
+   - [8.1 Adjustment policy](#81-adjustment-policy)
+   - [8.2 Concrete overrides](#82-concrete-overrides-recommended-default-mapping)
+   - [8.3 Notes on component mapping](#83-notes-on-component-mapping)
+   - [8.4 Layout mapping checklist](#84-layout-mapping-checklist-how-to-apply)
+9. [Mapping notes: M3 ↔ CEM](#9-mapping-notes-m3--cem)
+10. [Quick adoption checklist](#10-quick-adoption-checklist)
+
+**Appendices**
+- [Appendix A. D2 Coupling Mode Matrix (excerpt)](#appendix-a-d2-coupling-mode-matrix-excerpt)
+- [Appendix B. Governance and versioning](#appendix-b-governance-and-versioning)
 
 ---
 
@@ -40,7 +84,7 @@ Developers should apply tokens like:
 ### 2.2 Bounded variation
 
 A small set of *distinct, repeatable* space steps should cover most UI. Extended values exist but are intentionally
-“rare”.
+"rare".
 
 ### 2.3 Accessibility and operability by construction
 
@@ -66,7 +110,7 @@ We use three layers:
 
 ### 4.1 Dimensional Tokens: where spacing lives
 
-In CEM, spacing/rhythm is not “just layout.” It is a primary subset of **Dimensional Tokens** (the physical layer: size,
+In CEM, spacing/rhythm is not "just layout." It is a primary subset of **Dimensional Tokens** (the physical layer: size,
 distance, bend, stroke, depth).
 
 Use this **legend-level** dimensional taxonomy to keep token categories coherent:
@@ -74,14 +118,15 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
 - **D1. Space & Rhythm** (this document)
     - gaps, insets, gutters, composition cadence, reading cadence, scan cadence
 
-- **D2. Coupling & Compactness** (adjacent; constrains D1, [coupling.md](coupling.md) )
+- **D2. Coupling & Compactness** (adjacent; constrains D1) — see [`coupling.md`](./coupling.md)
     - operable zone minimums
     - interference/isolation minimums
     - halo/expansion policy (visual size vs operable size)
     - control geometry endpoints that affect operability (heights/paddings/row sizes)
 
-- **D3. Shape & Bend**
+- **D3. Shape & Bend** — see [`cem-shape.md`](./cem-shape.md)
     - bend / corner radius roles
+    - bend-inset harmony (see §4.2 rule 5)
 
 - **D4. Elevation & Shadow**
     - surface depth hierarchy and state-driven lift
@@ -89,11 +134,11 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
 - **D5. Stroke & Separation**
     - outline thickness, focus ring thickness, divider thickness, zebra thickness
 
-- **D6. Typography Thickness**
+- **D6. Typography Thickness** — see [`voice-fonts-typography.md`](./voice-fonts-typography.md)
     - weight/mass roles that affect perceived density and hierarchy
 
-- **D7. Time & Motion Timing**
-    - durations/easing groups (not geometry, but participates in “rhythm” perception)
+- **D7. Time & Motion Timing** — see [`timing.md`](./timing.md)
+    - durations/easing groups (not geometry, but participates in "rhythm" perception)
 
 ### 4.2 Governance rules (cross-category contracts)
 
@@ -115,21 +160,23 @@ When spacing occurs **between two interactive affordances**, layout must respect
 }
 ```
 
-3. **When D1 can’t grow, D5 may need to compensate**
+3. **When D1 can't grow, D5 may need to compensate**
 
 - In tight layouts or contrast themes, increase stroke/separation to maintain scannability.
 
-4. **Elevated/prominent surfaces “earn” breathing room**
+4. **Elevated/prominent surfaces "earn" breathing room**
 
 - More elevation/prominence (D4) should generally correlate with more surrounding space (D1).
 
-5. **Bend and inset should harmonize**
+5. **Bend and inset should harmonize** (D1 × D3)
 
 - Larger bend (D3) with very tight inset (D1) reads crowded; prefer stepping inset up.
+- See [`cem-shape.md`](./cem-shape.md) §8.5 for detailed guidance on bend vs inset readability.
 
 6. **Reading cadence is jointly governed by typography + spacing**
 
 - Reading rhythm tokens (D1) must be validated against typescale/line-height policy (D6).
+- See [`voice-fonts-typography.md`](./voice-fonts-typography.md) for typography tokens.
 
 ---
 
@@ -154,6 +201,11 @@ Eight steps covering common UI needs:
     --cem-dim-xxx-large : 8rem;     /* 128px — maximum breathing room           */
 }
 ```
+
+**Cross-reference:** These tokens are consumed by D3 Shape ([`cem-shape.md`](./cem-shape.md)) for bend values:
+- `--cem-bend-smooth` uses `--cem-dim-x-small` (8px)
+- `--cem-bend-surface` uses `--cem-dim-small` (12px)
+- `--cem-bend-modal` uses `--cem-dim-large` + `--cem-dim-xx-small` (~28px)
 
 ### 5.2 Mapping to M3 rhythm
 
@@ -197,8 +249,8 @@ Use when arranging siblings.
 }
 ```
 
-**Guideline:** if users perceive two things as “one unit,” use `gap-related`. If they perceive “these are separate
-things,” move up to `gap-group` or `gap-block`.
+**Guideline:** if users perceive two things as "one unit," use `gap-related`. If they perceive "these are separate
+things," move up to `gap-group` or `gap-block`.
 
 > Important: for interactive adjacency, apply the D2 guard contract (`gap = max(D1 gap, D2 guard)`).
 
@@ -219,9 +271,12 @@ Use when padding content within a container.
 }
 ```
 
+**Cross-reference:** When combining insets with bend (D3), ensure inset is large enough to prevent content crowding in
+rounded corners. See [`cem-shape.md`](./cem-shape.md) §8.5 for guidance.
+
 ### 6.3 Coupling and interaction safety (D2 cross-reference)
 
-These tokens are **defined and governed in D2** ( [coupling.md](coupling.md) ). They are listed here as a **normative constraint**
+These tokens are **defined and governed in D2** ([`coupling.md`](./coupling.md)). They are listed here as a **normative constraint**
 because they bound how far D1 spacing modes can compress interactive adjacency. **Do not set or tune these in D1**;
 treat them as sourced from the D2 theme.
 
@@ -261,6 +316,8 @@ This is distinct from UI rhythm.
     --cem-rhythm-reading-section: var(--cem-dim-large); /* 24px */
 }
 ```
+
+**Cross-reference:** Reading rhythm must be validated against typography tokens. See [`voice-fonts-typography.md`](./voice-fonts-typography.md).
 
 ### 6.5 Data/scan rhythm (dense but legible)
 
@@ -330,7 +387,7 @@ These are *responsive* and should be treated as semantics, not fixed numbers.
 
 ## 8. Spacing modes knob (dense / normal / sparse)
 
-Material often frames this as “density.” In CEM, treat this explicitly as a **D1 spacing mode** that shifts Space &
+Material often frames this as "density." In CEM, treat this explicitly as a **D1 spacing mode** that shifts Space &
 Rhythm while preserving D2 coupling invariants.
 
 ```css
@@ -357,7 +414,7 @@ Mode intent summary:
 Hard constraints (never override):
 
 - `--cem-coupling-zone-min`
-- `--cem-coupling-guard-min` (may force some “gaps” to stay at or above the minimum)
+- `--cem-coupling-guard-min` (may force some "gaps" to stay at or above the minimum)
 - `--cem-coupling-halo` (must be considered when validating dense clusters)
 
 ### 8.2 Concrete overrides (recommended default mapping)
@@ -420,7 +477,7 @@ Hard constraints (never override):
 
 * Components should bind to semantic endpoints (`gap-*`, `inset-*`, `rhythm-*`) and inherit spacing mode automatically.
 
-* If a component is interactive and uses layout gaps between peer affordances, resolve its gap as: 
+* If a component is interactive and uses layout gaps between peer affordances, resolve its gap as:
 `gap = max(D1 semantic gap, D2 coupling guard)`.
 * If a component must remain stable across spacing modes (rare), bind it to reference steps explicitly and document why.
 
@@ -444,6 +501,7 @@ Use these patterns so teams can implement screens without inventing spacing sema
 - Container padding: `--cem-inset-container`.
 - Reading- or emphasis-first surfaces: `--cem-inset-surface`.
 - Tight control trays: `--cem-inset-control` (only when content remains legible).
+- **Note:** When using rounded surfaces, ensure inset accommodates bend. See [`cem-shape.md`](./cem-shape.md) §8.5.
 
 **Sections and page regions**
 
@@ -469,7 +527,7 @@ Use these patterns so teams can implement screens without inventing spacing sema
 ### 9.1 Where this matches Material 3
 
 - 4dp-based reference steps provide the same rhythmic lattice.
-- “Micro/standard/macro/extended” groupings align with common M3 guidance.
+- "Micro/standard/macro/extended" groupings align with common M3 guidance.
 
 ### 9.2 Where this differs (intentionally)
 
@@ -483,7 +541,7 @@ Use these patterns so teams can implement screens without inventing spacing sema
 
 1. Use the dimension scale (`--cem-dim-*`) as the foundation.
 2. Map semantic endpoints (`gap-*`, `inset-*`, `rhythm-*`) to dimension tokens.
-3. Treat D2 coupling (`zone/guard/halo`) as **hard constraints** for interactive adjacency.
+3. Treat D2 coupling (`zone/guard/halo`) as **hard constraints** for interactive adjacency — see [`coupling.md`](./coupling.md).
 4. Update component tokens to use semantic endpoints.
 5. Add optional `data-cem-spacing="dense|normal|sparse"` only if product needs spacing modes.
 6. Validate on representative surfaces:
@@ -491,13 +549,14 @@ Use these patterns so teams can implement screens without inventing spacing sema
    - reading rhythm (articles/help)
    - scan rhythm (tables/metric panels)
    - responsive gutters
+7. Validate bend-inset harmony on rounded surfaces — see [`cem-shape.md`](./cem-shape.md) §8.5.
 
 ---
 
 ## Appendix A. D2 Coupling Mode Matrix (excerpt)
 
 This excerpt is provided for convenience when working in D1. The canonical definitions and governance live in **D2.
-Coupling & Compactness** (`coupling.md`).
+Coupling & Compactness** ([`coupling.md`](./coupling.md)).
 
 | D2 coupling mode | Product intent                                            | Visual geometry trend                       | Halo (`--cem-coupling-halo`) trend  | Typical surfaces                                      |
 |------------------|-----------------------------------------------------------|---------------------------------------------|-------------------------------------|-------------------------------------------------------|
@@ -511,6 +570,8 @@ Normative invariants (do not override in D1):
 - `--cem-coupling-guard-min` is mode-invariant.
 - D1 gaps between interactive affordances must resolve as: `gap = max(D1 semantic gap, D2 coupling guard)`.
 
+---
+
 ## Appendix B. Governance and versioning
 
 This D1 spec is a **contract**. Changes must be intentional, reviewable, and versioned.
@@ -520,7 +581,7 @@ This D1 spec is a **contract**. Changes must be intentional, reviewable, and ver
 Treat as **major** (breaking) if you:
 
 - Rename or remove any canonical D1 semantic endpoint (`gap-*`, `inset-*`, `layout-*`, `rhythm-*`).
-- Change the semantic meaning of an endpoint (e.g., `gap-group` stops meaning “within a group”).
+- Change the semantic meaning of an endpoint (e.g., `gap-group` stops meaning "within a group").
 - Change mode names or add/remove spacing modes.
 - Weaken the D1↔D2 constraint model (anything that could permit violating D2 coupling guard/zone).
 
@@ -545,3 +606,12 @@ D1 is subordinate to D2 for operability. The following must hold in every releas
 - D2 coupling invariants remain enforceable from D1.
 - Any D1 spacing used between interactive affordances must resolve as `gap = max(D1 semantic gap, D2 coupling guard)`.
 
+---
+
+## References
+
+**Local CEM documentation**
+- [D2. Coupling & Compactness](./coupling.md) — interactive operability constraints
+- [D3. Shape & Bend](./cem-shape.md) — bend tokens, bend-inset harmony
+- [D6. Typography](./voice-fonts-typography.md) — reading rhythm validation
+- [D7. Time & Motion](./timing.md) — rhythm perception
