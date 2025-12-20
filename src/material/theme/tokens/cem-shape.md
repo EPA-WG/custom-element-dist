@@ -1,11 +1,20 @@
 # CEM D3 Shape — Bend (Edge Softness & Corner Roundedness)
 
-**Status:** Proposed (canonical CEM spec)  
-**Last updated:** December 19, 2025  
+**Status:** Proposed (canonical CEM spec)
+**Last updated:** December 19, 2025
+
+**Taxonomy placement:** D3. Shape & Bend (part of the 7-dimensional CEM token framework)
+
+**Companion specs:**
+- **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — provides dimension scale used by bend
+- **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — provides control height for geometry-driven bend
+- **D5. Stroke & Separation** — stroke thickness (referenced for accessibility; not yet documented)
+- **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — related visual hierarchy
+- **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for shape transitions
 
 ---
 
-## Purpose and scope
+## 1. Purpose and scope
 
 This spec defines **shape tokens beyond actions** — a consumer-semantic subsystem for **edge softness** and **corner roundedness**.
 
@@ -18,27 +27,27 @@ It:
 
 Shape tokens communicate personality and help users understand **UI boundaries, groupings, and interactive affordances**.
 
-Out of scope: elevation (D4), stroke thickness (D5), spacing/insets (D1), and operable/touch geometry (D2) — though shape
-must integrate with them (see Accessibility section).
+**Out of scope:** elevation (D4), stroke thickness (D5), spacing/insets (D1), and operable/touch geometry (D2) — though shape
+must integrate with them (see §8 Accessibility section).
 
 ---
 
-## Why “bend” (token naming rationale)
+## 2. Why "bend" (token naming rationale)
 
 In CEM terms, **bend** names the degree to which an edge curves away from a sharp corner. This framing:
 
 - Avoids ambiguity with CSS `border-radius` (which can be a length, percentage, or elliptical).
 - Emphasizes the *perceived* quality rather than the *implementation* detail.
-- Supports consumer-semantic intent: “How friendly/formal does this surface feel?”
+- Supports consumer-semantic intent: "How friendly/formal does this surface feel?"
 
 **Rule:** product code should use `--cem-bend-*` endpoints; implementation primitives (`border-radius`, elliptical radii,
 corner pairs, etc.) remain an adapter/implementation detail.
 
 ---
 
-## CEM alignment principles applied to shape
+## 3. CEM alignment principles applied to shape
 
-### Semantic intent first
+### 3.1 Semantic intent first
 
 Developers should apply tokens like:
 
@@ -47,72 +56,77 @@ Developers should apply tokens like:
 
 …and not value-centric names like `radius-8` in component code.
 
-This mirrors common design-token practice: values are “primitive/global,” while **semantic/alias tokens** name where/how a
+This mirrors common design-token practice: values are "primitive/global," while **semantic/alias tokens** name where/how a
 value is used. Keep product code semantic; keep value plumbing in the token layer.
 
-### Bounded variation
+### 3.2 Bounded variation
 
 A small set of *distinct, recognizable* bend steps should cover most UI. The range goes from:
 
 - `sharp` (none) → `smooth` (small bend) → `round-ends` (capsule) → `circle`
 
-CEM applies a “bounded token budget” heuristic: avoid a long ladder of barely-distinguishable bend steps. If you need a new
+CEM applies a "bounded token budget" heuristic: avoid a long ladder of barely-distinguishable bend steps. If you need a new
 step, justify it by a perceptual difference that survives dense mode, high zoom, and high-contrast overrides.
 
-### Layering (basis → semantic endpoints → adapters)
+### 3.3 Layering (basis → semantic endpoints → adapters)
 
-- **Basis tokens** define “what bend exists” (sharp / smooth / round-ends / circle).
-- **Semantic endpoints** define “where bend is used” (surface / control / overlay / media).
+- **Basis tokens** define "what bend exists" (sharp / smooth / round-ends / circle).
+- **Semantic endpoints** define "where bend is used" (surface / control / overlay / media).
 - **Adapters** map external systems (Material / Fluent / etc.) into the basis and endpoints.
 
 This keeps complexity low while still supporting multiple libraries.
 
 ---
 
-## Minimal bend basis (complexity-compliant)
+## 4. Minimal bend basis (complexity-compliant)
 
 This is the smallest stable basis that supports most UIs without overfitting.
 
 ```css
-:root{
+:root {
   /* Sharp = no bend */
   --cem-bend-sharp: 0;
 
-  /* Smooth = small, friendly rounding; bind to D1 */
-  --cem-bend-smooth: var(--cem-dim-x-small); /* e.g., 0.5rem */
+  /* Smooth = small, friendly rounding; bind to D1 dimension scale */
+  --cem-bend-smooth: var(--cem-dim-x-small); /* 0.5rem / 8px */
 
   /*
     Round ends (capsule / pill):
     Semicircle ends require bend = 0.5 * element height.
-    Provide `--cem-shape-height` where `--cem-control-height` is not appropriate.
+    Uses --cem-control-height from D2 (coupling.md) as default.
+    Provide --cem-shape-height where --cem-control-height is not appropriate.
   */
   --cem-bend-round: calc(var(--cem-shape-height, var(--cem-control-height)) / 2);
 
   /* True circle (avatars): percentage is defined relative to the element box. */
   --cem-bend-circle: 50%;
 
-  /* Active bend used by endpoints that want the “default feel” (mode-switchable). */
+  /* Active bend used by endpoints that want the "default feel" (mode-switchable). */
   --cem-bend: var(--cem-bend-smooth);
 }
 ```
 
+**Cross-references:**
+- `--cem-dim-x-small` is defined in [`cem-dimension.md`](./cem-dimension.md) §5
+- `--cem-control-height` is defined in [`coupling.md`](./coupling.md) §4.2
+
 ---
 
-## Semantic endpoints (product-facing contract)
+## 5. Semantic endpoints (product-facing contract)
 
 These are the tokens components should consume.
 
 ```css
-:root{
+:root {
   /* Core roles */
   --cem-bend-control: var(--cem-bend);
-  --cem-bend-surface: var(--cem-dim-small); /* perceptual container geometry */
-  --cem-bend-overlay: var(--cem-bend);      /* menus, tooltips, small popovers */
+  --cem-bend-surface: var(--cem-dim-small);       /* 0.75rem / 12px — perceptual container geometry */
+  --cem-bend-overlay: var(--cem-bend);            /* menus, tooltips, small popovers */
 
   /* Common specializations (keep minimal) */
-  --cem-bend-field:               var(--cem-bend-control);
-  --cem-bend-control-round-ends:  var(--cem-bend-round);  /* optional capsule control variant */
-  --cem-bend-modal:               calc(var(--cem-dim-large) + var(--cem-dim-xx-small)); /* larger overlays */
+  --cem-bend-field:              var(--cem-bend-control);
+  --cem-bend-control-round-ends: var(--cem-bend-round);  /* optional capsule control variant */
+  --cem-bend-modal:              calc(var(--cem-dim-large) + var(--cem-dim-xx-small)); /* ~28px — larger overlays */
 
   /* Media */
   --cem-bend-media:  var(--cem-bend);
@@ -120,34 +134,37 @@ These are the tokens components should consume.
 }
 ```
 
+**Cross-references:**
+- `--cem-dim-small`, `--cem-dim-large`, `--cem-dim-xx-small` are defined in [`cem-dimension.md`](./cem-dimension.md) §5
+
 ---
 
-## Shape mode knob (brand expression)
+## 6. Shape mode knob (brand expression)
 
 A shape mode knob is an **optional** product-level control that shifts bend across the UI to express a consistent brand
 personality. It is intentionally coarse-grained: three modes are usually enough.
 
-### Mode meanings
+### 6.1 Mode meanings
 
 | Mode | Product intent | Typical bend policy (what changes) | Perceived feel |
-|---|---|---|---|
+|------|----------------|-----------------------------------|----------------|
 | `sharp` | Technical, precise, enterprise | Default bend moves toward `--cem-bend-sharp`; surfaces/overlays may remain slightly bent to preserve grouping and layer separation | Formal, authoritative |
-| `smooth` | Balanced, modern (default) | Canonical defaults (base `--cem-bend-smooth`, surfaces at D1 “small”) | Friendly, professional |
-| `round` | Consumer, welcoming, approachable | Surfaces step up (e.g., D1 “medium”); optional capsule controls via `--cem-bend-control-round-ends` where the product uses them consistently | Warm, inviting |
+| `smooth` | Balanced, modern (default) | Canonical defaults (base `--cem-bend-smooth`, surfaces at D1 "small") | Friendly, professional |
+| `round` | Consumer, welcoming, approachable | Surfaces step up (e.g., D1 "medium"); optional capsule controls via `--cem-bend-control-round-ends` where the product uses them consistently | Warm, inviting |
 
 **Critical constraint:** shape modes must not change meaning. A user should not need to infer state or priority from
-roundness alone (see Accessibility section).
+roundness alone (see §8 Accessibility section).
 
-### Mode implementation (recommended)
+### 6.2 Mode implementation (recommended)
 
 Implement modes via a theme selector (attribute or class) and override **only** the base and/or semantic endpoints.
-Avoid an in-CSS “mode selector variable” (e.g., `--cem-shape-mode: round`) because CSS cannot branch on it without a
+Avoid an in-CSS "mode selector variable" (e.g., `--cem-shape-mode: round`) because CSS cannot branch on it without a
 preprocessor; it also obscures where the mode is applied.
 
 ```css
 /* Default / smooth */
 :root,
-:root[data-cem-shape="smooth"]{
+:root[data-cem-shape="smooth"] {
   --cem-bend: var(--cem-bend-smooth);
   --cem-bend-control: var(--cem-bend);
   --cem-bend-overlay: var(--cem-bend);
@@ -155,7 +172,7 @@ preprocessor; it also obscures where the mode is applied.
 }
 
 /* Sharp */
-:root[data-cem-shape="sharp"]{
+:root[data-cem-shape="sharp"] {
   --cem-bend: var(--cem-bend-sharp);
 
   /* Minimum resilience policy (recommended): keep containers slightly bent unless the brand explicitly wants boxy UI */
@@ -165,7 +182,7 @@ preprocessor; it also obscures where the mode is applied.
 }
 
 /* Round */
-:root[data-cem-shape="round"]{
+:root[data-cem-shape="round"] {
   /* Keep the default control bend unless capsules are a deliberate product-wide choice */
   --cem-bend: var(--cem-bend-smooth);
 
@@ -179,35 +196,38 @@ preprocessor; it also obscures where the mode is applied.
 ```
 
 **If you introduce more granular local aliases** (e.g., card vs page surface), they may also be overridden by the mode
-selector, but only as pointers to existing endpoints. Do not mint a parallel “mode-specific” token family.
+selector, but only as pointers to existing endpoints. Do not mint a parallel "mode-specific" token family.
 
-### Helper classes (optional; scoped overrides)
+### 6.3 Helper classes (optional; scoped overrides)
 
 If you need one-off local overrides (e.g., a demo page or controlled experiment), helper classes are acceptable, but should
 not replace theme-level mode selectors.
 
 ```css
-.cem-bend-smooth{ --cem-bend: var(--cem-bend-smooth); }
-.cem-bend-round{  --cem-bend: var(--cem-bend-round);  }
-.cem-bend-sharp{  --cem-bend: var(--cem-bend-sharp);  }
+.cem-bend-smooth { --cem-bend: var(--cem-bend-smooth); }
+.cem-bend-round  { --cem-bend: var(--cem-bend-round);  }
+.cem-bend-sharp  { --cem-bend: var(--cem-bend-sharp);  }
 ```
 
 Prefer overriding **semantic endpoints** (`--cem-bend-control`, `--cem-bend-surface`) rather than the global `--cem-bend`
 when working inside components.
 
+---
 
-## Directional “attachment” pattern (one pattern, not many tokens)
+## 7. Directional and asymmetric patterns
+
+### 7.1 Attachment pattern (one pattern, not many tokens)
 
 When a surface is **attached** (sheet, drawer), do not round the attached edge.
 
 ```css
-:root{
+:root {
   --cem-bend-attached-edge: var(--cem-bend-sharp);
   --cem-bend-free-edge:     var(--cem-bend-modal);
 }
 
 /* Example: bottom sheet */
-.cem-bottom-sheet{
+.cem-bottom-sheet {
   border-radius:
     var(--cem-bend-free-edge)
     var(--cem-bend-free-edge)
@@ -216,36 +236,29 @@ When a surface is **attached** (sheet, drawer), do not round the attached edge.
 }
 ```
 
----
-
-## Asymmetric and per-corner bend (patterns, not new global tokens)
-
-Asymmetric corners are already covered for **attachment** via the `attached-edge` vs `free-edge` pattern. The same idea
-extends to other composition cases (grouping, sectioned containers) **without** expanding the global token surface.
-
-### When to use asymmetric corners
+### 7.2 When to use asymmetric corners
 
 Use asymmetric bend only when it communicates **composition**:
 
-- **Attached elements:** popovers, sheets, or dropdowns visually “connected” to a trigger or viewport edge
+- **Attached elements:** popovers, sheets, or dropdowns visually "connected" to a trigger or viewport edge
 - **Grouped controls:** segmented buttons / grouped toggles where only the outer corners are rounded
 - **Sectioned containers:** card headers/footers that inherit top/bottom corners from the parent surface
 
-Do **not** use asymmetric corners as the sole carrier of meaning or state (see Accessibility section).
+Do **not** use asymmetric corners as the sole carrier of meaning or state (see §8 Accessibility section).
 
-### Implementation guidance
+### 7.3 Implementation guidance
 
 - Prefer **logical corner properties** so behavior is correct in RTL and other writing modes:
   `border-start-start-radius`, `border-start-end-radius`, `border-end-start-radius`, `border-end-end-radius`.
 - Reuse existing semantic/basis tokens (`--cem-bend-control`, `--cem-bend-overlay`, `--cem-bend-attached-edge`,
-  `--cem-bend-free-edge`) rather than minting new global “top/start/end” tokens.
+  `--cem-bend-free-edge`) rather than minting new global "top/start/end" tokens.
 
-### Common recipes
+### 7.4 Common recipes
 
 **1) Popover attached to a trigger (attached on top, free on bottom)**
 
 ```css
-.cem-popover--attached-top{
+.cem-popover--attached-top {
   border-start-start-radius: var(--cem-bend-attached-edge);
   border-start-end-radius:   var(--cem-bend-attached-edge);
   border-end-start-radius:   var(--cem-bend-overlay);
@@ -256,16 +269,16 @@ Do **not** use asymmetric corners as the sole carrier of meaning or state (see A
 **2) Segmented / grouped controls (outer corners only)**
 
 ```css
-.cem-segment{
+.cem-segment {
   border-radius: 0; /* inner corners remain sharp */
 }
 
-.cem-segment:first-child{
+.cem-segment:first-child {
   border-start-start-radius: var(--cem-bend-control);
   border-end-start-radius:   var(--cem-bend-control);
 }
 
-.cem-segment:last-child{
+.cem-segment:last-child {
   border-start-end-radius: var(--cem-bend-control);
   border-end-end-radius:   var(--cem-bend-control);
 }
@@ -274,12 +287,12 @@ Do **not** use asymmetric corners as the sole carrier of meaning or state (see A
 **3) Card header inherits top corners, body stays rectangular**
 
 ```css
-.cem-card{
+.cem-card {
   border-radius: var(--cem-bend-surface);
   overflow: clip; /* ensure header background respects corners */
 }
 
-.cem-card__header{
+.cem-card__header {
   border-start-start-radius: var(--cem-bend-surface);
   border-start-end-radius:   var(--cem-bend-surface);
   border-end-start-radius:   0;
@@ -290,8 +303,77 @@ Do **not** use asymmetric corners as the sole carrier of meaning or state (see A
 **Optional local shorthand (avoid globals):** If you need `border-radius` shorthand, keep it component-scoped and do not
 encode LTR assumptions into global `--cem-bend-start/end` variables.
 
+---
 
-## Consumer vocabulary for “round ends” (capsules)
+## 8. Accessibility and inclusive design requirements
+
+Bend is a *secondary* visual cue. It must never be the only carrier of state, meaning, or instructions.
+
+### 8.1 Shape must not be the only signal
+
+Do not encode meaning using bend alone (e.g., "rounded = primary" / "square = secondary") unless there is a redundant cue
+(color, text, icon, pattern, or stroke).
+
+### 8.2 High-contrast and forced-colors resilience
+
+High-contrast modes can override fills/shadows and reduce the perceptibility of subtle shape differences. Treat bend deltas
+smaller than "sharp vs smooth" as **non-essential**. For critical distinctions:
+
+- rely on **D5 stroke/outline** and **D0 color semantics**
+- provide non-color redundancy (icon/text) for state/meaning
+
+### 8.3 Focus indicators must respect the target
+
+Focus rings and outlines must align with the target's bend, and must remain visible at high zoom and in forced-colors.
+
+Practical guidance (cross-dimension):
+
+- **D1:** reserve ring space via offset/inset so the ring does not collide with corners or get clipped (see [`cem-dimension.md`](./cem-dimension.md)).
+- **D5:** define focus stroke width and style; do not rely on bend to indicate focus.
+- **D2:** ensure focus ring does not reduce effective hit size; hit targets remain compliant (see [`coupling.md`](./coupling.md)).
+
+Recommended robust pattern (shape-aligned ring in normal mode, resilient in forced-colors):
+
+```css
+.cem-focusable:focus-visible {
+  /* Baseline indicator that survives forced-colors */
+  outline: 2px solid transparent;
+  outline-offset: var(--cem-coupling-guard-min, 2px); /* D2 guard minimum */
+
+  /* Primary ring for normal mode (shape-aligned) */
+  box-shadow: 0 0 0 2px currentColor;
+
+  border-radius: var(--cem-bend-control);
+}
+```
+
+**Cross-reference:** `--cem-coupling-guard-min` is defined in [`coupling.md`](./coupling.md) §4.1
+
+### 8.4 Pointer target size and spacing (bend × D2 size × D1 separation)
+
+Round controls can *look* smaller even when they meet minimum targets. Ensure:
+
+- D2 control height/width targets are met (especially icon buttons and small chips) — see [`coupling.md`](./coupling.md)
+- D1 spacing provides separation between adjacent targets — see [`cem-dimension.md`](./cem-dimension.md)
+
+### 8.5 Bend vs inset readability (bend × D1 padding)
+
+High bend on compact surfaces increases corner curvature and can visually crowd content. When bend increases, step D1 inset
+up rather than pushing content into the curve.
+
+### 8.6 Minimum test checklist
+
+Validate under:
+
+- keyboard navigation with `:focus-visible`
+- forced-colors / high-contrast modes
+- zoom 200–400% and text scaling (no clipping; adequate spacing)
+- dense vs normal modes (D2 height changes keep round-ends correct)
+- small-target components (icon buttons, chips) for hit area and separation
+
+---
+
+## 9. Consumer vocabulary for "round ends" (capsules)
 
 Recommended consumer-perspective terms (descending literalness):
 
@@ -311,73 +393,13 @@ If you want an alias, make it a pointer:
 
 ---
 
-## Accessibility and inclusive design requirements (bend × D0/D1/D2/D5)
+## 10. Component mapping
 
-Bend is a *secondary* visual cue. It must never be the only carrier of state, meaning, or instructions.
-
-### Shape must not be the only signal
-Do not encode meaning using bend alone (e.g., “rounded = primary” / “square = secondary”) unless there is a redundant cue
-(color, text, icon, pattern, or stroke).
-
-### High-contrast and forced-colors resilience
-High-contrast modes can override fills/shadows and reduce the perceptibility of subtle shape differences. Treat bend deltas
-smaller than “sharp vs smooth” as **non-essential**. For critical distinctions:
-
-- rely on **D5 stroke/outline** and **D0 color semantics**
-- provide non-color redundancy (icon/text) for state/meaning
-
-### Focus indicators must respect the target
-Focus rings and outlines must align with the target’s bend, and must remain visible at high zoom and in forced-colors.
-
-Practical guidance (cross-dimension):
-
-- **D1:** reserve ring space via offset/inset so the ring does not collide with corners or get clipped.
-- **D5:** define focus stroke width and style; do not rely on bend to indicate focus.
-- **D2:** ensure focus ring does not reduce effective hit size; hit targets remain compliant.
-
-Recommended robust pattern (shape-aligned ring in normal mode, resilient in forced-colors):
-
-```css
-.cem-focusable:focus-visible{
-  /* Baseline indicator that survives forced-colors */
-  outline: 2px solid transparent;
-  outline-offset: var(--cem-gap-focus, 2px);
-
-  /* Primary ring for normal mode (shape-aligned) */
-  box-shadow: 0 0 0 2px currentColor;
-
-  border-radius: var(--cem-bend-control);
-}
-```
-
-### Pointer target size and spacing (bend × D2 size × D1 separation)
-Round controls can *look* smaller even when they meet minimum targets. Ensure:
-
-- D2 control height/width targets are met (especially icon buttons and small chips)
-- D1 spacing provides separation between adjacent targets (“spacing exception” patterns)
-
-### Bend vs inset readability (bend × D1 padding)
-High bend on compact surfaces increases corner curvature and can visually crowd content. When bend increases, step D1 inset
-up rather than pushing content into the curve.
-
-### Minimum test checklist
-Validate under:
-
-- keyboard navigation with `:focus-visible`
-- forced-colors / high-contrast modes
-- zoom 200–400% and text scaling (no clipping; adequate spacing)
-- dense vs normal modes (D2 height changes keep round-ends correct)
-- small-target components (icon buttons, chips) for hit area and separation
-
----
-
-## Component mapping
-
-This section provides a practical “where to bind bend” reference. It is intentionally **role-first** and maps components to
+This section provides a practical "where to bind bend" reference. It is intentionally **role-first** and maps components to
 existing CEM endpoints. If a component needs an internal override, implement it as a **local alias** (component scope),
 not as new global tokens.
 
-### Action binding (existing)
+### 10.1 Action binding (existing)
 
 The existing implementation binds actions to the bend system:
 
@@ -388,32 +410,32 @@ The existing implementation binds actions to the bend system:
 }
 ```
 
-### Extended component mapping
+### 10.2 Extended component mapping
 
 The mapping below is consistent with common practices across modern systems:
 
 - Material 3 applies the corner radius scale broadly to rectangular components (e.g., cards, dialogs, menus) and uses larger
-  radii for prominent overlays (dialogs are specified with 28dp container corners).  
+  radii for prominent overlays (dialogs are specified with 28dp container corners).
 - Fluent groups shape usage into rectangular elements, flyout elements (popovers), and pill/round elements (personas), and
-  recommends “none” for structural bars.  
-- Radix Themes treats radius as a theme-level property inherited by panels like Card/Dialog/Popover.  
-- Polaris documents concrete radii for cards (e.g., default 8px).  
+  recommends "none" for structural bars.
+- Radix Themes treats radius as a theme-level property inherited by panels like Card/Dialog/Popover.
+- Polaris documents concrete radii for cards (e.g., default 8px).
 - Carbon specifies radii for certain control families (e.g., content switcher corners).
 
 **Table: map components to CEM endpoints**
 
 | Component family | Recommended token / basis | Rationale (consumer + system) |
-|---|---|---|
+|------------------|---------------------------|-------------------------------|
 | **Buttons** | `--cem-bend-control` | Standard interactive affordance (default feel) |
-| **Icon buttons (circular variants)** | Local alias → `border-radius: var(--cem-bend-circle)` | Icon buttons often present as circles; use basis circle via local alias (do not mint a global “icon radius”) |
+| **Icon buttons (circular variants)** | Local alias → `border-radius: var(--cem-bend-circle)` | Icon buttons often present as circles; use basis circle via local alias (do not mint a global "icon radius") |
 | **FAB** | Circle variant → `--cem-bend-circle`; Extended FAB → `--cem-bend-control-round-ends` | Prominent control; circular (classic FAB) or capsule (extended FAB) |
-| **Chips / Tags** | `--cem-bend-control-round-ends` | “Capsule” shape signals lightweight, removable, filter-like affordance |
+| **Chips / Tags** | `--cem-bend-control-round-ends` | "Capsule" shape signals lightweight, removable, filter-like affordance |
 | **Badges / Counters** | `--cem-bend-smooth` (or `--cem-bend-control`) | Small rounding prevents harsh micro-shapes; keep subtle |
-| **Text fields / Select** | `--cem-bend-field` | Field geometry should match the product’s primary control feel |
+| **Text fields / Select** | `--cem-bend-field` | Field geometry should match the product's primary control feel |
 | **Switches / Toggles** | Track: `--cem-bend-round`; Thumb: `--cem-bend-circle` | Track is a pill; thumb is a circle (distinct affordance) |
 | **Cards / Panels** | `--cem-bend-surface` | Container grouping and boundaries |
 | **Tables / Dense list rows** | `--cem-bend-sharp` (or none) | Grid-aligned surfaces should remain formal/structural; avoid decorative rounding |
-| **Dialogs / Sheets** | `--cem-bend-modal` (+ attachment pattern for sheets) | High salience overlays; larger bend supports “layered” reading and separation |
+| **Dialogs / Sheets** | `--cem-bend-modal` (+ attachment pattern for sheets) | High salience overlays; larger bend supports "layered" reading and separation |
 | **Menus / Dropdowns / Popovers** | `--cem-bend-overlay` | Transient overlays; match default bend feel |
 | **Tooltips** | `--cem-bend-overlay` | Small transient overlay; keep consistent with menus |
 | **Snackbars / Toasts** | `--cem-bend-overlay` (policy may choose sharper) | Notification surfaces should not demand attention via shape alone |
@@ -422,27 +444,27 @@ The mapping below is consistent with common practices across modern systems:
 | **Avatars / Personas** | `--cem-bend-avatar` (`50%`) | Circular identity affordance |
 | **Media thumbnails** | `--cem-bend-media` | Gentle rounding to match overall feel without obscuring content edges |
 
-**Local alias pattern (preferred for variants)**
+### 10.3 Local alias pattern (preferred for variants)
 
 ```css
-.cem-icon-button{
-  /* local alias: do not mint a global “icon radius” */
+.cem-icon-button {
+  /* local alias: do not mint a global "icon radius" */
   border-radius: var(--cem-bend-circle);
 }
 
-.cem-chip{
+.cem-chip {
   border-radius: var(--cem-bend-control-round-ends);
 }
 ```
 
 ---
 
-## Notes on external systems (adapter-only)
+## 11. Notes on external systems (adapter-only)
 
 Many systems use a **bounded corner scale** and recommend applying it by role:
 
-- Material 3: “corner radius scale” across rectangular components; larger corners on prominent overlays.
-- Fluent 2: “None…Circle” tokens and guidance by component area (structural bars vs flyouts vs personas).
+- Material 3: "corner radius scale" across rectangular components; larger corners on prominent overlays.
+- Fluent 2: "None…Circle" tokens and guidance by component area (structural bars vs flyouts vs personas).
 - Radix Themes: theme-level radius inherited by panel-like components.
 - Polaris and Carbon: documented radii for common container/control families.
 
@@ -450,55 +472,56 @@ CEM consumes these patterns at the adapter layer but keeps product code consumer
 
 ---
 
-## Quick adoption checklist (implementation and governance)
+## 12. Quick adoption checklist
 
 Use this checklist to adopt the bend system with minimal churn and predictable outcomes.
 
-1) **Confirm prerequisites (D1 + D2 are present)**
-   - D1 provides the physical scale used by bend (`--cem-dim-xx-small`, `--cem-dim-x-small`, `--cem-dim-small`, etc.).
-   - D2 provides height for geometry-driven bend (`--cem-control-height`), so round-ends remain correct across density/size modes.
+1. **Confirm prerequisites (D1 + D2 are present)**
+   - D1 provides the physical scale used by bend (`--cem-dim-xx-small`, `--cem-dim-x-small`, `--cem-dim-small`, etc.) — see [`cem-dimension.md`](./cem-dimension.md).
+   - D2 provides height for geometry-driven bend (`--cem-control-height`), so round-ends remain correct across density/size modes — see [`coupling.md`](./coupling.md).
 
-2) **Adopt the bend basis (`--cem-bend-*`)**
+2. **Adopt the bend basis (`--cem-bend-*`)**
    - Keep the basis small: `sharp`, `smooth`, `round` (endcaps), `circle`, and the active `--cem-bend`.
-   - Decide product policy for “capsule controls” (where `--cem-bend-round` is used): occasional variant vs product-wide style.
+   - Decide product policy for "capsule controls" (where `--cem-bend-round` is used): occasional variant vs product-wide style.
 
-3) **Map semantic endpoints to the basis (role-first)**
+3. **Map semantic endpoints to the basis (role-first)**
    - Set `--cem-bend-control`, `--cem-bend-surface`, `--cem-bend-overlay`, and the minimal specializations already defined in this spec.
-   - Avoid mapping components directly to “scale aliases” (`xs/sm/md/...`) in product code. Those are adapter-only.
+   - Avoid mapping components directly to "scale aliases" (`xs/sm/md/...`) in product code. Those are adapter-only.
 
-4) **Bind components to semantic endpoints (no raw values)**
+4. **Bind components to semantic endpoints (no raw values)**
    - Bind `border-radius` to endpoints (e.g., `--cem-bend-control`, `--cem-bend-surface`) or to basis geometry tokens (`--cem-bend-round`, `--cem-bend-circle`) via **local aliases** for variants.
    - For asymmetric corners (groups/attachments), use the patterns in this spec and prefer **logical corner properties** to remain RTL-safe.
 
-5) **If needed, introduce a shape mode knob (`sharp | smooth | round`)**
+5. **If needed, introduce a shape mode knob (`sharp | smooth | round`)**
    - Add `data-cem-shape="..."` only if brand expression requires it.
    - Modes should override **only** `--cem-bend` and/or semantic endpoints (never introduce mode-specific component tokens).
 
-6) **Validate in accessibility and “hard mode” rendering**
-   - **Focus ring follows target shape** and is not clipped (avoid `overflow: hidden` trapping focus; validate `outline-offset` / ring space). citeturn0search0turn0search1  
-   - **Forced-colors / high-contrast**: affordances remain clear when shadows/fills are overridden; outline-based focus remains visible. citeturn0search4turn0search6  
+6. **Validate in accessibility and "hard mode" rendering**
+   - **Focus ring follows target shape** and is not clipped (avoid `overflow: hidden` trapping focus; validate `outline-offset` / ring space).
+   - **Forced-colors / high-contrast**: affordances remain clear when shadows/fills are overridden; outline-based focus remains visible.
    - **Grouped controls**: only outer corners rounded; inner corners sharp; RTL behavior correct.
-   - **Overlays** (tooltips/menus/popovers) are consistent with `--cem-bend-overlay`; **modals** use `--cem-bend-modal` (M3 dialogs are typically 28dp). citeturn0search2turn0search5  
+   - **Overlays** (tooltips/menus/popovers) are consistent with `--cem-bend-overlay`; **modals** use `--cem-bend-modal` (M3 dialogs are typically 28dp).
    - **Chips and badges** maintain pill/circular intent across density modes (round ends use ½-height rule).
-   - **Target size & spacing** remain compliant when shapes look visually smaller (particularly icon buttons and chips). (Coordinate with D2 sizing and D1 separation.) citeturn0search0turn0search27  
-   - **Focus not obscured** by sticky headers/overlays during keyboard navigation. citeturn0search10turn0search22  
+   - **Target size & spacing** remain compliant when shapes look visually smaller (particularly icon buttons and chips). Coordinate with D2 sizing and D1 separation.
+   - **Focus not obscured** by sticky headers/overlays during keyboard navigation.
 
-7) **Lock in governance**
+7. **Lock in governance**
    - Add a code convention (or lint rule) that forbids raw `border-radius` values in components except inside adapter layers.
    - Document which endpoints are allowed for each component family (use the Component mapping table as the baseline).
 
+---
 
-## Governance and versioning
+## 13. Governance and versioning
 
 This spec is intended to be adopted as a **stable contract** between design, engineering, and component libraries. Treat
 changes using **semantic versioning** (MAJOR.MINOR.PATCH) with explicit deprecation when feasible.
 
-### What counts as breaking (MAJOR)
+### 13.1 What counts as breaking (MAJOR)
 
 Treat as major (breaking) if you:
 
 - Rename or remove any **canonical** bend basis token (`--cem-bend-*`) or any **canonical semantic endpoint**.
-- Change the **semantic meaning** of an endpoint (e.g., what “overlay” covers; whether “round” means endcaps vs fixed value).
+- Change the **semantic meaning** of an endpoint (e.g., what "overlay" covers; whether "round" means endcaps vs fixed value).
 - Change the **geometry definition** of round-ends (`½ height`) or circle (`50%`) in a way that alters component behavior.
 - Change mode names, add/remove supported modes, or change the meaning of an existing mode selector
   (e.g., `data-cem-shape="sharp|smooth|round"`).
@@ -506,7 +529,7 @@ Treat as major (breaking) if you:
 **Business rationale:** these changes can silently alter UI boundaries, focus geometry, and density-mode behavior across many
 components at once.
 
-### What is non-breaking (MINOR / PATCH)
+### 13.2 What is non-breaking (MINOR / PATCH)
 
 Treat as minor/patch if you:
 
@@ -515,19 +538,19 @@ Treat as minor/patch if you:
 - Add mapping guidance, adapter notes, examples, or clarify documentation.
 - Expand component mapping tables without changing existing bindings.
 
-### Deprecation policy (recommended)
+### 13.3 Deprecation policy (recommended)
 
 - When replacing an endpoint, keep the old name as an **alias** for at least one minor release cycle.
-- Provide a migration note: “old → new,” and a rationale tied to consumer semantics and accessibility.
+- Provide a migration note: "old → new," and a rationale tied to consumer semantics and accessibility.
 
-### Canonical token summary (contract surface)
+### 13.4 Canonical token summary (contract surface)
 
 The table below distinguishes **required CEM contract tokens** from **optional adapter aliases**.
 
 | Token | Category | Required | Notes |
-|---|---|:---:|---|
+|-------|----------|:--------:|-------|
 | `--cem-bend-sharp` | Bend basis | Yes | No bend (sharp corners) |
-| `--cem-bend-smooth` | Bend basis | Yes | Small bend; should bind to D1 |
+| `--cem-bend-smooth` | Bend basis | Yes | Small bend; binds to D1 `--cem-dim-x-small` |
 | `--cem-bend-round` | Bend basis (geometry) | Yes | Round-ends (capsule): `½ height` |
 | `--cem-bend-circle` | Bend basis (geometry) | Yes | Circle: `50%` |
 | `--cem-bend` | Active alias | Yes | Mode-switchable default bend |
@@ -545,26 +568,27 @@ The table below distinguishes **required CEM contract tokens** from **optional a
 
 **Adapter-only (optional) aliases**
 
-The following “M3-parity” aliases may be exposed for compatibility, but must not be required by product component code:
+The following "M3-parity" aliases may be exposed for compatibility, but must not be required by product component code:
 
 - `--cem-bend-none`, `--cem-bend-xs`, `--cem-bend-sm`, `--cem-bend-md`, `--cem-bend-lg`, `--cem-bend-xl`, `--cem-bend-full`
 
 If these aliases exist, treat them as adapter surface: renames/removals are breaking for adapter consumers, but should not
 affect product components if semantic endpoints are followed.
 
+---
 
 ## Appendix A — Material 3 shape scale reference (adapter mapping)
 
 This appendix is **non-normative**: it exists to help adapters map Material 3 shape scales into the CEM bend basis and
 semantic endpoints.
 
-Material Design 3 defines a corner-radius scale with canonical steps (0/4/8/12/16/28 + “full”), and also introduces
-additional “increased” steps for larger containers in newer guidance.
+Material Design 3 defines a corner-radius scale with canonical steps (0/4/8/12/16/28 + "full"), and also introduces
+additional "increased" steps for larger containers in newer guidance.
 
-### Canonical M3 `--md-sys-shape-corner-*` steps → CEM
+### A.1 Canonical M3 `--md-sys-shape-corner-*` steps → CEM
 
 | M3 token | Typical value | CEM mapping (adapter-only) | Prefer applying via CEM endpoints | Perceived quality |
-|---|---:|---|---|---|
+|----------|---------------|----------------------------|-----------------------------------|-------------------|
 | `--md-sys-shape-corner-none` | 0 | `--cem-bend-sharp` | attached edges, structural bars (`--cem-bend-sharp`) | Sharp, formal, technical |
 | `--md-sys-shape-corner-extra-small` | 4dp | `var(--cem-dim-xx-small)` | rare micro-bend (badges, subtle containers) | Barely rounded, subtle |
 | `--md-sys-shape-corner-small` | 8dp | `--cem-bend-smooth` | `--cem-bend-control`, `--cem-bend-overlay` | Slightly soft |
@@ -573,42 +597,51 @@ additional “increased” steps for larger containers in newer guidance.
 | `--md-sys-shape-corner-extra-large` | 28dp | `--cem-bend-modal` | `--cem-bend-modal` | Very soft, approachable |
 | `--md-sys-shape-corner-full` | pill / 50% | `--cem-bend-round` (capsule) and/or `--cem-bend-circle` (circle) | chips, capsule controls, avatars | Playful, highly rounded |
 
-### Optional M3-parity aliases (adapter-only)
+### A.2 Optional M3-parity aliases (adapter-only)
 
 If you want to expose M3-like short aliases for compatibility, define them as **aliases** to CEM basis and D1 tokens.
 These are **not** intended for product component code.
 
 ```css
-:root{
+:root {
   --cem-bend-none: var(--cem-bend-sharp);
-  --cem-bend-xs:   var(--cem-dim-xx-small); /* ~4 */
-  --cem-bend-sm:   var(--cem-dim-x-small);  /* ~8 */
-  --cem-bend-md:   var(--cem-dim-small);    /* ~12 */
-  --cem-bend-lg:   var(--cem-dim-medium);   /* ~16 */
-  --cem-bend-xl:   var(--cem-bend-modal);   /* ~28 */
+  --cem-bend-xs:   var(--cem-dim-xx-small); /* ~4dp */
+  --cem-bend-sm:   var(--cem-dim-x-small);  /* ~8dp */
+  --cem-bend-md:   var(--cem-dim-small);    /* ~12dp */
+  --cem-bend-lg:   var(--cem-dim-medium);   /* ~16dp */
+  --cem-bend-xl:   var(--cem-bend-modal);   /* ~28dp */
 
-  /* “full” depends on geometry: capsule vs circle */
+  /* "full" depends on geometry: capsule vs circle */
   --cem-bend-full: var(--cem-bend-round);
 }
 ```
 
-### Notes on validation vs “current” libraries
+### A.3 Notes on validation vs "current" libraries
 
 - Material Web uses `--md-sys-shape-corner-*` tokens in theming and leaves exact numeric assignments to the system theme.
-- Angular Material may publish/ship a scale whose *numeric* values differ from the M3 “typical” table; treat Angular’s
+- Angular Material may publish/ship a scale whose *numeric* values differ from the M3 "typical" table; treat Angular's
   scale as its **own source scale** and map to CEM by intent, not by exact dp numbers.
-- CEM’s contract is semantic endpoints. Adapters own external token mapping.
+- CEM's contract is semantic endpoints. Adapters own external token mapping.
+
+---
+
+## References
 
 **Primary sources**
-- Material Design 3: Shape (shape scale tokens): https://m3.material.io/styles/shape/shape-scale-tokens  
-- Material Design 3 — Corner radius scale: https://m3.material.io/styles/shape/corner-radius-scale  
-- Material Web: Theming: https://material-web.dev/theming/material-theming/  
-- Angular Material: Design Tokens (DeepWiki index): https://deepwiki.com/angular/components/5.2-material-design-tokens  
-- Google Developers: Building the Shape System: https://developers.googleblog.com/building-the-shape-system-for-material-design/  
+- [Material Design 3: Shape (shape scale tokens)](https://m3.material.io/styles/shape/shape-scale-tokens)
+- [Material Design 3: Corner radius scale](https://m3.material.io/styles/shape/corner-radius-scale)
+- [Material Web: Theming](https://material-web.dev/theming/material-theming/)
+- [Angular Material: Design Tokens](https://deepwiki.com/angular/components/5.2-material-design-tokens)
+- [Google Developers: Building the Shape System](https://developers.googleblog.com/building-the-shape-system-for-material-design/)
 
 **Additional ecosystem references (non-normative)**
-- Fluent 2 — Shapes: https://fluent2.microsoft.design/shapes  
-- Radix Themes — Radius: https://www.radix-ui.com/themes/docs/theme/radius  
-- Shopify Polaris — Card: https://polaris-react.shopify.com/components/layout-and-structure/card  
-- Carbon — Content switcher style: https://carbondesignsystem.com/components/content-switcher/style/  
+- [Fluent 2: Shapes](https://fluent2.microsoft.design/shapes)
+- [Radix Themes: Radius](https://www.radix-ui.com/themes/docs/theme/radius)
+- [Shopify Polaris: Card](https://polaris-react.shopify.com/components/layout-and-structure/card)
+- [Carbon: Content switcher style](https://carbondesignsystem.com/components/content-switcher/style/)
 
+**Local CEM documentation**
+- [D1. Space & Rhythm](./cem-dimension.md) — dimension scale tokens
+- [D2. Coupling & Compactness](./coupling.md) — control height and operability
+- [D6. Typography](./voice-fonts-typography.md) — voice and typography tokens
+- [D7. Time & Motion](./timing.md) — timing and easing tokens
