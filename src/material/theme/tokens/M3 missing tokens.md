@@ -84,7 +84,22 @@ and Angular Material shape/elevation tokens (system-level concepts).
 Stack Overflow
 +1
 
-5) Elevation & shadow tokens beyond actions (Depth & layering cues)
+5) [x] Stroke & separation tokens (Boundaries & indicators) — see `cem-stroke.md`
+
+Why (Material alignment): Material uses dividers (1dp), focus rings, and border patterns as core visual separation.
+
+CEM category: "Boundaries" / "Separation" / "Indicators" (consumer-visible boundary geometry).
+Example CEM token families:
+
+Basis: --cem-stroke-none, --cem-stroke-hair, --cem-stroke-standard, --cem-stroke-strong
+
+Semantic: --cem-stroke-boundary, --cem-stroke-divider, --cem-stroke-focus, --cem-stroke-selected, --cem-stroke-target
+
+Zebra indicators: --cem-zebra-strip-size, --cem-zebra-color-0..3
+
+Material mapping idea: maps to divider width, focus ring thickness, outlined field border widths.
+
+6) Elevation & shadow tokens beyond actions (Depth & layering cues)
 
 You have action box-shadows, but not a general surface elevation system.
 
@@ -101,7 +116,7 @@ Semantic: --cem-surface-raised-shadow, --cem-surface-overlay-shadow, --cem-surfa
 
 Add --cem-scrim-opacity as a paired token for overlays (user-perceived depth).
 
-6) Layering tokens (Stacking order)
+7) Layering tokens (Stacking order)
 
 Why (Material alignment): MUI treats z-index as a defined theme scale and documents canonical layers (app bar, drawer,
 modal, tooltip, etc.).
@@ -114,7 +129,7 @@ Example CEM token families:
 
 (Optionally keep a numeric mirror scale if needed for interoperability.)
 
-7) Responsive breakpoints (Layout adaptation)
+8) Responsive breakpoints (Layout adaptation)
 
 Why (Material alignment): MUI treats breakpoints as a core theme variable for responsive layout behavior.
 MUI
@@ -127,7 +142,7 @@ Example CEM token families:
 
 Pair with “container” tokens if you want component-level responsiveness later.
 
-8) Component slot tokens (Bridging layer to Material component tokens)
+9) Component slot tokens (Bridging layer to Material component tokens)
 
 This is the missing link if you want your CEM tokens to drive Angular Material/MUI components without sprinkling
 per-component overrides everywhere.

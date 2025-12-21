@@ -11,6 +11,7 @@
 **Companion specs:**
 - **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — normative for interactive operability
 - **D3. Shape & Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/inset harmony rules
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, focus indicators
 - **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — reading rhythm validation
 - **D7. Time & Motion** ([`timing.md`](./timing.md)) — rhythm perception
 
@@ -131,8 +132,10 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
 - **D4. Elevation & Shadow**
     - surface depth hierarchy and state-driven lift
 
-- **D5. Stroke & Separation**
-    - outline thickness, focus ring thickness, divider thickness, zebra thickness
+- **D5. Stroke & Separation** — see [`cem-stroke.md`](./cem-stroke.md)
+    - boundaries (control container edges), dividers (sibling separation)
+    - focus/selection/target indicators (including zebra pattern)
+    - stroke basis (`--cem-stroke-none`, `--cem-stroke-hair`, `--cem-stroke-standard`, `--cem-stroke-strong`)
 
 - **D6. Typography Thickness** — see [`voice-fonts-typography.md`](./voice-fonts-typography.md)
     - weight/mass roles that affect perceived density and hierarchy
@@ -613,5 +616,6 @@ D1 is subordinate to D2 for operability. The following must hold in every releas
 **Local CEM documentation**
 - [D2. Coupling & Compactness](./coupling.md) — interactive operability constraints
 - [D3. Shape & Bend](./cem-shape.md) — bend tokens, bend-inset harmony
+- [D5. Stroke & Separation](./cem-stroke.md) — boundaries, dividers, focus/selection/target indicators
 - [D6. Typography](./voice-fonts-typography.md) — reading rhythm validation
 - [D7. Time & Motion](./timing.md) — rhythm perception

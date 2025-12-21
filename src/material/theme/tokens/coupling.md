@@ -31,14 +31,19 @@ This supports the UI-space meaning you called out: proximity implies **relations
   - halo/expansion policy (visual size vs operable size)
   - control geometry endpoints that affect operability (heights/paddings/row sizes)
 
-- **D1. Space & Rhythm** (from `cem-dimension.md`)
+- **D1. Space & Rhythm** (from [`cem-dimension.md`](./cem-dimension.md))
   - gaps/insets/rhythm
   - may *suggest* coupling semantics, but must never violate D2 safety minimums
+
+- **D5. Stroke & Separation** (from [`cem-stroke.md`](./cem-stroke.md))
+  - focus/selection/target indicator thickness and offset
+  - D5 uses `--cem-coupling-guard-min` for focus ring offset (cross-dimension contract)
 
 Boundary heuristic:
 
 - If it changes **distance between items** → D1
 - If it changes **operable geometry of an interactive element** → D2
+- If it changes **indicator thickness or offset** → D5 (using D2 guard for offset)
 
 ---
 
@@ -330,7 +335,7 @@ Pass criteria:
 
 - adjacent operable zones never violate `guard-min`
 - no halo overlap between neighbors
-- focus ring / hover affordances remain legible when visuals are compact
+- focus ring / hover affordances remain legible when visuals are compact (see [`cem-stroke.md`](./cem-stroke.md) §5 for focus indicator thickness)
 
 ---
 
