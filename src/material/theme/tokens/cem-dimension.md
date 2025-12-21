@@ -11,6 +11,7 @@
 **Companion specs:**
 - **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — normative for interactive operability
 - **D3. Shape & Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/inset harmony rules
+- **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — prominent layers "earn" breathing room
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, focus indicators
 - **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — reading rhythm validation
 - **D7. Time & Motion** ([`timing.md`](./timing.md)) — rhythm perception
@@ -129,9 +130,9 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
     - bend / corner radius roles
     - bend-inset harmony (see §4.2 rule 5)
 
-- **D4. Elevation & Depth** — see [`elevation-cld.md`](./elevation-cld.md)
-    - surface depth hierarchy (flat → raised → floating → overlay → modal)
-    - shadow recipes, tonal elevation coordination, scrim opacity
+- **D4. Layering** — see [`cem-layering.md`](./cem-layering.md)
+    - signed 7-tier ladder (recess → base → raised → floating → overlay → command)
+    - tonal shift, shadow, contour, scrim as depth channels
     - state-driven lift (hover, drag)
 
 - **D5. Stroke & Separation** — see [`cem-stroke.md`](./cem-stroke.md)
@@ -171,7 +172,7 @@ When spacing occurs **between two interactive affordances**, layout must respect
 
 4. **Elevated/prominent surfaces "earn" breathing room**
 
-- More elevation/prominence (D4) should generally correlate with more surrounding space (D1).
+- Higher layer prominence (D4) should generally correlate with more surrounding space (D1).
 
 5. **Bend and inset should harmonize** (D1 × D3)
 
