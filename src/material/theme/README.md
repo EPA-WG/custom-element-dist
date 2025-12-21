@@ -213,6 +213,9 @@ The minimal number of base color variations is 7.
 ...
 
 # Line thickness, stroke weight
+
+> **Note:** This section covers **D6 Typography** thickness (font-weight values 100–900). For **D5 Stroke & Separation** tokens (borders, dividers, focus rings), see [`tokens/cem-stroke.md`](./tokens/cem-stroke.md).
+
 [Typography Guide Part 2: Weight and Width](https://creativebeacon.com/typography-guide-part-2-weight-and-width/)
     The different weights can be 
 
@@ -259,6 +262,7 @@ All 7 thickness levels are utilized with distinct voice mappings.
 
 # Outline
 
+> **See also:** [`tokens/cem-stroke.md`](./tokens/cem-stroke.md) for the canonical D5 Stroke & Separation spec, which documents stroke basis (`--cem-stroke-*`), semantic endpoints (`--cem-stroke-boundary`, `--cem-stroke-divider`, `--cem-stroke-focus`), and zebra indicator tokens.
 
 | tokens                              | scope                                     | CSS key                         | value                                                                                                      | comment                                                                        |
 |-------------------------------------|-------------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|

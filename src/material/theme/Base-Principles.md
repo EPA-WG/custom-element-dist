@@ -1,6 +1,10 @@
 # Principles for Color & Outline‑Based Action Separation
 
-> Scope: applies to components styled by `consumer-theme.css` following guidance in `src/material/theme/README.md`. States follow the `cem-action-state` listing from `src/material/theme/theme-data.xhtml`.
+> Scope: applies to components styled by `consumer-theme.css` following guidance in `src/material/theme/README.md`. 
+> States follow the `cem-action-state` listing from `src/material/theme/theme-data.xhtml`.
+
+> **See also:** [`tokens/cem-stroke.md`](./tokens/cem-stroke.md) for the canonical D5 Stroke & Separation spec, 
+> which documents the stroke basis, semantic endpoints, and zebra indicator tokens in the CEM token framework.
 
 ## 1) Goals
 

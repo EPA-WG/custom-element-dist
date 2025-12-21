@@ -8,7 +8,7 @@
 **Companion specs:**
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — provides dimension scale used by bend
 - **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — provides control height for geometry-driven bend
-- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — stroke thickness for borders and focus indicators
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, and focus/selection/target indicators
 - **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — related visual hierarchy
 - **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for shape transitions
 
@@ -364,7 +364,7 @@ Do not encode meaning using bend alone (e.g., "rounded = primary" / "square = se
 High-contrast modes can override fills/shadows and reduce the perceptibility of subtle shape differences. Treat bend deltas
 smaller than "sharp vs smooth" as **non-essential**. For critical distinctions:
 
-- rely on **D5 stroke/outline** and **D0 color semantics**
+- rely on **D5 stroke/outline** ([`cem-stroke.md`](./cem-stroke.md)) and **D0 color semantics**
 - provide non-color redundancy (icon/text) for state/meaning
 
 ### 8.3 Focus indicators must respect the target
@@ -374,7 +374,7 @@ Focus rings and outlines must align with the target's bend, and must remain visi
 Practical guidance (cross-dimension):
 
 - **D1:** reserve ring space via offset/inset so the ring does not collide with corners or get clipped (see [`cem-dimension.md`](./cem-dimension.md)).
-- **D5:** define focus stroke width and style; do not rely on bend to indicate focus.
+- **D5:** define focus stroke width and style via `--cem-stroke-focus`; do not rely on bend to indicate focus (see [`cem-stroke.md`](./cem-stroke.md) §5).
 - **D2:** ensure focus ring does not reduce effective hit size; hit targets remain compliant (see [`coupling.md`](./coupling.md)).
 
 Recommended robust pattern (shape-aligned ring in normal mode, resilient in forced-colors):
