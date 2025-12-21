@@ -72,7 +72,7 @@ It:
 
 Shape tokens communicate personality and help users understand **UI boundaries, groupings, and interactive affordances**.
 
-**Out of scope:** elevation (D4 — see [`elevation-cld.md`](./elevation-cld.md)), stroke thickness (D5), spacing/insets (D1), and operable/touch geometry (D2) — though shape must integrate with them (see §8 Accessibility section).
+**Out of scope:** layering/elevation (D4 — see [`cem-layering.md`](./cem-layering.md)), stroke thickness (D5), spacing/insets (D1), and operable/touch geometry (D2) — though shape must integrate with them (see §8 Accessibility section).
 
 ---
 

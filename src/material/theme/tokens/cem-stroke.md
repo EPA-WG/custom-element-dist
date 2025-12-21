@@ -10,7 +10,7 @@
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — inset/spacing rules that keep strokes readable without crowding
 - **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — density modes that affect when thin strokes must become stronger
 - **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — corner radii and rounding rules that strokes must follow
-- **D4. Elevation & Depth** ([`elevation-cld.md`](./elevation-cld.md)) — when to prefer shadow separation vs stroke separation
+- **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — when to prefer shadow separation vs stroke separation
 - **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for focus/selection transitions
 
 ---

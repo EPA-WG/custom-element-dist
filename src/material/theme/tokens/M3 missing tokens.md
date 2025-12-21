@@ -99,35 +99,32 @@ Zebra indicators: --cem-zebra-strip-size, --cem-zebra-color-0..3
 
 Material mapping idea: maps to divider width, focus ring thickness, outlined field border widths.
 
-6) [x] Elevation & shadow tokens beyond actions (Depth & layering cues) — see `elevation-cld.md`
+6) [x] Layering tokens (Depth, elevation & stacking) — see `cem-layering.md`
 
-You have action box-shadows, but not a general surface elevation system.
+Signed 7-tier ladder combining recess + elevation + planes.
 
 Why (Material alignment): Material's token model treats elevation as a system-level concept.
 
-CEM category: "Depth" / "Raisedness" / "Overlay prominence."
+CEM category: "Layering" — recess/lift/planes as one consumer concept.
 Example CEM token families:
 
-Basis: --cem-depth-0..5 (foundation ladder)
+Basis rungs: --cem-recess-2, --cem-recess-1, --sem-elevation-0..4
 
-Semantic: --cem-surface-raised-shadow, --cem-surface-floating-shadow, --cem-surface-overlay-shadow, --cem-surface-modal-shadow
+Semantic endpoints: --cem-layer-back, --cem-layer-base, --cem-layer-work, --cem-layer-overlay, --cem-layer-command
 
-Companion: --cem-scrim-opacity, --cem-scrim-opacity-weak, --cem-scrim-opacity-strong
+Representation channels: tonal shift (D0), shadow, contour (D5), material/blur, space (D1), motion (D7).
 
-Material mapping: tonal elevation (D0) + shadow elevation (D4) + scrim for overlays.
+Material mapping: signed depth + tonal elevation + scrim for modality.
 
-7) Layering tokens (Stacking order)
+7) [x] Stacking order (merged into Layering) — see `cem-layering.md`
 
-Why (Material alignment): MUI treats z-index as a defined theme scale and documents canonical layers (app bar, drawer,
-modal, tooltip, etc.).
-MUI
+Now part of D4 Layering. cem-layering.md defines:
+- Five named planes: Back, Base, Work, Overlay, Command
+- Semantic endpoints: --cem-layer-back, --cem-layer-base, --cem-layer-work, --cem-layer-overlay, --cem-layer-command
+- Discriminator rules for Overlay vs Floating
+- Dismissal precedence: topmost Overlay first, then Command
 
-CEM category: “UI layers” (what the user perceives: “tooltip above dialog”, etc.).
-Example CEM token families:
-
---cem-layer-base, --cem-layer-sticky, --cem-layer-overlay, --cem-layer-modal, --cem-layer-tooltip
-
-(Optionally keep a numeric mirror scale if needed for interoperability.)
+Note: z-index values are an implementation detail, not part of the semantic contract.
 
 8) Responsive breakpoints (Layout adaptation)
 
