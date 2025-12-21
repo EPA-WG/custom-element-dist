@@ -8,7 +8,7 @@
 **Companion specs:**
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — provides dimension scale used by bend
 - **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — provides control height for geometry-driven bend
-- **D5. Stroke & Separation** — stroke thickness (referenced for accessibility; not yet documented)
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — stroke thickness for borders and focus indicators
 - **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — related visual hierarchy
 - **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for shape transitions
 
