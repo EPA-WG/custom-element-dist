@@ -129,8 +129,10 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
     - bend / corner radius roles
     - bend-inset harmony (see §4.2 rule 5)
 
-- **D4. Elevation & Shadow**
-    - surface depth hierarchy and state-driven lift
+- **D4. Elevation & Depth** — see [`elevation-cld.md`](./elevation-cld.md)
+    - surface depth hierarchy (flat → raised → floating → overlay → modal)
+    - shadow recipes, tonal elevation coordination, scrim opacity
+    - state-driven lift (hover, drag)
 
 - **D5. Stroke & Separation** — see [`cem-stroke.md`](./cem-stroke.md)
     - boundaries (control container edges), dividers (sibling separation)

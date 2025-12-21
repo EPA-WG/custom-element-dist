@@ -99,22 +99,22 @@ Zebra indicators: --cem-zebra-strip-size, --cem-zebra-color-0..3
 
 Material mapping idea: maps to divider width, focus ring thickness, outlined field border widths.
 
-6) Elevation & shadow tokens beyond actions (Depth & layering cues)
+6) [x] Elevation & shadow tokens beyond actions (Depth & layering cues) — see `elevation-cld.md`
 
 You have action box-shadows, but not a general surface elevation system.
 
-Why (Material alignment): Material’s token model treats elevation as a system-level concept.
-Stack Overflow
-+1
+Why (Material alignment): Material's token model treats elevation as a system-level concept.
 
-CEM category: “Depth” / “Raisedness” / “Overlay prominence.”
+CEM category: "Depth" / "Raisedness" / "Overlay prominence."
 Example CEM token families:
 
---cem-elevation-0…5 (foundation)
+Basis: --cem-depth-0..5 (foundation ladder)
 
-Semantic: --cem-surface-raised-shadow, --cem-surface-overlay-shadow, --cem-surface-modal-shadow
+Semantic: --cem-surface-raised-shadow, --cem-surface-floating-shadow, --cem-surface-overlay-shadow, --cem-surface-modal-shadow
 
-Add --cem-scrim-opacity as a paired token for overlays (user-perceived depth).
+Companion: --cem-scrim-opacity, --cem-scrim-opacity-weak, --cem-scrim-opacity-strong
+
+Material mapping: tonal elevation (D0) + shadow elevation (D4) + scrim for overlays.
 
 7) Layering tokens (Stacking order)
 
