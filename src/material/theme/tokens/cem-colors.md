@@ -13,14 +13,14 @@ CEM uses **color** as the primary channel for communicating:
 - **Interaction meaning:** what an action will do (primary, destructive, alternate, etc.)
 - **State progression:** how an element's condition changes (default → hover → active → pending)
 
-**Companion specs (normative context):**
-
-- **D1 Space & Rhythm** (`cem-dimension.md`) — spacing scale, density modes, and layout gaps.
-- **D4 Layering** (`cem-layering.md`) — psychological layers/rungs and overlay semantics.
-- **D5 Stroke** (`cem-stroke.md`) — border/ring geometry and zebra stripe construction.
-- **D6 Typography** (`voice-fonts-typography.md`) — text roles, contrast expectations, and weight strategies.
-- **D7 Motion** (`timing.md`) — durations, easing, and feedback pacing.
-- **Coupling guidance** (`coupling.md`) — explicitly defined cross-dimension interactions.
+**Companion specs:**
+- **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — spacing scale, density modes, and layout gaps
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density affects color intensity perception
+- **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — rounded shapes soften color impact
+- **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — tonal shifts for depth perception (recess/lift)
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — focus/selection colors; D0 defines hue, D5 defines geometry
+- **D6. Typography** ([`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md)) — text contrast requirements
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — color transition timing
 
 ## Table of contents
 

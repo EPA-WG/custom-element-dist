@@ -8,6 +8,14 @@
 
 **Applies to:** UI animation timing (durations, easing curves, and optional spring presets)
 
+**Companion specs:**
+- **D0. Color (Emotional Palette)** ([`cem-colors.md`](./cem-colors.md)) — color transition timing
+- **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — spacing animation timing
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density transition timing
+- **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/morph animation timing
+- **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — lift/drop transitions, reduced-motion behavior
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — focus/selection transition timing
+
 ---
 
 ## 1. Purpose and scope
