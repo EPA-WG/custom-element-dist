@@ -82,7 +82,7 @@ The tier number communicates **priority and meaning** (user psychology), not gua
 
 **Normative rules**
 
-- **MUST NOT** use `--sem-elevation-*` as a z-index value.
+- **MUST NOT** use `--cem-elevation-*` as a z-index value.
 - **MUST NOT** infer semantic tier from physical draw order.
 - **MUST** preserve semantic meaning even when physical stacking differs.
 - **MUST** treat **Command** as the owner of modality (scrim, focus trap, blocked interaction), even if an Overlay renders above it.
@@ -113,11 +113,11 @@ CEM defines exactly **7 canonical tiers**. The ladder is signed: two recess rung
 |--------------:|---------------------|-------------------|-------------------------------------|-----------------------------------------|
 |        **−2** | `--cem-recess-2`    | **Deep recessed** | infrastructure far behind attention | deep shell wells, backstage panels      |
 |        **−1** | `--cem-recess-1`    | **Recessed**      | back context behind work            | side navigation rail, filter plane      |
-|         **0** | `--sem-elevation-0` | **Base**          | ground / canvas                     | app background, page canvas             |
-|        **+1** | `--sem-elevation-1` | **Raised**        | work region separation              | cards, primary panels, editors          |
-|        **+2** | `--sem-elevation-2` | **Floating**      | interactive lift / grouped focus    | hover-lift regions, dragged items       |
-|        **+3** | `--sem-elevation-3` | **Overlay**       | contextual transient layer          | menus, tooltips, popovers, select lists |
-|        **+4** | `--sem-elevation-4` | **Command**       | must respond / modal decision       | dialogs, blocking confirmations         |
+|         **0** | `--cem-elevation-0` | **Base**          | ground / canvas                     | app background, page canvas             |
+|        **+1** | `--cem-elevation-1` | **Raised**        | work region separation              | cards, primary panels, editors          |
+|        **+2** | `--cem-elevation-2` | **Floating**      | interactive lift / grouped focus    | hover-lift regions, dragged items       |
+|        **+3** | `--cem-elevation-3` | **Overlay**       | contextual transient layer          | menus, tooltips, popovers, select lists |
+|        **+4** | `--cem-elevation-4` | **Command**       | must respond / modal decision       | dialogs, blocking confirmations         |
 
 ### 2.4 Terminology disclaimer
 
@@ -223,11 +223,11 @@ Basis tokens are the minimal numeric “rungs.” They encode signed tier meanin
 
 - `--cem-recess-2`
 - `--cem-recess-1`
-- `--sem-elevation-0`
-- `--sem-elevation-1`
-- `--sem-elevation-2`
-- `--sem-elevation-3`
-- `--sem-elevation-4`
+- `--cem-elevation-0`
+- `--cem-elevation-1`
+- `--cem-elevation-2`
+- `--cem-elevation-3`
+- `--cem-elevation-4`
 
 ### 6.2 Semantic endpoints (product-facing)
 
@@ -286,12 +286,12 @@ Semantic endpoints allow components to express layering without knowing numeric 
 | Endpoint              | Maps to rung        | Meaning                         |
 |-----------------------|---------------------|---------------------------------|
 | `--cem-layer-back`    | `--cem-recess-1`    | back layer: context behind work |
-| `--cem-layer-base`    | `--sem-elevation-0` | canvas/base                     |
-| `--cem-layer-work`    | `--sem-elevation-1` | primary work regions            |
-| `--cem-layer-overlay` | `--sem-elevation-3` | contextual transient UI         |
-| `--cem-layer-command` | `--sem-elevation-4` | must respond: modal decision    |
+| `--cem-layer-base`    | `--cem-elevation-0` | canvas/base                     |
+| `--cem-layer-work`    | `--cem-elevation-1` | primary work regions            |
+| `--cem-layer-overlay` | `--cem-elevation-3` | contextual transient UI         |
+| `--cem-layer-command` | `--cem-elevation-4` | must respond: modal decision    |
 
-> Note: `--sem-elevation-2` (Floating) is most often an **internal component choice** within the Work layer (e.g., a temporary lifted region), not a global plane.
+> Note: `--cem-elevation-2` (Floating) is most often an **internal component choice** within the Work layer (e.g., a temporary lifted region), not a global plane.
 
 ### 8.2 Optional endpoints
 
@@ -301,7 +301,7 @@ and if they map cleanly to an existing rung without creating new “micro tiers�
 Examples:
 
 - `--cem-layer-back-deep` → `--cem-layer-back` + `--cem-recess-2`
-- `--cem-layer-work-floating` → `--cem-layer-work` + `--sem-elevation-2`
+- `--cem-layer-work-floating` → `--cem-layer-work` + `--cem-elevation-2`
 
 ---
 
@@ -443,14 +443,14 @@ This matrix maps common component families to **layer endpoints** and their **de
 |------------------------------------|-----------------------|---------------------|----------------------------------------------------|
 | App shell (chrome)                 | `--cem-layer-back`    | `--cem-recess-1`    | recessed context; low brand energy                 |
 | Backstage wells (rare)             | `--cem-layer-back`    | `--cem-recess-2`    | use sparingly; avoid turning the UI into “tunnels” |
-| Page canvas                        | `--cem-layer-base`    | `--sem-elevation-0` | ground / canvas                                    |
-| Main content panels                | `--cem-layer-work`    | `--sem-elevation-1` | default work separation                            |
-| Floating affordances (within work) | `--cem-layer-work`    | `--sem-elevation-2` | same object lifted (hover/drag)                    |
-| Tooltip                            | `--cem-layer-overlay` | `--sem-elevation-3` | may portal above dialogs; remains Overlay          |
-| Menu / popover / select list       | `--cem-layer-overlay` | `--sem-elevation-3` | portal/top-layer; dismiss precedence above dialog  |
-| Sheet (non-blocking)               | `--cem-layer-overlay` | `--sem-elevation-3` | optional scrim only if required                    |
-| Dialog / confirmation              | `--cem-layer-command` | `--sem-elevation-4` | owns modality, scrim, focus trap                   |
-| Toast / global banner              | `--cem-layer-overlay` | `--sem-elevation-3` | if it blocks progress, treat as Command            |
+| Page canvas                        | `--cem-layer-base`    | `--cem-elevation-0` | ground / canvas                                    |
+| Main content panels                | `--cem-layer-work`    | `--cem-elevation-1` | default work separation                            |
+| Floating affordances (within work) | `--cem-layer-work`    | `--cem-elevation-2` | same object lifted (hover/drag)                    |
+| Tooltip                            | `--cem-layer-overlay` | `--cem-elevation-3` | may portal above dialogs; remains Overlay          |
+| Menu / popover / select list       | `--cem-layer-overlay` | `--cem-elevation-3` | portal/top-layer; dismiss precedence above dialog  |
+| Sheet (non-blocking)               | `--cem-layer-overlay` | `--cem-elevation-3` | optional scrim only if required                    |
+| Dialog / confirmation              | `--cem-layer-command` | `--cem-elevation-4` | owns modality, scrim, focus trap                   |
+| Toast / global banner              | `--cem-layer-overlay` | `--cem-elevation-3` | if it blocks progress, treat as Command            |
 
 ---
 
@@ -468,9 +468,9 @@ The following demonstrates the mapping shape; it is not a required implementatio
 ```css
 /* Semantic endpoints select a rung; adapters render the rung. */
 
-.cem-layer--work      { --cem-rung: var(--sem-elevation-1); }
-.cem-layer--overlay   { --cem-rung: var(--sem-elevation-3); }
-.cem-layer--command   { --cem-rung: var(--sem-elevation-4); }
+.cem-layer--work      { --cem-rung: var(--cem-elevation-1); }
+.cem-layer--overlay   { --cem-rung: var(--cem-elevation-3); }
+.cem-layer--command   { --cem-rung: var(--cem-elevation-4); }
 
 /* Adapter hooks (tone/shadow/contour) are theme-specific. */
 .cem-layer {
@@ -493,11 +493,11 @@ The following demonstrates the mapping shape; it is not a required implementatio
 
 - `--cem-recess-2`
 - `--cem-recess-1`
-- `--sem-elevation-0`
-- `--sem-elevation-1`
-- `--sem-elevation-2`
-- `--sem-elevation-3`
-- `--sem-elevation-4`
+- `--cem-elevation-0`
+- `--cem-elevation-1`
+- `--cem-elevation-2`
+- `--cem-elevation-3`
+- `--cem-elevation-4`
 
 ### 16.2 Required semantic endpoints
 
@@ -510,7 +510,7 @@ The following demonstrates the mapping shape; it is not a required implementatio
 ### 16.3 Optional semantic endpoints (allowed)
 
 - `--cem-layer-back-deep` → `--cem-layer-back` + `--cem-recess-2`
-- `--cem-layer-work-floating` → `--cem-layer-work` + `--sem-elevation-2`
+- `--cem-layer-work-floating` → `--cem-layer-work` + `--cem-elevation-2`
 
 ---
 
@@ -539,7 +539,7 @@ Treat as minor/patch if you:
 This spec is the canonical D4 contract for layering (signed depth).
 
 - Legacy elevation tokens may be kept as **internal aliases**.
-- Prefer `--sem-elevation-*`, `--cem-recess-*`, and `--cem-layer-*` as the public CEM contract going forward.
+- Prefer `--cem-elevation-*`, `--cem-recess-*`, and `--cem-layer-*` as the public CEM contract going forward.
 
 ---
 
