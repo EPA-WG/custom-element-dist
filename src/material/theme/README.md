@@ -237,7 +237,7 @@ The minimal number of base color variations is 7.
 
 # Typography and Voice
 
-See [Voice and Fonts in Typography](./tokens/voice-fonts-typography.md) for the complete semantic typography system.
+See [Voice and Fonts in Typography](tokens/cem-voice-fonts-typography.md) for the complete semantic typography system.
 
 Typography tokens are organized into three layers:
 - **Fontography** — font families and feature policies

@@ -11,11 +11,11 @@ CEM uses **layering** as the umbrella term for:
 - **Planes (rendering):** global stacking rules for overlays/modals, independent of local nesting.
 
 **Companion specs:**
-- **D0. Color (Emotional Palette)** ([`theme-data.xhtml`](./theme-data.xhtml)) — tonal "dig down" vs "lift up"
+- **D0. Color (Emotional Palette)** ([`theme-data.xhtml`](../theme-data.xhtml)) — tonal "dig down" vs "lift up"
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — breathing room coupling
 - **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — bend roles for overlays/modals
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — contour reinforcement, especially in forced-colors
-- **D7. Time & Motion** ([`timing.md`](./timing.md)) — lift/drop transitions and reduced-motion behavior
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — lift/drop transitions and reduced-motion behavior
 - **Action states** ([discussion #14](https://github.com/EPA-WG/custom-element-dist/discussions/14)) — visual priority order and interaction escalation semantics
 
 ## Contents

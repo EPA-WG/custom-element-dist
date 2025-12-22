@@ -247,16 +247,16 @@ Example mapping guidance:
 
 ---
 
-## 10. Finalization checklist (what “done” means)
+## 9. Finalization checklist (what “done” means)
 
-### 10.1 Canonical decisions to lock
+### 9.1 Canonical decisions to lock
 
 - **Category name:** D2. Coupling & Compactness (or D2. Coupling Safety)
 - **Public axis name:** `coupling` (semantic), with exactly **three modes**: `forgiving | balanced | compact`
 - **Core nouns:** zone / halo / guard
 - **Units:** `rem` for all coupling and geometry values
 
-### 10.2 Token set acceptance criteria
+### 9.2 Token set acceptance criteria
 
 A draft becomes “canonical” when all of the following are true:
 
@@ -281,7 +281,7 @@ A draft becomes “canonical” when all of the following are true:
    - how zone-min relates to your a11y baseline
    - how halo avoids overlap and preserves guard
 
-### 10.3 Mode matrix (canonical)
+### 9.3 Mode matrix (canonical)
 
 | Mode | Product intent | Visual geometry | Halo (`--cem-coupling-halo`) | Typical surfaces |
 |---|---|---|---|---|
@@ -294,7 +294,7 @@ Normative rule:
 - `--cem-coupling-zone-min` and `--cem-coupling-guard-min` are **mode-invariant**.
 - Modes may adjust **visual geometry** and **halo** only.
 
-### 10.4 Component mapping checklist (how to apply)
+### 9.4 Component mapping checklist (how to apply)
 
 Use this checklist to implement Coupling consistently. The same rules apply whether input is pointer, touch, stylus, gaze, switch scanning, or remote focus.
 
@@ -340,7 +340,7 @@ Use this checklist to implement Coupling consistently. The same rules apply whet
   - row-level actions (kebab, inline icons)
   - row click targets (if the row is clickable)
 
-### 10.5 Implementation proof points (required) (required)
+### 9.5 Implementation proof points (required) (required)
 
 Validate each mode on at least one representative surface:
 
@@ -356,8 +356,7 @@ Pass criteria:
 
 ---
 
-## 11. Change management (canonical governance)
-
+## 10. Change management (canonical governance)
 - Treat coupling tokens as **contract-level**: changes should be versioned (SemVer or equivalent).
 - Avoid renaming tokens once canonical; prefer adding new tokens or revising mode values.
 - Keep the public axis semantic; keep library-specific numeric scales in adapters.
