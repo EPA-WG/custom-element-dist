@@ -6,6 +6,7 @@
 **Taxonomy placement:** D3. Shape & Bend (part of the 7-dimensional CEM token framework)
 
 **Companion specs:**
+- **D0. Color (Emotional Palette)** ([`cem-colors.md`](./cem-colors.md)) — color and shape work together for emotional impact
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — provides dimension scale used by bend
 - **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — provides control height for geometry-driven bend
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, and focus/selection/target indicators

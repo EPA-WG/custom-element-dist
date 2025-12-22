@@ -6,7 +6,7 @@
 **Taxonomy placement:** D5. Stroke & Separation (part of the 7-dimensional CEM token framework)
 
 **Companion specs:**
-- **D0. Color (Emotional Palette & System Color Mapping)** (`theme-data.xhtml`) — defines separator/focus colors; D5 defines *thickness and geometry*
+- **D0. Color (Emotional Palette & System Color Mapping)** ([`cem-colors.md`](./cem-colors.md)) — defines separator/focus colors; D5 defines *thickness and geometry*
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — inset/spacing rules that keep strokes readable without crowding
 - **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density modes that affect when thin strokes must become stronger
 - **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — corner radii and rounding rules that strokes must follow
