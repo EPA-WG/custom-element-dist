@@ -9,12 +9,12 @@
 **Taxonomy placement:** D1. Space & Rhythm (part of the 7-dimensional CEM token framework)
 
 **Companion specs:**
-- **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — normative for interactive operability
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — normative for interactive operability
 - **D3. Shape & Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/inset harmony rules
 - **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — prominent layers "earn" breathing room
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, focus indicators
-- **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — reading rhythm validation
-- **D7. Time & Motion** ([`timing.md`](./timing.md)) — rhythm perception
+- **D6. Typography** ([`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md)) — reading rhythm validation
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — rhythm perception
 
 ---
 
@@ -120,7 +120,7 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
 - **D1. Space & Rhythm** (this document)
     - gaps, insets, gutters, composition cadence, reading cadence, scan cadence
 
-- **D2. Coupling & Compactness** (adjacent; constrains D1) — see [`coupling.md`](./coupling.md)
+- **D2. Coupling & Compactness** (adjacent; constrains D1) — see [`cem-coupling.md`](./cem-coupling.md)
     - operable zone minimums
     - interference/isolation minimums
     - halo/expansion policy (visual size vs operable size)
@@ -140,10 +140,10 @@ Use this **legend-level** dimensional taxonomy to keep token categories coherent
     - focus/selection/target indicators (including zebra pattern)
     - stroke basis (`--cem-stroke-none`, `--cem-stroke-hair`, `--cem-stroke-standard`, `--cem-stroke-strong`)
 
-- **D6. Typography Thickness** — see [`voice-fonts-typography.md`](./voice-fonts-typography.md)
+- **D6. Typography Thickness** — see [`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md)
     - weight/mass roles that affect perceived density and hierarchy
 
-- **D7. Time & Motion Timing** — see [`timing.md`](./timing.md)
+- **D7. Time & Motion Timing** — see [`cem-timing.md`](./cem-timing.md)
     - durations/easing groups (not geometry, but participates in "rhythm" perception)
 
 ### 4.2 Governance rules (cross-category contracts)
@@ -182,7 +182,7 @@ When spacing occurs **between two interactive affordances**, layout must respect
 6. **Reading cadence is jointly governed by typography + spacing**
 
 - Reading rhythm tokens (D1) must be validated against typescale/line-height policy (D6).
-- See [`voice-fonts-typography.md`](./voice-fonts-typography.md) for typography tokens.
+- See [`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md) for typography tokens.
 
 ---
 
@@ -282,7 +282,7 @@ rounded corners. See [`cem-shape.md`](./cem-shape.md) §8.5 for guidance.
 
 ### 6.3 Coupling and interaction safety (D2 cross-reference)
 
-These tokens are **defined and governed in D2** ([`coupling.md`](./coupling.md)). They are listed here as a **normative constraint**
+These tokens are **defined and governed in D2** ([`cem-coupling.md`](./cem-coupling.md)). They are listed here as a **normative constraint**
 because they bound how far D1 spacing modes can compress interactive adjacency. **Do not set or tune these in D1**;
 treat them as sourced from the D2 theme.
 
@@ -323,7 +323,7 @@ This is distinct from UI rhythm.
 }
 ```
 
-**Cross-reference:** Reading rhythm must be validated against typography tokens. See [`voice-fonts-typography.md`](./voice-fonts-typography.md).
+**Cross-reference:** Reading rhythm must be validated against typography tokens. See [`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md).
 
 ### 6.5 Data/scan rhythm (dense but legible)
 
@@ -547,7 +547,7 @@ Use these patterns so teams can implement screens without inventing spacing sema
 
 1. Use the dimension scale (`--cem-dim-*`) as the foundation.
 2. Map semantic endpoints (`gap-*`, `inset-*`, `rhythm-*`) to dimension tokens.
-3. Treat D2 coupling (`zone/guard/halo`) as **hard constraints** for interactive adjacency — see [`coupling.md`](./coupling.md).
+3. Treat D2 coupling (`zone/guard/halo`) as **hard constraints** for interactive adjacency — see [`cem-coupling.md`](./cem-coupling.md).
 4. Update component tokens to use semantic endpoints.
 5. Add optional `data-cem-spacing="dense|normal|sparse"` only if product needs spacing modes.
 6. Validate on representative surfaces:
@@ -562,7 +562,7 @@ Use these patterns so teams can implement screens without inventing spacing sema
 ## Appendix A. D2 Coupling Mode Matrix (excerpt)
 
 This excerpt is provided for convenience when working in D1. The canonical definitions and governance live in **D2.
-Coupling & Compactness** ([`coupling.md`](./coupling.md)).
+Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)).
 
 | D2 coupling mode | Product intent                                            | Visual geometry trend                       | Halo (`--cem-coupling-halo`) trend  | Typical surfaces                                      |
 |------------------|-----------------------------------------------------------|---------------------------------------------|-------------------------------------|-------------------------------------------------------|
@@ -617,8 +617,8 @@ D1 is subordinate to D2 for operability. The following must hold in every releas
 ## References
 
 **Local CEM documentation**
-- [D2. Coupling & Compactness](./coupling.md) — interactive operability constraints
+- [D2. Coupling & Compactness](./cem-coupling.md) — interactive operability constraints
 - [D3. Shape & Bend](./cem-shape.md) — bend tokens, bend-inset harmony
 - [D5. Stroke & Separation](./cem-stroke.md) — boundaries, dividers, focus/selection/target indicators
-- [D6. Typography](./voice-fonts-typography.md) — reading rhythm validation
-- [D7. Time & Motion](./timing.md) — rhythm perception
+- [D6. Typography](./cem-voice-fonts-typography.md) — reading rhythm validation
+- [D7. Time & Motion](./cem-timing.md) — rhythm perception

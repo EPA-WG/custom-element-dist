@@ -7,10 +7,10 @@
 
 **Companion specs:**
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — provides dimension scale used by bend
-- **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — provides control height for geometry-driven bend
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — provides control height for geometry-driven bend
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — boundaries, dividers, and focus/selection/target indicators
-- **D6. Typography** ([`voice-fonts-typography.md`](./voice-fonts-typography.md)) — related visual hierarchy
-- **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for shape transitions
+- **D6. Typography** ([`cem-voice-fonts-typography.md`](./cem-voice-fonts-typography.md)) — related visual hierarchy
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — animation timing for shape transitions
 
 ---
 
@@ -137,7 +137,7 @@ This is the smallest stable basis that supports most UIs without overfitting.
   /*
     Round ends (capsule / pill):
     Semicircle ends require bend = 0.5 * element height.
-    Uses --cem-control-height from D2 (coupling.md) as default.
+    Uses --cem-control-height from D2 (cem-coupling.md) as default.
     Provide --cem-shape-height where --cem-control-height is not appropriate.
   */
   --cem-bend-round: calc(var(--cem-shape-height, var(--cem-control-height)) / 2);
@@ -152,7 +152,7 @@ This is the smallest stable basis that supports most UIs without overfitting.
 
 **Cross-references:**
 - `--cem-dim-x-small` is defined in [`cem-dimension.md`](./cem-dimension.md) §5
-- `--cem-control-height` is defined in [`coupling.md`](./coupling.md) §4.2
+- `--cem-control-height` is defined in [`cem-coupling.md`](./cem-coupling.md) §4.2
 
 ---
 
@@ -374,30 +374,29 @@ Practical guidance (cross-dimension):
 
 - **D1:** reserve ring space via offset/inset so the ring does not collide with corners or get clipped (see [`cem-dimension.md`](./cem-dimension.md)).
 - **D5:** define focus stroke width and style via `--cem-stroke-focus`; do not rely on bend to indicate focus (see [`cem-stroke.md`](./cem-stroke.md) §5).
-- **D2:** ensure focus ring does not reduce effective hit size; hit targets remain compliant (see [`coupling.md`](./coupling.md)).
+- **D2:** ensure focus ring does not reduce effective hit size; hit targets remain compliant (see [`cem-coupling.md`](./cem-coupling.md)).
 
 Recommended robust pattern (shape-aligned ring in normal mode, resilient in forced-colors):
 
 ```css
 .cem-focusable:focus-visible {
   /* Baseline indicator that survives forced-colors */
-  outline: 2px solid transparent;
-  outline-offset: var(--cem-coupling-guard-min, 2px); /* D2 guard minimum */
+  outline: var(--cem-stroke-focus, 2px) solid transparent;
+  outline-offset: var(--cem-stroke-indicator-offset, 2px); /* D5 indicator placement */
 
   /* Primary ring for normal mode (shape-aligned) */
-  box-shadow: 0 0 0 2px currentColor;
+  box-shadow: 0 0 0 var(--cem-stroke-focus, 2px) currentColor;
 
   border-radius: var(--cem-bend-control);
 }
 ```
 
-**Cross-reference:** `--cem-coupling-guard-min` is defined in [`coupling.md`](./coupling.md) §4.1
 
 ### 8.4 Pointer target size and spacing (bend × D2 size × D1 separation)
 
 Round controls can *look* smaller even when they meet minimum targets. Ensure:
 
-- D2 control height/width targets are met (especially icon buttons and small chips) — see [`coupling.md`](./coupling.md)
+- D2 control height/width targets are met (especially icon buttons and small chips) — see [`cem-coupling.md`](./cem-coupling.md)
 - D1 spacing provides separation between adjacent targets — see [`cem-dimension.md`](./cem-dimension.md)
 
 ### 8.5 Bend vs inset readability (bend × D1 padding)
@@ -522,7 +521,7 @@ Use this checklist to adopt the bend system with minimal churn and predictable o
 
 1. **Confirm prerequisites (D1 + D2 are present)**
    - D1 provides the physical scale used by bend (`--cem-dim-xx-small`, `--cem-dim-x-small`, `--cem-dim-small`, etc.) — see [`cem-dimension.md`](./cem-dimension.md).
-   - D2 provides height for geometry-driven bend (`--cem-control-height`), so round-ends remain correct across density/size modes — see [`coupling.md`](./coupling.md).
+   - D2 provides height for geometry-driven bend (`--cem-control-height`), so round-ends remain correct across density/size modes — see [`cem-coupling.md`](./cem-coupling.md).
 
 2. **Adopt the bend basis (`--cem-bend-*`)**
    - Keep the basis small: `sharp`, `smooth`, `round` (endcaps), `circle`, and the active `--cem-bend`.
@@ -686,6 +685,6 @@ These are **not** intended for product component code.
 
 **Local CEM documentation**
 - [D1. Space & Rhythm](./cem-dimension.md) — dimension scale tokens
-- [D2. Coupling & Compactness](./coupling.md) — control height and operability
-- [D6. Typography](./voice-fonts-typography.md) — voice and typography tokens
-- [D7. Time & Motion](./timing.md) — timing and easing tokens
+- [D2. Coupling & Compactness](./cem-coupling.md) — control height and operability
+- [D6. Typography](./cem-voice-fonts-typography.md) — voice and typography tokens
+- [D7. Time & Motion](./cem-timing.md) — timing and easing tokens

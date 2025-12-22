@@ -8,10 +8,10 @@
 **Companion specs:**
 - **D0. Color (Emotional Palette & System Color Mapping)** (`theme-data.xhtml`) — defines separator/focus colors; D5 defines *thickness and geometry*
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — inset/spacing rules that keep strokes readable without crowding
-- **D2. Coupling & Compactness** ([`coupling.md`](./coupling.md)) — density modes that affect when thin strokes must become stronger
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density modes that affect when thin strokes must become stronger
 - **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — corner radii and rounding rules that strokes must follow
 - **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — when to prefer shadow separation vs stroke separation
-- **D7. Time & Motion** ([`timing.md`](./timing.md)) — animation timing for focus/selection transitions
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — animation timing for focus/selection transitions
 
 ---
 
@@ -109,7 +109,7 @@ Stroke thickness is allowed to vary *by density mode* as a **non-breaking** adju
 
 - Dense UI may need **stronger strokes** because small targets and reduced whitespace reduce separability.
 - Comfort UI can remain at hairline boundaries in more places because whitespace carries part of the separation work.
-![cem-stroke-density-illustration-4to1-v3.svg](cem-stroke-density-illustration-4to1-v3.svg)
+![cem-stroke-density-illustration-4to1-v3.svg](./cem-stroke-density-illustration-4to1-v3.svg)
 ---
 
 ## 4. Semantic endpoints (product-facing contract)
@@ -300,7 +300,7 @@ If you increase any of the following, you must also increase surrounding D1 spac
 - zebra ring outset: `3 * --cem-zebra-strip-size` (normal) / `4 * --cem-zebra-strip-size` (contrast)
 - outline outset: `--cem-stroke-indicator-offset + --cem-stroke-focus`
 
-See the D2 compatibility rule in [`coupling.md`](./coupling.md) §4.1.1.
+See the D2 compatibility rule in [`cem-coupling.md`](./cem-coupling.md) §4.1.1.
 
 ### 7.3 D4 elevation coupling
 
