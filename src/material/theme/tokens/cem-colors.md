@@ -1,12 +1,13 @@
 # Semantic Palettes and Action States
 
-**Status:** Generated spec draft (cem-colors.md)  
-**Generated:** 2025-12-21  
-**Inputs:** `theme-data.xhtml`, attached CEM docs, and EPA-WG `custom-element-dist` Discussion #14.
+**Status:** Canonical (v1.0)  
+**Last updated:** 2025-12-21  
+**Taxonomy placement:** D0. Color (Emotional Palette)  
+**Audience:** Design Systems, Product Design, Front-End Engineering
 
 ---
 
-CEM uses **color** as the primary channel for communicating:
+CEM uses **color** as the primary channel for communicating, using a **branded palette** to express:
 
 - using **branded palette** express
 - **Emotional intent:** what the interface wants the user to feel (trust, danger, creativity, etc.)
@@ -15,7 +16,7 @@ CEM uses **color** as the primary channel for communicating:
 
 **Companion specs:**
 - **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — spacing scale, density modes, and layout gaps
-- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density affects color intensity perception
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — density affects perceived color intensity and separability
 - **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — rounded shapes soften color impact
 - **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — tonal shifts for depth perception (recess/lift)
 - **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — focus/selection colors; D0 defines hue, D5 defines geometry
@@ -35,9 +36,10 @@ CEM uses **color** as the primary channel for communicating:
 9. [System colors and forced-colors](#9-system-colors-and-forced-colors)
 10. [Component mapping checklist](#10-component-mapping-checklist)
 11. [Accessibility and QA](#11-accessibility-and-qa)
-12. [Governance and versioning](#12-governance-and-versioning)
-13. [Canonical token summary](#13-canonical-token-summary)
-14. [References](#14-references)
+12. [Implementation guidance](#12-implementation-guidance)
+13. [Governance and versioning](#13-governance-and-versioning)
+14. [Canonical token summary](#14-canonical-token-summary)
+15. [References](#15-references)
 
 ---
 
@@ -79,7 +81,7 @@ Non-goals:
 
 ### 2.1 Consumer-semantic meaning first
 
-Tokens are named for **what the user experiences** (comfort, danger, trust) and for **flow semantics** (primary,
+Tokens are named for **what the user experiences** (comfort, danger, trust) and for **flow semantics** (primary, 
 destructive, selected, pending), rather than for RGB/hex values.
 
 ### 2.2 State separation is multi-channel
@@ -253,8 +255,7 @@ Variant semantics:
 
 The emotional palette is the **primary semantic contract** for color.
 
-Reference mappings (from `theme-data.xhtml`) use `light-dark()` so a single token resolves appropriately for light vs
-dark schemes.
+Reference mappings (from `theme-data.xhtml`) use `light-dark()` so a single token resolves appropriately for light vs dark schemes.
 
 | Token                               | Role                         | Light / Dark mapping (reference)          | Usage                                            |
 |-------------------------------------|------------------------------|-------------------------------------------|--------------------------------------------------|
@@ -321,8 +322,17 @@ CEM defines 5 operational modes for color behavior:
 
 Action tokens encode **user-flow intent** (primary, explicit, destructive, etc.) and **interaction/state**.
 
-Light Theme — Action Intent Color Gradations Across Interaction States
+
+### 7.0 Visual reference: emotional palette gradations (light theme)
+
 ![action-colors.png](./action-colors.png)
+
+**Supplemental title:** Light theme — Emotional palette gradations across interaction states (action intents).
+
+Notes (interpretation):
+- The base color aligns with the `default` state row.
+- As interaction escalates (hover → active → pending), tones shift toward the extreme variant (`*-x`) for higher salience.
+- The upward direction ends in neutral/gray for `disabled`, preserving “less available” semantics.
 
 ### 7.1 Action intent mapping (reference)
 
@@ -432,20 +442,18 @@ In `contrast-light` and `contrast-dark`, background tokens SHOULD converge on th
 ```css
 /* Example: primary intent is mapped to trust */
 :root {
-    --cem-action-primary-default-background: var(--cem-palette-trust);
-    --cem-action-primary-default-text: var(--cem-palette-trust-text);
+  --cem-action-primary-default-background: var(--cem-palette-trust);
+  --cem-action-primary-default-text:       var(--cem-palette-trust-text);
 
-    --cem-action-primary-hover-background: color-mix(in srgb, var(--cem-palette-trust) 60%, var(--cem-palette-trust-x));
-    --cem-action-primary-hover-text: var(--cem-palette-trust-text);
+  --cem-action-primary-hover-background:   color-mix(in srgb, var(--cem-palette-trust) 60%, var(--cem-palette-trust-x));
+  --cem-action-primary-hover-text:         var(--cem-palette-trust-text);
 
-    --cem-action-primary-active-background: color-mix(in srgb, var(--cem-palette-trust) 25%, var(--cem-palette-trust-x));
-    --cem-action-primary-active-text: var(--cem-palette-trust-text-x);
+  --cem-action-primary-active-background:  color-mix(in srgb, var(--cem-palette-trust) 25%, var(--cem-palette-trust-x));
+  --cem-action-primary-active-text:        var(--cem-palette-trust-text-x);
 }
 
 /* Focus should be expressed via zebra outlines (D5), not by fill alone */
-.button:focus-visible {
-    outline-color: var(--cem-zebra-color-1);
-}
+.button:focus-visible { outline-color: var(--cem-zebra-color-1); }
 ```
 
 **Framework adapters (illustrative, not normative):**
@@ -562,7 +570,81 @@ Minimum QA expectations:
 
 ---
 
-## 12. Governance and versioning
+
+### 11.3 Color-blind resilience and redundancy (normative)
+
+- Meaning MUST NOT rely on hue alone. Any state with user impact (error, destructive, focus, selection, pending) MUST also be conveyed via at least one of:
+  - text (label or status copy)
+  - iconography
+  - outline/pattern (e.g., zebra ring), or
+  - shape/position change (where appropriate).
+- Implementations SHOULD test common color-vision deficiencies (e.g., deuteranopia and protanopia) and verify that state progression remains distinguishable.
+
+### 11.4 Motion sensitivity (normative)
+
+- Theme transitions and state transitions SHOULD respect `prefers-reduced-motion` (see D7).
+- Instant color changes are acceptable; animated gradients and long “breathing” color loops SHOULD NOT be required to understand state.
+## 12. Implementation guidance
+
+### 12.1 Recommended layering: branded → emotional → action
+
+Implementations SHOULD preserve the three-layer model:
+
+1) **Branded hues** (`--cem-color-*`) — implementation substrate (brand-controlled)
+2) **Emotional palette** (`--cem-palette-*`) — semantic contract (theme-adaptive via `light-dark()`)
+3) **Action intents** (`--cem-action-*`) — product-facing API (derived state progression via `color-mix()`)
+
+### 12.2 Derivation pattern (illustrative CSS)
+
+```css
+:root {
+  /* Emotional palette (example) */
+  --cem-palette-trust:      light-dark(var(--cem-color-blue-l), var(--cem-color-blue-d));
+  --cem-palette-trust-x:    light-dark(var(--cem-color-blue-d), var(--cem-color-blue-l));
+  --cem-palette-trust-text: light-dark(var(--cem-color-blue-d), white);
+  --cem-palette-trust-text-x: light-dark(var(--cem-color-blue-xl), var(--cem-color-blue-xl));
+
+  /* Primary intent mapped to trust */
+  --cem-action-primary-default-background: var(--cem-palette-trust);
+  --cem-action-primary-default-text:       var(--cem-palette-trust-text);
+
+  --cem-action-primary-hover-background: color-mix(in srgb, var(--cem-palette-trust) 60%, var(--cem-palette-trust-x));
+  --cem-action-primary-hover-text:       var(--cem-palette-trust-text);
+
+  --cem-action-primary-active-background: color-mix(in srgb, var(--cem-palette-trust) 25%, var(--cem-palette-trust-x));
+  --cem-action-primary-active-text:       var(--cem-palette-trust-text-x);
+}
+
+@media (forced-colors: active) {
+  :root {
+    --cem-palette-comfort: Canvas;
+    --cem-palette-comfort-text: CanvasText;
+    --cem-palette-trust: Highlight;
+    --cem-palette-trust-text: HighlightText;
+  }
+}
+```
+
+### 12.3 Framework mapping (conceptual)
+
+| CEM semantic                 | Material Design 3 (concept)   | Angular Material (concept)  | MUI (concept)                      |
+|------------------------------|-------------------------------|-----------------------------|------------------------------------|
+| `--cem-palette-comfort`      | `md-sys-color-surface`        | `--mat-sys-surface`         | `theme.palette.background.default` |
+| `--cem-palette-comfort-text` | `md-sys-color-on-surface`     | `--mat-sys-on-surface`      | `theme.palette.text.primary`       |
+| `--cem-palette-trust`        | `md-sys-color-primary`        | `--mat-sys-primary`         | `theme.palette.primary.main`       |
+| `--cem-palette-danger`       | `md-sys-color-error`          | `--mat-sys-error`           | `theme.palette.error.main`         |
+| zebra focus/selected/target  | focus indicator guidance      | focus indicator styles      | focus ring / outline styles        |
+
+### 12.4 Test focus: “semantic survives adapters”
+
+In addition to contrast, validate that **semantic meaning remains stable** across:
+
+- light/dark
+- contrast-light/contrast-dark
+- `forced-colors: active`
+- density modes (D2), where reduced whitespace increases the importance of outlines/markers.
+
+## 13. Governance and versioning
 
 Treat as **breaking** (major):
 
@@ -580,33 +662,54 @@ Treat as **non-breaking** (minor/patch):
 
 ---
 
-## 13. Canonical token summary
+## 14. Canonical token summary
 
-### 13.1 Required (product contract)
+### 14.1 Required (product contract)
 
-- Emotional palette:
-    - `--cem-palette-comfort`, `--cem-palette-comfort-text`
-    - `--cem-palette-trust`, `--cem-palette-trust-text`
-    - `--cem-palette-danger`, `--cem-palette-danger-text`
-    - `--cem-palette-conservative`, `--cem-palette-conservative-text`
-- Zebra:
-    - `--cem-zebra-color-0..3`, `--cem-zebra-strip-size`
-- Actions:
-    - Minimal required action endpoints in §7.4 for each shipped intent
+**Emotional palette (minimum set):**
 
-### 13.2 Recommended (implementation substrate)
+- `--cem-palette-comfort`, `--cem-palette-comfort-text`
+- `--cem-palette-trust`, `--cem-palette-trust-text`
+- `--cem-palette-danger`, `--cem-palette-danger-text`
+- `--cem-palette-conservative`, `--cem-palette-conservative-text`
 
-- Base branded family: `--cem-color-*`
-- Emotional “x” variants: `--cem-palette-*-x`, `--cem-palette-*-text-x`
+**Zebra (outline/pattern channel):**
+
+- `--cem-zebra-color-0`, `--cem-zebra-color-1`, `--cem-zebra-color-2`, `--cem-zebra-color-3`
+- `--cem-zebra-strip-size`
+
+**Actions (per shipped intent):**
+
+For each shipped intent (`primary`, `explicit`, `contextual`, `alternate`, `destructive`), the implementation MUST provide at least:
+
+- `--cem-action-{intent}-default-background`, `--cem-action-{intent}-default-text`
+- `--cem-action-{intent}-hover-background`, `--cem-action-{intent}-hover-text`
+- `--cem-action-{intent}-active-background`, `--cem-action-{intent}-active-text`
+- `--cem-action-{intent}-disabled-background`, `--cem-action-{intent}-disabled-text`
+- `--cem-action-{intent}-selected-background`, `--cem-action-{intent}-selected-text`
+
+### 14.2 Recommended (implementation substrate)
+
+- Branded hues: `--cem-color-*` (brand-controlled; used to derive palette tokens)
+- Palette extremes: `--cem-palette-*-x`, `--cem-palette-*-text-x` (required if using formulaic `color-mix()` state progression)
+- Additional emotions: `--cem-palette-calm`, `--cem-palette-enthusiasm`, `--cem-palette-creativity` (recommended where the product uses the corresponding semantics)
+- Additional action states (recommended where applicable): `readonly`, `editable`, `required`, `indeterminate`, `focus`, `target`, `pending`
+
+## 15. References
+
+### Internal
+
+- Action states and visual priority order (EPA-WG `custom-element-dist` discussion #14): https://github.com/EPA-WG/custom-element-dist/discussions/14
+
+### External
+
+- WCAG 2.2 — Focus Appearance (Minimum): https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html
+- WCAG 2.1 — Contrast (Minimum): https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
+- MDN: `color-mix()`: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix
+- MDN: `light-dark()`: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
+- MDN: `forced-colors`: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+- Material Design 3 — Color system overview: https://m3.material.io/styles/color/overview
 
 ---
 
-## 14. References
-
-(Links are included in the project sources; this spec is derived from them.)
-
-- EPA-WG `custom-element-dist` Discussion #14 (Consumer Semantic Theme tokens)
-- `theme-data.xhtml` (CEM theme token data / examples)
-- Microsoft Edge Blog: forced-colors guidance
-- CSS Color specification: system color keywords
-- MDN: `light-dark()` and `color-scheme`
+*This spec is the canonical D0 contract for CEM color semantics.*
