@@ -1,23 +1,22 @@
 # CEM D4 Layering — Signed Depth, Planes, and Appearance Shifts
 
-**Status:** Proposed (canonical CEM spec)
-**Last updated:** December 21, 2025
-**Taxonomy placement:** D4. Layering (treats *depth + elevation + stacking* as one consumer concept)
+**Status:** Canonical  
+**Last updated:** 2025-12-21  
+**Taxonomy placement:** D4. Layering (treats *depth + elevation* as one consumer concept)
 
-> **Canonical layering contract (semantic-first).**
-> This spec defines a **signed 7-tier ladder** (recess + base + lift) and the consumer-facing meaning of `--sem-elevation-*`.
-> **Disclaimer:** Tier numbering encodes semantic priority (user psychology). Physical stacking may differ 
-> (e.g., tooltips/menus/DnD may portal above dialogs) without violating this contract.
+CEM uses **layering** as the umbrella term for:
+
+- **Depth (signed):** behind vs in front of the base plane (*recess* vs *lift*).
+- **Elevation (positive):** steps above the base plane (*raised*, *floating*, *overlay*, *command*).
+- **Planes (rendering):** global stacking rules for overlays/modals, independent of local nesting.
 
 **Companion specs**
-- **D0. Color ladder (Emotional Palette)** — tonal demotion/promotion that must agree with recess/lift.
-- **Action states** (theme taxonomy) — visual priority order for interaction states; escalation must align with layering cues.
-- **D5. Stroke & Separation** — boundaries as a substitute when shadows flatten (contrast/forced-colors).
-- **D1. Space & Rhythm** — prominent layers “earn” breathing room (insets/gaps).
-- **D3. Shape — Bend** — overlays vs dialogs must match bend roles.
-- **D7. Time & Motion** — lift/drop transitions.
-
----
+- **D0. Color (Emotional Palette / ladder)** — tonal “dig down” vs “lift up”.
+- **Action states** — visual priority order and interaction escalation semantics.
+- **D5. Stroke & Separation** — contour reinforcement, especially in forced-colors.
+- **D1. Space & Rhythm** — breathing room coupling.
+- **D3. Shape — Bend** — bend roles for overlays/modals.
+- **D7. Time & Motion** — lift/drop transitions and reduced-motion behavior.
 
 ## Contents
 
@@ -26,12 +25,12 @@
 3. [User-flow journey through layering](#3-user-flow-journey-through-layering)
 4. [Design goals](#4-design-goals)
 5. [Signed ladder and planes](#5-signed-ladder-and-planes)
-6. [Token model (basis → endpoints → adapters)](#6-token-model-basis--endpoints--adapters)
-7. [Basis tokens: the canonical signed ladder](#7-basis-tokens-the-canonical-signed-ladder)
-8. [Semantic endpoints: product-facing contract](#8-semantic-endpoints-product-facing-contract)
+6. [Token model](#6-token-model-basis--endpoints--adapters)
+7. [Basis tokens and appearance-change principle](#7-basis-tokens-the-canonical-signed-ladder)
+8. [Semantic endpoints contract](#8-semantic-endpoints-product-facing-contract)
 9. [Representation channels](#9-representation-channels)
 10. [Scrim](#10-scrim)
-11. [Action states align with layering and the color ladder](#11-action-states-align-with-layering-and-the-color-ladder)
+11. [Action states and the color ladder](#11-action-states-must-align-with-layering-and-the-color-ladder)
 12. [Cross-dimension coupling](#12-cross-dimension-coupling)
 13. [Accessibility and forced-colors requirements](#13-accessibility-and-forced-colors-requirements)
 14. [Component mapping matrix](#14-component-mapping-matrix)
@@ -45,17 +44,18 @@
 
 ## 1. What layering means to users
 
-Users do not perceive “dp” or “shadow recipes”; they perceive **where something lives** in a spatial hierarchy:
+Layering communicates **relationship and intent** before interaction:
 
-- **Backstage context** (navigation, scaffolding, background)
-- **Work layer** (primary reading/doing)
-- **Interruption and command** (menus, dialogs, confirmations)
+- **Where am I?** (shell vs work)
+- **What belongs together?** (grouping vs separation)
+- **What can I act on?** (affordance prominence)
+- **What requires my decision?** (modal commitment)
 
-CEM uses **layering** as the umbrella term for:
+In consumer language, layering typically reads as:
 
-- **Depth (signed):** behind vs in front of the base (recess vs lift).
-- **Elevation (positive):** steps above the base (raised layers).
-- **Planes (stacking):** global ordering rules for overlays/commands, independent of local nesting.
+- **Back layer:** context and scaffolding (navigation, filters).
+- **Work layer:** primary reading/doing.
+- **Interruption/command:** transient overlays and modal decisions.
 
 Layering exists to support three outcomes:
 
@@ -67,42 +67,41 @@ Layering exists to support three outcomes:
 
 ## 2. Consumer layering vocabulary
 
-This vocabulary is what designers, engineers, and docs should use. It is intentionally not “z-index” or “dp.”
-
 ### 2.1 Common terms
 
-- **Layer:** a named role in the hierarchy (Back, Base, Work, Overlay, Command).
-- **Recess:** a signed shift *behind* the base ("dig down").
-- **Lift:** a signed shift *in front of* the base ("shoveled up").
-- **Plane:** a global rendering order rule; planes are implemented with portals/top-layer APIs.
-- **Semantic tier:** the rung in the signed ladder that communicates priority and meaning.
+- **Layer / plane:** a named region with stable intent (back, work, overlay).
+- **Stack / z-order:** physical draw order.
+- **Recessed / inset:** visually “dug down” behind the base.
+- **Raised / floating:** visually “lifted” above the base.
+- **Overlay / popover:** transient contextual layer above other content.
+- **Command / modal:** must-respond decision layer.
 
 ### 2.2 Semantic tiers are not a z-index ladder
 
-The tier number communicates **priority and meaning** (user psychology), not guaranteed draw order. Some UI must render “above” other content for correctness (escaping clipping, global dismissal, portal/top-layer APIs). That physical stacking **does not** change the semantic contract.
+The tier number communicates **priority and meaning** (user psychology), not guaranteed draw order. Physical stacking may differ because of clipping, portals, and platform APIs. That physical mismatch **does not** change the semantic contract.
 
 **Normative rules**
 
 - **MUST NOT** use `--sem-elevation-*` as a z-index value.
 - **MUST NOT** infer semantic tier from physical draw order.
-- **MUST** preserve the semantic meaning of layers even when physical stacking differs.
-- **MUST** treat Command as the owner of modality (scrim, focus trap, blocked interaction), even if an Overlay renders above it.
+- **MUST** preserve semantic meaning even when physical stacking differs.
+- **MUST** treat **Command** as the owner of modality (scrim, focus trap, blocked interaction), even if an Overlay renders above it.
 - **MUST** apply dismissal precedence: dismiss the topmost Overlay first, then the Command layer (if present).
 
 **Discriminator rules: Overlay vs Floating**
 
 Use these rules when physical appearance could be misread (notably when overlays appear over dialogs).
 
-- Choose **Overlay** when the UI is a **separate transient surface** with its own dismissal semantics (appears/disappears without becoming part of layout).  
+- Choose **Overlay** when the UI is a **separate transient layer artifact** with its own dismissal semantics (appears/disappears without becoming part of layout).  
   Typical: menus, popovers, autocomplete lists, date pickers, **tooltips**.
 
-- Choose **Floating** when the UI is the **same object** as in the work layer, temporarily lifted for affordance while remaining part of the current task context.  
+- Choose **Floating** when the UI is the **same object** as in the work context, temporarily lifted for affordance while remaining part of the current task.  
   Typical: hover lift, “picked-up” cards, **dragged items**.
 
 **Examples (required interpretation)**
 
-- **Tooltip over a dialog:** Tooltip remains **Overlay** (context/help), even when rendered above the dialog. It must not outrank the dialog’s “must respond” semantics; it dismisses first.
-- **Dragging while a dialog is present:** The dragged object remains **Floating** (a work object lifted). A drag ghost/preview **MAY** be rendered in a portal/top rendering plane to avoid clipping, but it must not be reclassified as Overlay.
+- **Tooltip over a dialog:** Tooltip remains **Overlay** (contextual helper). Physical topness does not outrank the dialog’s “must respond” semantics; it dismisses first.
+- **Dragging while a dialog is present:** The dragged object remains **Floating** (same work object lifted). The drag ghost may portal above for clipping, but it **MUST NOT** be reclassified as Overlay.
 
 ### 2.3 7-tier canonical ladder
 
@@ -112,30 +111,34 @@ CEM defines exactly **7 canonical tiers**. The ladder is signed: two recess rung
 
 | Signed tier   | Token               | Canonical name    | Intended meaning                    | Typical examples                        |
 |--------------:|---------------------|-------------------|-------------------------------------|-----------------------------------------|
-|        **−2** | `--cem-recess-2`    | **Deep recessed** | Infrastructure far behind attention | deep shell wells, backstage panels      |
-|        **−1** | `--cem-recess-1`    | **Recessed**      | Back layer (context behind work)    | side navigation rail, filter plane      |
-|         **0** | `--sem-elevation-0` | **Base**          | Ground / canvas                     | app background, page canvas             |
-|        **+1** | `--sem-elevation-1` | **Raised**        | Work region separation              | cards, primary panels, editors          |
-|        **+2** | `--sem-elevation-2` | **Floating**      | Interactive lift / grouped focus    | draggable sheets, hover-lift regions    |
-|        **+3** | `--sem-elevation-3` | **Overlay**       | Contextual transient layer          | menus, tooltips, popovers, select lists |
-|        **+4** | `--sem-elevation-4` | **Command**       | Must respond / modal decision       | dialogs, blocking confirmations         |
+|        **−2** | `--cem-recess-2`    | **Deep recessed** | infrastructure far behind attention | deep shell wells, backstage panels      |
+|        **−1** | `--cem-recess-1`    | **Recessed**      | back context behind work            | side navigation rail, filter plane      |
+|         **0** | `--sem-elevation-0` | **Base**          | ground / canvas                     | app background, page canvas             |
+|        **+1** | `--sem-elevation-1` | **Raised**        | work region separation              | cards, primary panels, editors          |
+|        **+2** | `--sem-elevation-2` | **Floating**      | interactive lift / grouped focus    | hover-lift regions, dragged items       |
+|        **+3** | `--sem-elevation-3` | **Overlay**       | contextual transient layer          | menus, tooltips, popovers, select lists |
+|        **+4** | `--sem-elevation-4` | **Command**       | must respond / modal decision       | dialogs, blocking confirmations         |
 
-**Design intent**
+### 2.4 Terminology disclaimer
 
-- Recess reduces brand energy and edge energy.
-- Lift increases separation via tone, contour, shadow, and space.
-- Overlay and Command are implemented as **global planes**; they are not “children” of local layout.
+1) **One consumer term:** “layering” is the shared vocabulary for elevation and recess.
+2) **Signed meaning:** both “dig down” and “lift up” are first-class.
+3) **Multiple channels:** tone, contour, shadow, blur/material, space, and motion are coordinated.
+4) **Theme resilience:** the ladder works in light/dark/forced-colors.
+5) **Avoid false importance:** overlays can render above commands physically, but they must not steal semantic priority.
 
 ---
 
 ## 3. User-flow journey through layering
 
-Layering cues are consumed differently across the flow.
+Layering is experienced as the user moves through a interaction flow.
 
 ### 3.1 Landing (orient)
 
 - The user identifies **Back vs Work** immediately.
 - Recess is used to make scaffolding feel “behind.”
+- Back layer gives orientation without competing for attention.
+- Base establishes the canvas and reading comfort.
 
 ```
 [ Back layer ]   |  [ Work layer ]
@@ -146,31 +149,34 @@ Layering cues are consumed differently across the flow.
 
 - The user needs separability at speed.
 - Work layer regions should be visually grouped (Raised).
+- Recess reduces noise in scaffolding regions.
 
 ### 3.3 Interacting (act)
 
-- Hover/press can use micro-lift/micro-drop without changing layer role.
-- Overlay appears for local commands and choices.
+- Floating lift signals “this is the active object.”
+- Focus/hover are reinforced without changing the underlying layer role.
 
 ### 3.4 Contextualizing (choose)
 
-- Overlays should remain clearly subordinate to the work meaning.
+- Overlay provides contextual options near the trigger, above the work.
+- Overlay must remain dismissible and non-modal.
 - If an overlay blocks reading or causes ambiguity, it has become a Command.
 
 ### 3.5 Deciding (commit)
 
 - Command is the highest semantic priority.
-- Scrim and focus trapping communicate that everything else is “not available.”
+- Command forces a decision with scrim and focus trap.
+- Any Overlay displayed above a Command remains subordinate and dismisses first.
 
 ---
 
 ## 4. Design goals
 
-1) **One consumer term:** “layering” is the shared vocabulary.
-2) **Signed meaning:** both “dig down” and “lift up” are first-class.
-3) **Multiple channels:** tone, contour, shadow, blur/material, space, and motion are coordinated.
-4) **Theme resilience:** the ladder works in light/dark/forced-colors.
-5) **Avoid false importance:** overlays can render above commands physically, but they must not steal semantic priority.
+- **Semantic clarity:** layers communicate intent (shell vs work vs command).
+- **Minimal ladder:** seven tiers only; no micro-tiers as defaults.
+- **Theme resilience:** semantics stay constant across light/dark/contrast and density.
+- **Accessibility:** layering must remain readable in forced-colors (contour substitutes for shadow/tone).
+- **Portability:** the model maps to web, native, and component libraries.
 
 ---
 
@@ -183,7 +189,7 @@ Layering is a composition of:
 
 ### 5.1 Planes
 
-CEM defines five named planes. These are semantic roles; they are typically implemented with portals.
+CEM defines five named planes (semantic layer roles). They are typically implemented with portals.
 
 - **Back plane** — recessed context.
 - **Base plane** — canvas.
@@ -252,12 +258,7 @@ Adapters can vary per theme/density without changing semantics.
 
 ### 7.1 Required rung tokens
 
-The ladder is required and complete as defined in §2.3.
-
-**Normative rules**
-
-- Themes **MUST** provide values for all 7 rung tokens.
-- Themes **MAY** provide intermediate “micro” rungs for animation, but they are not part of the canonical contract.
+The 7-tier ladder rungs are required and must remain stable.
 
 ### 7.2 Appearance-change principle
 
@@ -294,12 +295,13 @@ Semantic endpoints allow components to express layering without knowing numeric 
 
 ### 8.2 Optional endpoints
 
-Optional endpoints are allowed if they remain stable and scoped.
+Optional endpoints are allowed only if they remain stable and scoped, 
+and if they map cleanly to an existing rung without creating new “micro tiers”.
 
 Examples:
 
-- `--cem-layer-back-deep` → `--cem-recess-2`
-- `--cem-layer-work-floating` → `--sem-elevation-2`
+- `--cem-layer-back-deep` → `--cem-layer-back` + `--cem-recess-2`
+- `--cem-layer-work-floating` → `--cem-layer-work` + `--sem-elevation-2`
 
 ---
 
@@ -309,7 +311,7 @@ Layering cues are multi-channel. No single channel is reliable across all themes
 
 ### 9.1 Tone and the color ladder
 
-Your color ladder is the primary driver of “dig down” vs “lift up.”
+The CEM color ladder is the primary driver of “dig down” vs “lift up.”
 
 **Rules**
 
@@ -319,31 +321,32 @@ Your color ladder is the primary driver of “dig down” vs “lift up.”
 
 ### 9.2 Shadow
 
-- Shadow is a lift cue, not a recess cue.
+- Shadows **MAY** be reduced in dark themes; tonal separation must still carry the meaning.
+- Recess relies less on shadow; “negative shadow” is generally not readable.
 - Shadow should never be the only separator.
 
 ### 9.3 Contour / stroke
 
-Contours substitute for shadow when contrast themes flatten elevation.
-
+- Back and Base **SHOULD** rely on contour in high-density layouts and forced-colors.
 - Back and Base layers **SHOULD** have minimal contour.
 - Work and above **SHOULD** provide optional contour reinforcement for dense layouts.
+- Overlay and Command **MUST** remain legible if shadows are removed.
 
 ### 9.4 Material / blur
 
-Where platform supports it, blur/opacity materials can communicate Overlay.
-
-- Use materials to separate Overlay without excessive tone contrast.
+Where supported, material/blur can reinforce overlay separation, but **MUST NOT** replace tone/contrast requirements.
 
 ### 9.5 Space (inset and gap)
 
-- Higher semantic priority layers “earn” space.
+Layers with higher semantic priority **SHOULD** “earn” breathing room (inset and/or gap) in comfort density modes.
+
 - Recess can be communicated by reduced padding/visual weight, but never by reducing hit targets.
 
 ### 9.6 Motion
 
+Lift/drop transitions **MAY** reinforce the ladder, but the meaning must remain clear in reduced-motion settings.
+
 - Lift/drop transitions are allowed for state changes (hover, focus) but must not change semantic tier.
-- Respect reduced-motion preferences.
 
 ---
 
@@ -361,75 +364,93 @@ Scrim communicates modality and commitment.
 
 ### 10.2 Command owns modality
 
-**Normative rules**
-
-- A Command layer **MUST** own the scrim when present.
-- A Command layer **MUST** trap focus.
+- Command **MUST** trap focus (or equivalent modality) and own the scrim.
+- Overlay **MUST NOT** break modality; it may appear above physically, but remains subordinate in semantics and dismissal precedence.
 - Dismissal precedence: **dismiss the topmost Overlay first, then Command**.
 
 ---
 
-## 11. Action states align with layering and the color ladder
+## 11. Action states must align with layering and the color ladder
 
-Action states must align with layering cues and color ladder direction.
+### 11.1 Alignment rule: one direction, two dimensions
 
-### 11.1 Principle
+Layering (signed depth) and action states (visual priority order) must not contradict each other.
 
-- Passive/degraded states shift “down” (toward recess): less chroma/contrast energy.
-- Active/committed states shift “up” (toward lift): clearer separation and attention.
+- “More urgent / more interactive” states **SHOULD NOT** be rendered with recess cues.
+- “Less available / less interactive” states **SHOULD NOT** be rendered with lift cues.
 
 ### 11.2 State escalation should not change layer role
 
+State changes (hover, focus, pressed, selected, disabled, readonly) **MUST NOT** change the layer endpoint. They may adjust **rung rendering** (tone/contour/shadow) within a bounded range.
+
+Action states must align with layering cues and color ladder direction.
+
 A button becoming hovered does not become an Overlay. State changes should be expressed as **micro-shifts** within the component’s assigned layer role.
 
-Recommended mapping (illustrative):
 
-- **Default**: no micro-shift
-- **Hover / Focus**: micro-lift within the same layer
-- **Pressed**: micro-drop toward base (tactile), but retain salience via tone/contour
-- **Selected / Active**: sustained lift and chroma (within role)
-- **Disabled / Readonly**: tonal demotion and contour reduction
+### 11.3 Recommended state → signed shift mapping (default guidance)
+
+This guidance assumes the component’s base endpoint is correct.
+
+- **Default:** no signed shift change.
+- **Hover / focus:** +0 → +1 *appearance reinforcement* (often contour and/or slightly increased tonal separation).
+- **Pressed:** may “press toward base” visually *without* reducing salience (tactile cue, not hierarchy reversal).
+- **Selected:** treat as a *meaning* change (often tone), not necessarily as a rung change.
+- **Readonly / disabled:** allow a **recess cue** (typically −1 via tone/contour) without moving planes.
+
+### 11.4 Active/pressed tactile rule
+
+Pressed feedback may reduce shadow (a “press in”), but **MUST** preserve the state’s prominence via tone/contour so the user does not read it as “disabled or background.”
 
 ---
 
 ## 12. Cross-dimension coupling
 
-Layering is not independent; it must harmonize with other CEM dimensions.
+Layering relies on other dimensions for robustness:
 
-- **D0 Color:** tonal ladder must agree with recess/lift.
-- **D5 Stroke:** forced-colors/high-contrast often requires boundary reinforcement.
-- **D3 Shape:** dialogs/overlays should adopt bend roles appropriate to their semantic tier.
-- **D1 Space:** higher priority layers earn space; do not compress hit targets.
-- **D7 Time:** transitions should signal change of attention without becoming distracting.
+- **D0 Color ladder:** supplies tonal recipes for recess and lift.
+- **D5 Stroke:** provides contour when tone/shadow are insufficient or unavailable.
+- **D1 Space:** higher-priority layers may gain breathing room in comfort density.
+- **D7 Motion:** transitions can reinforce, never replace, the ladder.
+
+Layering **MUST NOT** rename or duplicate these dimensions; it only defines coupling invariants.
 
 ---
 
 ## 13. Accessibility and forced-colors requirements
 
-- Do not rely on shadow alone to communicate layering.
-- Provide focus indicators that remain visible across all tiers.
-- In forced-colors mode, contour becomes primary: ensure outlines/borders are present where needed.
-- Ensure overlays and commands are reachable and dismissible via keyboard.
-- Respect reduced motion.
+### 13.1 Depth is not the only signal
+
+Layer meaning must remain readable without shadows and with limited color (e.g., high-contrast themes). Therefore:
+
+- At least one non-shadow signal (tone or contour) **MUST** remain.
+- Focus indicators **MUST** remain visible across all tiers.
+
+### 13.2 Forced-colors
+
+In forced-colors:
+
+- Tier meaning **SHOULD** be expressed primarily via contour and spacing.
+- Do not rely on subtle tonal deltas.
 
 ---
 
 ## 14. Component mapping matrix
 
-This matrix maps common component families to semantic endpoints and tiers.
+This matrix maps common component families to **layer endpoints** and their **default rung**.
 
-| Component family                   | Endpoint                      | Typical tier  | Notes                                              |
-|------------------------------------|-------------------------------|--------------:|----------------------------------------------------|
-| App shell (chrome)                 | `--cem-layer-back`            |            −1 | recessed, low brand energy                         |
-| Backstage wells                    | optional back-deep            |            −2 | rare; avoid overuse                                |
-| Page canvas                        | `--cem-layer-base`            |             0 | base plane                                         |
-| Main content panels                | `--cem-layer-work`            |            +1 | default work separation                            |
-| Floating affordances (within work) | optional work-floating        |            +2 | local, not global plane                            |
-| Tooltip                            | `--cem-layer-overlay`         |            +3 | may portal above dialogs; semantic remains Overlay |
-| Menu / popover / select list       | `--cem-layer-overlay`         |            +3 | portal/top-layer; dismiss precedence above dialog  |
-| Sheet (non-blocking)               | `--cem-layer-overlay`         |            +3 | consider optional scrim if needed                  |
-| Dialog / confirmation              | `--cem-layer-command`         |            +4 | owns modality, scrim, focus trap                   |
-| Toast / global banner              | overlay or command by meaning |         +3/+4 | depends on whether it blocks action                |
+| Component family                   | Layer endpoint        | Default rung        | Notes                                              |
+|------------------------------------|-----------------------|---------------------|----------------------------------------------------|
+| App shell (chrome)                 | `--cem-layer-back`    | `--cem-recess-1`    | recessed context; low brand energy                 |
+| Backstage wells (rare)             | `--cem-layer-back`    | `--cem-recess-2`    | use sparingly; avoid turning the UI into “tunnels” |
+| Page canvas                        | `--cem-layer-base`    | `--sem-elevation-0` | ground / canvas                                    |
+| Main content panels                | `--cem-layer-work`    | `--sem-elevation-1` | default work separation                            |
+| Floating affordances (within work) | `--cem-layer-work`    | `--sem-elevation-2` | same object lifted (hover/drag)                    |
+| Tooltip                            | `--cem-layer-overlay` | `--sem-elevation-3` | may portal above dialogs; remains Overlay          |
+| Menu / popover / select list       | `--cem-layer-overlay` | `--sem-elevation-3` | portal/top-layer; dismiss precedence above dialog  |
+| Sheet (non-blocking)               | `--cem-layer-overlay` | `--sem-elevation-3` | optional scrim only if required                    |
+| Dialog / confirmation              | `--cem-layer-command` | `--sem-elevation-4` | owns modality, scrim, focus trap                   |
+| Toast / global banner              | `--cem-layer-overlay` | `--sem-elevation-3` | if it blocks progress, treat as Command            |
 
 ---
 
@@ -437,43 +458,27 @@ This matrix maps common component families to semantic endpoints and tiers.
 
 ### 15.1 Keep semantics separate from z-index
 
-Use semantic endpoints to select tone/shadow/contour recipes. Use a separate mechanism for stacking:
-
-- Portals/top-layer for overlays and commands
-- A bounded set of z-index values per plane
+- Use layer endpoints and rung tokens for **meaning**.
+- Use a dedicated z-index policy (framework-specific) for **stacking mechanics**.
 
 ### 15.2 Example CSS pattern (illustrative)
 
+The following demonstrates the mapping shape; it is not a required implementation.
+
 ```css
-/* Basis rungs */
-:root {
-  --cem-recess-2:  -2;
-  --cem-recess-1:  -1;
-  --sem-elevation-0: 0;
-  --sem-elevation-1: 1;
-  --sem-elevation-2: 2;
-  --sem-elevation-3: 3;
-  --sem-elevation-4: 4;
-}
+/* Semantic endpoints select a rung; adapters render the rung. */
 
-/* Endpoints */
-:root {
-  --cem-layer-back:   var(--cem-recess-1);
-  --cem-layer-base:   var(--sem-elevation-0);
-  --cem-layer-work:   var(--sem-elevation-1);
-  --cem-layer-overlay: var(--sem-elevation-3);
-  --cem-layer-command: var(--sem-elevation-4);
-}
+.cem-layer--work      { --cem-rung: var(--sem-elevation-1); }
+.cem-layer--overlay   { --cem-rung: var(--sem-elevation-3); }
+.cem-layer--command   { --cem-rung: var(--sem-elevation-4); }
 
-/* BEM-style modifier usage (examples) */
-.cem-layer { /* base recipe */ }
-.cem-layer--back { /* maps to --cem-layer-back */ }
-.cem-layer--work { /* maps to --cem-layer-work */ }
-.cem-layer--overlay { /* maps to --cem-layer-overlay */ }
-.cem-layer--command { /* maps to --cem-layer-command */ }
+/* Adapter hooks (tone/shadow/contour) are theme-specific. */
+.cem-layer {
+  background: var(--cem-layer-tone, Canvas);
+  box-shadow: var(--cem-layer-shadow, none);
+  outline: var(--cem-layer-contour, none);
+}
 ```
-
-> The example shows **ordinal tier numbers**. Do not use them as z-index values; use them only to select tone/shadow/contour recipes via your theming layer.
 
 ### 15.3 Dismissal and focus precedence
 
@@ -502,6 +507,11 @@ Use semantic endpoints to select tone/shadow/contour recipes. Use a separate mec
 - `--cem-layer-overlay`
 - `--cem-layer-command`
 
+### 16.3 Optional semantic endpoints (allowed)
+
+- `--cem-layer-back-deep` → `--cem-layer-back` + `--cem-recess-2`
+- `--cem-layer-work-floating` → `--cem-layer-work` + `--sem-elevation-2`
+
 ---
 
 ## 17. Governance and versioning
@@ -510,39 +520,43 @@ Use semantic endpoints to select tone/shadow/contour recipes. Use a separate mec
 
 Treat as breaking if you:
 
-- Rename or remove any required D4 token in §16.
-- Change the semantic meaning of any tier or endpoint.
-- Change the canonical ladder size (add/remove a required rung).
-- Change the rule that Command owns modality.
+- Rename or remove any canonical rung token or endpoint.
+- Change the semantic meaning of a rung or endpoint.
+- Change the meaning of “Command owns modality” or dismissal precedence.
 
 ### 17.2 Non-breaking (minor/patch)
 
 Treat as minor/patch if you:
 
-- Adjust theme recipes (shadow geometry, tonal values) while preserving meaning.
-- Apply density-mode tweaks that preserve layer meaning.
-- Add optional endpoints with stable consumer meaning.
+- Adjust adapter recipes (tone/shadow/contour) per theme/density while preserving semantics.
+- Add optional endpoints with stable consumer meaning (and clear mapping to existing rungs).
 - Clarify documentation or add mapping guidance.
 
 ---
 
 ## 18. Migration notes
 
-This spec is the canonical D4 contract for layering (signed depth). If you previously used other elevation ladders:
+This spec is the canonical D4 contract for layering (signed depth).
 
-- You can keep legacy tokens as internal aliases.
-- Prefer `--sem-elevation-*` and `--cem-recess-*` as the public CEM contract going forward.
+- Legacy elevation tokens may be kept as **internal aliases**.
+- Prefer `--sem-elevation-*`, `--cem-recess-*`, and `--cem-layer-*` as the public CEM contract going forward.
 
 ---
 
 ## 19. References
 
-**Internal**
-- CEM theme discussion: action states in visual priority order.
+### Internal
 
-**External (concept alignment)**
-- Material Backdrop (back layer / front layer concept).
-- Material 3 elevation (shadow + tonal approaches).
-- Fluent 2 elevation (z-axis hierarchy and prominence).
-- Apple HIG materials and overlays (depth via materials; popovers/sheets).
-- Atlassian elevation/z-index guidance (separating visual elevation from stacking order).
+- Action states in visual priority order (EPA-WG `custom-element-dist` discussion #14): https://github.com/EPA-WG/custom-element-dist/discussions/14
+
+### External
+
+- Material Design Backdrop (back layer / front layer): https://m2.material.io/components/backdrop
+- Material Design 3 — Elevation: https://m3.material.io/styles/elevation
+- Android Developers — Material 3 elevation guidance (tonal + shadow): https://developer.android.com/develop/ui/compose/designsystems/material3#elevation
+- Fluent 2 Design System — Elevation: https://fluent2.microsoft.design/elevation
+- Windows apps — Depth, z-depth, and shadow: https://learn.microsoft.com/en-us/windows/apps/design/layout/depth-shadow
+- Apple Human Interface Guidelines — Materials: https://developer.apple.com/design/human-interface-guidelines/materials
+- Apple Human Interface Guidelines — Popovers: https://developer.apple.com/design/human-interface-guidelines/popovers
+- Atlassian Design System — Elevation (includes z-index guidance): https://atlassian.design/foundations/elevation
+- Atlassian Design System — Portal (stacking context): https://atlassian.design/components/portal
