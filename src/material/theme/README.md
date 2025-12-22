@@ -1,4 +1,4 @@
-# Semantic theming
+# custom-element Material (CEM) - Consumer Semantic theming
 Based on https://blog.firsov.net/search/label/Semantic%20Theme
 
 # Basic principles
