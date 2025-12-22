@@ -290,9 +290,17 @@ border-radius: calc(var(--cem-bend-control) + var(--cem-stroke-indicator-offset)
 
 Where indicators sit outside the edge, ensure surrounding layout provides enough breathing room. Prefer:
 - container padding (D1)
-- or internal “guard rails” around interactive controls (D2)
+- or internal “guard rails” around interactive controls (D2), including `--cem-coupling-guard-min`
+  and `--cem-coupling-halo`
 
-rather than shrinking the indicator.
+Treat `--cem-coupling-guard-min` as the default clearance budget between adjacent operable zones.
+If you increase any of the following, you must also increase surrounding D1 spacing and/or D2 guard/halo
+(or accept overlap):
+
+- zebra ring outset: `3 * --cem-zebra-strip-size` (normal) / `4 * --cem-zebra-strip-size` (contrast)
+- outline outset: `--cem-stroke-indicator-offset + --cem-stroke-focus`
+
+See the D2 compatibility rule in [`coupling.md`](./coupling.md) §4.1.1.
 
 ### 7.3 D4 elevation coupling
 

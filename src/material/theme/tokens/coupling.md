@@ -36,14 +36,14 @@ This supports the UI-space meaning you called out: proximity implies **relations
   - may *suggest* coupling semantics, but must never violate D2 safety minimums
 
 - **D5. Stroke & Separation** (from [`cem-stroke.md`](./cem-stroke.md))
-  - focus/selection/target indicator thickness and offset
-  - D5 uses `--cem-coupling-guard-min` for focus ring offset (cross-dimension contract)
+  - focus/selection/target indicator thickness and indicator placement (e.g., `--cem-stroke-focus`, `--cem-stroke-indicator-offset`, zebra ring tokens)
+  - D2 does not define focus-ring offset; D2 constrains adjacent operable zones so D5 indicators have room and do not create interference
 
 Boundary heuristic:
 
 - If it changes **distance between items** → D1
 - If it changes **operable geometry of an interactive element** → D2
-- If it changes **indicator thickness or offset** → D5 (using D2 guard for offset)
+- If it changes **indicator thickness or indicator offset** → D5 (e.g., `--cem-stroke-focus`, `--cem-stroke-indicator-offset`)
 
 ---
 
@@ -79,6 +79,23 @@ Interpretation:
 - **Zone** answers: “Can the user reliably couple intent to this control?”
 - **Guard** answers: “Will adjacent controls accidentally steal intent?”
 - **Halo** answers: “Can we keep visuals compact while preserving operability?”
+
+### 4.1.1 D2/D5 compatibility: guard must cover indicator outset (normative)
+
+When D5 indicators render **outside** the control edge (e.g., `outline-offset`, zebra rings),
+`--cem-coupling-guard-min` SHOULD be large enough to prevent indicator collisions between adjacent controls.
+
+Define the worst-case outward indicator extent as:
+
+- Zebra ring (contrast): `4 * --cem-zebra-strip-size`
+- Outline ring: `--cem-stroke-indicator-offset + --cem-stroke-focus`
+
+Compatibility guideline:
+
+`--cem-coupling-guard-min` SHOULD be ≥
+`max(4 * --cem-zebra-strip-size, --cem-stroke-indicator-offset + --cem-stroke-focus)`
+
+Default CEM values satisfy this (8px guard vs 8px zebra extent when `--cem-zebra-strip-size = 2px`).
 
 ### 4.2 Control geometry endpoints (typical mapping layer)
 
