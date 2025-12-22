@@ -8,8 +8,17 @@
 
 **Applies to:** Modality-neutral interactive operability (pointer, touch, stylus, gaze, switch, remote)
 
+**Companion specs:**
+- **D0. Color (Emotional Palette)** ([`cem-colors.md`](./cem-colors.md)) — color intensity perception affected by density
+- **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — gaps/insets/rhythm; must never violate D2 safety minimums
+- **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — bend interacts with control height for round-ends
+- **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — overlay/modal control sizing
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — focus ring offset; D2 constrains adjacent zones so indicators have room
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — timing for density transitions
 
-## 1. Why “Coupling”
+---
+
+## 1. Why "Coupling"
 
 In CEM terms, **coupling** names the moment when **user intent successfully binds to an interactive affordance**—independent of input modality:
 

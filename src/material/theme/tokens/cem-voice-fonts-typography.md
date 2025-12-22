@@ -4,8 +4,17 @@
 > This revision focuses on **consumer-flow purpose** (what the user is trying to do) and **semantic meaning**
 > (what the content *is*), and translates that into **speech**, **fontography** and **typography** tokens
 > that can be used consistently across products.
-[discussion](https://github.com/EPA-WG/custom-element-dist/discussions/21) | 
+[discussion](https://github.com/EPA-WG/custom-element-dist/discussions/21) |
 [git](https://github.com/EPA-WG/custom-element-dist/blob/develop/src/material/theme/tokens/cem-voice-fonts-typography.md)
+
+**Companion specs:**
+- **D0. Color (Emotional Palette)** ([`cem-colors.md`](./cem-colors.md)) — text contrast requirements
+- **D1. Space & Rhythm** ([`cem-dimension.md`](./cem-dimension.md)) — reading rhythm validation
+- **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — label sizing in compact modes
+- **D3. Shape — Bend** ([`cem-shape.md`](./cem-shape.md)) — text container shaping
+- **D5. Stroke & Separation** ([`cem-stroke.md`](./cem-stroke.md)) — text decoration, underlines
+- **D7. Time & Motion** ([`cem-timing.md`](./cem-timing.md)) — text transition timing
+
 ---
 ![Sufler reading the text with various font sizes](./cem-article-illustration-4x1-letterbox-2000x500.png)
 
