@@ -175,7 +175,7 @@ For each combination of (intent × state), document:
 ### 8.2 Animation Controls
 - [ ] Document `prefers-reduced-motion` support
 - [ ] Explain pending animation behavior with reduced motion
-- [ ] Note animation speed token (`--sem-animation-speed`)
+- [ ] Note animation speed token (`--cem-animation-speed`)
 
 ### 8.3 Forced Colors Mode
 - [ ] Document `@media (forced-colors: active)` support

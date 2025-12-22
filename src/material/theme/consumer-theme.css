@@ -7,7 +7,7 @@
     }
 }
 :root {
-    --sem-animation-speed: 3s; /* animation has 2 phases 1.5s each */
+    --cem-animation-speed: 3s; /* animation has 2 phases 1.5s each */
 
     /* region custom-element material branded colors     */
 
@@ -731,7 +731,7 @@ bend - corner shape, radius, curve
         &[pending],&.pending{
             background: linear-gradient(90deg, var(--cem-action-background-color), var(--cem-palette-calm-x), var(--cem-action-background-color), var(--cem-palette-calm-x));
             background-size: 300% 100%;
-            animation: cem-slide-x var(--sem-animation-speed) ease-in-out infinite;
+            animation: cem-slide-x var(--cem-animation-speed) ease-in-out infinite;
         }
 
         background-color: var(--cem-action-background-color);

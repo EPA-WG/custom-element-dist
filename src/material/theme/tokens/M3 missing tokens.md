@@ -108,7 +108,7 @@ Why (Material alignment): Material's token model treats elevation as a system-le
 CEM category: "Layering" — recess/lift/planes as one consumer concept.
 Example CEM token families:
 
-Basis rungs: --cem-recess-2, --cem-recess-1, --sem-elevation-0..4
+Basis rungs: --cem-recess-2, --cem-recess-1, --cem-elevation-0..4
 
 Semantic endpoints: --cem-layer-back, --cem-layer-base, --cem-layer-work, --cem-layer-overlay, --cem-layer-command
 
