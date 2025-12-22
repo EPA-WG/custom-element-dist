@@ -9,6 +9,7 @@
 **Taxonomy placement:** D1. Space & Rhythm (part of the 7-dimensional CEM token framework)
 
 **Companion specs:**
+- **D0. Color (Emotional Palette)** ([`cem-colors.md`](./cem-colors.md)) — color weight pairs with spacing rhythm
 - **D2. Coupling & Compactness** ([`cem-coupling.md`](./cem-coupling.md)) — normative for interactive operability
 - **D3. Shape & Bend** ([`cem-shape.md`](./cem-shape.md)) — bend/inset harmony rules
 - **D4. Layering** ([`cem-layering.md`](./cem-layering.md)) — prominent layers "earn" breathing room
