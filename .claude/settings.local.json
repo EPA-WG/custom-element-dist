@@ -7,7 +7,9 @@
       "WebSearch",
       "WebFetch(domain:m3.material.io)",
       "WebFetch(domain:material-web.dev)",
-      "WebFetch(domain:mui.com)"
+      "WebFetch(domain:mui.com)",
+      "WebFetch(domain:material.angular.io)",
+      "WebFetch(domain:material.angular.dev)"
     ]
   }
 }
