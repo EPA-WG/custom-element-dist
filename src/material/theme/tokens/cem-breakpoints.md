@@ -338,15 +338,15 @@ In CEM, the default posture is **intrinsic-first**; introduce breakpoint-driven 
 
 Use this table to choose *where* D1x breakpoints apply and *which* D1y strategy to prefer. The “Responsiveness strategy” column is normative for component recipes; other columns are guidance.
 
-| Component family                                  | Breakpoint role (D1x)           | Preferred query context              | Responsiveness strategy (D1y)  | Notes                                                                               |
-|---------------------------------------------------|---------------------------------|--------------------------------------|--------------------------------|-------------------------------------------------------------------------------------|
-| App shell navigation (bottom bar / rail / drawer) | **Yes** (archetype switch)      | Viewport/window                      | `breakpoint` / `hybrid`        | Breakpoints change navigation meaning; keep D2 invariants.                          |
-| Master–detail / list–detail panes                 | **Yes** (introduce second pane) | Viewport/window, sometimes container | `hybrid`                       | Use intrinsic sizing within panes; breakpoint decides when the second pane exists.  |
-| Card listings / galleries                         | Usually **No**                  | Container first                      | `intrinsic` / `container`      | Prefer wrap or `auto-fit/minmax()`; avoid fixed column counts.                      |
-| Forms (field groups)                              | Rare                            | Container first                      | `intrinsic`                    | Prefer flowing groups and `min()`/`max()` widths; breakpoint only for major reflow. |
-| Data tables / dense comparison grids              | Sometimes                       | Container first                      | `container` / `hybrid`         | Container size often determines column visibility / stacking.                       |
-| Side panels, filters, inspector panes             | Sometimes                       | Container first                      | `container` / `hybrid`         | The panel width (not viewport) is the driver in split UI.                           |
-| Overlays (dialogs, popovers, tooltips)            | No (typically)                  | Container/anchor                     | `intrinsic`                    | Size to content and coupling; do not key to viewport breakpoints.                   |
+| Component family                                  | Breakpoint role (D1x)           | Preferred query context              | Responsiveness strategy (D1y)   | Notes                                                                               |
+|---------------------------------------------------|---------------------------------|--------------------------------------|---------------------------------|-------------------------------------------------------------------------------------|
+| App shell navigation (bottom bar / rail / drawer) | **Yes** (archetype switch)      | Viewport/window                      | `breakpoint` / `hybrid`         | Breakpoints change navigation meaning; keep D2 invariants.                          |
+| Master–detail / list–detail panes                 | **Yes** (introduce second pane) | Viewport/window, sometimes container | `hybrid`                        | Use intrinsic sizing within panes; breakpoint decides when the second pane exists.  |
+| Card listings / galleries                         | Usually **No**                  | Container first                      | `intrinsic` / `container`       | Prefer wrap or `auto-fit/minmax()`; avoid fixed column counts.                      |
+| Forms (field groups)                              | Rare                            | Container first                      | `intrinsic`                     | Prefer flowing groups and `min()`/`max()` widths; breakpoint only for major reflow. |
+| Data tables / dense comparison grids              | Sometimes                       | Container first                      | `container` / `hybrid`          | Container size often determines column visibility / stacking.                       |
+| Side panels, filters, inspector panes             | Sometimes                       | Container first                      | `container` / `hybrid`          | The panel width (not viewport) is the driver in split UI.                           |
+| Overlays (dialogs, popovers, tooltips)            | No (typically)                  | Container/anchor                     | `intrinsic`                     | Size to content and coupling; do not key to viewport breakpoints.                   |
 
 ### 7.6 Intrinsic layouts disclaimer (flex/grid, wrapping, and container-first responsiveness)
 
