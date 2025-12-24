@@ -15,7 +15,7 @@ D1y defines a small vocabulary for *how* a layout adapts:
 - **Hybrid** (intrinsic-first + targeted steps)
 
 **Companion specs:**
-- **D1x. Breakpoints** (`cem-breakpoints-4.md`) — semantic ranges of available space (compact/medium/expanded/…)
+- **D1x. Breakpoints** ([`cem-breakpoints.md`](./cem-breakpoints.md)) — semantic ranges of available space (compact/medium/expanded/…)
 - **D1. Space & Rhythm** (`cem-dimension.md`) — spacing scale and density modes
 - **D2. Coupling & Compactness** (`cem-coupling.md`) — zone/guard/halo invariants
 - **D5. Stroke & Separation** (`cem-stroke.md`) — separability reinforcement patterns
