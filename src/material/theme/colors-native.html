@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Native colors in Consumer Semantic Theme</title>
+    <style>
+
+        figure>table {
+            tbody>tr {
+                background-image: repeating-linear-gradient(45deg, transparent, transparent 0.25em, grey 0.25em, green 0.5em);
+                td{ background-image: linear-gradient(to right, lightgreen, lightyellow); }
+                td:first-of-type{ background-image: none; padding: 0 1em ; }
+            }
+        }
+    </style>
+</head>
+<body>
+
+<figure class="table-container">
+    <figcaption><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/system-color"> Native browser colors </a>
+    </figcaption>
+    <table class="dashed-diagonal-background" style="background-color: lightgreen; ">
+        <thead>
+        <tr>
+            <th>Sample</th><th>background  </th><th>text color </th><th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td style="background-color: AccentColor;      color:AccentColorText    " >AccentColor     </td><td><code>AccentColor     </code></td><td><code> AccentColorText  </code></td> <td>Background of accented user interface controls.               </td> </tr>
+        <tr><td style="background-color: AccentColorText;  color:AccentColor        " >AccentColorText </td><td><code>AccentColorText </code></td><td><code> AccentColor      </code></td><td>Text of accented user interface controls.                      </td></tr>
+        <tr><td style="background-color: ActiveText;       color:Canvas             " >ActiveText      </td><td><code>ActiveText      </code></td><td><code> Canvas           </code></td><td>Text of active links.                                          </td></tr>
+        <tr><td style="background-color: Highlight;        color:HighlightText      " >Highlight       </td><td><code>Highlight       </code></td><td><code> HighlightText    </code></td><td>Background of selected items.                                       </td></tr>
+        <tr><td style="background-color: LinkText;         color:Canvas             " >LinkText        </td><td><code>LinkText        </code></td><td><code> Canvas           </code></td><td>Text of non-active, non-visited links.                              </td></tr>
+        <tr><td style="background-color: SelectedItem;     color:SelectedItemText   " >SelectedItem    </td><td><code>SelectedItem    </code></td><td><code> SelectedItemText </code></td><td>Background of selected items, for example, a selected checkbox.                      </td></tr>
+        <tr><td style="background-color: VisitedText;      color:Canvas             " >VisitedText     </td><td><code>VisitedText     </code></td><td><code> Canvas           </code></td><td>Text of visited links.                                          </td></tr>
+        <tr><td style="background-color: Mark;             color:MarkText           " >Mark            </td><td><code>Mark            </code></td><td><code> MarkText         </code></td><td>Background of text that has been specially marked (such as by the HTML <code>mark</code> element).                                          </td></tr>
+        <tr><td style="background-color: CanvasText;       color:Canvas             " >CanvasText      </td><td><code>CanvasText      </code></td><td><code> Canvas           </code></td><td>Text color in application content or documents.                </td></tr>
+        <tr><td style="background-color: ButtonText;       color:Canvas             " >ButtonText      </td><td><code>ButtonText      </code></td><td><code> Canvas           </code></td><td>Text color of controls.                                        </td></tr>
+        <tr><td style="background-color: FieldText;        color:Canvas             " >FieldText       </td><td><code>FieldText       </code></td><td><code> Canvas           </code></td><td>Text in input fields.                                          </td></tr>
+        <tr><td style="background-color: MarkText;         color:Mark               " >MarkText        </td><td><code>MarkText        </code></td><td><code> Mark             </code></td><td>Text that has been specially marked (such as by the HTML <code>mark</code> element). </td></tr>
+        <tr><td style="background-color: ButtonBorder;     color:Canvas             " >ButtonBorder    </td><td><code>ButtonBorder    </code></td><td><code> Canvas           </code></td><td>Base border color of controls.                                 </td></tr>
+        <tr><td style="background-color: GrayText;         color:ButtonFace         " >GrayText        </td><td><code>GrayText        </code></td><td><code> ButtonFace       </code></td><td>Text color for disabled items (for example, a disabled control).    </td></tr>
+        <tr><td style="background-color: ButtonFace;       color:CanvasText         " >ButtonFace      </td><td><code>ButtonFace      </code></td><td><code> CanvasText       </code></td><td>Background color of controls.                                  </td></tr>
+        <tr><td style="background-color: Canvas;           color:CanvasText         " >Canvas          </td><td><code>Canvas          </code></td><td><code> CanvasText       </code></td><td>Background of application content or documents.                </td></tr>
+        <tr><td style="background-color: Field;            color:CanvasText         " >Field           </td><td><code>Field           </code></td><td><code> CanvasText       </code></td><td>Background of input fields.                                    </td></tr>
+        <tr><td style="background-color: HighlightText;    color:Highlight          " >HighlightText   </td><td><code>HighlightText   </code></td><td><code> Highlight        </code></td><td>Text color of selected items.                                       </td></tr>
+        <tr><td style="background-color: SelectedItemText; color:SelectedItem       " >SelectedItemText</td><td><code>SelectedItemText</code></td><td><code> SelectedItem     </code></td><td>Text of selected items.                                             </td></tr>
+        </tbody></table>
+</figure>
+</body>
+</html>

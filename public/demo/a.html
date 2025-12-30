@@ -63,11 +63,18 @@
 <body>
 
 
+<custom-element tag="dce-link2" >
+        <template>
 
-        <custom-element src="./html-template.html#dwc-logo">
-            <template><i>loading SVG from templates file ...</i></template>
-        </custom-element>
+            <attribute name="p3" select="//attributes/p3 ?? 'def_P3' "></attribute>
 
+            p3: <code data-testid="t3">{$p3}</code>
+        </template>
+    </custom-element>
+    <section>
+        <dce-link2  id="dce2" p1="123" p2="override ignored as select is defined"></dce-link2>
+
+    </section>
 
 </body>
 </html>

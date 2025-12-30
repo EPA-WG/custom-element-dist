@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:m3.material.io)",
+      "WebFetch(domain:material-web.dev)",
+      "WebFetch(domain:mui.com)",
+      "WebFetch(domain:material.angular.io)",
+      "WebFetch(domain:material.angular.dev)",
+      "Bash(cat:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}

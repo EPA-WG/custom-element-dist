@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @import "consumer-theme.css";
+        .moving-gradient {
+            /* tweak these */
+            --c1: #3b82f6; /* blue  */
+            --c2: #22d3ee; /* cyan  */
+            --c3: #a78bfa; /* violet*/
+            --speed: 3s;
+
+            /*background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c2), var(--c1));*/
+            /*          1st candidate*/
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c1), var(--c2));
+            background-size: 300% 100%;
+            /*background-repeat: repeat-x;*/
+            animation: slide-x var(--speed) linear infinite;
+        }
+
+        @keyframes slide-x {
+            from {
+                background-position-x: 0%;
+            }
+            to {
+                background-position-x: 100%;
+            }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .moving-gradient {
+                animation: none;
+            }
+        }
+
+    </style>
+</head>
+<body data-theme="cem-theme-light">
+<button class="moving-gradient">moving gradient</button>
+<hr/>
+<style>
+    @keyframes cem-pending-pulse {
+        0% {
+            box-shadow: 0 0 0 4px var(--cem-palette-comfort), 0 0 0 8px var(--cem-palette-calm-x);
+        }
+        100% {
+            box-shadow: 0 0 0 4px var(--cem-palette-danger), 0 0 0 8px var(--cem-palette-creativity-x);
+        }
+    }
+    .border-animation{
+        animation: cem-pending-pulse 1.5s infinite alternate ease-in-out;
+    }
+</style>
+<button class="border-animation" style="
+    background-color: var(--cem-action-explicit-pending-background);
+    color: var(--cem-action-explicit-pending-text)"
+>border animation</button>
+</body>
+</html>

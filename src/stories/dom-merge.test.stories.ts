@@ -154,7 +154,7 @@ export const OrderPreservingOn2ndTransform:Story  =
 
         await fireEvent.click(canvas.getByTestId('cb2'));
         await expect(await canvas.findByText('#2')).toBeInTheDocument();
-        await expect(canvas.getByTestId("beforeC1").nextElementSibling).toEqual(canvas.getByTestId("isC1"))
+        await expect(canvas.getByTestId("beforeC1").nextElementSibling.textContent).toEqual('#1')
     },
 };
 export const ReadSystemValidityMessage:Story  =
@@ -191,6 +191,30 @@ export const ReadSystemValidityMessage:Story  =
         await expect(await canvas.findByTestId('var1')).toBeInTheDocument();
         await expect(canvas.getByTestId("var1").textContent).toEqual(canvas.getByTestId("inp1").validationMessage);
         await expect(canvas.getByTestId("var1").textContent.length>1).toEqual(true);
+    },
+};
+
+export const EmbedDCE:Story  =
+{   args : {title: 'Render inner components', body:`
+    <template id="test-icon">
+        <attribute name="img"></attribute>
+        <i>{img}</i>
+    </template>
+    <template id="test-button">
+        <attribute name="text"></attribute>
+        <button>
+            <slot>{text}</slot>
+        </button>
+    </template>
+    
+    <custom-element src="#test-icon" tag="test-icon"></custom-element>
+    <custom-element src="#test-button" tag="test-button"></custom-element>
+    <test-button>icon:<test-icon img="👍"></test-icon></test-button>
+`}
+,   play: async ({canvasElement}) =>
+    {
+        const canvas = within(canvasElement);
+        await expect(await canvas.findByText('👍')).toBeInTheDocument();
     },
 };
 

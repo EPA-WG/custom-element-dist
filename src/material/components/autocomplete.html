@@ -34,7 +34,9 @@
 </head>
 
 <body>
-<custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
+<custom-element tag="cem-icon-link" hidden src="./icon-link.html#cem-icon-link" ></custom-element>
+<custom-element tag="cem-input"     hidden src="./input.html#cem-input" ></custom-element>
+<custom-element tag="cem-menu"      hidden src="./menu.html#cem-menu"></custom-element>
 
 
 <header class="cem-theme-teal">
@@ -44,117 +46,44 @@
     <p><code>cem-autocomplete</code> is autocomplete component from &lt;custom-element&gt; Material suite based on the
         <a href="https://material.io/components" >Material Design specification</a>.
     </p>
+
     <custom-element tag="cem-autocomplete" hidden>
         <template>
-            <attribute name="name"></attribute>
-            <attribute name="label"></attribute>
-            <attribute name="placeholder"></attribute>
-            <attribute name="type">search</attribute>
-            <attribute name="value"></attribute>
+            <!-- cem-input attributes -->
+            <attribute name="value"   select="//selected[//selected/event] ?? //attributes/@value" ></attribute>
+            <attribute name="name"           ></attribute>
+            <attribute name="type"           ></attribute>
+            <attribute name="autocapitalize" ></attribute>
+            <attribute name="disabled"       ></attribute>
+            <attribute name="multiple"       ></attribute>
+            <attribute name="readonly"       ></attribute>
+            <attribute name="required"       ></attribute>
+            <attribute name="incremental"    ></attribute>
+            <attribute name="max"            ></attribute>
+            <attribute name="maxlength"      ></attribute>
+            <attribute name="min"            ></attribute>
+            <attribute name="minlength"      ></attribute>
+            <attribute name="size"           ></attribute>
+            <attribute name="step"           ></attribute>
+            <attribute name="tabindex"       ></attribute>
+            <attribute name="autocomplete"   ></attribute>
+            <attribute name="form"           ></attribute>
+            <attribute name="id"             ></attribute>
+            <attribute name="list"           ></attribute>
+            <attribute name="pattern"        ></attribute>
+            <attribute name="placeholder"    ></attribute>
+            <attribute name="title"          ></attribute>
+            <attribute name="leading"       aria-description="leading icon"  ></attribute>
+            <attribute name="trailing"      aria-description="trailing icon" ></attribute>
+            <attribute name="label"         aria-description="label text"    ></attribute>
+            <attribute name="supporting"    aria-description="Supporting text"    ></attribute>
             <style>
-                dce-root
-                {   position: relative;
-                    display: flex; flex-direction: column; justify-content: center;
-                    --input-padding: 0;
-
-                    --cem-input-outline: inset 0 -1px 0 black;
-                    --cem-input-outline-focus: inset 0 -3px 0 var(--cem-outline-color-focus);
-                    --cem-autocomplete-container-shape: 0.25rem;
-                    --cem-autocomplete-background-color: var(--cem-list-background-color);
-                    --cem-autocomplete-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-
-                    background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
-
-                    min-height: 3.5rem;
-
-                    & > fieldset,
-                    & > fieldset[focus-within="0"]{display: none;}
-
-                    & > fieldset[focus-within="1"],
-                    & > fieldset[focus-within="2"]{ display: flex;  max-height: 10rem; height: auto; overflow: auto; transition: var(--cem-drop-transition) }
-
-                    fieldset
-                    {   position: absolute;
-                        left: 0; right: 0; top:100%;
-                        flex-direction: column; border: red;  max-height: 0;
-                        transition: var(--cem-drop-transition);
-                        overflow: hidden; padding: 0;
-
-                        border-radius: var(--cem-autocomplete-container-shape);
-                        border-top-left-radius: 0;
-                        border-top-right-radius: 0;
-                        box-shadow: var(--cem-autocomplete-container-elevation-shadow);
-                        background-color: var(--cem-autocomplete-background-color );
-
-                        transition-delay: 40ms;
-                        transition-duration: 110ms;
-
-                        label{ padding: 0.5rem;
-                            &:hover{ background-color: var(--cem-list-background-color-hover);}
-                            &:focus-within{ background-color: var(--cem-list-background-color-focus);}
-                            input{ width: 0; overflow: hidden; display: inline-block; }
-                        }
-                    }
-                    &>label
-                    {   display: flex; flex-direction: column; justify-content: center;
-                        flex: 1; padding: 0.5rem 1rem;
-                        box-shadow: var(--cem-input-outline);
-                        transition: var(--drop-transition);
-                        color: var(--cem-filled-text-field-label-text-color);
-
-                        input
-                        {   background: none; padding: var(--input-padding);
-                            &,&:focus,&:focus-visible{ border: none; outline: none; }
-                            &:placeholder-shown{ border: none; outline:none;  }
-                            &[value=""]{ height: 0; }
-                            &:focus,&:focus-visible,&[placeholder*=""]{ height: auto; }
-
-                            color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
-                            caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
-                            font-size: 1rem;
-                            transition: var(--drop-transition);
-                        }
-                    }
-                    &:focus-within
-                    {
-                        &> label
-                        {   box-shadow: var(--cem-input-outline-focus);
-                            font-size: small; justify-content: space-between;
-                        }
-                    }
-                    label:has( input:not([value=""]) ){ font-size: small; justify-content: space-between;}
-                    slice{display: none;}
+                &
+                {
                 }
             </style>
-<!--            <pre>-->
-<!--                //focused {//focused}-->
-<!--                //suggest {//suggest}-->
-<!--                //selected {//selected}-->
-<!--            </pre>-->
-            <slot name="input"><label>{$label}<xhtml:input
-                    name="{$name}"
-                    type="{$type}"
-                    placeholder="{$placeholder}"
-                    value="{//selected ?? $value}"
-                    slice="selected" slice-event="input"
-                    >
-                    <slice name="focused" slice-event="blur" slice-value="0"></slice>
-                    <slice name="focused" slice-event="focus" slice-value="1"></slice>
-                    <slice name="filter" slice-event="blur input" slice-value="//selected"></slice>
-                </xhtml:input></label></slot>
-            <fieldset form="cem-autocomplete-form" >
-                <attribute name="focus-within">{//focused}</attribute>
-                <xsl:for-each select="/datadom/payload/*[normalize-space(text()) != '']">
-                    <if test="normalize-space(//selected) = '' or contains(@value, //filter)">
-                        <label value="{@value ?? .}"
-                            ><xhtml:input type="radio" value="{@value ?? .}" name="cem-autocomplete" slice="selected" slice-event="input">
-                            <slice name="focused" slice-event="blur" slice-value="0"></slice>
-                            <slice name="focused" slice-event="focus" slice-value="2"></slice>
-                        </xhtml:input>
-                            {.}</label>
-                    </if>
-                </xsl:for-each>
-            </fieldset>
+            <slot name="input"><cem-input></cem-input></slot>
+            <slot name="menu"><cem-menu></cem-menu></slot>
         </template>
     </custom-element>
 
@@ -230,7 +159,6 @@
 </main>
 <footer>
     <hr/>
-    Powered by Syngrafact Corp. ©2024.<br/>
     <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
 </footer>
 <!--<script type="module" src="./html-demo-element.js"></script>-->

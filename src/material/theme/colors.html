@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:exslt="http://exslt.org/common"
+>
+<!-- https://simulationlabs.com/github/EPA-WG/custom-element-dist/tree/develop/src/material/theme/colors.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Colors - custom-element - Material Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@epa-wg/": "../../"
+          }
+        }
+    </script>
+    <script src="../../custom-element/module-url.js" type="module"></script>
+    <script src="../../custom-element/custom-element.js" type="module"></script>
+    <style>
+        @import "../angular.css";
+        @import "../material.css";
+        @import "../theme/semantic.css";
+        @import "../theme/consumer-theme.css";
+        @import "../demo.css";
+        main {
+            &>p{ min-width: 90%; }
+            &>aside, &>h1{ padding-left: 1rem; }
+            html-demo-element
+            {   overflow: visible;
+                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
+                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="description"] dd{ padding: 0; }
+                }
+            var{ color: darkgreen; font-weight: bold; }
+        }
+        cem-icon{ margin: 1rem; }
+        h1{ font-size: large; }
+
+    </style>
+    <script type="module" src="./colors.js"></script>
+</head>
+<!--
+ToDO
+* docs w/ how to use
+-->
+<body>
+<custom-element hidden src="../components/icon.html#cem-icon" tag="cem-icon"></custom-element>
+<custom-element hidden src="../components/icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
+
+<header class="cem-theme-teal">
+    <custom-element src="../index.html#nav-head"></custom-element>
+</header>
+<main>
+    <aside>
+        <p> Discussion:
+            <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14">Consumer Semantic Theme tokens</a>.
+        </p>
+    </aside>
+    <h1>Action tokens </h1>
+    <custom-element>
+        <template>
+            <style>
+                header{
+                    position: sticky; top: 0;
+                    display: flex; gap: 1rem; flex-direction: column;
+                    color: lightblue;
+                    background: rgba(0, 0, 0, 0.75);
+                    &>*{ display: flex; gap: 2rem; align-items: center; label{ display: flex;} }
+                }
+                th i, td i,.small{font-size:x-small;}
+                td{ padding: 0.5rem; &:first-of-type{ padding-left: 0 }}
+                summary{ padding: 0.5rem 0;
+                    &:hover{
+                        background-color: cyan;
+                        cursor: pointer;
+                    }
+                }
+                section[data-theme]{ padding: 1rem; }
+            </style>
+
+            <cem-css-rules slice="rules"></cem-css-rules>
+
+            <section>
+                <header>
+                    <div>show
+                        <label><input slice="filter-emotional"  value="emotional-palette" title="trigger visibility of emotional palette"        type="checkbox" checked /> emotional palette    </label>
+                        <label><input slice="filter-state"      value="state-pallette"    title="trigger visibility of state variations palette" type="checkbox" checked /> state variations     </label>
+                    </div>
+                    <div> state tokens with
+                        <label><input slice="filter-colors"  value="color"   title="uses background/text color" type="checkbox" checked /> color   </label>
+                        <label><input slice="filter-outline" value="outline" title="uses outline"               type="checkbox"         /> outline </label>
+                        <label><input slice="filter-font"    value="font"    title="uses font"                  type="checkbox"         /> font    </label>
+                        <label><input slice="filter-marker"  value="marker"  title="uses marker like *"         type="checkbox"         /> marker  </label>
+                        <label><input slice="filter-bend"    value="bend"    title="uses marker like *"         type="checkbox"         /> bend  </label>
+                    </div>
+                </header>
+                <variable name="cem-theme">
+                    <option value="native"> System driven colors</option>
+                    <option value="light"> light</option>
+                    <option value="dark"> dark</option>
+                    <option value="contrast-light"> hight-contrast light</option>
+                    <option value="contrast-dark"> high-contrast dark</option>
+                </variable>
+                <variable name="cem-emotional-tokens">
+            <option value="comfort"         warms="cool"    sample="white"                  system="Canvas"                     > light scene color, the scene is full of object. Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
+            <option value="calm"            warms="cool"    sample="black"                  system="CanvasText"                 > dark scene color, few objects around. Mystery, elegance, power, evil, mourning, formality, security           </option>
+            <option value="trust"           warms="cool"    sample="blue"                   system="Highlight w/ HighlightText" > primary action background, text color for `focus-invert`                                                      </option>
+            <option value="danger"          warms="warm"    sample="red"                    system="N/A , red"                  > Passion, excitement, love, anger, energy, danger                                                              </option>
+            <option value="creativity"      warms="cool"    sample="cyan,purple"            system="ButtonFace w/ ButtonText"   > Luxury, creativity, royalty, mystery, but also grief or melancholy                                            </option>
+            <option value="enthusiasm"      warms="warm"    sample="orange,yellow,pink"     system="Mark w/ MarkText"           > Warmth, enthusiasm, happiness, optimism, energy                                                               </option>
+            <option value="conservative"    warms="neutral" sample="brown,tan,beige,grey"   system="GrayText"                   > Natural, earthy, conservative, but also bland or boring                                                       </option>
+                </variable>
+                <variable name="cem-action-intent">
+            <option value="explicit"      base-color="white" > user explicitly/intentionally clicks or activates    </option>
+            <option value="primary"       base-color="black" > default, confirmatory, implicit. Triggered by ENTER  </option>
+            <option value="contextual"    base-color="blue"  > integrated within a specific context, Toolbar/menu   </option>
+            <option value="alternate"     base-color="red"   > triggering not usual alternative flow                </option>
+            <option value="destructive"   base-color="red"   > risky, potentially harmful, requires caution         </option>
+                </variable>
+
+                <variable name="cem-action-state">
+            <option value="disabled"        tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
+            <option value="readonly"        tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
+            <option value="editable"        tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
+            <option value="required"        tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
+            <option value="default"         tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
+            <option value="indeterminate"   tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
+            <option value="target"          tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
+            <option value="focus"           tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
+            <option value="hover"           tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
+            <option value="selected"        tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
+            <option value="active"          tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
+            <option value="pending"         tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
+                </variable>
+                <variable name="slices" select="/datadom/slice"></variable>
+
+                <for-each select="exsl:node-set($cem-theme)/*">
+                    <section data-theme="cem-theme-{@value}">
+                        <h1><a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme <var>cem-theme-{@value}</var></a></h1>
+                        <xhtml:table >
+                            <xsl:if test="not($slices/filter-emotional = 'emotional-palette' )">
+                                <attribute name="hidden"></attribute>
+                            </xsl:if>
+
+                            <xhtml:thead>
+                                <xhtml:tr>
+                                    <xhtml:td class="small"> emotional token </xhtml:td>
+                                    <for-each select="exsl:node-set($cem-emotional-tokens)/*">
+                                        <xhtml:th style="min-width:6rem" title="{.}" >{@value}</xhtml:th>
+                                    </for-each>
+                                </xhtml:tr>
+                            </xhtml:thead>
+                            <xhtml:tbody>
+                                <xhtml:tr>
+                                    <xhtml:td class="small">default background &amp text</xhtml:td>
+                                    <for-each select="exsl:node-set($cem-emotional-tokens)/*">
+                                        <variable name="state" select="@value"></variable>
+                                        <variable name="state-description" select="."></variable>
+
+                                        <xhtml:td
+                                                title="{.}
+                                            warms: {@warms}
+                                            sample: {@sample}
+                                            system color: {@system}
+                                        "
+                                        class="small"
+                                        style="
+                                                background-color:var(--cem-palette-{@value});
+                                                color:var(--cem-palette-{@value}-text);
+                                            "
+                                        > ⬤
+                                            --cem-palette-{@value} <br/>
+                                            --cem-palette-{@value}-text
+                                        </xhtml:td>
+                                    </for-each>
+                                </xhtml:tr>
+                                <xhtml:tr>
+                                    <xhtml:td class="small">extreme deviation</xhtml:td>
+                                    <for-each select="exsl:node-set($cem-emotional-tokens)/*">
+                                        <variable name="state" select="@value"></variable>
+                                        <variable name="state-description" select="."></variable>
+
+                                        <xhtml:td
+                                                title="{.}
+                                            warms: {@warms}
+                                            sample: {@sample}
+                                            system color: {@system}
+                                        "
+                                        class="small"
+                                        style="
+                                                background-color:var(--cem-palette-{@value}-x);
+                                                color:var(--cem-palette-{@value}-text-x);
+                                            "
+                                        > ⬤
+                                            --cem-palette-{@value}-x <br/>
+                                            --cem-palette-{@value}-text-x
+                                        </xhtml:td>
+                                    </for-each>
+                                </xhtml:tr>
+
+                            </xhtml:tbody>
+                        </xhtml:table>
+                        <xhtml:table>
+                            <xsl:if test="not($slices/filter-state = 'state-pallette' )">
+                                <attribute name="hidden"></attribute>
+                            </xsl:if>
+                            <xhtml:thead>
+                                <xhtml:tr>
+                                    <xhtml:th> <i>tokens</i> <br/> state</xhtml:th>
+                                    <for-each select="exsl:node-set($cem-action-intent)/*">
+                                        <xhtml:th style="min-width:6rem" title="{.}">{@value}</xhtml:th>
+                                    </for-each>
+                                </xhtml:tr>
+                            </xhtml:thead>
+                            <xhtml:tbody>
+                                <for-each select="exsl:node-set($cem-action-state)/*">
+                                    <if test="
+                                ($slices/filter-colors  != '' and contains(@tokens, $slices/filter-colors ) ) or
+                                ($slices/filter-outline != '' and contains(@tokens, $slices/filter-outline) ) or
+                                ($slices/filter-font    != '' and contains(@tokens, $slices/filter-font   ) ) or
+                                ($slices/filter-marker  != '' and contains(@tokens, $slices/filter-marker ) )
+                                ">
+                                        <xhtml:tr>
+                                            <variable name="state" select="@value"></variable>
+                                            <variable name="state-description" select="."></variable>
+
+                                            <xhtml:td
+                                                    title="{.}
+                                            tokens: {@tokens}
+                                        ">{@value} <br/> <i>{@tokens}<small>
+                                            </xhtml:td>
+                                            <for-each select="exsl:node-set($cem-action-intent)/*">
+                                                <variable name="intent" select="@value"></variable>
+                                                <xhtml:td style="
+                                                background-color: var(--cem-action-{ $intent }-{ $state }-background);
+                                                color:            var(--cem-action-{ $intent }-{ $state }-text);
+                                                font-size:x-small;
+                                                padding:0.5em"
+                                                          title="{@value} : {.}
+                                                    {$state} : {$state-description}
+                                                "
+                                                >
+                                                    --cem-action-{ $intent }-{ $state }-background <br/>
+                                                    ⬤ --cem-action-{ $intent }-{ $state }-color
+                                                </xhtml:td>
+                                            </for-each>
+                                        </xhtml:tr>
+                                    </if>
+                                </for-each>
+                            </xhtml:tbody>
+                        </xhtml:table>
+                    </section>
+
+                </for-each>
+
+            </section>
+            <hr/>
+            <h1>ToDo</h1>
+            <section>
+                <pre>
+    * color matrix per theme to include base shape - action, input, etc.
+    * bend
+    * dimensions
+</pre>
+            </section>
+            <h1>All variables</h1>
+            <for-each select="//*[starts-with(./*/@dce-object-name, '--')]">
+                <details>
+                    <summary>{@dce-object-name}</summary>
+                    <for-each select="*">
+                        <button style="background-color: {.}" title="{@dce-object-name} : {.}"></button>
+                    </for-each>
+                </details>
+            </for-each>
+            <hr/>
+        </template>
+    </custom-element>
+
+
+</main>
+<footer>
+    <hr/>
+    <a href="../../LICENSE"> Code and documentation licensed under an Apache License 2.0 </a>
+</footer>
+<script src="https://unpkg.com/html-demo-element@1.0.8/html-demo-element.js" type="module"></script>
+
+</body>
+</html>

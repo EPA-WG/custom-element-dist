@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <head>
+  <meta charset="utf-8">
     <title>template based on HTML file</title>
     <style>svg {
         width: 4rem;
@@ -8,9 +9,9 @@
 </head>
 <body>
 <script>console.error('Stranger danger!')</script>
-<b id="wave">👋</b>
-<b id="ok">👌</b>
-<svg id="dwc-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 209.18">
+<b id="wave" data-testid="wave" >👋</b>
+<b id="ok"   data-testid="ok"   >👌</b>
+<svg id="dwc-logo" data-testid="dwc-logo"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 209.18">
     <defs>
         <style>.cls-1 {
             fill: #c2e6f1;

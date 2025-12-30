@@ -1,0 +1,59 @@
+name: Deploy SRC to web hosting
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-src:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute remote deploy directory
+        id: dir
+        run: |
+          BR="${GITHUB_REF_NAME}"
+          REPOROOT=${{ github.repository }}
+          if [ "$BR" = "main" ]; then
+            echo "server_dir=$REPOROOT/main" >> "$GITHUB_OUTPUT"
+          else
+            echo "server_dir=$REPOROOT/${BR}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "branch_name=${BR}" >> "$GITHUB_OUTPUT"
+          echo "branch_name=${BR}"
+          echo "host: ${{ secrets.BRANCH_DEPLOY_HOST }}"
+          echo "port port: ${{ secrets.BRANCH_DEPLOY_PORT }}"
+          echo "REMOTE_PATH=/${REPOROOT}/tree/${BR}/src" >> "$GITHUB_OUTPUT"
+          echo "REMOTE_PATH=/${REPOROOT}/tree/${BR}/src"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+
+      - name: Deploy to web host
+        uses: milanmk/actions-file-deployer@master
+        with:
+          remote-protocol: "sftp"
+          remote-host: ${{ secrets.BRANCH_DEPLOY_HOST }}
+          remote-user: ${{ secrets.BRANCH_DEPLOY_USER }}
+          remote-password: ${{ secrets.BRANCH_DEPLOY_PASS }}
+          remote-port: ${{ secrets.BRANCH_DEPLOY_PORT }}
+          local-path: "./src"
+          remote-path: ${{steps.dir.outputs.REMOTE_PATH}}
+#          remote-path: "${{ steps.dir.outputs.server_dir }}/src/"
+          sync: "full"
+#          sync: "delta"
+          # If your server only offers ssh-rsa host key, you may need:
+          ssh-options: "-oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa"

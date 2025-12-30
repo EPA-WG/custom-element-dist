@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Consumer Semantic Theme tokens</title>
+    <link rel="stylesheet" href="consumer-theme.css"/>
+    <style>
+        @import url(./consumer-theme.css);
+        @import url(./theme-data.css);
+    </style>
+</head>
+<body>
+
+
+<h1>Consumer Semantic Theme tokens</h1>
+    <p>
+        The content of this file is used for supplementary documentation and generation of <a href="./consumer-theme.css" >consumer-theme.css</a>.
+</p>
+<figure>
+    <figcaption>Color Themes</figcaption>
+    <fieldset >
+        <legend>Theme names</legend>
+        <datalist id="theme">
+            <option value="native"         >System driven colors  </option>
+            <option value="light"          >Light                 </option>
+            <option value="dark"           >Dark                  </option>
+            <option value="contrast-light" >Hight-Contrast Light  </option>
+            <option value="contrast-dark"  >High-Contrast Dark    </option>
+        </datalist>
+
+    </fieldset>
+    <fieldset>
+        <legend>Emotional tokens</legend>
+        <datalist id="cem-emotional-tokens">
+            <option value="comfort"       warms="cool"     sample="white"                  system="Canvas"                     > light scene color, the scene is full of object. Purity, innocence, cleanliness, peace,  coldness or emptiness </option>
+            <option value="calm"          warms="cool"     sample="black"                  system="CanvasText"                 > dark scene color, few objects around. Mystery, elegance, power, evil, mourning, formality, security           </option>
+            <option value="trust"         warms="cool"     sample="blue"                   system="Highlight w/ HighlightText" > primary action background, text color for `focus-invert`                                                      </option>
+            <option value="danger"        warms="warm"     sample="red"                    system="N/A , red"                  > Passion, excitement, love, anger, energy, danger                                                              </option>
+            <option value="creativity"    warms="cool"     sample="cyan,purple"            system="ButtonFace w/ ButtonText"   > Luxury, creativity, royalty, mystery, but also grief or melancholy                                            </option>
+            <option value="enthusiasm"    warms="warm"     sample="orange,yellow,pink"     system="Mark w/ MarkText"           > Warmth, enthusiasm, happiness, optimism, energy                                                               </option>
+            <option value="conservative"  warms="neutral"  sample="brown,tan,beige,grey"   system="GrayText"                   > Natural, earthy, conservative, but also bland or boring                                                       </option>
+        </datalist>
+    </fieldset>
+</figure>
+<figure class="with-color">
+    <figcaption>Branded Palette Colors</figcaption>
+    <p>The branded palette establishes base colors with brightness variations, ensuring accessibility and adherence to ADA guidelines. Each color family includes up to 4 variants: xl (extra light), l (light), d (dark), xd (extra dark).</p>
+
+        <fieldset>
+        <legend>Brightness Levels</legend>
+        <dl>
+            <dt><code>xl</code> (extra light)</dt>
+            <dd>
+                Lightest variant, typically used in light themes for backgrounds and surfaces. High brightness, low saturation.
+                <br/>
+                <strong>Text color pairing:</strong> Uses <code>xd</code> (extra dark) for maximum contrast.
+                <br/>
+                <span style="background-color: var(--cem-color-blue-xl); color: var(--cem-color-blue-xd); padding: 0.5em; display: inline-block; margin-top: 0.5em;">
+                    Example: xl background with xd text
+                </span>
+            </dd>
+
+            <dt><code>l</code> (light)</dt>
+            <dd>
+                Light variant, primary color for light themes. Base emotional color in light mode.
+                <br/>
+                <strong>Text color pairing:</strong> Uses <code>d</code> (dark) or <code>xd</code> (extra dark) for contrast.
+                <br/>
+                <span style="background-color: var(--cem-color-blue-l); color: var(--cem-color-blue-d); padding: 0.5em; display: inline-block; margin-top: 0.5em;">
+                    Example: l background with d text
+                </span>
+            </dd>
+
+            <dt><code>d</code> (dark)</dt>
+            <dd>
+                Dark variant, primary color for dark themes. Base emotional color in dark mode.
+                <br/>
+                <strong>Text color pairing:</strong> Uses <code>l</code> (light) or <code>xl</code> (extra light) for contrast.
+                <br/>
+                <span style="background-color: var(--cem-color-blue-d); color: var(--cem-color-blue-l); padding: 0.5em; display: inline-block; margin-top: 0.5em;">
+                    Example: d background with l text
+                </span>
+            </dd>
+
+            <dt><code>xd</code> (extra dark)</dt>
+            <dd>
+                Darkest variant, typically used in dark themes for backgrounds and surfaces. Low brightness, higher saturation.
+                <br/>
+                <strong>Text color pairing:</strong> Uses <code>xl</code> (extra light) for maximum contrast.
+                <br/>
+                <span style="background-color: var(--cem-color-blue-xd); color: var(--cem-color-blue-xl); padding: 0.5em; display: inline-block; margin-top: 0.5em;">
+                    Example: xd background with xl text
+                </span>
+            </dd>
+        </dl>
+
+        <p><strong>Contrast Principle:</strong> Brightness levels are paired with their opposite extremes to ensure WCAG-compliant contrast ratios:</p>
+        <ul>
+            <li><code>xl</code> ↔ <code>xd</code> (maximum contrast pairing)</li>
+            <li><code>l</code> ↔ <code>d</code> or <code>xd</code> (high contrast pairing)</li>
+            <li>All pairings maintain ≥4.5:1 contrast ratio for text</li>
+        </ul>
+        <p><strong>color ranges:</strong> <code>l</code> is used as base color for light mode;
+            <code>d</code>  as its opposite variation. The brightness variations in between are generated by css formula.
+        </p>
+        <p><strong>darl/light:</strong> <code>l</code> is used as base color for light mode;
+            <code>d</code> in dark. See the css <code>light-dark</code> use bellow as a switch.
+        </p>
+        <p><strong>text colors:</strong> uses primary page text (comfort) with
+            <code>xd</code>↔<code>xl</code> in light/dark mode.
+            Only in special cases when contrast is not sufficient it is overridden (danger).
+        </p>
+
+<pre>
+        --cem-palette-comfort-text    : light-dark(var( --cem-color-cyan-xd ), var( --cem-color-cyan-xl ));
+        --cem-palette-comfort-text-x  : light-dark(var( --cem-color-cyan-xl ), var( --cem-color-cyan-xd ));
+
+        --cem-palette-danger          : light-dark(var( --cem-color-red-l             ), var( --cem-color-red-d           ));
+        --cem-palette-danger-text     : light-dark(var( --cem-palette-comfort-text-x  ), var( --cem-palette-comfort-text  ));
+        --cem-palette-danger-x        : light-dark(var( --cem-color-red-d             ), var( --cem-color-red-l           ));
+        --cem-palette-danger-text-x   : light-dark(var( --cem-color-orange-xl         ), var( --cem-color-orange-xl       ));
+
+        --cem-action-destructive-hover-background: color-mix(in srgb, var(--cem-palette-danger ) 60%, var(--cem-palette-danger-x ));
+        --cem-action-destructive-hover-text: var(--cem-palette-danger-text );
+</pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Usage in Color System</legend>
+        <p>These branded colors form the foundation of the theme system:</p>
+        <ol>
+            <li><strong>Emotional Palette</strong>: Branded colors map to emotional tokens via <code>light-dark()</code> function</li>
+            <li><strong>State Variations</strong>: Colors are mixed using <code>color-mix()</code> to create state progressions</li>
+            <li><strong>Accessibility</strong>: All color pairs maintain WCAG contrast ratios (≥4.5:1 for text, ≥3:1 for UI elements)</li>
+            <li><strong>Material Design Compatibility</strong>: Tokens align with Angular Material and Material Design 3 color systems</li>
+        </ol>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cyan Family</legend>
+        <datalist id="cem-color-cyan">
+            <option value="--cem-color-cyan-xl" style="background-color: var(--cem-color-cyan-xl); ">
+                #f1fefe | Extra light cyan | Used for comfort palette (light scenes) | Maps to --ng-cyan-99
+            </option>
+            <option value="--cem-color-cyan-l" style="background-color: var(--cem-color-cyan-l); ">
+                #00fbfb | Light cyan | Calm palette, creativity accent | Maps to --ng-cyan-90
+            </option>
+            <option value="--cem-color-cyan-d" style="background-color: var(--cem-color-cyan-d); ">
+                #006a6a | Dark cyan | Calm palette (dark theme) | Maps to --ng-cyan-40
+            </option>
+            <option value="--cem-color-cyan-xd" style="background-color: var(--cem-color-cyan-xd); ">
+                #001010 | Extra dark cyan | Used for comfort palette (dark scenes) | Maps to --ng-cyan-5
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Blue Family</legend>
+        <datalist id="cem-color-blue">
+            <option value="--cem-color-blue-xl" style="background-color: var(--cem-color-blue-xl);">
+                #faf9fd | Lightest blue | Comfort/trust emotion (light scene) | Maps to --ng-azure-neutral-98, --mat-sys-surface
+            </option>
+            <option value="--cem-color-blue-l" style="background-color: var(--cem-color-blue-l); ">
+                #d7e3ff | Light blue | Trust palette, attention semantic | Maps to --ng-azure-90, --mat-sys-primary-container
+            </option>
+            <option value="--cem-color-blue-d" style="background-color: var(--cem-color-blue-d); ">
+                #002f65 | Dark blue | Trust palette (dark theme) | Maps to --ng-azure-20
+            </option>
+            <option value="--cem-color-blue-xd" style="background-color: var(--cem-color-blue-xd); ">
+                #1a1b1f | Darkest blue | Comfort/trust emotion (dark scene) | Maps to --ng-azure-neutral-10
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Red Family</legend>
+        <datalist id="cem-color-red">
+            <option value="--cem-color-red-xl" style="background-color: var(--cem-color-red-xl);">
+                #ffb4ab | Extra light red | Danger palette (light theme) | Maps to --ng-error-80
+            </option>
+            <option value="--cem-color-red-l" style="background-color: var(--cem-color-red-l);">
+                #ba1a1a | Light red | Danger emotion, alert semantic | Maps to --ng-error-60, --mat-sys-error
+            </option>
+            <option value="--cem-color-red-d" style="background-color: var(--cem-color-red-d);" >
+                #690005 | Dark red | Danger palette (dark theme) | Maps to --ng-error-20
+            </option>
+            <option value="--cem-color-red-xd" style="background-color: var(--cem-color-red-xd);" >
+                #410002 | Extra dark red | Danger palette (dark theme, extreme) | Maps to --ng-error-10
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Purple Family</legend>
+        <datalist id="cem-color-purple">
+            <option value="--cem-color-purple-xl" style="background-color: var(--cem-color-purple-xl);">
+                #f3e5f5 | Extra light purple | Creativity palette (light theme) | Maps to --mat-purple-50
+            </option>
+            <option value="--cem-color-purple-l" style="background-color: var(--cem-color-purple-l); ">
+                #e1bee7 | Light purple | Creativity emotion, brand-1 | Maps to --mat-purple-100
+            </option>
+            <option value="--cem-color-purple-d" style="background-color: var(--cem-color-purple-d); ">
+                #6a1b9a | Dark purple | Creativity palette (dark theme) | Maps to --mat-purple-800
+            </option>
+            <option value="--cem-color-purple-xd" style="background-color: var(--cem-color-purple-xd); ">
+                #4a148c | Extra dark purple | Creativity palette (dark theme, extreme) | Maps to --mat-purple-900
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Orange/Yellow Family</legend>
+        <datalist id="cem-color-orange">
+            <option value="--cem-color-orange-xl" style="background-color: var(--cem-color-orange-xl); ">
+                #f0f070 | Extra light yellow | Enthusiasm palette (light theme) | Maps to --ng-yellow-80
+            </option>
+            <option value="--cem-color-orange-l" style="background-color: var(--cem-color-orange-l); ">
+                #ffe082 | Light orange | Enthusiasm emotion, brand-2 | Maps to --mat-amber-200
+            </option>
+            <option value="--cem-color-orange-d" style="background-color: var(--cem-color-orange-d); ">
+                #723600 | Dark orange | Enthusiasm hype (dark theme) | Maps to --ng-orange-30
+            </option>
+            <option value="--cem-color-orange-xd" style="background-color: var(--cem-color-orange-xd); ">
+                #502400 | Extra dark orange | Enthusiasm palette (dark theme, extreme) | Maps to --ng-orange-20
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Brown Family</legend>
+        <datalist id="cem-color-brown">
+            <option value="--cem-color-brown-xl" style="background-color: var(--cem-color-brown-xl); ">
+                #d7ccc8 | Extra light brown | Conservative palette (light theme) | Maps to --mat-brown-100
+            </option>
+            <option value="--cem-color-brown-l" style="background-color: var(--cem-color-brown-l); ">
+                #a1887f | Light brown | Conservative emotion, brand-3 | Maps to --mat-brown-300
+            </option>
+            <option value="--cem-color-brown-d" style="background-color: var(--cem-color-brown-d); ">
+                #4e342e | Dark brown | Conservative palette (dark theme) | Maps to --mat-brown-800
+            </option>
+            <option value="--cem-color-brown-xd" style="background-color: var(--cem-color-brown-xd); ">
+                #3e2723 | Extra dark brown | Conservative palette (dark theme, extreme) | Maps to --mat-brown-900
+            </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>Grey Family</legend>
+        <p>extreme values for grey are white and black</p>
+        <datalist id="cem-color-grey">
+            <option value="--cem-color-grey-l" style="background-color: var(--cem-color-grey-l); ">
+                #f1f1eb | Light grey | Conservative palette, neutral backgrounds | Maps to --ng-green-neutral-80
+            </option>
+            <option value="--cem-color-grey-d" style="background-color: var(--cem-color-grey-d); ">
+                #1a1c18 | Dark grey | Conservative palette (dark theme) | Maps to --ng-green-neutral-10
+            </option>
+        </datalist>
+        <p><small>Note: Grey family has only 2 variants (l, d) as neutral colors require fewer gradations.</small></p>
+    </fieldset>
+
+
+</figure>
+
+<figure class="with-color">
+    <figcaption>Emotional Palette</figcaption>
+    <p> Emotional palette tokens create the bridge between branded colors and action states.
+        The emotional palette is defined by marketing strategy and expressed through branded colors using design rationale.
+        Should your app aims to be aggressively seductive, calmy relaxing, or office focused will affect the choice of emotional palette.
+    </p>
+    <p> Emotional palette tokens form the link between branded colors and action states,
+        so users consistently feel what the interface intends to communicate.
+    </p>
+    <fieldset>
+        <legend>Emotional to Action Intent Mapping</legend>
+        <p>Each action intent maps to a specific emotional palette:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action Intent</th>
+                    <th>Emotional Palette</th>
+                    <th>Base Color</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>explicit</code></td>
+                    <td><code>creativity</code></td>
+                    <td style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">Purple</td>
+                    <td>User explicitly/intentionally clicks or activates</td>
+                </tr>
+                <tr>
+                    <td><code>primary</code></td>
+                    <td><code>trust</code></td>
+                    <td style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">Blue</td>
+                    <td>Default, confirmatory, triggered by ENTER</td>
+                </tr>
+                <tr>
+                    <td><code>contextual</code></td>
+                    <td><code>comfort</code></td>
+                    <td style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">Cyan/White</td>
+                    <td>Integrated within specific context (toolbar/menu)</td>
+                </tr>
+                <tr>
+                    <td><code>alternate</code></td>
+                    <td><code>enthusiasm</code></td>
+                    <td style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">Orange/Yellow</td>
+                    <td>Triggering non-usual alternative flow</td>
+                </tr>
+                <tr>
+                    <td><code>destructive</code></td>
+                    <td><code>danger</code></td>
+                    <td style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">Red</td>
+                    <td>Risky, potentially harmful, requires caution</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Emotional Token Variants</legend>
+        <p> Each emotional token comes in four base variants to ensure reliable text contrast and accessibility.
+            Intermediate colors are generated between these variants to represent nuances such as action state importance.
+        </p>
+        <dl>
+            <dt><b>color per light theme</b></dt>
+            <dd>Each of four emotion variations bellow have own values in each of
+                light/dark/contrast/native theme. <br/>
+                For light and dark themes the <code>light-dark()</code> CSS function switches the same variation
+                to theme specific one.  </dd>
+
+            <dt><code>--cem-palette-{emotion}</code></dt>
+            <dd>Base emotional color. Used as background/base surface/ primary filler color.
+                 </dd>
+
+            <dt><code>--cem-palette-{emotion}-x</code></dt>
+            <dd>Extreme variant (inverted) of the base emotional color. Used by <code>color-mix()</code> formulas for state progression in
+                <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14#discussioncomment-14060329">Emotional palette gradations</a>
+            </dd>
+
+            <dt><code>--cem-palette-{emotion}-text</code></dt>
+            <dd>Ink/Text color for use on the base emotional background. Ensures WCAG-compliant contrast (≥4.5:1 for text).</dd>
+
+            <dt><code>--cem-palette-{emotion}-text-x</code></dt>
+            <dd>Ink/Text color for use on the extreme variant background. The color is triggered from
+                <code>--cem-palette-{emotion}-text</code> when background become close to
+                <code>--cem-palette-{emotion}-x</code> for contrast maintaining and to emphasize the significance of deviation.
+                As in `active/pending` states of `actions`
+            </dd>
+        </dl>
+
+        <p><strong>Usage Pattern:</strong></p>
+        <pre>
+/* Base tokens switch between light/dark mode */
+--cem-palette-comfort: light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+--cem-palette-comfort-text: light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+
+/* State variations use color-mix() to create progression */
+--cem-action-hover-background: color-mix(in srgb, var(--cem-palette-comfort) 60%, var(--cem-palette-comfort-x));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Comfort Palette</legend>
+        <p><strong>Purpose:</strong> Light scene color for reading backgrounds. Represents purity, innocence, cleanliness, peace.</p>
+        <p><strong>System Mapping:</strong> Canvas (system color)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-comfort">
+            <option value="--cem-palette-comfort" style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                Base comfort color | light-dark(cyan-xl, cyan-xd) | Main canvas/background
+            </option>
+            <option value="--cem-palette-comfort-text" style="background-color: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                Comfort text color | light-dark(cyan-xd, cyan-xl) | Primary text on comfort backgrounds
+            </option>
+            <option value="--cem-palette-comfort-x" style="background-color: var(--cem-palette-comfort-x); color: var(--cem-palette-comfort-text-x);">
+                Comfort extreme variant | light-dark(cyan-xd, cyan-xl) | Used in color-mix for state variations
+            </option>
+            <option value="--cem-palette-comfort-text-x" style="background-color: var(--cem-palette-comfort-x); color: var(--cem-palette-comfort-text-x);">
+                Comfort extreme text | light-dark(cyan-xl, cyan-xd) | Text on extreme variant backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-comfort       : light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+--cem-palette-comfort-text  : light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+--cem-palette-comfort-x     : light-dark(var(--cem-color-cyan-xd), var(--cem-color-cyan-xl));
+--cem-palette-comfort-text-x: light-dark(var(--cem-color-cyan-xl), var(--cem-color-cyan-xd));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Calm Palette</legend>
+        <p><strong>Purpose:</strong> Dark scene color for minimal object environments. Represents mystery, elegance, power.</p>
+        <p><strong>System Mapping:</strong> CanvasText (system color)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-calm">
+            <option value="--cem-palette-calm" style="background-color: var(--cem-palette-calm); color: var(--cem-palette-calm-text);">
+                Base calm color | light-dark(cyan-l, cyan-d) | Foreground elements
+            </option>
+            <option value="--cem-palette-calm-text" style="background-color: var(--cem-palette-calm); color: var(--cem-palette-calm-text);">
+                Calm text color | Uses comfort-text | Text on calm backgrounds
+            </option>
+            <option value="--cem-palette-calm-x" style="background-color: var(--cem-palette-calm-x); color: var(--cem-palette-calm-text-x);">
+                Calm extreme variant | light-dark(cyan-d, cyan-l) | Inverted calm color
+            </option>
+            <option value="--cem-palette-calm-text-x" style="background-color: var(--cem-palette-calm-x); color: var(--cem-palette-calm-text-x);">
+                Calm extreme text | Uses comfort-text-x | Text on extreme calm backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-calm      : light-dark(var(--cem-color-cyan-l), var(--cem-color-cyan-d));
+--cem-palette-calm-text : var(--cem-palette-comfort-text);
+--cem-palette-calm-x    : light-dark(var(--cem-color-cyan-d), var(--cem-color-cyan-l));
+--cem-palette-calm-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Trust Palette</legend>
+        <p><strong>Purpose:</strong> Primary action backgrounds, attention-grabbing elements. Represents reliability, confidence.</p>
+        <p><strong>System Mapping:</strong> Highlight with HighlightText (system colors)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-trust">
+            <option value="--cem-palette-trust" style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">
+                Base trust color | light-dark(blue-l, blue-d) | Primary actions, highlights
+            </option>
+            <option value="--cem-palette-trust-text" style="background-color: var(--cem-palette-trust); color: var(--cem-palette-trust-text);">
+                Trust text color | light-dark(comfort-text, white) | Text on trust backgrounds
+            </option>
+            <option value="--cem-palette-trust-x" style="background-color: var(--cem-palette-trust-x); color: var(--cem-palette-trust-text-x);">
+                Trust extreme variant | light-dark(blue-d, blue-l) | Darker/lighter trust variation
+            </option>
+            <option value="--cem-palette-trust-text-x" style="background-color: var(--cem-palette-trust-x); color: var(--cem-palette-trust-text-x);">
+                Trust extreme text | Uses comfort-text-x | Text on extreme trust backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-trust      : light-dark(var(--cem-color-blue-l), var(--cem-color-blue-d));
+--cem-palette-trust-text : light-dark(var(--cem-palette-comfort-text), white);
+--cem-palette-trust-x    : light-dark(var(--cem-color-blue-d), var(--cem-color-blue-l));
+--cem-palette-trust-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Danger Palette</legend>
+        <p><strong>Purpose:</strong> Alert messages, destructive actions, error states. Represents urgency, caution, passion.</p>
+        <p><strong>System Mapping:</strong> N/A (uses red)</p>
+        <p><strong>Warmth:</strong> Warm</p>
+        <datalist id="cem-palette-danger">
+            <option value="--cem-palette-danger" style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">
+                Base danger color | light-dark(red-l, red-d) | Error messages, destructive actions
+            </option>
+            <option value="--cem-palette-danger-text" style="background-color: var(--cem-palette-danger); color: var(--cem-palette-danger-text);">
+                Danger text color | light-dark(comfort-text-x, comfort-text) | Text on danger backgrounds
+            </option>
+            <option value="--cem-palette-danger-x" style="background-color: var(--cem-palette-danger-x); color: var(--cem-palette-danger-text-x);">
+                Danger extreme variant | light-dark(red-d, red-l) | Darker/lighter danger variation
+            </option>
+            <option value="--cem-palette-danger-text-x" style="background-color: var(--cem-palette-danger-x); color: var(--cem-palette-danger-text-x);">
+                Danger extreme text | Uses orange-xl | High contrast text on extreme danger backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-danger      : light-dark(var(--cem-color-red-l), var(--cem-color-red-d));
+--cem-palette-danger-text : light-dark(var(--cem-palette-comfort-text-x), var(--cem-palette-comfort-text));
+--cem-palette-danger-x    : light-dark(var(--cem-color-red-d), var(--cem-color-red-l));
+--cem-palette-danger-text-x: light-dark(var(--cem-color-orange-xl), var(--cem-color-orange-xl));
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Creativity Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-1), creative elements, explicit actions. Represents luxury, innovation, royalty.</p>
+        <p><strong>System Mapping:</strong> ButtonFace with ButtonText (system colors)</p>
+        <p><strong>Warmth:</strong> Cool</p>
+        <datalist id="cem-palette-creativity">
+            <option value="--cem-palette-creativity" style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">
+                Base creativity color | light-dark(purple-l, purple-d) | Brand-1, explicit actions
+            </option>
+            <option value="--cem-palette-creativity-text" style="background-color: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text);">
+                Creativity text color | Uses comfort-text | Text on creativity backgrounds
+            </option>
+            <option value="--cem-palette-creativity-x" style="background-color: var(--cem-palette-creativity-x); color: var(--cem-palette-creativity-text-x);">
+                Creativity extreme variant | light-dark(purple-d, purple-l) | Darker/lighter creativity variation
+            </option>
+            <option value="--cem-palette-creativity-text-x" style="background-color: var(--cem-palette-creativity-x); color: var(--cem-palette-creativity-text-x);">
+                Creativity extreme text | Uses comfort-text-x | Text on extreme creativity backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-creativity      : light-dark(var(--cem-color-purple-l), var(--cem-color-purple-d));
+--cem-palette-creativity-text : var(--cem-palette-comfort-text);
+--cem-palette-creativity-x    : light-dark(var(--cem-color-purple-d), var(--cem-color-purple-l));
+--cem-palette-creativity-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Enthusiasm Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-2), alternate flow actions, positive feedback. Represents warmth, optimism, energy.</p>
+        <p><strong>System Mapping:</strong> Mark with MarkText (system colors)</p>
+        <p><strong>Warmth:</strong> Warm</p>
+        <datalist id="cem-palette-enthusiasm">
+            <option value="--cem-palette-enthusiasm" style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">
+                Base enthusiasm color | light-dark(orange-l, orange-d) | Brand-2, alternate actions
+            </option>
+            <option value="--cem-palette-enthusiasm-text" style="background-color: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text);">
+                Enthusiasm text color | light-dark(comfort-text, white) | Text on enthusiasm backgrounds
+            </option>
+            <option value="--cem-palette-enthusiasm-x" style="background-color: var(--cem-palette-enthusiasm-x); color: var(--cem-palette-enthusiasm-text-x);">
+                Enthusiasm extreme variant | light-dark(orange-xd, orange-xl) | Darker/lighter enthusiasm variation
+            </option>
+            <option value="--cem-palette-enthusiasm-text-x" style="background-color: var(--cem-palette-enthusiasm-x); color: var(--cem-palette-enthusiasm-text-x);">
+                Enthusiasm extreme text | Uses comfort-text-x | Text on extreme enthusiasm backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-enthusiasm      : light-dark(var(--cem-color-orange-l), var(--cem-color-orange-d));
+--cem-palette-enthusiasm-text : light-dark(var(--cem-palette-comfort-text), white);
+--cem-palette-enthusiasm-x    : light-dark(var(--cem-color-orange-xd), var(--cem-color-orange-xl));
+--cem-palette-enthusiasm-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Conservative Palette</legend>
+        <p><strong>Purpose:</strong> Brand identity (brand-3), disabled states, neutral elements. Represents stability, earthiness, restraint.</p>
+        <p><strong>System Mapping:</strong> GrayText (system color)</p>
+        <p><strong>Warmth:</strong> Neutral</p>
+        <datalist id="cem-palette-conservative">
+            <option value="--cem-palette-conservative" style="background-color: var(--cem-palette-conservative); color: var(--cem-palette-conservative-text);">
+                Base conservative color | light-dark(grey-l, grey-d) | Brand-3, disabled states
+            </option>
+            <option value="--cem-palette-conservative-text" style="background-color: var(--cem-palette-conservative); color: var(--cem-palette-conservative-text);">
+                Conservative text color | Uses comfort-text | Text on conservative backgrounds
+            </option>
+            <option value="--cem-palette-conservative-x" style="background-color: var(--cem-palette-conservative-x); color: var(--cem-palette-conservative-text-x);">
+                Conservative extreme variant | light-dark(grey-d, grey-l) | Darker/lighter conservative variation
+            </option>
+            <option value="--cem-palette-conservative-text-x" style="background-color: var(--cem-palette-conservative-x); color: var(--cem-palette-conservative-text-x);">
+                Conservative extreme text | Uses comfort-text-x | Text on extreme conservative backgrounds
+            </option>
+        </datalist>
+        <p><small><strong>CSS Definition:</strong></small></p>
+        <pre>
+--cem-palette-conservative      : light-dark(var(--cem-color-grey-l), var(--cem-color-grey-d));
+--cem-palette-conservative-text : var(--cem-palette-comfort-text);
+--cem-palette-conservative-x    : light-dark(var(--cem-color-grey-d), var(--cem-color-grey-l));
+--cem-palette-conservative-text-x: var(--cem-palette-comfort-text-x);
+        </pre>
+    </fieldset>
+
+</figure>
+
+<figure>
+    <figcaption>Actions</figcaption>
+    <fieldset >
+        <legend>Action selectors</legend>
+        <datalist id="action-selector-variants">
+            <span class="action">.action</span>
+            <button>button</button>
+            <input type="submit" value="input[type='submit']" />
+            <input type="reset"  value="input[type='reset']"  />
+            <input type="button" value="input[type='button']" />
+        </datalist>
+    </fieldset>
+
+
+    <fieldset>
+        <legend>Action Intent Categories</legend>
+        <p>Action intents categorize user interactions by their purpose and consequence, guiding both visual design and user expectations. Each intent maps to a specific emotional palette to create consistent psychological associations.</p>
+
+        <datalist id="cem-action-intent">
+            <option value="explicit"    base-color="white"  > user explicitly/intentionally clicks or activates    </option>
+            <option value="primary"     base-color="black"  > default, confirmatory, implicit. Triggered by ENTER  </option>
+            <option value="contextual"  base-color="blue"   > integrated within a specific context, Toolbar/menu   </option>
+            <option value="alternate"   base-color="yellow" > triggering not usual alternative flow                </option>
+            <option value="destructive" base-color="red"    > risky, potentially harmful, requires caution         </option>
+        </datalist>
+        <hr/>
+
+        <details>
+            <summary><strong>Explicit Intent</strong> — <code>.explicit</code>, <code>[flow="explicit"]</code>, <code>[explicit]</code></summary>
+            <dl>
+                <dt>Purpose</dt>
+                <dd>Actions that require deliberate, conscious user activation. The user must explicitly choose to engage with these elements.</dd>
+
+                <dt>Emotional Mapping</dt>
+                <dd><strong>Creativity</strong> (Purple/Violet) — Represents uniqueness, deliberate choice, and creative decision-making.</dd>
+
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul>
+                        <li>Custom action buttons that initiate non-standard workflows</li>
+                        <li>Feature toggles requiring conscious activation</li>
+                        <li>Specialized tools or operations outside the main flow</li>
+                        <li>Actions that open new contexts or modes</li>
+                    </ul>
+                </dd>
+
+                <dt>Trigger Method</dt>
+                <dd>Mouse click, touch tap, or explicit keyboard activation (Space on focused element)</dd>
+
+                <dt>Visual Characteristics</dt>
+                <dd>Purple/violet background distinguishes these from standard actions, signaling intentionality</dd>
+
+                <dt>Example</dt>
+                <dd><button class="action explicit">Customize Layout</button></dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary><strong>Primary Intent</strong> — <code>.primary</code>, <code>[flow="primary"]</code>, <code>[primary]</code></summary>
+            <dl>
+                <dt>Purpose</dt>
+                <dd>Default, confirmatory actions representing the expected next step in a workflow. These are the "happy path" actions.</dd>
+
+                <dt>Emotional Mapping</dt>
+                <dd><strong>Trust</strong> (Blue) — Conveys reliability, safety, and confidence in moving forward.</dd>
+
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul>
+                        <li>Submit buttons in forms</li>
+                        <li>Confirmation dialogs ("OK", "Continue", "Save")</li>
+                        <li>Next step in wizards or multi-step processes</li>
+                        <li>Primary call-to-action buttons</li>
+                    </ul>
+                </dd>
+
+                <dt>Trigger Method</dt>
+                <dd>Triggered by ENTER key when form/dialog is focused, or explicit click/tap</dd>
+
+                <dt>Visual Characteristics</dt>
+                <dd>Blue background signals trustworthiness and forward progress</dd>
+
+                <dt>Example</dt>
+                <dd><button class="action primary">Submit Form</button></dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary><strong>Contextual Intent</strong> — <code>.contextual</code>, <code>[flow="contextual"]</code>, <code>[contextual]</code></summary>
+            <dl>
+                <dt>Purpose</dt>
+                <dd>Actions integrated within a specific UI context (toolbar, menu, inline controls) that operate on or within that context.</dd>
+
+                <dt>Emotional Mapping</dt>
+                <dd><strong>Comfort</strong> (Cyan/White/Canvas) — Blends with the interface, providing calm, non-intrusive functionality.</dd>
+
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul>
+                        <li>Toolbar buttons (bold, italic, align)</li>
+                        <li>Menu items and dropdown options</li>
+                        <li>Inline editing controls</li>
+                        <li>Navigation elements within a panel</li>
+                        <li>Filter and sort controls</li>
+                    </ul>
+                </dd>
+
+                <dt>Trigger Method</dt>
+                <dd>Click, tap, or keyboard selection within context</dd>
+
+                <dt>Visual Characteristics</dt>
+                <dd>Subtle, blends with canvas/background. No default outline in some themes to reduce visual noise.</dd>
+
+                <dt>Example</dt>
+                <dd><button class="action contextual">⋮ More Options</button></dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary><strong>Alternate Intent</strong> — <code>.alternate</code>, <code>[flow="alternate"]</code>, <code>[alternate]</code></summary>
+            <dl>
+                <dt>Purpose</dt>
+                <dd>Actions that trigger non-standard or alternative workflows, offering secondary paths or optional features.</dd>
+
+                <dt>Emotional Mapping</dt>
+                <dd><strong>Enthusiasm</strong> (Orange/Yellow) — Signals energy, optimism, and alternative possibilities without danger.</dd>
+
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul>
+                        <li>Cancel or back buttons</li>
+                        <li>Skip or bypass options</li>
+                        <li>Alternative save options ("Save as Draft")</li>
+                        <li>Secondary actions in dialogs</li>
+                        <li>Feature previews or beta options</li>
+                    </ul>
+                </dd>
+
+                <dt>Trigger Method</dt>
+                <dd>Explicit click/tap. Often ESC key for cancel operations.</dd>
+
+                <dt>Visual Characteristics</dt>
+                <dd>Orange/yellow background distinguishes from primary flow while remaining inviting</dd>
+
+                <dt>Example</dt>
+                <dd><button class="action alternate">Save as Draft</button></dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary><strong>Destructive Intent</strong> — <code>.destructive</code>, <code>[flow="destructive"]</code>, <code>[destructive]</code></summary>
+            <dl>
+                <dt>Purpose</dt>
+                <dd>High-risk actions that are potentially harmful, irreversible, or require extreme caution. These actions may result in data loss or significant changes.</dd>
+
+                <dt>Emotional Mapping</dt>
+                <dd><strong>Danger</strong> (Red) — Universal signal for caution, urgency, and potential negative consequences.</dd>
+
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul>
+                        <li>Delete buttons</li>
+                        <li>Remove or uninstall actions</li>
+                        <li>Reset or clear operations</li>
+                        <li>Permanent data modifications</li>
+                        <li>Account termination or logout</li>
+                    </ul>
+                </dd>
+
+                <dt>Trigger Method</dt>
+                <dd>Explicit click/tap only. Should often require confirmation.</dd>
+
+                <dt>Visual Characteristics</dt>
+                <dd>Red background immediately signals danger and prompts careful consideration</dd>
+
+                <dt>Best Practice</dt>
+                <dd>⚠️ Destructive actions should typically be accompanied by confirmation dialogs or require a secondary verification step.</dd>
+
+                <dt>Example</dt>
+                <dd><button class="action destructive">Delete Account</button></dd>
+            </dl>
+        </details>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Intent ➢ Emotion ➢ Color Mapping</legend>
+        <p>This table shows the complete chain from action intent through emotional palette to branded colors:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action Intent</th>
+                    <th>Emotional Palette</th>
+                    <th>Branded Color (Light Mode)</th>
+                    <th>Branded Color (Dark Mode)</th>
+                    <th>CSS Token</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>explicit</code></td>
+                    <td><code>creativity</code></td>
+                    <td style="background-color: var(--cem-color-purple-l); color: var(--cem-color-purple-xd);">purple-l (#e1bee7)</td>
+                    <td style="background-color: var(--cem-color-purple-d); color: var(--cem-color-purple-xl);">purple-d (#6a1b9a)</td>
+                    <td><code>--cem-action-explicit-default-background</code></td>
+                </tr>
+                <tr>
+                    <td><code>primary</code></td>
+                    <td><code>trust</code></td>
+                    <td style="background-color: var(--cem-color-blue-l); color: var(--cem-color-blue-xd);">blue-l (#d7e3ff)</td>
+                    <td style="background-color: var(--cem-color-blue-d); color: var(--cem-color-blue-xl);">blue-d (#002f65)</td>
+                    <td><code>--cem-action-primary-default-background</code></td>
+                </tr>
+                <tr>
+                    <td><code>contextual</code></td>
+                    <td><code>comfort</code></td>
+                    <td style="background-color: var(--cem-color-cyan-xl); color: var(--cem-color-cyan-xd);">cyan-xl (#f1fefe)</td>
+                    <td style="background-color: var(--cem-color-cyan-xd); color: var(--cem-color-cyan-xl);">cyan-xd (#001010)</td>
+                    <td><code>--cem-action-contextual-default-background</code></td>
+                </tr>
+                <tr>
+                    <td><code>alternate</code></td>
+                    <td><code>enthusiasm</code></td>
+                    <td style="background-color: var(--cem-color-orange-l); color: var(--cem-color-orange-xd);">orange-l (#ffe082)</td>
+                    <td style="background-color: var(--cem-color-orange-d); color: var(--cem-color-orange-xl);">orange-d (#723600)</td>
+                    <td><code>--cem-action-alternate-default-background</code></td>
+                </tr>
+                <tr>
+                    <td><code>destructive</code></td>
+                    <td><code>danger</code></td>
+                    <td style="background-color: var(--cem-color-red-l); color: white;">red-l (#ba1a1a)</td>
+                    <td style="background-color: var(--cem-color-red-d); color: var(--cem-color-red-xl);">red-d (#690005)</td>
+                    <td><code>--cem-action-destructive-default-background</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><small><strong>Note:</strong> The automatic theme switching is handled by the <code>light-dark()</code> CSS function in the emotional palette tokens, which reference these branded colors.</small></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>CSS Selector Patterns</legend>
+        <p>Each intent can be applied using multiple selector patterns for maximum compatibility:</p>
+        <pre>
+/* Class selector */
+.action.explicit { }
+.action.primary { }
+
+/* Attribute with value */
+.action[flow="explicit"] { }
+.action[flow="primary"] { }
+
+/* Boolean attribute */
+.action[explicit] { }
+.action[primary] { }
+        </pre>
+        <p><small>The triple-selector pattern ensures compatibility across different framework conventions and coding styles.
+            On application level it is sufficient to choose only one. </small></p>
+    </fieldset>
+    <fieldset>
+        <legend>Action States Overview</legend>
+        <p>Action states represent different conditions and user interactions. States can be reflected by two visual aspects:</p>
+        <ul>
+            <li><strong>Background-driven states:</strong> disabled, readonly, editable, required, default, indeterminate, hover, active, pending</li>
+            <li><strong>Outline-driven states (zebra):</strong> selected, focus, target</li>
+        </ul>
+
+        <datalist id="cem-action-state">
+            <option value="disabled"      tokens="color         font marker" complimentary-token="color-text" > Disabled </option>
+            <option value="readonly"      tokens="color outline font marker" complimentary-token="color-text" > Readonly, underline is grayed out in Material Design </option>
+            <option value="editable"      tokens="color outline font marker" complimentary-token="color-text" > Editable, underlined in Material Design </option>
+            <option value="required"      tokens="      outline font marker" complimentary-token="color-text" > Required, often marked by star suffix </option>
+            <option value="default"       tokens="color outline font marker" complimentary-token="color-text" > button is outlined, input fields underlined in Material Design </option>
+            <option value="indeterminate" tokens="color outline font marker" complimentary-token="color-text" > No Value available, "select all" checkbox when not all of its sub-controls are checked. </option>
+            <option value="target"        tokens="      outline font marker" complimentary-token="color-text" > Marked to outline the element is pointed by URL. </option>
+            <option value="focus"         tokens="      outline font marker" complimentary-token="color-text" > Outlined to reflect the input is focused. Buttons do not show the focus outline </option>
+            <option value="hover"         tokens="color outline font marker" complimentary-token="color-text" > Outline to reflect the focus is make by keyboard navigation, visible even in actions/buttons  </option>
+            <option value="selected"      tokens="color         font marker" complimentary-token="color-text" > Selected item(menu, radio), checked radio, etc. </option>
+            <option value="active"        tokens="color outline font marker" complimentary-token="color-text" > Pressed action element state, darkest background with alternate text color to emphasize the action follows immediately. </option>
+            <option value="pending"       tokens="color outline font marker" complimentary-token="color-text" > Element state after active when element should not be used as the result of previous action is still in progress. </option>
+        </datalist>
+    </fieldset>
+
+    <fieldset>
+        <legend>State Progression &amp; Color-Mix Formulas</legend>
+        <p>States progress from least to most emphasized through <code>color-mix()</code> formulas that blend the base emotional color with its extreme variant:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Background-Driven State Progression</strong>
+                ( <a href="https://github.com/EPA-WG/custom-element-dist/discussions/14#discussioncomment-14060329">discussion + diagram</a> ) </figcaption>
+            <pre style="font-size: 0.9em; line-height: 1.8;">
+<strong>disabled</strong>    → <strong>readonly</strong>   → <strong>editable</strong>   → <strong>default</strong> → <strong>indeterminate</strong> → <strong>hover</strong>    → <strong>active</strong>  → <strong>pending</strong>
+(30% mix)      (80% mix)     (90% mix)     (base)      (90% mix)         (60-70% mix)  (25% mix)   (5% mix)
+
+├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+  Toward conservative color      Toward extreme variant (-x)
+  (less emphasized)              (more emphasized, inverted text)</pre>
+        </figure>
+
+        <dl>
+            <dt><strong>disabled</strong> (30% mix with conservative-x)</dt>
+            <dd>
+                Most desaturated state. Mixes 30% of the intent's emotional color with 70% conservative extreme color.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 30%, var(--cem-palette-conservative-x))</code>
+                <br/>Text: Uses <code>--cem-palette-conservative-text-x</code> (grey text)
+            </dd>
+
+            <dt><strong>readonly</strong> (80% mix)</dt>
+            <dd>
+                Subtly indicates non-editable content. 80% base color, 20% extreme variant.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 80%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>editable</strong> (90% mix)</dt>
+            <dd>
+                Nearly full base color with slight intensity. 90% base color, 10% extreme variant.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 90%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>default</strong> (base, 100%)</dt>
+            <dd>
+                Pure emotional palette color without mixing. Baseline state.
+                <br/><code>var(--cem-palette-{emotion})</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>indeterminate</strong> (90% mix)</dt>
+            <dd>
+                Same formula as editable. Used for indeterminate checkboxes or undefined values.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 90%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>hover</strong> (60-70% mix)</dt>
+            <dd>
+                Noticeable darkening/intensifying on hover. Mix percentage varies by intent (explicit/alternate: 70%, others: 60%).
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 60-70%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text</code>
+            </dd>
+
+            <dt><strong>active</strong> (25% mix)</dt>
+            <dd>
+                Pressed/clicked state. Heavily mixed toward extreme variant, triggering text color inversion.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 25%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text-x</code> (inverted text)
+            </dd>
+
+            <dt><strong>pending</strong> (5% mix)</dt>
+            <dd>
+                Most extreme background state during async operations. Nearly fully inverted, with animated stripes.
+                <br/><code>color-mix(in srgb, var(--cem-palette-{emotion}) 5%, var(--cem-palette-{emotion}-x))</code>
+                <br/>Text: Uses <code>--cem-palette-{emotion}-text-x</code> (inverted text)
+                <br/>Special: Animated diagonal stripes using <code>linear-gradient</code> and <code>background-position</code> animation
+            </dd>
+        </dl>
+    </fieldset>
+
+    <fieldset>
+        <legend>Complete Token Reference (Intent × State)</legend>
+        <p>All action states generate CSS custom properties in the format:</p>
+        <ul>
+            <li><code>--cem-action-{intent}-{state}-background</code></li>
+            <li><code>--cem-action-{intent}-{state}-text</code></li>
+        </ul>
+
+        <details>
+            <summary><strong>Token Matrix: Explicit Intent</strong></summary>
+            <table style="font-size: 0.85em;">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Background Token</th>
+                        <th>Text Token</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>disabled</td><td><code>--cem-action-explicit-disabled-background</code></td><td><code>--cem-action-explicit-disabled-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>readonly</td><td><code>--cem-action-explicit-readonly-background</code></td><td><code>--cem-action-explicit-readonly-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>editable</td><td><code>--cem-action-explicit-editable-background</code></td><td><code>--cem-action-explicit-editable-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>required</td><td><code>--cem-action-explicit-required-background</code></td><td><code>--cem-action-explicit-required-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>default</td><td><code>--cem-action-explicit-default-background</code></td><td><code>--cem-action-explicit-default-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>indeterminate</td><td><code>--cem-action-explicit-indeterminate-background</code></td><td><code>--cem-action-explicit-indeterminate-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>target</td><td><code>--cem-action-explicit-target-background</code></td><td><code>--cem-action-explicit-target-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>focus</td><td><code>--cem-action-explicit-focus-background</code></td><td><code>--cem-action-explicit-focus-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>hover</td><td><code>--cem-action-explicit-hover-background</code></td><td><code>--cem-action-explicit-hover-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>selected</td><td><code>--cem-action-explicit-selected-background</code></td><td><code>--cem-action-explicit-selected-text</code></td><td>✗ Undefined (zebra only)</td></tr>
+                    <tr><td>active</td><td><code>--cem-action-explicit-active-background</code></td><td><code>--cem-action-explicit-active-text</code></td><td>✓ Defined</td></tr>
+                    <tr><td>pending</td><td><code>--cem-action-explicit-pending-background</code></td><td><code>--cem-action-explicit-pending-text</code></td><td>✓ Defined</td></tr>
+                </tbody>
+            </table>
+        </details>
+
+        <p><small><strong>Note:</strong> The same token pattern applies to all intents: <code>primary</code>, <code>contextual</code>, <code>alternate</code>, and <code>destructive</code>. States marked "Undefined" rely on zebra outlines rather than background colors.</small></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Zebra Outline System</legend>
+        <p>Three states use <strong>zebra striped outlines</strong> instead of background color changes: <code>selected</code>, <code>focus</code>, and <code>target</code>. This approach separates selection/navigation from action state.</p>
+
+        <h4>Zebra Color Tokens</h4>
+        <dl>
+            <dt><code>--cem-zebra-color-0</code></dt>
+            <dd>Innermost stripe (base surface). Default: <code>Canvas</code></dd>
+
+            <dt><code>--cem-zebra-color-1</code></dt>
+            <dd>Second stripe (focus indicator). Changes to <code>CanvasText</code> when focused.</dd>
+
+            <dt><code>--cem-zebra-color-2</code></dt>
+            <dd>Third stripe (selection indicator). Changes to <code>SelectedItem</code> when selected (native theme).</dd>
+
+            <dt><code>--cem-zebra-color-3</code></dt>
+            <dd>Outermost stripe (target indicator). Changes to <code>SelectedItem</code> when targeted by URL hash (native theme).</dd>
+        </dl>
+
+        <h4>Zebra Implementation</h4>
+        <p>Zebra outlines are implemented using <code>box-shadow</code> with multiple layers:</p>
+        <pre>
+--cem-action-box-shadow:
+    0 0 0 2px var(--cem-zebra-color-1),  /* 2px wide stripe */
+    0 0 0 4px var(--cem-zebra-color-2),  /* 2px wide stripe (4px - 2px) */
+    0 0 0 6px var(--cem-zebra-color-3);  /* 2px wide stripe (6px - 4px) */
+        </pre>
+
+        <h4>State-Specific Zebra Behavior</h4>
+        <dl>
+            <dt><strong>Focus</strong> (<code>:focus</code>, <code>:focus-visible</code>, <code>:focus-within</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-1</code> to visible contrast color (typically <code>CanvasText</code>).
+                <br/>Creates innermost colored stripe to indicate keyboard focus.
+                <br/>Selectors: <code>&amp;[focus], &amp;:focus, &amp;:focus-visible, &amp;:focus-within, &amp;.focus</code>
+            </dd>
+
+            <dt><strong>Selected</strong> (<code>[selected]</code>, <code>.selected</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-2</code> to selection color (typically <code>SelectedItem</code> or trust palette).
+                <br/>Creates middle stripe to indicate item selection (checkboxes, radio buttons, menu items).
+                <br/>Selectors: <code>&amp;[selected], &amp;.selected</code>
+            </dd>
+
+            <dt><strong>Target</strong> (<code>:target</code>, <code>[target]</code>)</dt>
+            <dd>
+                Sets <code>--cem-zebra-color-3</code> to target color (typically <code>SelectedItem</code> or enthusiasm palette).
+                <br/>Creates outermost stripe when element is URL hash target (e.g., <code>#element-id</code>).
+                <br/>Selectors: <code>&amp;[target], &amp;:target, &amp;.target</code>
+            </dd>
+        </dl>
+
+        <h4>Visual Example</h4>
+        <div style="display: flex; gap: 1em; flex-wrap: wrap; margin: 1em 0;">
+            <button class="action primary" style="position: relative;">Default (no zebra)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px currentColor, 0 0 0 6px Canvas;">Focus (zebra-1 active)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px var(--cem-palette-trust), 0 0 0 6px Canvas;">Selected (zebra-2 active)</button>
+            <button class="action primary" style="box-shadow: 0 0 0 2px Canvas, 0 0 0 4px Canvas, 0 0 0 6px var(--cem-palette-enthusiasm);">Target (zebra-3 active)</button>
+        </div>
+
+        <h4>Contrast Theme Behavior</h4>
+        <p>In high-contrast themes (<code>contrast-light</code>, <code>contrast-dark</code>):</p>
+        <ul>
+            <li>Backgrounds are <strong>neutralized</strong> to base surface color</li>
+            <li>Zebra stripes become <strong>primary state indicator</strong> for ALL states</li>
+            <li>Zebra thickness increases (4 stripes instead of 3)</li>
+            <li>State color shifts to zebra stripe colors rather than backgrounds</li>
+        </ul>
+    </fieldset>
+
+</figure>
+
+<figure>
+    <figcaption>Theme Variants</figcaption>
+    <p>The theme system supports multiple visual themes that adapt to different user preferences, accessibility needs, and system settings. Each theme maintains consistent token structure while adjusting color values and visual emphasis techniques.</p>
+
+    <fieldset>
+        <legend>Native Theme</legend>
+        <p><strong>Purpose:</strong> The Native theme honors operating system and browser color preferences, using system-provided colors to ensure seamless integration with the user's environment. This theme automatically respects OS-level settings like dark mode, high contrast, and forced colors.</p>
+
+        <h4>System Color Mappings</h4>
+        <p>The Native theme maps emotional palette tokens to
+            <a href="./colors-native.html" >CSS system colors</a>, allowing the interface to adapt automatically
+            to user preferences in OS/browser settings:</p>
+
+        <table style="font-size: 0.9em;" id="system-color-mapping-table">
+            <thead>
+                <tr>
+                    <th>👁️</th>
+                    <th>Emotional Token</th>
+                    <th>System Color (Background)</th>
+                    <th>System Color (Text)</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="background: Canvas; color: CanvasText; ">⬤</td>
+                    <td><code>comfort</code></td>
+                    <td><code>Canvas</code></td>
+                    <td><code>CanvasText</code></td>
+                    <td>Main reading surface and body text</td>
+                </tr>
+                <tr>
+                    <td style="background: CanvasText; color: Canvas; ">⬤</td>
+                    <td><code>calm</code></td>
+                    <td><code>CanvasText</code></td>
+                    <td><code>Canvas</code></td>
+                    <td>Inverted surface (dark elements on light themes)</td>
+                </tr>
+                <tr>
+                    <td style="background: Highlight; color: HighlightText; ">⬤</td>
+                    <td><code>trust</code></td>
+                    <td><code>Highlight</code></td>
+                    <td><code>HighlightText</code></td>
+                    <td>Primary action buttons, selected text background</td>
+                </tr>
+                <tr>
+                    <td style="background: ButtonFace; color: ButtonText; ">⬤</td>
+                    <td><code>creativity</code></td>
+                    <td><code>ButtonFace</code></td>
+                    <td><code>ButtonText</code></td>
+                    <td>Standard button backgrounds</td>
+                </tr>
+                <tr>
+                    <td style="background: Mark; color: MarkText; ">⬤</td>
+                    <td><code>enthusiasm</code></td>
+                    <td><code>Mark</code></td>
+                    <td><code>MarkText</code></td>
+                    <td>Marked/highlighted content (HTML <code>&lt;mark&gt;</code>)</td>
+                </tr>
+                <tr>
+                    <td style="background: Canvas; color: GrayText; ">⬤</td>
+                    <td><code>conservative</code></td>
+                    <td><code>GrayText</code></td>
+                    <td><code>Canvas</code></td>
+                    <td>Disabled states, secondary text</td>
+                </tr>
+                <tr>
+                    <td style="background: var(--cem-palette-danger); color: var(--cem-palette-danger-text); ">⬤</td>
+                    <td><code>danger</code></td>
+                    <td>N/A (uses red)</td>
+                    <td><code>CanvasText</code></td>
+                    <td>Errors, destructive actions (no system equivalent)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Zebra Outline System Colors</h4>
+        <p>The zebra outline system for focus, selected, and target states also uses system colors:</p>
+        <dl>
+            <dt><strong>Focused</strong> — <code>--cem-zebra-color-1</code></dt>
+            <dd>
+                <strong>Focused:</strong> <code>CanvasText</code> (visible focus indicator)
+                <br/><strong>Unfocused:</strong> <code>Canvas</code> (invisible, blends with background)
+            </dd>
+
+            <dt><strong>Selected</strong> — <code>--cem-zebra-color-2</code></dt>
+            <dd>
+                <strong>Selected:</strong> <code>SelectedItem</code> (system selection color)
+                <br/><strong>Unselected:</strong> <code>Canvas</code> (invisible)
+            </dd>
+
+            <dt><strong>Target</strong> — <code>--cem-zebra-color-3</code></dt>
+            <dd>
+                <strong>Targeted:</strong> <code>SelectedItem</code> (marks URL hash target)
+                <br/><strong>Not targeted:</strong> <code>Canvas</code> (invisible)
+            </dd>
+        </dl>
+
+        <h4>Fallback Behavior</h4>
+        <p>When system colors are unavailable or not supported by the browser, the Native theme falls back to branded color tokens:</p>
+        <pre style="font-size: 0.85em;">
+/* System color with fallback */
+--cem-palette-comfort: Canvas;
+/* If Canvas unavailable, fallback chain: */
+--cem-palette-comfort: var(--cem-surface, var(--cem-color-cyan-xl));
+
+/* Selection color fallback */
+--cem-zebra-color-2: SelectedItem;
+/* If SelectedItem unavailable: */
+--cem-zebra-color-2: var(--cem-accent-600, var(--cem-palette-trust));
+        </pre>
+
+        <table style="font-size: 0.85em; margin-top: 1em;">
+            <thead>
+                <tr>
+                    <th>System Color</th>
+                    <th>Fallback Token</th>
+                    <th>Final Fallback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>Canvas</code></td><td><code>--cem-surface</code></td><td><code>--cem-color-cyan-xl</code> (light) / <code>--cem-color-cyan-xd</code> (dark)</td></tr>
+                <tr><td><code>CanvasText</code></td><td><code>--cem-ink-strong</code></td><td><code>--cem-color-cyan-xd</code> (light) / <code>--cem-color-cyan-xl</code> (dark)</td></tr>
+                <tr><td><code>SelectedItem</code></td><td><code>--cem-accent-600</code></td><td><code>--cem-palette-trust</code></td></tr>
+                <tr><td><code>SelectedItemText</code></td><td><code>--cem-ink-on-accent</code></td><td><code>--cem-palette-trust-text</code></td></tr>
+                <tr><td><code>Highlight</code></td><td><code>--cem-palette-trust</code></td><td><code>--cem-color-blue-l</code> (light) / <code>--cem-color-blue-d</code> (dark)</td></tr>
+                <tr><td><code>HighlightText</code></td><td><code>--cem-palette-trust-text</code></td><td><code>white</code> / <code>--cem-color-blue-xl</code></td></tr>
+                <tr><td><code>GrayText</code></td><td><code>--cem-palette-conservative</code></td><td><code>--cem-color-grey-l</code> (light) / <code>--cem-color-grey-d</code> (dark)</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Forced-Colors Mode Support</h4>
+        <p>The Native theme provides full support for Windows High Contrast Mode and other forced-colors environments through the <code>@media (forced-colors: active)</code> media query:</p>
+        <pre style="font-size: 0.85em;">
+@media (forced-colors: active) {
+    /* All custom colors are overridden by system colors */
+    /* Backgrounds become Canvas or ButtonFace */
+    /* All text becomes CanvasText or ButtonText */
+    /* Borders and outlines use system colors automatically */
+
+    .action {
+        /* System enforces color choices for maximum contrast */
+        background-color: ButtonFace;
+        color: ButtonText;
+        border-color: ButtonText;
+    }
+
+    .action:hover {
+        /* System provides hover colors */
+        background-color: SelectedItem;
+        color: SelectedItemText;
+    }
+}
+        </pre>
+
+        <p><strong>Key behaviors in forced-colors mode:</strong></p>
+        <ul>
+            <li>Browser overrides custom colors with system-defined high-contrast colors</li>
+            <li>All branded color tokens automatically resolve to appropriate system colors</li>
+            <li>Zebra outlines adapt to use system border colors for maximum visibility</li>
+            <li>Background color variations are flattened; state indication relies more on borders and outlines</li>
+            <li><code>color-mix()</code> formulas are bypassed in favor of system color assignments</li>
+        </ul>
+
+        <h4>Advantages of Native Theme</h4>
+        <ul>
+            <li><strong>Accessibility:</strong> Automatically respects user's OS-level accessibility preferences</li>
+            <li><strong>Consistency:</strong> Matches system UI conventions users are familiar with</li>
+            <li><strong>Performance:</strong> No complex color calculations or theme switching logic needed</li>
+            <li><strong>Privacy:</strong> Respects privacy settings like reduced motion and high contrast without detection</li>
+            <li><strong>Future-proof:</strong> Adapts to new system color schemes automatically</li>
+        </ul>
+
+        <h4>Example CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+[data-theme="native"],
+.cem-theme-native {
+    /* Emotional palette → System colors */
+    --cem-palette-comfort: Canvas;
+    --cem-palette-comfort-text: CanvasText;
+    --cem-palette-trust: Highlight;
+    --cem-palette-trust-text: HighlightText;
+    --cem-palette-creativity: ButtonFace;
+    --cem-palette-creativity-text: ButtonText;
+
+    /* Zebra colors */
+    --cem-zebra-color-0: Canvas;
+    --cem-zebra-color-1: Canvas; /* Changes to CanvasText on :focus */
+    --cem-zebra-color-2: Canvas; /* Changes to SelectedItem on [selected] */
+    --cem-zebra-color-3: Canvas; /* Changes to SelectedItem on :target */
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Light and Dark Themes</legend>
+        <p><strong>Purpose:</strong> Light and Dark themes use the emotional palette with branded colors, automatically switching between light and dark variants based on the user's <code>color-scheme</code> preference or explicit theme selection.</p>
+
+        <h4>Color-Scheme Declarations</h4>
+        <p>The theme switching mechanism relies on the CSS <code>color-scheme</code> property and the <code>light-dark()</code> function:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Light theme */
+[data-theme="light"],
+.cem-theme-light {
+    color-scheme: light;
+}
+
+/* Dark theme */
+[data-theme="dark"],
+.cem-theme-dark {
+    color-scheme: dark;
+}
+
+/* Automatic (respects user preference) */
+:root {
+    color-scheme: light dark;  /* Supports both schemes */
+}
+        </pre>
+
+        <p><strong>How it works:</strong></p>
+        <ul>
+            <li>Setting <code>color-scheme: light</code> instructs the browser that the page section uses a light color palette</li>
+            <li>Setting <code>color-scheme: dark</code> instructs the browser that the page section uses a dark color palette</li>
+            <li>Setting <code>color-scheme: light dark</code> allows the browser to choose based on <code>prefers-color-scheme</code> media query</li>
+            <li>The <code>color-scheme</code> property also affects form controls, scrollbars, and browser UI to match the theme</li>
+        </ul>
+
+        <h4>Automatic Theme Switching via <code>light-dark()</code></h4>
+        <p>All emotional palette tokens use the <code>light-dark()</code> CSS function to automatically select appropriate colors based on the active color scheme:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Comfort palette - switches from light cyan to dark cyan */
+--cem-palette-comfort: light-dark(
+    var(--cem-color-cyan-xl),   /* Light theme: extra light cyan (#f1fefe) */
+    var(--cem-color-cyan-xd)    /* Dark theme: extra dark cyan (#001010) */
+);
+
+--cem-palette-comfort-text: light-dark(
+    var(--cem-color-cyan-xd),   /* Light theme: dark text on light bg */
+    var(--cem-color-cyan-xl)    /* Dark theme: light text on dark bg */
+);
+
+/* Trust palette - switches from light blue to dark blue */
+--cem-palette-trust: light-dark(
+    var(--cem-color-blue-l),    /* Light theme: light blue (#d7e3ff) */
+    var(--cem-color-blue-d)     /* Dark theme: dark blue (#002f65) */
+);
+
+/* Danger palette - switches from light red to dark red */
+--cem-palette-danger: light-dark(
+    var(--cem-color-red-l),     /* Light theme: light red (#ba1a1a) */
+    var(--cem-color-red-d)      /* Dark theme: dark red (#690005) */
+);
+        </pre>
+
+        <p><strong>Key principle:</strong> Text colors are inverted relative to background colors to maintain proper contrast:</p>
+        <ul>
+            <li>Light theme: light backgrounds (<code>-xl</code>, <code>-l</code>) with dark text (<code>-xd</code>, <code>-d</code>)</li>
+            <li>Dark theme: dark backgrounds (<code>-xd</code>, <code>-d</code>) with light text (<code>-xl</code>, <code>-l</code>)</li>
+        </ul>
+
+        <h4>Complete Token Switching Pattern</h4>
+        <p>Each emotional palette has four variants that switch in coordinated pairs:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Light Theme Value</th>
+                    <th>Dark Theme Value</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>--cem-palette-trust</code></td>
+                    <td><code>blue-l</code> (#d7e3ff)</td>
+                    <td><code>blue-d</code> (#002f65)</td>
+                    <td>Base color</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-text</code></td>
+                    <td><code>comfort-text</code> (dark)</td>
+                    <td><code>white</code></td>
+                    <td>Text on base</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-x</code></td>
+                    <td><code>blue-d</code> (#002f65)</td>
+                    <td><code>blue-l</code> (#d7e3ff)</td>
+                    <td>Extreme variant (inverted)</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-palette-trust-text-x</code></td>
+                    <td><code>comfort-text-x</code> (light)</td>
+                    <td><code>comfort-text-x</code> (dark)</td>
+                    <td>Text on extreme</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>State Progression in Light/Dark Themes</h4>
+        <p>The <code>color-mix()</code> formulas work consistently across both themes because they mix the base emotional color with its extreme variant:</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 1em 0;">
+            <div>
+                <h5>Light Theme Progression</h5>
+                <pre style="font-size: 0.75em;">
+/* Trust palette in light theme */
+Base:   blue-l (#d7e3ff)  ──┐
+                            │ mix
+Extreme: blue-d (#002f65) ──┘
+
+default: 100% blue-l
+hover:    60% blue-l + 40% blue-d
+         (gets darker)
+active:   25% blue-l + 75% blue-d
+         (very dark, inverted text)
+                </pre>
+            </div>
+            <div>
+                <h5>Dark Theme Progression</h5>
+                <pre style="font-size: 0.75em;">
+/* Trust palette in dark theme */
+Base:   blue-d (#002f65)  ──┐
+                            │ mix
+Extreme: blue-l (#d7e3ff) ──┘
+
+default: 100% blue-d
+hover:    60% blue-d + 40% blue-l
+         (gets lighter)
+active:   25% blue-d + 75% blue-l
+         (very light, inverted text)
+                </pre>
+            </div>
+        </div>
+
+        <p><strong>Result:</strong> In light themes, interactions make colors darker and more saturated. In dark themes, interactions make colors lighter and more vibrant. The direction is opposite, but the perceptual emphasis (increased contrast and intensity) is consistent.</p>
+
+        <h4>Theme-Specific Overrides</h4>
+        <p>While most tokens use <code>light-dark()</code> for automatic switching, specific cases may require explicit overrides:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Example: Different shadow styles per theme */
+[data-theme="light"] {
+    --cem-action-box-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+    --cem-action-box-shadow-hover: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Example: Adjusting opacity for dark theme */
+[data-theme="dark"] {
+    --cem-surface-overlay-opacity: 0.12;  /* More visible on dark */
+}
+
+[data-theme="light"] {
+    --cem-surface-overlay-opacity: 0.08;  /* Subtle on light */
+}
+        </pre>
+
+        <h4>Zebra Outlines in Light/Dark Themes</h4>
+        <p>Zebra stripe colors also adapt to the theme using the same emotional palette tokens:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Zebra Color Variable</th>
+                    <th>Light Theme</th>
+                    <th>Dark Theme</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Focus</td>
+                    <td><code>--cem-zebra-color-1</code></td>
+                    <td><code>comfort-text</code> (dark)</td>
+                    <td><code>comfort-text</code> (light)</td>
+                </tr>
+                <tr>
+                    <td>Selected</td>
+                    <td><code>--cem-zebra-color-2</code></td>
+                    <td><code>trust</code> (blue-l)</td>
+                    <td><code>trust</code> (blue-d)</td>
+                </tr>
+                <tr>
+                    <td>Target</td>
+                    <td><code>--cem-zebra-color-3</code></td>
+                    <td><code>enthusiasm</code> (orange-l)</td>
+                    <td><code>enthusiasm</code> (orange-d)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Browser Support and Fallbacks</h4>
+        <p>The <code>light-dark()</code> function is supported in modern browsers (Chrome 123+, Firefox 120+, Safari 17.5+). For older browsers, provide fallbacks:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Fallback for browsers without light-dark() support */
+:root {
+    /* Default to light theme values */
+    --cem-palette-comfort: var(--cem-color-cyan-xl);
+    --cem-palette-comfort-text: var(--cem-color-cyan-xd);
+}
+
+/* Modern browsers with light-dark() */
+@supports (color: light-dark(white, black)) {
+    :root {
+        --cem-palette-comfort: light-dark(
+            var(--cem-color-cyan-xl),
+            var(--cem-color-cyan-xd)
+        );
+        --cem-palette-comfort-text: light-dark(
+            var(--cem-color-cyan-xd),
+            var(--cem-color-cyan-xl)
+        );
+    }
+}
+
+/* Legacy dark theme support via media query */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --cem-palette-comfort: var(--cem-color-cyan-xd);
+        --cem-palette-comfort-text: var(--cem-color-cyan-xl);
+    }
+}
+        </pre>
+
+        <h4>Example: Switching Between Light and Dark</h4>
+        <div style="display: flex; gap: 1em; margin: 1em 0; flex-wrap: wrap;">
+            <div style="background: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text); padding: 1em; border: 1px solid currentColor; flex: 1; min-width: 200px;">
+                <p><strong>Current Theme</strong></p>
+                <button class="action primary" style="margin: 0.5em 0;">Primary Action</button>
+                <button class="action destructive" style="margin: 0.5em 0;">Delete</button>
+                <p style="font-size: 0.85em;">This box uses <code>light-dark()</code> to automatically adapt.</p>
+            </div>
+        </div>
+
+        <h4>Advantages of Light/Dark Theme System</h4>
+        <ul>
+            <li><strong>Automatic adaptation:</strong> Single token definition works for both light and dark modes</li>
+            <li><strong>DRY principle:</strong> No need to duplicate CSS rules for each theme</li>
+            <li><strong>Consistent logic:</strong> All state transitions use the same formulas regardless of theme</li>
+            <li><strong>User preference:</strong> Automatically respects <code>prefers-color-scheme</code> media query</li>
+            <li><strong>Reduced code:</strong> Eliminates thousands of lines of theme-specific overrides</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Contrast Themes (contrast-light, contrast-dark)</legend>
+        <p><strong>Purpose:</strong> High contrast themes are designed for users with visual impairments or those working in challenging lighting conditions. These themes use a fundamentally different approach: <strong>backgrounds are neutralized</strong> to base surface colors, and <strong>zebra stripes become the primary state indicator</strong> for all states, not just focus/selected/target.</p>
+
+        <h4>Core Design Principle: Zebra-Only State Signaling</h4>
+        <p>Unlike standard light/dark themes that use background color changes for most states, contrast themes:</p>
+        <ul>
+            <li><strong>Neutralize backgrounds:</strong> All action backgrounds use the base comfort palette color (canvas)</li>
+            <li><strong>Signal through stripes:</strong> State information is conveyed exclusively through zebra outline colors</li>
+            <li><strong>Increase stripe count:</strong> Use 4-strip zebra pattern (vs 3-strip in normal themes) reflecting increased variations</li>
+            <li><strong>Thicken outlines:</strong> Increase stripe width from 2px to 3-4px for improved perception</li>
+            <li><strong>Preserve color semantics:</strong> Stripe colors match the intent's emotional palette colors</li>
+        </ul>
+
+        <p><strong>Why this approach?</strong> In high contrast environments, subtle background color variations can be difficult to perceive. By neutralizing backgrounds and using bold, high-contrast outlines, all state information remains clearly visible regardless of ambient lighting or visual acuity.</p>
+
+        <h4>Neutralized Backgrounds</h4>
+        <p>All action state backgrounds collapse to the base surface color:</p>
+
+        <pre style="font-size: 0.85em;">
+/* contrast-light theme */
+[data-theme="contrast-light"] {
+    /* All intents and states use same neutral background */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    --cem-action-explicit-active-background: var(--cem-palette-comfort);
+
+    --cem-action-primary-default-background: var(--cem-palette-comfort);
+    --cem-action-primary-hover-background: var(--cem-palette-comfort);
+    /* ... all other intents and states ... */
+
+    /* Background is always comfort (light canvas) */
+    background-color: var(--cem-palette-comfort);  /* #f1fefe in light */
+}
+
+/* contrast-dark theme */
+[data-theme="contrast-dark"] {
+    /* All intents and states use dark neutral background */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    /* ... backgrounds stay consistent ... */
+
+    /* Background is always comfort (dark canvas) */
+    background-color: var(--cem-palette-comfort);  /* #001010 in dark */
+}
+        </pre>
+
+        <p><strong>Result:</strong> Instead of hover making a button darker, hover changes the zebra stripe color. Instead of active making a button very dark, active makes the zebra stripe more intense.</p>
+
+        <h4>4-Strip Zebra Pattern</h4>
+        <p>Contrast themes expand the zebra system from 3 stripes to 4 stripes, adding an additional layer for intent signaling:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Stripe Layer</th>
+                    <th>Variable</th>
+                    <th>Normal Themes (3-strip)</th>
+                    <th>Contrast Themes (4-strip)</th>
+                    <th>Width</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Layer 0 (innermost)</td>
+                    <td><code>--cem-zebra-color-0</code></td>
+                    <td>Base surface (invisible)</td>
+                    <td><strong>Intent color</strong> (e.g., purple for explicit)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 1</td>
+                    <td><code>--cem-zebra-color-1</code></td>
+                    <td>Focus indicator</td>
+                    <td><strong>Focus indicator</strong> (comfort-text when focused)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 2</td>
+                    <td><code>--cem-zebra-color-2</code></td>
+                    <td>Selected indicator</td>
+                    <td><strong>Selected indicator</strong> (trust color when selected)</td>
+                    <td>3px</td>
+                </tr>
+                <tr>
+                    <td>Layer 3 (outermost)</td>
+                    <td><code>--cem-zebra-color-3</code></td>
+                    <td>Target indicator</td>
+                    <td><strong>Target indicator</strong> (enthusiasm color when targeted)</td>
+                    <td>3px</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Key difference:</strong> In normal themes, <code>--cem-zebra-color-0</code> is the base surface (invisible). In contrast themes, it becomes the <strong>innermost visible stripe</strong> carrying the intent's emotional color.</p>
+
+        <h4>Zebra Color Assignment in Contrast Themes</h4>
+        <p>Each action intent gets its own base zebra color that matches its emotional palette:</p>
+
+        <pre style="font-size: 0.85em;">
+/* contrast-light or contrast-dark */
+[data-theme*="contrast"] {
+    /* Layer 0: Intent-specific base color */
+    .action.explicit {
+        --cem-zebra-color-0: var(--cem-palette-creativity);  /* Purple */
+    }
+    .action.primary {
+        --cem-zebra-color-0: var(--cem-palette-trust);       /* Blue */
+    }
+    .action.contextual {
+        --cem-zebra-color-0: var(--cem-palette-comfort-text); /* Text color */
+    }
+    .action.alternate {
+        --cem-zebra-color-0: var(--cem-palette-enthusiasm);  /* Orange */
+    }
+    .action.destructive {
+        --cem-zebra-color-0: var(--cem-palette-danger);      /* Red */
+    }
+
+    /* Layers 1-3: State-dependent (focus, selected, target) */
+    /* These change from transparent to visible when state activates */
+}
+        </pre>
+
+        <h4>State Variations via Zebra Intensity</h4>
+        <p>Since backgrounds are neutral, state progressions (hover, active, pending) are shown through zebra color mixing:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Default state: Base intent color in zebra-0 */
+.action.primary {
+    --cem-zebra-color-0: var(--cem-palette-trust);  /* Pure blue */
+}
+
+/* Hover state: Mix toward extreme variant */
+.action.primary:hover {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 60%,
+        var(--cem-palette-trust-x) 40%
+    );
+}
+
+/* Active state: Heavy mix toward extreme */
+.action.primary:active {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 25%,
+        var(--cem-palette-trust-x) 75%
+    );
+}
+
+/* Disabled state: Mix toward conservative */
+.action.primary:disabled {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-palette-trust) 30%,
+        var(--cem-palette-conservative-x) 70%
+    );
+}
+        </pre>
+
+        <p><strong>Visual effect:</strong> The innermost stripe changes intensity/hue based on state, while maintaining high contrast against the neutral background.</p>
+
+        <h4>Increased Outline Thickness</h4>
+        <p>Contrast themes use thicker stripes for improved visibility:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Theme Type</th>
+                    <th>Stripe Width</th>
+                    <th>Total Outline Width</th>
+                    <th>Stripe Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Light / Dark</td>
+                    <td>2px per stripe</td>
+                    <td>6px (3 × 2px)</td>
+                    <td>3 stripes</td>
+                </tr>
+                <tr>
+                    <td>Contrast Light / Dark</td>
+                    <td>3px per stripe</td>
+                    <td>12px (4 × 3px)</td>
+                    <td>4 stripes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <pre style="font-size: 0.85em;">
+/* Normal themes */
+--cem-zebra-strip-size: 2px;
+--cem-action-box-shadow:
+    0 0 0 2px var(--cem-zebra-color-1),  /* 2px stripe */
+    0 0 0 4px var(--cem-zebra-color-2),  /* 2px stripe */
+    0 0 0 6px var(--cem-zebra-color-3);  /* 2px stripe */
+
+/* Contrast themes */
+[data-theme*="contrast"] {
+    --cem-zebra-strip-size: 3px;
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),   /* NEW: 3px intent stripe */
+        0 0 0 6px var(--cem-zebra-color-1),   /* 3px focus stripe */
+        0 0 0 9px var(--cem-zebra-color-2),   /* 3px selected stripe */
+        0 0 0 12px var(--cem-zebra-color-3);  /* 3px target stripe */
+}
+        </pre>
+
+        <h4>Contrast Requirements</h4>
+        <p>High contrast themes enforce stricter contrast ratios to ensure visibility:</p>
+        <ul>
+            <li><strong>Stripe-to-background contrast:</strong> ≥7:1 (AAA level) for all visible stripes</li>
+            <li><strong>Adjacent stripe contrast:</strong> ≥3:1 between neighboring stripes</li>
+            <li><strong>Text contrast:</strong> ≥7:1 against neutral background</li>
+            <li><strong>State distinction:</strong> ≥3:1 contrast change between states (default vs hover)</li>
+        </ul>
+
+        <h4>Visual Comparison: Normal vs Contrast Themes</h4>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 1em 0;">
+            <div>
+                <h5>Normal Theme (Light)</h5>
+                <ul style="font-size: 0.85em; list-style: none; padding: 0;">
+                    <li>✓ Background colors vary by state</li>
+                    <li>✓ 3-strip zebra for focus/selected/target only</li>
+                    <li>✓ 2px stripe width</li>
+                    <li>✓ Subtle color progressions</li>
+                </ul>
+                <div style="background: #d7e3ff; color: #002f65; padding: 1em; border: 2px solid #002f65;">
+                    Primary button (background-driven)
+                </div>
+            </div>
+            <div>
+                <h5>Contrast Theme (contrast-light)</h5>
+                <ul style="font-size: 0.85em; list-style: none; padding: 0;">
+                    <li>✓ All backgrounds neutral (same color)</li>
+                    <li>✓ 4-strip zebra for ALL states</li>
+                    <li>✓ 3px stripe width (thicker)</li>
+                    <li>✓ Bold, high-contrast stripes</li>
+                </ul>
+                <div style="background: #f1fefe; color: #001010; padding: 1em; box-shadow: 0 0 0 3px #d7e3ff, 0 0 0 6px transparent, 0 0 0 9px transparent, 0 0 0 12px transparent;">
+                    Primary button (zebra-driven)
+                </div>
+            </div>
+        </div>
+
+        <h4>Contrast-Light vs Contrast-Dark</h4>
+        <p>The two contrast theme variants differ only in their base surface color and text inversion:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>contrast-light</th>
+                    <th>contrast-dark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Base background</td>
+                    <td><code>--cem-color-cyan-xl</code> (#f1fefe, very light)</td>
+                    <td><code>--cem-color-cyan-xd</code> (#001010, very dark)</td>
+                </tr>
+                <tr>
+                    <td>Base text</td>
+                    <td><code>--cem-color-cyan-xd</code> (very dark)</td>
+                    <td><code>--cem-color-cyan-xl</code> (very light)</td>
+                </tr>
+                <tr>
+                    <td>Zebra stripe colors</td>
+                    <td>Use light palette values (blue-l, purple-l, etc.)</td>
+                    <td>Use dark palette values (blue-d, purple-d, etc.)</td>
+                </tr>
+                <tr>
+                    <td>Stripe visibility</td>
+                    <td>Bold colors on white canvas</td>
+                    <td>Bold colors on black canvas</td>
+                </tr>
+                <tr>
+                    <td>State indication</td>
+                    <td colspan="2">Both use same 4-strip zebra system</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Implementation Example</h4>
+        <pre style="font-size: 0.85em;">
+[data-theme="contrast-light"],
+[data-theme="contrast-dark"] {
+    /* Neutralize all backgrounds to comfort */
+    --cem-action-explicit-default-background: var(--cem-palette-comfort);
+    --cem-action-explicit-hover-background: var(--cem-palette-comfort);
+    --cem-action-explicit-active-background: var(--cem-palette-comfort);
+    /* ... repeat for all intents and states ... */
+
+    /* Increase zebra thickness */
+    --cem-zebra-strip-size: 3px;
+
+    /* Add 4th zebra layer */
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),
+        0 0 0 6px var(--cem-zebra-color-1),
+        0 0 0 9px var(--cem-zebra-color-2),
+        0 0 0 12px var(--cem-zebra-color-3);
+}
+
+/* Intent-specific zebra base colors */
+[data-theme*="contrast"] .action.explicit {
+    --cem-zebra-color-0: var(--cem-palette-creativity);
+}
+[data-theme*="contrast"] .action.primary {
+    --cem-zebra-color-0: var(--cem-palette-trust);
+}
+[data-theme*="contrast"] .action.destructive {
+    --cem-zebra-color-0: var(--cem-palette-danger);
+}
+
+/* State modifiers adjust zebra-color-0 intensity */
+[data-theme*="contrast"] .action:hover {
+    --cem-zebra-color-0: color-mix(
+        in srgb,
+        var(--cem-zebra-color-0) 60%,
+        var(--cem-palette-comfort-text) 40%
+    );
+}
+        </pre>
+
+        <h4>Accessibility Benefits</h4>
+        <ul>
+            <li><strong>Maximum contrast:</strong> Always uses extreme color pairs (AAA level, ≥7:1)</li>
+            <li><strong>Clear state indication:</strong> Bold outlines are easier to perceive than subtle background changes</li>
+            <li><strong>Consistent surface:</strong> Neutral backgrounds reduce visual noise and cognitive load</li>
+            <li><strong>Multiple cues:</strong> 4 stripe layers provide redundant state information</li>
+            <li><strong>Intent preservation:</strong> Color semantics maintained through zebra colors, not backgrounds</li>
+            <li><strong>Low vision friendly:</strong> Thick outlines remain visible even with reduced acuity</li>
+            <li><strong>Screen reader compatible:</strong> State information also conveyed through ARIA attributes</li>
+        </ul>
+
+        <h4>When to Use Contrast Themes</h4>
+        <p>Contrast themes are recommended for:</p>
+        <ul>
+            <li>Users with low vision or visual impairments</li>
+            <li>Environments with poor lighting conditions (very bright or very dim)</li>
+            <li>Users with light sensitivity (photophobia)</li>
+            <li>Compliance with WCAG AAA standards</li>
+            <li>Display devices with poor color reproduction</li>
+            <li>Users who enable "High Contrast" mode in their operating system</li>
+        </ul>
+
+        <p><strong>Auto-activation:</strong> Contrast themes can be automatically enabled when the system reports high contrast preferences:</p>
+        <pre style="font-size: 0.85em;">
+@media (prefers-contrast: more) {
+    :root {
+        /* Auto-switch to contrast theme */
+        /* Respects prefers-color-scheme for light vs dark */
+    }
+}
+        </pre>
+    </fieldset>
+
+</figure>
+
+<figure>
+    <figcaption>Dimensional Tokens</figcaption>
+    <p>Dimensional tokens control the physical appearance and depth of UI elements through border radius, shadows, and font weight. These tokens work consistently across all themes while adapting to specific theme requirements.</p>
+
+    <fieldset>
+        <legend>Bend/Border-Radius Tokens</legend>
+        <p><strong>Purpose:</strong> The bend token system provides consistent corner styling across all action elements and containers. The term "bend" reflects the visual metaphor of bending a flat surface to create rounded corners.</p>
+
+        <h4>Bend Token Values</h4>
+        <p>Three predefined bend styles are available, each serving different design needs:</p>
+
+        <dl>
+            <dt><code>--cem-bend-smooth</code> — <strong>0.5rem</strong></dt>
+            <dd>
+                Gentle rounded corners that soften the appearance without being overly rounded. This is the default bend style.
+                <br/><strong>Use cases:</strong> Standard buttons, input fields, cards, panels
+                <br/><strong>Visual effect:</strong> Professional, modern, approachable
+                <div style="background: var(--cem-palette-trust); color: var(--cem-palette-trust-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 0.5rem;">
+                    Button with smooth corners
+                </div>
+            </dd>
+
+            <dt><code>--cem-bend-round</code> — <strong>50cqh</strong> (50% container query height)</dt>
+            <dd>
+                Fully rounded/pill-shaped corners. The <code>cqh</code> unit ensures the element becomes a perfect pill regardless of dimensions.
+                <br/><strong>Use cases:</strong> Toggle buttons, chips, tags, floating action buttons
+                <br/><strong>Visual effect:</strong> Playful, friendly, highly interactive
+                <br/><strong>Note:</strong> Falls back to <code>50%</code> in browsers without container query support
+                <div style="background: var(--cem-palette-enthusiasm); color: var(--cem-palette-enthusiasm-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 50cqh;">
+                    Pill-shaped button
+                </div>
+            </dd>
+
+            <dt><code>--cem-bend-sharp</code> — <strong>0</strong></dt>
+            <dd>
+                No rounding, sharp 90-degree corners. Minimalist and geometric.
+                <br/><strong>Use cases:</strong> Technical interfaces, data tables, terminal-style UIs, strict grid layouts
+                <br/><strong>Visual effect:</strong> Precise, technical, no-nonsense
+                <div style="background: var(--cem-palette-creativity); color: var(--cem-palette-creativity-text); padding: 0.75em 1.5em; display: inline-block; margin-top: 0.5em; border-radius: 0;">
+                    Sharp-cornered button
+                </div>
+            </dd>
+        </dl>
+
+        <h4>Usage Pattern</h4>
+        <p>The <code>--cem-bend</code> token serves as the active bend value, defaulting to <code>--cem-bend-smooth</code>:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Default bend */
+:root {
+    --cem-bend-smooth: 0.5rem;
+    --cem-bend-round: 50cqh;
+    --cem-bend-sharp: 0;
+
+    --cem-bend: var(--cem-bend-smooth);  /* Default */
+}
+
+/* Apply to action elements */
+.action {
+    --cem-action-border-radius: var(--cem-bend);
+    border-radius: var(--cem-action-border-radius);
+}
+        </pre>
+
+        <h4>Changing Bend Style</h4>
+        <p>Override the bend style at any scope using CSS classes or custom properties:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Via utility classes */
+&lt;button class="action primary cem-bend-round"&gt;Pill Button&lt;/button&gt;
+&lt;button class="action primary cem-bend-sharp"&gt;Sharp Button&lt;/button&gt;
+
+/* Via CSS override */
+.my-component {
+    --cem-bend: var(--cem-bend-round);
+}
+
+/* Per element */
+button.special {
+    --cem-action-border-radius: 1rem;  /* Custom radius */
+}
+        </pre>
+
+        <h4>Bend Classes</h4>
+        <p>Pre-defined utility classes for easy application:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Sets <code>--cem-bend</code> to</th>
+                    <th>Visual Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>.cem-bend-smooth</code></td>
+                    <td><code>var(--cem-bend-smooth)</code> (0.5rem)</td>
+                    <td>Gentle rounded corners</td>
+                </tr>
+                <tr>
+                    <td><code>.cem-bend-round</code></td>
+                    <td><code>var(--cem-bend-round)</code> (50cqh)</td>
+                    <td>Fully rounded/pill shape</td>
+                </tr>
+                <tr>
+                    <td><code>.cem-bend-sharp</code></td>
+                    <td><code>var(--cem-bend-sharp)</code> (0)</td>
+                    <td>Sharp 90° corners</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Visual Examples</h4>
+        <div style="display: flex; gap: 1em; flex-wrap: wrap; margin: 1em 0;">
+            <button class="action primary" style="border-radius: 0.5rem; padding: 0.75em 1.5em;">
+                Smooth (0.5rem)
+            </button>
+            <button class="action explicit" style="border-radius: 50cqh; padding: 0.75em 1.5em;">
+                Round (50cqh)
+            </button>
+            <button class="action alternate" style="border-radius: 0; padding: 0.75em 1.5em;">
+                Sharp (0)
+            </button>
+        </div>
+
+        <h4>Container Query Units</h4>
+        <p>The <code>50cqh</code> value for <code>--cem-bend-round</code> uses container query height units, making pill shapes automatically adapt:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Small button: 2em tall */
+&lt;button style="height: 2em; border-radius: 50cqh;"&gt;
+    /* border-radius computes to 1em (50% of 2em) */
+&lt;/button&gt;
+
+/* Large button: 4em tall */
+&lt;button style="height: 4em; border-radius: 50cqh;"&gt;
+    /* border-radius computes to 2em (50% of 4em) */
+&lt;/button&gt;
+        </pre>
+
+        <p><strong>Browser compatibility:</strong> Container query units are supported in Chrome 105+, Firefox 110+, Safari 16+. For older browsers, provide a fallback:</p>
+
+        <pre style="font-size: 0.85em;">
+.action.round {
+    border-radius: 50%;  /* Fallback */
+    border-radius: 50cqh;  /* Modern browsers */
+}
+        </pre>
+
+        <h4>Design Principles</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same bend style throughout related components</li>
+            <li><strong>Hierarchy:</strong> More important actions can use rounder corners to appear more friendly/inviting</li>
+            <li><strong>Context:</strong> Match bend style to brand personality (playful vs. serious)</li>
+            <li><strong>Accessibility:</strong> Corner radius doesn't affect accessibility, but maintain sufficient padding</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Box Shadow Tokens</legend>
+        <p><strong>Purpose:</strong> Box shadow tokens create depth and elevation for interactive elements. Shadows provide visual feedback for different states, making interactions more intuitive and responsive.</p>
+
+        <h4>Shadow Token System</h4>
+        <p>Four state-specific shadow tokens control the appearance of actions across different interaction states:</p>
+
+        <dl>
+            <dt><code>--cem-action-box-shadow</code> (default)</dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Base shadow for resting state. Provides subtle elevation without being distracting.
+                <br/><strong>Visual effect:</strong> Slight lift from the surface, approximately 2dp elevation (Material Design)
+                <br/><strong>Layers:</strong> Three-layer shadow (ambient, penumbra, umbra) for realistic depth perception
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-hover</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Elevated shadow on hover. Increases perceived elevation to signal interactivity.
+                <br/><strong>Visual effect:</strong> Medium lift, approximately 4dp elevation
+                <br/><strong>Transition:</strong> Smoothly animates from default shadow, creating a "raising" effect
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-active</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 1px 1px -1px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12)</code>
+                <br/><strong>Purpose:</strong> Reduced shadow when pressed/clicked. Simulates button being pushed into the surface.
+                <br/><strong>Visual effect:</strong> Minimal lift, approximately 1dp elevation
+                <br/><strong>Feedback:</strong> Provides tactile-like visual feedback for press actions
+            </dd>
+
+            <dt><code>--cem-action-box-shadow-pending</code></dt>
+            <dd>
+                <strong>Value:</strong> <code>0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)</code> (same as default)
+                <br/><strong>Purpose:</strong> Shadow during async operations. Maintains same elevation as default while background animates.
+                <br/><strong>Visual effect:</strong> Consistent elevation during loading, focus on background animation
+            </dd>
+        </dl>
+
+        <h4>Shadow Progression</h4>
+        <p>Shadows progress through three elevation levels as users interact:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Shadow State Progression</strong></figcaption>
+            <pre style="font-size: 0.85em; line-height: 1.8;">
+<strong>default</strong>   →   <strong>hover</strong>    →   <strong>active</strong>   →   <strong>pending</strong>
+ (2dp)          (4dp)         (1dp)          (2dp)
+
+  ▭            ▭            ▬            ▭
+ subtle      elevated     pressed      loading
+ lift        lift         down         (same as default)
+            </pre>
+        </figure>
+
+        <h4>CSS Implementation</h4>
+        <p>Shadows are applied automatically based on element state:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Base shadow token */
+.action {
+    box-shadow: var(--cem-action-box-shadow);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+/* State-specific shadows */
+.action:hover,
+.action.hover,
+.action[hover] {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-hover);
+}
+
+.action:active,
+.action.active,
+.action[active] {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-active);
+}
+
+.action[pending],
+.action.pending {
+    --cem-action-box-shadow: var(--cem-action-box-shadow-pending);
+}
+        </pre>
+
+        <h4>Visual Comparison</h4>
+        <div style="display: flex; gap: 2em; flex-wrap: wrap; margin: 1em 0; padding: 2em; background: var(--cem-palette-comfort);">
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);">
+                    Default
+                </button>
+                <br/><small>2dp elevation</small>
+            </div>
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 2px 4px 0px rgba(0, 0, 0, .12);">
+                    Hover
+                </button>
+                <br/><small>4dp elevation</small>
+            </div>
+            <div style="text-align: center;">
+                <button class="action primary" style="padding: 0.75em 1.5em; box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12);">
+                    Active
+                </button>
+                <br/><small>1dp elevation</small>
+            </div>
+        </div>
+
+        <h4>Contrast Theme Shadow Overrides (Zebra-Based)</h4>
+        <p>In high-contrast themes (<code>contrast-light</code>, <code>contrast-dark</code>), shadows are replaced with zebra outlines for maximum visibility:</p>
+
+        <pre style="font-size: 0.85em;">
+[data-theme*="contrast"] {
+    /* Replace traditional shadows with zebra outlines */
+    --cem-action-box-shadow:
+        0 0 0 3px var(--cem-zebra-color-0),   /* Intent color stripe */
+        0 0 0 6px var(--cem-zebra-color-1),   /* Focus stripe */
+        0 0 0 9px var(--cem-zebra-color-2),   /* Selected stripe */
+        0 0 0 12px var(--cem-zebra-color-3);  /* Target stripe */
+
+    /* State changes affect zebra colors, not shadow depth */
+    .action:hover {
+        /* Zebra-color-0 intensifies, no shadow depth change */
+        --cem-zebra-color-0: color-mix(
+            in srgb,
+            var(--cem-zebra-color-0) 60%,
+            var(--cem-palette-comfort-text) 40%
+        );
+    }
+}
+        </pre>
+
+        <p><strong>Why zebra instead of shadows in contrast themes?</strong></p>
+        <ul>
+            <li><strong>Visibility:</strong> Shadows can be difficult to perceive in high-contrast environments</li>
+            <li><strong>Consistency:</strong> Zebra outlines maintain the same visual weight regardless of lighting</li>
+            <li><strong>Accessibility:</strong> High-contrast outlines are more reliable for users with low vision</li>
+            <li><strong>Forced colors:</strong> Browser high-contrast modes may override shadows, but outlines remain visible</li>
+        </ul>
+
+        <h4>Material Design Elevation Mapping</h4>
+        <p>Shadow tokens correspond to Material Design elevation levels:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Elevation (dp)</th>
+                    <th>Material Design Usage</th>
+                    <th>Component Examples</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>default</code></td>
+                    <td>2dp</td>
+                    <td>Resting elevation for raised buttons</td>
+                    <td>Button, Card (resting)</td>
+                </tr>
+                <tr>
+                    <td><code>hover</code></td>
+                    <td>4dp</td>
+                    <td>Raised elevation on hover</td>
+                    <td>Button (hover), FAB (resting)</td>
+                </tr>
+                <tr>
+                    <td><code>active</code></td>
+                    <td>1dp</td>
+                    <td>Pressed state (lower than resting)</td>
+                    <td>Button (pressed)</td>
+                </tr>
+                <tr>
+                    <td><code>pending</code></td>
+                    <td>2dp</td>
+                    <td>Maintains resting elevation during async</td>
+                    <td>Button (loading)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Customizing Shadows</h4>
+        <p>Override shadows at any scope for custom elevation or theme-specific effects:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Lighter shadows for dark theme */
+[data-theme="dark"] {
+    --cem-action-box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    --cem-action-box-shadow-hover: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+/* No shadows for flat design */
+.flat-design {
+    --cem-action-box-shadow: none;
+    --cem-action-box-shadow-hover: none;
+    --cem-action-box-shadow-active: none;
+}
+
+/* Custom elevation for specific component */
+.floating-action-button {
+    --cem-action-box-shadow: 0px 6px 10px -3px rgba(0, 0, 0, .2),
+                              0px 4px 4px 0px rgba(0, 0, 0, .14),
+                              0px 4px 8px 0px rgba(0, 0, 0, .12);  /* 6dp */
+}
+        </pre>
+
+        <h4>Shadow Anatomy (Three-Layer System)</h4>
+        <p>Each shadow is composed of three layers for realistic depth:</p>
+
+        <dl>
+            <dt><strong>Layer 1: Ambient Shadow</strong> (largest, softest)</dt>
+            <dd>Example: <code>0px 1px 3px 0px rgba(0, 0, 0, .12)</code>
+                <br/>Simulates scattered light, creating overall depth perception</dd>
+
+            <dt><strong>Layer 2: Penumbra Shadow</strong> (medium size, medium softness)</dt>
+            <dd>Example: <code>0px 1px 1px 0px rgba(0, 0, 0, .14)</code>
+                <br/>Transition zone between light and dark, adds realism</dd>
+
+            <dt><strong>Layer 3: Umbra Shadow</strong> (smallest, sharpest)</dt>
+            <dd>Example: <code>0px 2px 1px -1px rgba(0, 0, 0, .2)</code>
+                <br/>Darkest part of shadow directly under element, creates sharp definition</dd>
+        </dl>
+
+        <h4>Animation and Transitions</h4>
+        <p>Shadows should transition smoothly between states:</p>
+
+        <pre style="font-size: 0.85em;">
+.action {
+    box-shadow: var(--cem-action-box-shadow);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Faster transition on press for immediate feedback */
+.action:active {
+    transition-duration: 100ms;
+}
+        </pre>
+
+        <h4>Performance Considerations</h4>
+        <ul>
+            <li><strong>Use <code>box-shadow</code>, not <code>filter: drop-shadow()</code></strong> for better performance</li>
+            <li><strong>Limit shadow layers:</strong> Three layers provide good realism without performance cost</li>
+            <li><strong>Avoid excessive blur radius:</strong> Keep blur values under 10px for most cases</li>
+            <li><strong>Hardware acceleration:</strong> Shadows are GPU-accelerated on modern browsers</li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Thickness/Font-Weight Mapping</legend>
+        <p><strong>Purpose:</strong> The thickness token system provides a semantic way to specify font weights, maintaining consistency with the 7-token design principle. These tokens map directly to CSS <code>font-weight</code> values.</p>
+
+        <h4>Seven Thickness Levels</h4>
+        <p>Based on the <a href="https://creativebeacon.com/typography-guide-part-2-weight-and-width/" target="_blank">Typography Guide</a>, seven standardized font weights provide sufficient variation for all UI needs:</p>
+
+        <table style="font-size: 0.9em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Alternative Names</th>
+                    <th>CSS Value</th>
+                    <th>Sample</th>
+                    <th>Common Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>xx-light</code></td>
+                    <td>Thin, Hairline</td>
+                    <td><code>100</code></td>
+                    <td style="font-weight: 100;">The quick brown fox</td>
+                    <td>Large headings, decorative text</td>
+                </tr>
+                <tr>
+                    <td><code>x-light</code></td>
+                    <td>Extra Light, Ultra Light</td>
+                    <td><code>200</code></td>
+                    <td style="font-weight: 200;">The quick brown fox</td>
+                    <td>Secondary headings, captions</td>
+                </tr>
+                <tr>
+                    <td><code>light</code></td>
+                    <td>Light</td>
+                    <td><code>300</code></td>
+                    <td style="font-weight: 300;">The quick brown fox</td>
+                    <td>Body text in light themes, metadata</td>
+                </tr>
+                <tr>
+                    <td><code>normal</code></td>
+                    <td>Regular, Roman, Book</td>
+                    <td><code>400</code></td>
+                    <td style="font-weight: 400;">The quick brown fox</td>
+                    <td>Default body text, paragraphs</td>
+                </tr>
+                <tr>
+                    <td><code>bold</code></td>
+                    <td>Medium, Semi-Bold</td>
+                    <td><code>700</code></td>
+                    <td style="font-weight: 700;">The quick brown fox</td>
+                    <td>Emphasis, buttons, headings, labels</td>
+                </tr>
+                <tr>
+                    <td><code>x-bold</code></td>
+                    <td>Extra Bold</td>
+                    <td><code>800</code></td>
+                    <td style="font-weight: 800;">The quick brown fox</td>
+                    <td>Strong emphasis, primary headings</td>
+                </tr>
+                <tr>
+                    <td><code>xx-bold</code></td>
+                    <td>Ultra Bold, Black, Heavy</td>
+                    <td><code>900</code></td>
+                    <td style="font-weight: 900;">The quick brown fox</td>
+                    <td>Maximum impact, hero headings</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Design Rationale: Why 7 Levels?</h4>
+        <p>The 7-token system aligns with human perception and cognitive limits:</p>
+        <ul>
+            <li><strong>Pattern Recognition:</strong> <a href="https://blog.firsov.net/2025/04/7-ux-design-tokens.html" target="_blank">7 design tokens</a> match human short-term memory capacity</li>
+            <li><strong>Visual Distinction:</strong> Each level is perceptually different enough to be meaningful</li>
+            <li><strong>Common Fonts:</strong> Most font families provide 7-9 weights, aligning with this system</li>
+            <li><strong>Sufficient Range:</strong> From hairline (100) to black (900) covers all practical needs</li>
+        </ul>
+
+        <h4>Token Naming Convention</h4>
+        <p>Token names follow a symmetric pattern around <code>normal</code> (400):</p>
+
+        <pre style="font-size: 0.85em;">
+Lighter ←                → Heavier
+
+xx-light   x-light   light   normal   bold   x-bold   xx-bold
+  (100)     (200)    (300)    (400)   (700)   (800)    (900)
+
+   ↓         ↓         ↓        ↓       ↓       ↓        ↓
+ Thinnest                    Default             Thickest
+        </pre>
+
+        <p><strong>Note:</strong> CSS provides values 100-900 in 100-unit increments, but the 7-token system skips 500 and 600 as they offer minimal perceptual difference from 400 and 700 respectively.</p>
+
+        <h4>Usage in Theme System</h4>
+        <p>While the theme system doesn't currently expose thickness tokens as CSS custom properties, the values guide font-weight choices throughout the components:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Example usage in components */
+.cem-heading-1 {
+    font-weight: 100;  /* xx-light for large display text */
+}
+
+.cem-heading-2 {
+    font-weight: 300;  /* light for secondary headings */
+}
+
+body {
+    font-weight: 400;  /* normal for body text */
+}
+
+.action {
+    font-weight: 700;  /* bold for buttons */
+}
+
+strong, b {
+    font-weight: 700;  /* bold for emphasis */
+}
+
+.cem-menu-item.selected {
+    font-weight: 700;  /* bold for selected menu items */
+}
+        </pre>
+
+        <h4>Font Weight and Accessibility</h4>
+        <p>Font weight impacts readability and should be chosen carefully:</p>
+
+        <dl>
+            <dt><strong>Body Text</strong></dt>
+            <dd>
+                Use <code>normal</code> (400) or <code>light</code> (300) for optimal readability
+                <br/>Avoid weights below 300 for body text, especially at small sizes
+                <br/>In dark themes, consider <code>light</code> (300) to compensate for light-on-dark contrast
+            </dd>
+
+            <dt><strong>Headings</strong></dt>
+            <dd>
+                Larger headings (H1, H2) can use lighter weights (100-300) effectively
+                <br/>Smaller headings (H3-H6) should use <code>bold</code> (700) for distinction
+            </dd>
+
+            <dt><strong>Interactive Elements</strong></dt>
+            <dd>
+                Buttons and links benefit from <code>bold</code> (700) for clear affordance
+                <br/>Selected/active states should increase weight for visual feedback
+            </dd>
+
+            <dt><strong>Small Text</strong></dt>
+            <dd>
+                Text below 14px should avoid weights lighter than <code>normal</code> (400)
+                <br/>Thin fonts at small sizes can cause readability issues, especially for low-vision users
+            </dd>
+        </dl>
+
+        <h4>Font Weight Progression</h4>
+        <p>Use weight changes to create visual hierarchy:</p>
+
+        <figure style="margin: 1em 0;">
+            <figcaption><strong>Example: Heading Hierarchy</strong></figcaption>
+            <div style="padding: 1em; background: var(--cem-palette-comfort); color: var(--cem-palette-comfort-text);">
+                <h1 style="font-weight: 100; font-size: 3em; margin: 0.5em 0;">Hero Title (100)</h1>
+                <h2 style="font-weight: 300; font-size: 2em; margin: 0.5em 0;">Section Heading (300)</h2>
+                <h3 style="font-weight: 700; font-size: 1.5em; margin: 0.5em 0;">Subsection (700)</h3>
+                <p style="font-weight: 400; font-size: 1em; margin: 0.5em 0;">Body paragraph text uses normal weight (400) for optimal readability.</p>
+                <p style="font-weight: 700; font-size: 1em; margin: 0.5em 0;"><strong>Emphasized text</strong> uses bold weight (700) to stand out.</p>
+            </div>
+        </figure>
+
+        <h4>Variable Fonts</h4>
+        <p>Modern <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target="_blank">variable fonts</a> support continuous weight adjustment (100-900), but the 7-token system still provides meaningful checkpoints:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Variable font with custom weights */
+@font-face {
+    font-family: 'MyVariableFont';
+    src: url('font.woff2') format('woff2-variations');
+    font-weight: 100 900;  /* Supports full range */
+}
+
+/* Still use the 7 semantic tokens for consistency */
+h1 { font-weight: 100; }  /* xx-light */
+h2 { font-weight: 300; }  /* light */
+p  { font-weight: 400; }  /* normal */
+strong { font-weight: 700; }  /* bold */
+        </pre>
+
+        <h4>Font Weight in Themes</h4>
+        <p>Font weight may need adjustment across different themes:</p>
+
+        <pre style="font-size: 0.85em;">
+/* Light theme: normal weight sufficient */
+[data-theme="light"] body {
+    font-weight: 400;
+}
+
+/* Dark theme: slightly lighter weight to compensate for contrast */
+[data-theme="dark"] body {
+    font-weight: 300;  /* or keep 400, font-dependent */
+}
+
+/* High contrast: use bolder weights for maximum clarity */
+[data-theme*="contrast"] {
+    body {
+        font-weight: 400;  /* Ensure normal weight minimum */
+    }
+    strong, .emphasis {
+        font-weight: 800;  /* Extra bold for clear distinction */
+    }
+}
+        </pre>
+
+        <h4>Cross-Platform Considerations</h4>
+        <ul>
+            <li><strong>macOS:</strong> System fonts render weights smoothly; thin weights (100-200) work well</li>
+            <li><strong>Windows:</strong> ClearType rendering can make thin weights harder to read; consider 300+ minimum</li>
+            <li><strong>Mobile:</strong> Smaller screens may benefit from slightly bolder default weights</li>
+            <li><strong>Web fonts:</strong> Ensure font files for all 7 weights are loaded to prevent faux-bold rendering</li>
+        </ul>
+
+        <h4>Best Practices</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same weight for similar content types (all buttons bold, all body text normal)</li>
+            <li><strong>Hierarchy:</strong> Create clear distinction between heading levels through weight variation</li>
+            <li><strong>Readability:</strong> Never sacrifice legibility for aesthetic—test with actual users</li>
+            <li><strong>Performance:</strong> Limit font weight variants to 3-4 per page to reduce font file overhead</li>
+            <li><strong>Fallbacks:</strong> Always specify a weight-agnostic fallback font family</li>
+        </ul>
+    </fieldset>
+
+</figure>
+
+<figure>
+    <figcaption>Timing Tokens</figcaption>
+    <p>Timing tokens control motion and animation behavior across the design system. Based on Material Design 3 motion principles, these tokens define how UI elements transition between states, ensuring consistent and meaningful animations that enhance user experience.</p>
+
+    <fieldset>
+        <legend>Duration Tokens</legend>
+        <p><strong>Purpose:</strong> Duration tokens define how long transitions take, based on user perception rather than arbitrary millisecond values. The naming reflects how users experience the timing.</p>
+
+        <h4>Three Duration Levels</h4>
+        <dl>
+            <dt><code>--cem-duration-instant</code> — <strong>50ms</strong></dt>
+            <dd>
+                Micro-interactions that should feel immediate. Used when feedback must appear to happen without delay.
+                <br/><strong>Use cases:</strong> Button press feedback, checkbox toggles, ripple effects, input focus
+                <br/><strong>Perception:</strong> "Did that just happen?" — so fast it feels instantaneous
+            </dd>
+
+            <dt><code>--cem-duration-noticeable</code> — <strong>250ms</strong></dt>
+            <dd>
+                Mid-sized UI changes that users should register but not dwell on. The default duration for most transitions.
+                <br/><strong>Use cases:</strong> Menu opening, dropdown expansion, tab switching, color transitions
+                <br/><strong>Perception:</strong> "I saw that change" — noticeable but doesn't interrupt flow
+            </dd>
+
+            <dt><code>--cem-duration-lingering</code> — <strong>300ms</strong></dt>
+            <dd>
+                Larger transitions or emotionally resonant changes that invite attention.
+                <br/><strong>Use cases:</strong> Modal dialogs, page transitions, overlay appearances, route changes
+                <br/><strong>Perception:</strong> "That felt significant" — draws attention to important changes
+            </dd>
+        </dl>
+
+        <h4>CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+:root {
+    --cem-duration-instant: 50ms;
+    --cem-duration-noticeable: 250ms;
+    --cem-duration-lingering: 300ms;
+
+    /* Default duration for general use */
+    --cem-duration: var(--cem-duration-noticeable);
+}
+
+/* Usage examples */
+.action {
+    transition-duration: var(--cem-duration-instant);  /* Quick feedback */
+}
+
+.menu {
+    transition-duration: var(--cem-duration-noticeable);  /* Standard opening */
+}
+
+.modal {
+    transition-duration: var(--cem-duration-lingering);  /* Significant appearance */
+}
+        </pre>
+
+        <h4>Reduced Motion Support</h4>
+        <p>For users who prefer reduced motion, durations should be minimized:</p>
+        <pre style="font-size: 0.85em;">
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --cem-duration-instant: 0ms;
+        --cem-duration-noticeable: 0ms;
+        --cem-duration-lingering: 0ms;
+    }
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Easing Tokens</legend>
+        <p><strong>Purpose:</strong> Easing tokens define acceleration curves that shape how animations feel. Named by consumer intent rather than technical implementation.</p>
+
+        <h4>Easing Token System</h4>
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Original MD3</th>
+                    <th>CSS Value</th>
+                    <th>Intended Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>--cem-easing-smooth</code></td>
+                    <td>standard (ease-in-out)</td>
+                    <td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td>
+                    <td>Balanced start and end; the "default" feel</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-smooth-start</code></td>
+                    <td>standard.accelerate (ease-in)</td>
+                    <td><code>cubic-bezier(0.4, 0, 1, 1)</code></td>
+                    <td>Quickly ramps up; good for entrance animations</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-smooth-end</code></td>
+                    <td>standard.decelerate (ease-out)</td>
+                    <td><code>cubic-bezier(0, 0, 0.2, 1)</code></td>
+                    <td>Slows into final state; good for exit animations</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted</code></td>
+                    <td>emphasized (ease-in-out)</td>
+                    <td><code>cubic-bezier(0.2, 0, 0, 1)</code></td>
+                    <td>Adds drama to both start and end; draws attention</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted-start</code></td>
+                    <td>emphasized.accelerate (ease-in)</td>
+                    <td><code>cubic-bezier(0.3, 0, 0.8, 0.15)</code></td>
+                    <td>Dramatic lift-off; emphasizes entry</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-highlighted-end</code></td>
+                    <td>emphasized.decelerate (ease-out)</td>
+                    <td><code>cubic-bezier(0.05, 0.7, 0.1, 1)</code></td>
+                    <td>Dramatic finish; emphasizes exit</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-uniform</code></td>
+                    <td>linear</td>
+                    <td><code>linear</code></td>
+                    <td>Constant speed; for mechanical or subtle motion</td>
+                </tr>
+                <tr>
+                    <td><code>--cem-easing-classic</code></td>
+                    <td>legacy</td>
+                    <td><code>ease</code></td>
+                    <td>Classic curves retained for compatibility</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Guidance for Use</h4>
+        <dl>
+            <dt><strong>Smooth variants</strong></dt>
+            <dd>Use for everyday transitions where motion should feel natural and unobtrusive.</dd>
+
+            <dt><strong>Highlighted variants</strong></dt>
+            <dd>Use when motion's purpose is to draw the user's eye or emphasize a state change.</dd>
+
+            <dt><strong>Start variants (-start)</strong></dt>
+            <dd>Use for introducing new UI elements — they accelerate into view.</dd>
+
+            <dt><strong>End variants (-end)</strong></dt>
+            <dd>Use for dismissing UI elements — they decelerate as they exit.</dd>
+
+            <dt><strong>Uniform</strong></dt>
+            <dd>Use for neutral motion (progress bars, loading indicators) or when avoiding acceleration/deceleration.</dd>
+
+            <dt><strong>Classic</strong></dt>
+            <dd>Use only when maintaining legacy patterns or supporting older components.</dd>
+        </dl>
+
+        <h4>CSS Implementation</h4>
+        <pre style="font-size: 0.85em;">
+:root {
+    --cem-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --cem-easing-smooth-start: cubic-bezier(0.4, 0, 1, 1);
+    --cem-easing-smooth-end: cubic-bezier(0, 0, 0.2, 1);
+    --cem-easing-highlighted: cubic-bezier(0.2, 0, 0, 1);
+    --cem-easing-highlighted-start: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --cem-easing-highlighted-end: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --cem-easing-uniform: linear;
+    --cem-easing-classic: ease;
+
+    /* Default easing for general use */
+    --cem-easing: var(--cem-easing-smooth);
+}
+
+/* Usage examples */
+.action {
+    transition: all var(--cem-duration) var(--cem-easing);
+}
+
+.menu-enter {
+    animation: slideIn var(--cem-duration-noticeable) var(--cem-easing-smooth-start);
+}
+
+.menu-exit {
+    animation: slideOut var(--cem-duration-noticeable) var(--cem-easing-smooth-end);
+}
+
+.attention-element {
+    animation: pulse var(--cem-duration-lingering) var(--cem-easing-highlighted);
+}
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Spring Tokens</legend>
+        <p><strong>Purpose:</strong> Spring tokens define physics-based motion with damping and stiffness for expressive transitions. Springs create more natural, organic movement than easing curves alone.</p>
+
+        <h4>Spring Token Dimensions</h4>
+        <p>Springs are organized along three axes, creating a 2 × 2 × 3 matrix of combinations:</p>
+
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Axis</th>
+                    <th>Original MD3</th>
+                    <th>CEM Token</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Focus</strong><br/>(what property)</td>
+                    <td>Spatial</td>
+                    <td><code>reposition</code></td>
+                    <td>Motions that move or resize elements (positions, layouts)</td>
+                </tr>
+                <tr>
+                    <td>Effects</td>
+                    <td><code>highlight</code></td>
+                    <td>Non-spatial changes (opacity, color) that draw attention</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Feel</strong><br/>(how lively)</td>
+                    <td>Standard</td>
+                    <td><code>functional</code></td>
+                    <td>Little overshoot; for utilitarian interactions</td>
+                </tr>
+                <tr>
+                    <td>Expressive</td>
+                    <td><code>delight</code></td>
+                    <td>Overshoot/bounce; adds emotional emphasis</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><strong>Speed</strong><br/>(how long)</td>
+                    <td>Fast</td>
+                    <td><code>instant</code></td>
+                    <td>Micro-interactions that shouldn't interrupt</td>
+                </tr>
+                <tr>
+                    <td>Default</td>
+                    <td><code>noticeable</code></td>
+                    <td>User should register but not dwell</td>
+                </tr>
+                <tr>
+                    <td>Slow</td>
+                    <td><code>lingering</code></td>
+                    <td>Large or emotionally resonant transitions</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Spring Token Naming Convention</h4>
+        <p>Tokens combine the three axes: <code>--cem-spring-{focus}-{feel}-{speed}</code></p>
+
+        <pre style="font-size: 0.85em;">
+/* Example spring token names */
+--cem-spring-reposition-functional-instant
+--cem-spring-reposition-functional-noticeable
+--cem-spring-reposition-functional-lingering
+--cem-spring-reposition-delight-instant
+--cem-spring-reposition-delight-noticeable
+--cem-spring-reposition-delight-lingering
+--cem-spring-highlight-functional-instant
+--cem-spring-highlight-functional-noticeable
+--cem-spring-highlight-functional-lingering
+--cem-spring-highlight-delight-instant
+--cem-spring-highlight-delight-noticeable
+--cem-spring-highlight-delight-lingering
+        </pre>
+
+        <h4>When to Use Springs vs Easing</h4>
+        <dl>
+            <dt><strong>Use Springs for:</strong></dt>
+            <dd>
+                <ul>
+                    <li>Drag-and-drop interactions that need physical feedback</li>
+                    <li>Bounce effects on notifications or alerts</li>
+                    <li>Pull-to-refresh gestures</li>
+                    <li>Expressive micro-interactions</li>
+                    <li>Elements that should "settle" into place</li>
+                </ul>
+            </dd>
+
+            <dt><strong>Use Easing for:</strong></dt>
+            <dd>
+                <ul>
+                    <li>Simple fades and opacity changes</li>
+                    <li>Color transitions</li>
+                    <li>Legacy component support</li>
+                    <li>Reduced-motion fallbacks</li>
+                    <li>Cases where overshoot would be distracting</li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h4>CSS Spring Implementation</h4>
+        <p>CSS doesn't natively support spring physics, but can be approximated with keyframes or the Web Animations API:</p>
+
+        <pre style="font-size: 0.85em;">
+/* CSS Variables for spring parameters */
+:root {
+    /* Functional springs (little overshoot) */
+    --cem-spring-stiffness-functional: 300;
+    --cem-spring-damping-functional: 25;
+
+    /* Delight springs (expressive overshoot) */
+    --cem-spring-stiffness-delight: 200;
+    --cem-spring-damping-delight: 15;
+}
+
+/* Approximated spring animation via CSS */
+@keyframes spring-bounce {
+    0% { transform: scale(0.95); }
+    40% { transform: scale(1.02); }
+    60% { transform: scale(0.99); }
+    80% { transform: scale(1.005); }
+    100% { transform: scale(1); }
+}
+
+.spring-enter {
+    animation: spring-bounce var(--cem-duration-noticeable) var(--cem-easing-highlighted-end);
+}
+        </pre>
+
+        <h4>JavaScript Spring Usage</h4>
+        <p>For true spring physics, use the Web Animations API or a library:</p>
+
+        <pre style="font-size: 0.85em;">
+// Using CSS custom properties for spring configuration
+const springConfig = {
+    reposition: {
+        functional: { stiffness: 300, damping: 25 },
+        delight: { stiffness: 200, damping: 15 }
+    },
+    highlight: {
+        functional: { stiffness: 400, damping: 30 },
+        delight: { stiffness: 250, damping: 18 }
+    }
+};
+
+// Apply to animation library of choice
+element.animate(
+    { transform: ['translateX(0)', 'translateX(100px)'] },
+    { duration: 250, easing: 'spring(1, 300, 25, 0)' }  // If supported
+);
+        </pre>
+    </fieldset>
+
+    <fieldset>
+        <legend>Combined Timing Usage</legend>
+        <p><strong>Purpose:</strong> This section shows how duration, easing, and spring tokens work together for cohesive motion design.</p>
+
+        <h4>Standard Action Timing</h4>
+        <pre style="font-size: 0.85em;">
+.action {
+    /* Combine duration and easing */
+    transition:
+        background-color var(--cem-duration-instant) var(--cem-easing-smooth),
+        box-shadow var(--cem-duration-noticeable) var(--cem-easing-smooth),
+        transform var(--cem-duration-instant) var(--cem-easing-smooth);
+}
+
+.action:hover {
+    box-shadow: var(--cem-action-box-shadow-hover);
+}
+
+.action:active {
+    transform: scale(0.98);
+}
+        </pre>
+
+        <h4>Modal/Overlay Timing</h4>
+        <pre style="font-size: 0.85em;">
+.modal {
+    /* Entry: decelerate into view */
+    animation: modalEnter var(--cem-duration-lingering) var(--cem-easing-highlighted-end);
+}
+
+.modal.closing {
+    /* Exit: accelerate out */
+    animation: modalExit var(--cem-duration-noticeable) var(--cem-easing-highlighted-start);
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalExit {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+}
+        </pre>
+
+        <h4>Timing Token Summary</h4>
+        <table style="font-size: 0.85em;">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Tokens</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Duration</strong></td>
+                    <td>instant, noticeable, lingering</td>
+                    <td>How long animations take</td>
+                </tr>
+                <tr>
+                    <td><strong>Easing</strong></td>
+                    <td>smooth, highlighted × start, end | uniform | classic</td>
+                    <td>Acceleration curves</td>
+                </tr>
+                <tr>
+                    <td><strong>Spring</strong></td>
+                    <td>2 focus × 2 feel × 3 speed</td>
+                    <td>Physics-based motion</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Best Practices</h4>
+        <ul>
+            <li><strong>Consistency:</strong> Use the same timing tokens for similar interactions across the application</li>
+            <li><strong>Purpose:</strong> Choose tokens based on the intent of the motion, not arbitrary aesthetic preference</li>
+            <li><strong>Accessibility:</strong> Always respect <code>prefers-reduced-motion</code> user preference</li>
+            <li><strong>Performance:</strong> Animate only transform and opacity for best performance (GPU-accelerated)</li>
+            <li><strong>Subtlety:</strong> Motion should enhance, not distract — when in doubt, use shorter durations</li>
+        </ul>
+    </fieldset>
+
+</figure>
+
+</body>
+</html>

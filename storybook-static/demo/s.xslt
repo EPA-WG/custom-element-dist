@@ -13,79 +13,20 @@
         <xsl:value-of select="."/>
     </xsl:template>
     <xsl:template mode="payload" match="attributes">
-        <xsl:param name="v">
-            <xsl:choose>
-                <xsl:when test="//s[//s/event] ">
-                    <xsl:value-of select="//s[//s/event] "/>
-                </xsl:when>
-                <xsl:when test=" //attributes/@v ">
-                    <xsl:value-of select=" //attributes/@v "/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select=" 'def' "/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:param>
         <dce-root xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" data-dce-id="1">
-            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="has-input"
-                          select="count(//s/*) &gt; 0"/>
-            <xsl:attribute name="v">
-                <xsl:choose>
-                    <xsl:when test="//s[//s/event] ">
-                        <xsl:value-of select="//s[//s/event] "/>
-                    </xsl:when>
-                    <xsl:when test=" //attributes/@v ">
-                        <xsl:value-of select=" //attributes/@v "/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select=" 'def' "/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:attribute>
-            <dce-text xmlns="" data-dce-id="2">
-
-                //attributes/v='<xsl:value-of select="//attributes/v"/>'
-            </dce-text>
-            <br xmlns="" data-dce-id="3"/>
-            <dce-text xmlns="" data-dce-id="4">
-                //attributes/@v='<xsl:value-of select="//attributes/@v"/>'
-            </dce-text>
-            <br xmlns="" data-dce-id="5"/>
-            <dce-text xmlns="" data-dce-id="6">
-                $v='<xsl:value-of select="$v"/>'
-            </dce-text>
-            <br xmlns="" data-dce-id="7"/>
-            <dce-text xmlns="" data-dce-id="8">
-                //s='<xsl:value-of select="//s"/>'
-            </dce-text>
-            <br xmlns="" data-dce-id="9"/>
-            <dce-text xmlns="" data-dce-id="10">
-                A='<xsl:value-of select="//s[//s/event] | //attributes/v[not(//s/event)]"/>'
-            </dce-text>
-            <br xmlns="" data-dce-id="11"/>
-            <dce-text xmlns="" data-dce-id="12">
-                has-input =<xsl:value-of select=" $has-input "/>
-            </dce-text>
-            <br xmlns="" data-dce-id="13"/>
-            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="in-value">
-                <xsl:choose>
-                    <xsl:when test="//s/event">
-                        <xsl:value-of select="//s">
-                        </xsl:value-of>
-                    </xsl:when>
-                    <xsl:when test="//attributes/@v">
-                        <xsl:value-of select="//attributes/@v">
-                        </xsl:value-of>
-                    </xsl:when>
-                    <xsl:otherwise>def</xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="xx"
-                          select="//s[//s/event] ?? //attributes/@v ?? 'def' "/>
-            <input xmlns="" slice="s" slice-event="input" value="{$in-value}" data-dce-id="14"/>
-            <dce-text xmlns="" data-dce-id="15">$in-value:<xsl:value-of select="$in-value"/> | $xx:<xsl:value-of
-                    select="$xx"/>
-            </dce-text>
+            <section xmlns="" data-dce-id="2">
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="cem-theme"
+                              select="document('./theme-data.xhtml')//*[@id='theme']/*"/>
+                <dce-text data-dce-id="3">
+                    count=
+                    <xsl:value-of select="count($cem-theme)"/>
+                </dce-text>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$cem-theme">
+                    <xsl:value-of select="@id"/>
+                    <xsl:value-of select="."/>
+                </xsl:for-each>
+                <hr data-dce-id="4"/>
+            </section>
         </dce-root>
     </xsl:template>
     <xsl:template match="/">
