@@ -154,7 +154,7 @@ export const OrderPreservingOn2ndTransform:Story  =
 
         await fireEvent.click(canvas.getByTestId('cb2'));
         await expect(await canvas.findByText('#2')).toBeInTheDocument();
-        await expect(canvas.getByTestId("beforeC1").nextElementSibling).toEqual(canvas.getByTestId("isC1"))
+        await expect(canvas.getByTestId("beforeC1").nextElementSibling.textContent).toEqual('#1')
     },
 };
 export const ReadSystemValidityMessage:Story  =

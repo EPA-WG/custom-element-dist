@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datadom>
     <payload xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-        <cem-css-rules xmlns="http://www.w3.org/1999/xhtml" slice="rules" slot=""></cem-css-rules>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">&lt;style&gt;</span>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">header{ display: flex; gap: 2rem; align-items: center; label{
+            display: flex;}}
+        </span>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">&lt;/style&gt;</span>
         <xsl:variable xmlns="http://www.w3.org/1999/xhtml" name="cem-emotions" slot="">
             <option value="comfort" warmth="cool" sample="white" system="Canvas" text="CanvasText">light scene color,
                 the scene is full of object
@@ -29,6 +33,23 @@
         </xsl:variable>
         <xsl:variable xmlns="http://www.w3.org/1999/xhtml" name="cem-media"
                       select="//*[starts-with(./*/@dce-object-name, '--cem-palette-')]" slot=""></xsl:variable>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">//*[starts-with(./*/@dce-object-name, '--cem-palette-')]
+            {//*[starts-with(./*/@dce-object-name, '--cem-palette-')]}
+        </span>
+        <br xmlns="http://www.w3.org/1999/xhtml" slot=""/>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">count (//*[starts-with(./*/@dce-object-name,
+            '--cem-palette-')]) { count (//*[starts-with(./*/@dce-object-name, '--cem-palette-')]) }
+        </span>
+        <br xmlns="http://www.w3.org/1999/xhtml" slot=""/>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">count (//*[@dce-object-name]) { count (//*[@dce-object-name])
+            }
+        </span>
+        <br xmlns="http://www.w3.org/1999/xhtml" slot=""/>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">(//*[@dce-object-name]) {
+            (//*[@dce-object-name])/@dce-object-name }
+        </span>
+        <br xmlns="http://www.w3.org/1999/xhtml" slot=""/>
+        <cem-css-rules xmlns="http://www.w3.org/1999/xhtml" slice="rules" slot=""></cem-css-rules>
         <h1 xmlns="http://www.w3.org/1999/xhtml" slot="">Base cem-palette tokens</h1>
         <xhtml:table xmlns="http://www.w3.org/1999/xhtml" slot="">
             <xhtml:thead>
@@ -61,145 +82,16 @@
                 </xsl:for-each>
             </xhtml:tbody>
         </xhtml:table>
-        <hr xmlns="http://www.w3.org/1999/xhtml" slot=""/>
-        <section xmlns="http://www.w3.org/1999/xhtml" slot="">
-            <h1>Action tokens</h1>
-            <header>Filter with
-                <label class="action">
-                    <input slice="filter-colors" value="color" title="uses background/text color" type="checkbox"
-                           checked=""/>
-                    color
-                </label>
-                <label class="action">
-                    <input slice="filter-outline" value="outline" title="uses outline" type="checkbox" checked=""/>
-                    outline
-                </label>
-                <label class="action">
-                    <input slice="filter-font" value="font" title="uses font" type="checkbox" checked=""/>
-                    font
-                </label>
-                <label class="action">
-                    <input slice="filter-marker" value="marker" title="uses marker like *" type="checkbox" checked=""/>
-                    marker
-                </label>
-            </header>
-            <xsl:variable name="cem-theme">
-                <option value="native">System driven colors</option>
-                <option value="light">light</option>
-                <option value="dark">dark</option>
-                <option value="light-contrast">hight-contrast light</option>
-                <option value="dark-contrast">high-contrast dark</option>
-            </xsl:variable>
-            <xsl:variable name="cem-action-intent">
-                <option value="explicit" base-color="white">user explicitly/intentionally clicks or activates</option>
-                <option value="primary" base-color="black">default, confirmatory, implicit. Triggered by ENTER</option>
-                <option value="contextual" base-color="blue">integrated within a specific context, Toolbar/menu</option>
-                <option value="alternate" base-color="red">triggering not usual alternative flow</option>
-                <option value="destructive" base-color="red">risky, potentially harmful, requires caution</option>
-            </xsl:variable>
-
-            <xsl:variable name="cem-action-state">
-                <option value="disabled" tokens="color         font marker" complimentary-token="color-text">Disabled
-                </option>
-                <option value="readonly" tokens="color outline font marker" complimentary-token="color-text">Readonly,
-                    underline is grayed out in Material Design
-                </option>
-                <option value="editable" tokens="color outline font marker" complimentary-token="color-text">Editable,
-                    underlined in Material Design
-                </option>
-                <option value="required" tokens="      outline font marker" complimentary-token="color-text">Required,
-                    often marked by star suffix
-                </option>
-                <option value="default" tokens="color outline font marker" complimentary-token="color-text">button is
-                    outlined, input fields underlined in Material Design
-                </option>
-                <option value="indeterminate" tokens="color outline font marker" complimentary-token="color-text">No
-                    Value available, "select all" checkbox when not all of its sub-controls are checked.
-                </option>
-                <option value="target" tokens="      outline font marker" complimentary-token="color-text">Marked to
-                    outline the element is pointed by URL.
-                </option>
-                <option value="focus" tokens="      outline font marker" complimentary-token="color-text">Outlined to
-                    reflect the input is focused. Buttons do not show the focus outline
-                </option>
-                <option value="hover" tokens="color outline font marker" complimentary-token="color-text">Outline to
-                    reflect the focus is make by keyboard navigation, visible even in actions/buttons
-                </option>
-                <option value="selected" tokens="color         font marker" complimentary-token="color-text">Selected
-                    item(menu, radio), checked radio, etc.
-                </option>
-                <option value="active" tokens="color outline font marker" complimentary-token="color-text">Pressed
-                    action element state, darkest background with alternate text color to emphasize the action follows
-                    immediately.
-                </option>
-                <option value="pending" tokens="color outline font marker" complimentary-token="color-text">Element
-                    state after active when element should not be used as the result of previous action is still in
-                    progress.
-                </option>
-            </xsl:variable>
-
-            <xsl:for-each select="exsl:node-set($cem-theme)/*">
-                <h1>
-                    <a href="#cem-theme-{@value}" id="#cem-theme-{@value}">Theme
-                        <var>cem-theme-{@value}</var>
-                    </a>
-                </h1>
-                <xhtml:table class="cem-theme-{@value}">
-                    <xhtml:thead>
-                        <xhtml:tr>
-                            <xhtml:th></xhtml:th>
-                            <xsl:for-each select="exsl:node-set($cem-action-intent)/*">
-                                <xhtml:th style="min-width:6rem" title="{.}">{@value}</xhtml:th>
-                            </xsl:for-each>
-                        </xhtml:tr>
-                    </xhtml:thead>
-                    <xhtml:tbody>
-                        <xsl:for-each select="exsl:node-set($cem-action-state)/*">
-                            <xsl:if test="contains(@tokens, 'color') or contains(@tokens, //filter-outline)">
-                                <xhtml:tr>
-                                    <xsl:variable name="state" select="@value"></xsl:variable>
-                                    <xsl:variable name="state-description" select="."></xsl:variable>
-
-                                    <xhtml:td title="{.}">{@value}</xhtml:td>
-                                    <xsl:for-each select="exsl:node-set($cem-action-intent)/*">
-                                        <xsl:variable name="intent" select="@value"></xsl:variable>
-                                        <xhtml:td
-                                                style="&#10;                                            background-color: var(--cem-action-{ $intent }-{ $state }-background);&#10;                                            color:            var(--cem-action-{ $intent }-{ $state }-text);&#10;                                            font-size:x-small;&#10;                                            padding:0.5em"
-                                                title="&#10;    {@value} : {.}&#10;    {$state} : {$state-description}&#10;">
-                                            --cem-action-{ $intent }-{ $state }-background
-                                            <br/>
-                                            --cem-action-{ $intent }-{ $state }-color
-                                        </xhtml:td>
-                                    </xsl:for-each>
-                                </xhtml:tr>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </xhtml:tbody>
-                </xhtml:table>
-                filter-outline {count(//filter-outline)}
-            </xsl:for-each>
-        </section>
-        <hr xmlns="http://www.w3.org/1999/xhtml" slot=""/>
-        <h1 xmlns="http://www.w3.org/1999/xhtml" slot="">All variables</h1>
-        <xsl:for-each xmlns="http://www.w3.org/1999/xhtml" select="//*[starts-with(./*/@dce-object-name, '--')]"
-                      slot="">
-            <details>
-                <summary>{@dce-object-name}</summary>
-                <xsl:for-each select="*">
-                    <button style="background-color: {.}" title="{@dce-object-name} : {.}"></button>
-                </xsl:for-each>
-            </details>
-        </xsl:for-each>
-        <hr xmlns="http://www.w3.org/1999/xhtml" slot=""/>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">{count($cem-media)}</span>
     </payload>
-    <attributes tag="dce-cda41212-c563-4788-a0ad-8bbe32760cda">
-        <tag>dce-cda41212-c563-4788-a0ad-8bbe32760cda</tag>
+    <attributes tag="dce-62ce8397-9222-4712-80eb-606b89300163">
+        <tag>dce-62ce8397-9222-4712-80eb-606b89300163</tag>
     </attributes>
     <dataset/>
     <slice>
-        <rules xmlns="" slice="rules" data-dce-id="2" value="[object Object]">
+        <rules xmlns="" slice="rules" data-dce-id="17" value="[object Object]">
             <event isTrusted="false" sliceProcessed="1" type="change" eventPhase="2" bubbles="false" cancelable="false"
-                   defaultPrevented="false" composed="false" timeStamp="83.19999998807907" returnValue="true"
+                   defaultPrevented="false" composed="false" timeStamp="84.89999997615814" returnValue="true"
                    cancelBubble="false" NONE="0" CAPTURING_PHASE="1" AT_TARGET="2" BUBBLING_PHASE="3"/>
             <value>
                 <dce-object dce-object-name="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
@@ -256,10 +148,6 @@
                                 animation-fill-mode="none" animation-play-state="running" animation-name="fa-spin"
                                 animation-timeline="auto" animation-range-start="normal" animation-range-end="normal"/>
                     <dce-object dce-object-name="@keyframes fa-spin">
-                        <dce-object dce-object-name="0%" transform="rotate(0deg)"/>
-                        <dce-object dce-object-name="100%" transform="rotate(1turn)"/>
-                    </dce-object>
-                    <dce-object dce-object-name="@keyframes fa-spin-26">
                         <dce-object dce-object-name="0%" transform="rotate(0deg)"/>
                         <dce-object dce-object-name="100%" transform="rotate(1turn)"/>
                     </dce-object>
@@ -1754,17 +1642,11 @@
                     <dce-object dce-object-name=".sr-only-focusable:active, .sr-only-focusable:focus" clip="auto"
                                 height="auto" margin-top="0px" margin-right="0px" margin-bottom="0px" margin-left="0px"
                                 overflow-x="visible" overflow-y="visible" position="static" width="auto"/>
-                    <dce-object dce-object-name="@font-face" font-family="&quot;Font Awesome 5 Brands&quot;"
-                                font-style="normal" font-weight="400" font-display="block"
-                                src="url(&quot;../webfonts/fa-brands-400.woff2&quot;) format(&quot;woff2&quot;), url(&quot;../webfonts/fa-brands-400.woff&quot;) format(&quot;woff&quot;), url(&quot;../webfonts/fa-brands-400.ttf&quot;) format(&quot;truetype&quot;)"/>
-                    <dce-object dce-object-name=".fab" font-family="&quot;Font Awesome 5 Brands&quot;"/>
-                    <dce-object dce-object-name="@font-face-1502" font-family="&quot;Font Awesome 5 Free&quot;"
-                                font-style="normal" font-weight="400" font-display="block"
-                                src="url(&quot;../webfonts/fa-regular-400.woff2&quot;) format(&quot;woff2&quot;), url(&quot;../webfonts/fa-regular-400.woff&quot;) format(&quot;woff&quot;), url(&quot;../webfonts/fa-regular-400.ttf&quot;) format(&quot;truetype&quot;)"/>
-                    <dce-object dce-object-name=".fab, .far" font-weight="400"/>
-                    <dce-object dce-object-name="@font-face-1504" font-family="&quot;Font Awesome 5 Free&quot;"
+                    <dce-object dce-object-name="@font-face" font-family="&quot;Font Awesome 5 Free&quot;"
                                 font-style="normal" font-weight="900" font-display="block"
                                 src="url(&quot;../webfonts/fa-solid-900.woff2&quot;) format(&quot;woff2&quot;), url(&quot;../webfonts/fa-solid-900.woff&quot;) format(&quot;woff&quot;), url(&quot;../webfonts/fa-solid-900.ttf&quot;) format(&quot;truetype&quot;)"/>
+                    <dce-object dce-object-name=".fab" font-family="&quot;Font Awesome 5 Brands&quot;"/>
+                    <dce-object dce-object-name=".fab, .far" font-weight="400"/>
                     <dce-object dce-object-name=".fa, .far, .fas" font-family="&quot;Font Awesome 5 Free&quot;"/>
                     <dce-object dce-object-name=".fa, .fas" font-weight="900"/>
                 </dce-object>
@@ -1773,21 +1655,6 @@
                         <dce-object
                                 dce-object-name="http://localhost:63342/custom-element-dist/src/material/angular.css">
                             <dce-object dce-object-name=":root">
-                                <dce-object dce-object-name="--ng-teal-primary">#dce3fc</dce-object>
-                                <dce-object dce-object-name="--ng-teal-hover">#d0d8f6</dce-object>
-                                <dce-object dce-object-name="--ng-teal-focus">#c8d2f3</dce-object>
-                                <dce-object dce-object-name="--ng-teal-active">#adc4ef</dce-object>
-                                <dce-object dce-object-name="--ng-action-elevation-shadow">0px 2px 1px -1px rgba(0, 0,
-                                    0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)
-                                </dce-object>
-                                <dce-object dce-object-name="--ng-action-box-shadow-hover">0px 3px 3px -2px rgba(0, 0,
-                                    0, .2), 0px 3px 4px 0px rgba(0, 0, 0, .14), 0px 1px 8px 0px rgba(0, 0, 0, .12)
-                                </dce-object>
-                                <dce-object dce-object-name="--ng-action-transition">box-shadow 280ms cubic-bezier(0.4,
-                                    0, 0.2, 1)
-                                </dce-object>
-                            </dce-object>
-                            <dce-object dce-object-name=":root-1">
                                 <dce-object dce-object-name="--ng-error-0">#000000</dce-object>
                                 <dce-object dce-object-name="--ng-error-10">#410002</dce-object>
                                 <dce-object dce-object-name="--ng-error-20">#690005</dce-object>
@@ -3833,32 +3700,7 @@
                     </main>
                     <cem-icon margin-top="1rem" margin-right="1rem" margin-bottom="1rem" margin-left="1rem"/>
                 </STYLE>
-                <STYLE-3>
-                    <dce-cda41212-c563-4788-a0ad-8bbe32760cda>
-                        <dce-object dce-object-name="&amp; header" position="sticky" top="0px" color="lightblue"
-                                    background-image="initial" background-position-x="initial"
-                                    background-position-y="initial" background-size="initial"
-                                    background-repeat="initial" background-attachment="initial"
-                                    background-origin="initial" background-clip="initial"
-                                    background-color="rgba(0, 0, 0, 0.75)" display="flex" row-gap="2rem"
-                                    column-gap="2rem" align-items="center">
-                            <dce-object dce-object-name="&amp; label" display="flex"/>
-                        </dce-object>
-                    </dce-cda41212-c563-4788-a0ad-8bbe32760cda>
-                </STYLE-3>
             </value>
         </rules>
-        <filter-colors slice="filter-colors" value="color" title="uses background/text color" type="checkbox" checked=""
-                       data-dce-id="29" validation-message=""><event type="init" sliceProcessed="1"/>color
-        </filter-colors>
-        <filter-outline slice="filter-outline" value="outline" title="uses outline" type="checkbox" checked=""
-                        data-dce-id="32" validation-message=""><event type="init" sliceProcessed="1"/>outline
-        </filter-outline>
-        <filter-font slice="filter-font" value="font" title="uses font" type="checkbox" checked="" data-dce-id="35"
-                     validation-message=""><event type="init" sliceProcessed="1"/>font
-        </filter-font>
-        <filter-marker slice="filter-marker" value="marker" title="uses marker like *" type="checkbox" checked=""
-                       data-dce-id="38" validation-message=""><event type="init" sliceProcessed="1"/>marker
-        </filter-marker>
     </slice>
 </datadom>

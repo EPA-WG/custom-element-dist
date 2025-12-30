@@ -1,1 +1,0 @@
-import{w as a}from"./index-Dr4PwNfd.js";async function r(t,e){const n=await e.findByTestId(t);return new Promise(o=>n.addEventListener("load",()=>{o(a(n.contentWindow?.document.documentElement))}))}export{r as f};
