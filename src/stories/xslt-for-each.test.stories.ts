@@ -1,9 +1,10 @@
 // noinspection DuplicatedCode
 
 import type { StoryObj } from '@storybook/web-components';
-import { expect, userEvent, within } from '@storybook/test';
+import {expect, fireEvent, userEvent, within} from '@storybook/test';
 
 import '../custom-element/custom-element.js';
+import {click} from "webdriverio/build/commands/element/click";
 
 type TProps = { title: string; tag: string; template: string; payload: string };
 
@@ -31,13 +32,7 @@ const meta = {
 
 export default meta;
 
-export const ForEach: Story = {
-    args: {
-        title: 'KNOWN ISSUE: Multiple IF blocks - out of order',
-        tag: 'multi-if-order-issue',
-        template: `
-            <div data-testid="whole-text">
-              <xsl:variable name="test-data">
+const Head6Table = `
 <h6 id="cem-color-hue-variant" tabindex="-1">cem-color-hue-variant</h6>
 <table>
     <thead>
@@ -260,8 +255,15 @@ export const ForEach: Story = {
         <td>Danger palette (dark theme, extreme)</td>
     </tr>
     </tbody>
-</table>
-                </xsl:variable>
+</table>`;
+
+export const ForEach: Story = {
+    args: {
+        title: 'KNOWN ISSUE: Multiple IF blocks - out of order',
+        tag: 'multi-for-each',
+        template: `
+            <div data-testid="whole-text">
+                <xsl:variable name="test-data">${Head6Table}</xsl:variable>
                 <hr/>
                 <variable name="cem-color-hue-variant" select="exsl:node-set($test-data)//*[@id='cem-color-hue-variant']/following-sibling::table[1]/tbody"></variable>
                 <for-each select="$cem-color-hue-variant/*">
@@ -272,7 +274,7 @@ export const ForEach: Story = {
                         
         `,
         payload: `
-            <multi-if-order-issue></multi-if-order-issue>
+            <multi-for-each></multi-for-each>
         `
     },
     play: async ({ canvasElement }) => {
@@ -282,6 +284,42 @@ export const ForEach: Story = {
         expect( await await canvas.findByText('--cem-color-blue-l')).toBeInTheDocument();
         expect( await await canvas.findByTestId('color-26')).toBeInTheDocument();
         expect( await await canvas.findByText('--cem-color-red-xd')).toBeInTheDocument();
+    }
+};
+export const ForEach_0_2_N: Story = {
+    args: {
+        title: 'initially none, on check - all items in order 0 to N. N should be in the end',
+        tag: 'for-each-0-to-n',
+        template: `
+            <div data-testid="whole-text">
+                <xsl:variable name="test-data">${Head6Table}</xsl:variable>
+                <label><input type="checkbox" data-testid="toggle-all" slice="show-all" value="ALL"  /> ALL </label>
+                <variable name="cem-color-hue-variant" select="exsl:node-set($test-data)//*[@id='cem-color-hue-variant']/following-sibling::table[1]/tbody"></variable>
+                <variable name="show-all" select="//show-all = 'ALL'"></variable>
+<hr/>
+                0
+                <for-each select="$cem-color-hue-variant/*[ $show-all ]">
+                
+                    <div data-testid="color-{position()}"> {position()} {./*[1]}</div>
+                </for-each>
+                N
+            </div>
+                        
+        `,
+        payload: `
+            <for-each-0-to-n></for-each-0-to-n>
+        `
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const container = await canvas.findByTestId('whole-text');
+
+        await expect(container.textContent).toMatch(/0\s+N/);
+        await fireEvent.click(await canvas.findByTestId('toggle-all'));
+        await canvas.findByText('1--cem-color-blue-xl');
+        await expect(await canvas.findByText('1--cem-color-blue-xl')).toBeInTheDocument();
+        // should start with 0 and end with N
+        await expect(container.textContent).toMatch(/0\s+1--cem-color-blue-xl[\s\S]*26--cem-color-red-xd\s+N/);
     }
 };
 
