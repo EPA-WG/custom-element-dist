@@ -1,4 +1,4 @@
-import{w as l,e as a,u as c}from"./index-CGuyH0k-.js";import"./custom-element-Bwx7otrT.js";function d(i){const{title:e,tag:t,template:s,payload:n}=i;return`
+import{w as l,e as a,u as c}from"./index-CGuyH0k-.js";import"./custom-element-CnmjNo0g.js";function d(i){const{title:e,tag:t,template:s,payload:n}=i;return`
         <fieldset>
             <legend>${e}</legend>
             <custom-element tag="${t}" hidden>
@@ -8,7 +8,7 @@ import{w as l,e as a,u as c}from"./index-CGuyH0k-.js";import"./custom-element-Bw
             </custom-element>
             ${n}
         </fieldset>
-    `}const f={title:"xslt-if",render:d},o={args:{title:"KNOWN ISSUE: Multiple IF blocks - out of order",tag:"multi-if-order-issue",template:`
+    `}const f={title:"xslt/if",render:d},o={args:{title:"KNOWN ISSUE: Multiple IF blocks - out of order",tag:"multi-if-order-issue",template:`
             <div data-testid="whole-text">
                 <label><input type="checkbox" data-testid="toggle-a" slice="show-a" value="AA"  /> A</label>
                

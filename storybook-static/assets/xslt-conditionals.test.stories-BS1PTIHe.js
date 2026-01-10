@@ -1,4 +1,4 @@
-import{w as n,e,u as I}from"./index-CGuyH0k-.js";import"./custom-element-Bwx7otrT.js";function o(a){return new Promise(s=>setTimeout(s,a))}function B(a){const{title:s,tag:t,template:i,payload:r}=a;return`
+import{w as n,e,u as I}from"./index-CGuyH0k-.js";import"./custom-element-CnmjNo0g.js";function o(a){return new Promise(s=>setTimeout(s,a))}function B(a){const{title:s,tag:t,template:i,payload:r}=a;return`
         <fieldset>
             <legend>${s}</legend>
             <custom-element tag="${t}" hidden>
@@ -8,7 +8,7 @@ import{w as n,e,u as I}from"./index-CGuyH0k-.js";import"./custom-element-Bwx7otr
             </custom-element>
             ${r}
         </fieldset>
-    `}const H={title:"xslt-conditionals",render:B},c={args:{title:"xsl:if - condition is true",tag:"if-true-test",template:`
+    `}const H={title:"xslt/conditionals",render:B},c={args:{title:"xsl:if - condition is true",tag:"if-true-test",template:`
             <attribute name="show-message"></attribute>
             <if test="//@show-message">
                 <span data-testid="result">Message is visible</span>
