@@ -27,7 +27,7 @@ function render(args: TProps) {
 }
 
 const meta = {
-    title: 'xslt-conditionals',
+    title: 'xslt/conditionals',
     render
 };
 

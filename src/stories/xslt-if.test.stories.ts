@@ -25,7 +25,7 @@ function render(args: TProps) {
 }
 
 const meta = {
-    title: 'xslt-if',
+    title: 'xslt/if',
     render
 };
 

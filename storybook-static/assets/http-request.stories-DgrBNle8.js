@@ -1,4 +1,4 @@
-import{w as m,e as t}from"./index-CGuyH0k-.js";import"./custom-element-Bwx7otrT.js";import"./http-request-BWeEEBkP.js";import{h as p}from"./handlers-F7GUfMqr.js";const v={title:"",slice:"page",url:"/pokemon?limit=6"};function r(a){return new Promise(e=>setTimeout(e,a))}function f({title:a,slice:e,url:n}){return`
+import{w as m,e as t}from"./index-CGuyH0k-.js";import"./custom-element-CnmjNo0g.js";import"./http-request-BWeEEBkP.js";import{h as p}from"./handlers-Dvg8CAeR.js";const v={title:"",slice:"page",url:"/pokemon?limit=6"};function r(a){return new Promise(e=>setTimeout(e,a))}function f({title:a,slice:e,url:n}){return`
         <fieldset>
             <legend>${a}</legend>
             <custom-element>
