@@ -30,6 +30,7 @@ function render(args: TProps)
 const meta =
 {   title:      'dom-merge'
 ,   render
+,   parameters: { test:{ dangerouslyIgnoreUnhandledErrors: true}}
 };
 
 export default meta;

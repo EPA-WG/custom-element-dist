@@ -226,6 +226,7 @@ export const CheckboxUnchecked:Story  =
         await userEvent.click ( cb );
         await expect( await canvas.findByText('slice: V1')).toBeInTheDocument();
         await userEvent.click ( cb );
+        await expect( await canvas.findByText('slice:')).toBeInTheDocument();
         await expect( p.textContent).toEqual('slice: ');
 
     },
@@ -250,6 +251,8 @@ export const CheckboxSliceValue:Story  =
         await userEvent.click ( cb );
         await expect( await canvas.findByText('slice: V1')).toBeInTheDocument();
         await userEvent.click ( cb );
+        await expect( await canvas.findByText('slice:')).toBeInTheDocument();
+
         await expect( p.textContent).toEqual('slice: ');
 
     },

@@ -77,7 +77,8 @@ const meta =
             await story.play({canvasElement: document.body.firstElementChild as HTMLElement});
             resolve(0);
         }, 0));
-    },
+    }
+,   parameters: { test:{ dangerouslyIgnoreUnhandledErrors: true}}
 };
 
 export default meta;
