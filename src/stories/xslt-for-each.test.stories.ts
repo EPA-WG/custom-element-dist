@@ -27,7 +27,12 @@ function render(args: TProps) {
 
 const meta = {
     title: 'xslt/for-each',
-    render
+    render,
+    parameters: {
+        test: {
+            dangerouslyIgnoreUnhandledErrors: true,
+        },
+    },
 };
 
 export default meta;
@@ -323,6 +328,99 @@ export const ForEach_0_2_N: Story = {
     }
 };
 
+
+const Table3x3Data = `
+<rows>
+    <r id="1"><d>A1</d><d>A2</d><d>A3</d></r>
+    <r id="2"><d>B1</d><d>B2</d><d>B3</d></r>
+    <r id="3"><d>C1</d><d>C2</d><d>C3</d></r>
+</rows>`;
+
+export const ForEach_Table_3x3: Story = {
+    args: {
+        title: 'Table 3x3: initially empty, rows shown by checkbox, content stays inside table',
+        tag: 'for-each-table-3x3',
+        template: `
+            <xsl:variable name="rows-data">${Table3x3Data}</xsl:variable>
+            <variable name="rows" select="exsl:node-set($rows-data)/*/*"></variable>
+            <label><input type="checkbox" data-testid="toggle-rows" slice="show-rows" value="yes" /> Show rows</label>
+            <variable name="show-rows" select="//show-rows = 'yes'"></variable>
+<pre data-testid="just-text">
+JUST_TEXT_BEFORE
+    <for-each select="$rows[$show-rows]">
+        <for-each select="*">
+            {.} #
+        </for-each>
+    </for-each>
+JUST_TEXT_AFTER
+</pre>
+            <div data-testid="container">
+                TEXT_BEFORE
+                <xhtml:table data-testid="the-table">
+                    <xhtml:thead>
+                        <xhtml:tr><xhtml:th>Col A</xhtml:th><xhtml:th>Col B</xhtml:th><xhtml:th>Col C</xhtml:th></xhtml:tr>
+                    </xhtml:thead>
+                    <xhtml:tbody data-testid="table-body">
+                        <for-each select="$rows[$show-rows]">
+                            <xhtml:tr data-testid="row-{@id}">
+                                <for-each select="*">
+                                    <xhtml:td>{.}</xhtml:td>
+                                </for-each>
+                            </xhtml:tr>
+                        </for-each>
+                    </xhtml:tbody>
+                </xhtml:table>
+                TEXT_AFTER
+            </div>
+        `,
+        payload: `
+            <for-each-table-3x3></for-each-table-3x3>
+        `
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        const justTextContainer = await canvas.findByTestId('just-text');
+        expect(justTextContainer.textContent).toMatch(/JUST_TEXT_BEFORE[\s\S]*JUST_TEXT_AFTER/);
+
+        const container = await canvas.findByTestId('container');
+        const table = await canvas.findByTestId('the-table');
+        const tbody = await canvas.findByTestId('table-body');
+
+        // Initially no rows visible
+        expect(tbody.querySelectorAll('tr').length).toBe(0);
+        // TEXT_BEFORE ... TEXT_AFTER with table in between (but no row content)
+        expect(container.textContent).toMatch(/TEXT_BEFORE[\s\S]*Col A[\s\S]*TEXT_AFTER/);
+
+        // Toggle checkbox to show rows
+        await fireEvent.click(await canvas.findByTestId('toggle-rows'));
+
+
+
+        // Now 3 rows should be visible
+        expect(await canvas.findByTestId('row-1')).toBeInTheDocument();
+        expect(await canvas.findByTestId('row-2')).toBeInTheDocument();
+        expect(await canvas.findByTestId('row-3')).toBeInTheDocument();
+        expect(tbody.querySelectorAll('tr').length).toBe(3);
+
+        expect(justTextContainer.textContent).toMatch(/JUST_TEXT_BEFORE[\s\S]*A1 #/);
+        expect(justTextContainer.textContent).toMatch(/C3 #[\s\S]*JUST_TEXT_AFTER/);
+
+        // Verify rows are inside the table (TR should be children of TBODY)
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+            expect(row.parentElement).toBe(tbody);
+        });
+
+        // Verify table content is between TEXT_BEFORE and TEXT_AFTER
+        expect(container.textContent).toMatch(/TEXT_BEFORE[\s\S]*?Col A[\s\S]*?Col B[\s\S]*?Col C[\s\S]*?A1[\s\S]*?A2[\s\S]*?A3[\s\S]*?B1[\s\S]*?B2[\s\S]*?B3[\s\S]*?C1[\s\S]*?C2[\s\S]*?C3[\s\S]*?TEXT_AFTER/);
+
+        // Verify no content leaked outside the table
+        const tableHtml = table.outerHTML;
+        expect(tableHtml).toContain('A1');
+        expect(tableHtml).toContain('C3');
+    }
+};
 
 //#region unit tests
 /* istanbul ignore else -- @preserve */

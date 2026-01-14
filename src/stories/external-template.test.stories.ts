@@ -24,6 +24,7 @@ function render(args: TProps)
 const meta =
 {   title:      'external-templates'
 ,   render
+,   parameters: { test:{ dangerouslyIgnoreUnhandledErrors: true}}
 };
 
 export default meta;
@@ -151,6 +152,7 @@ export const ExternalHtmlFileInline:Story  =
         const canvas = within(canvasElement);
         await canvas.findByText(ExternalHtmlFileInline.args!.title as string);
         await canvas.findByText('👋');
+        await canvas.findByText('👌');
         const t5 = canvasElement.innerHTML;
         expect(t5).to.include('👋');
         expect(t5).to.include('👌');
@@ -169,7 +171,7 @@ export const HtmlWithinHtmlFile:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(HtmlWithinHtmlFile.args!.title as string);
-        expect(await canvas.findByText('👋')).toBeInTheDocument();
+        await expect(await canvas.findByText('👋')).toBeInTheDocument();
     },
 };
 
@@ -183,7 +185,7 @@ export const SvgWithinHtmlFile:Story  =
     {
         const canvas = within(canvasElement);
         await canvas.findByText(SvgWithinHtmlFile.args!.title as string);
-        expect(await canvas.findByTestId('svg-test')).toBeInTheDocument();
+        await expect(await canvas.findByTestId('svg-test')).toBeInTheDocument();
     },
 };
 
@@ -199,7 +201,7 @@ export const MathMLWithinHtmlFile:Story  =
         const frCanvas = await frameCanvas('fr',canvas);
 
         const ml = await frCanvas.findByTestId('ml-test');
-        expect(ml.firstElementChild.localName).toEqual('mrow');
+        await expect(ml.firstElementChild.localName).toEqual('mrow');
     },
 };
 

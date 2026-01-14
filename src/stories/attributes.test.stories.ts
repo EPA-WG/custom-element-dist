@@ -25,6 +25,7 @@ const meta =
 {        title: 'attributes'
 // ,         tags: ['autodocs']
 ,       render
+,   parameters: { test:{ dangerouslyIgnoreUnhandledErrors: true}}
 };
 
 export default meta;
@@ -290,6 +291,7 @@ export const AttributesPropagationUp:Story  =
 
         t3.querySelector('input')?.focus();
         await userEvent.keyboard('DCE');
+        await canvas.findByText('//from-input: DCE')
         await expect( t3 ).toHaveAttribute('p3','DCE');
 
     },

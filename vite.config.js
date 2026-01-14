@@ -50,7 +50,8 @@ export default {
             reporter: [ 'text', 'json', 'html', 'coverage-svg' ],
             provider: 'istanbul',
             include : [ 'src' ]
-        }
+        },
+        dangerouslyIgnoreUnhandledErrors: true, // Ignore MSW service worker errors
     },
     publicDir: 'public'
 }

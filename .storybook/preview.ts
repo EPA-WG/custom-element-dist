@@ -2,7 +2,13 @@ import {initialize, mswLoader} from 'msw-storybook-addon';
 
 import {handlers} from "../src/mocks/handlers";
 
-initialize({onUnhandledRequest: 'bypass'});// SB
+initialize({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: {
+        url: './mockServiceWorker.js',
+    },
+    quiet: true, // Suppress MSW warnings in console
+});// SB
 
 const preview = {
     parameters: {
