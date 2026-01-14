@@ -27,8 +27,8 @@ CDN version of StoryBook.
 [github-image]:   https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg
 [npm-image]:      https://img.shields.io/npm/v/@epa-wg/custom-element-dist.svg
 [npm-url]:        https://npmjs.org/package/@epa-wg/custom-element-dist
-[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.35/coverage/src/custom-element/coverage.svg
-[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.35/coverage/src/custom-element/index.html
-[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.35/storybook-static/index.html
-[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.35/dist/custom-element-bundle.js
-[cem-url]:        https://unpkg.com/@epa-wg/custom-element-dist@0.0.35/src/material/components.html
+[coverage-image]: https://unpkg.com/@epa-wg/custom-element-dist@0.0.36/coverage/src/custom-element/coverage.svg
+[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-dist@0.0.36/coverage/src/custom-element/index.html
+[sb-url]:         https://unpkg.com/@epa-wg/custom-element-dist@0.0.36/storybook-static/index.html
+[bundle-url]:     https://unpkg.com/@epa-wg/custom-element-dist@0.0.36/dist/custom-element-bundle.js
+[cem-url]:        https://unpkg.com/@epa-wg/custom-element-dist@0.0.36/src/material/components.html

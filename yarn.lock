@@ -399,7 +399,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@epa-wg/custom-element-dist@workspace:."
   dependencies:
-    "@epa-wg/custom-element": "npm:0.0.35"
+    "@epa-wg/custom-element": "npm:0.0.36"
     "@storybook/addon-essentials": "npm:8.5.3"
     "@storybook/addon-interactions": "npm:8.5.3"
     "@storybook/addon-links": "npm:8.5.3"
@@ -424,10 +424,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@epa-wg/custom-element@npm:0.0.35":
-  version: 0.0.35
-  resolution: "@epa-wg/custom-element@npm:0.0.35"
-  checksum: 10c0/33faa7bbf698af1b8c4c8a211ad5788a0a3d6d822279f18fbbe90495a5e74ddaec4650856372b3af1bb9fe6f33eda03d1059051b33361fe22e675d5ba07d4e26
+"@epa-wg/custom-element@npm:0.0.36":
+  version: 0.0.36
+  resolution: "@epa-wg/custom-element@npm:0.0.36"
+  checksum: 10c0/31a9e7305b8000699b7e9207554b552d208a2d85cf06b6e3edc3786ae2a7e6f6a47dd915c1c25072e04f5b38c997d2fbfbe0b37423525ed0f5996fec085c2cc6
   languageName: node
   linkType: hard
 
