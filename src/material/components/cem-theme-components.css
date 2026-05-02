@@ -74,11 +74,11 @@
     --cem-list-background-color-hover: var(--cem-action-contextual-hover-background);
     --cem-list-background-color-focus: var(--cem-action-primary-hover-background);
 
-    --cem-menu-item-color: var(--cem-action-contextual-default-text);
+    --cem-menu-item-color: var(--cem-action-explicit-default-text);
     --cem-menu-item-color-disabled: var(--cem-action-contextual-disabled-text);
-    --cem-menu-item-background: var(--cem-action-contextual-default-background);
-    --cem-menu-item-hover-background: var(--cem-action-contextual-hover-background);
-    --cem-menu-item-hover-color: var(--cem-action-contextual-hover-text);
+    --cem-menu-item-background: var(--cem-action-explicit-default-background);
+    --cem-menu-item-hover-background: var(--cem-action-explicit-hover-background);
+    --cem-menu-item-hover-color: var(--cem-action-explicit-hover-text);
     --cem-menu-item-padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
     --cem-menu-item-font-weight: var(--cem-typography-tag-font-weight);
 
