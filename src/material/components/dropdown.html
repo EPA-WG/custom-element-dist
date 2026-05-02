@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,14 +22,14 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
 
         main {
             display: flex;
             flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
 
             & > p {
                 min-width: 90%;
@@ -38,11 +39,11 @@
                 overflow: visible;
 
                 [slot="legend"] {
-                    border-radius: 1rem 1rem 0 0;
+                    border-radius: var(--cem-bend-surface) var(--cem-bend-surface) 0 0;
                 }
 
                 [slot="description"] {
-                    padding: 0 1rem 1rem 1rem;
+                    padding: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container);
 
                     dd {
                         padding: 0 !important;
@@ -59,11 +60,11 @@
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 <custom-element hidden src="./menu.html#cem-menu" tag="cem-menu"></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head"></custom-element>
 </header>
 <main>
@@ -80,13 +81,24 @@
                 &>* {
                     position: relative;
 
-                    --cem-dropdown-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-                    --cem-dropdown-max-height: 10rem;
-                    --cem-dropdown-base-min-width: 8em;
+                    --cem-dropdown-shadow: var(--cem-layer-overlay);
+                    --cem-dropdown-max-height: calc(4 * var(--cem-menu-row-height));
+                    --cem-dropdown-base-min-width: calc(4 * var(--cem-control-height));
 
                     & > label {
                         min-width: var(--cem-dropdown-base-min-width);
                         display: inline-block;
+                        min-height: var(--cem-control-height);
+                        padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
+                        border-radius: var(--cem-bend-control);
+                        background: var(--cem-action-contextual-default-background);
+                        color: var(--cem-action-contextual-default-text);
+                        cursor: pointer;
+                    }
+
+                    & > label:focus-visible {
+                        outline: var(--cem-stroke-focus) solid var(--cem-zebra-color-1);
+                        outline-offset: var(--cem-stroke-indicator-offset);
                     }
 
                     & > aside {
@@ -101,14 +113,17 @@
                         display: flex;
                         flex-direction: column;
 
+                        background: var(--cem-action-contextual-default-background);
+                        color: var(--cem-action-contextual-default-text);
                         border-radius: var(--cem-autocomplete-container-shape);
                         border-top-left-radius: 0;
                         border-top-right-radius: 0;
                         box-shadow: var(--cem-dropdown-shadow);
+                        z-index: 1;
                     }
                 }
             </style>
-            <slot name="base"><label>{$label}</label></slot>
+            <slot name="base"><label tabindex="0">{$label}</label></slot>
             <aside>
                 <slot name=""></slot>
             </aside>

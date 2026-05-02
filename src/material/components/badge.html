@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,29 +22,29 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element
             {   overflow: visible;
-                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
-                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="legend"]{ border-radius: var(--cem-bend-surface) var(--cem-bend-surface) 0 0; }
+                [slot="description"]{ padding: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); dd{ padding: 0 !important;margin: 0; }}
                 [slot="description"] dd{ padding: 0; }
             }
-            var{ color: darkgreen; font-weight: bold; }
-            html-demo-element { [slot="demo"] { display: flex; gap: 8rem; } } }
-            flex-3x{ display: inline-flex; flex-wrap: wrap;gap:3rem; max-width:12rem;}
+            var{ color: var(--cem-palette-calm-text); font-weight: var(--cem-typography-tag-font-weight); }
+            html-demo-element { [slot="demo"] { display: flex; gap: var(--cem-gap-page); } } }
+            flex-3x{ display: inline-flex; flex-wrap: wrap; gap: var(--cem-gap-page); max-width: 12rem;}
     </style>
 </head>
 <!--
 ToDO
 * docs w/ how to use
 -->
-<body>
+<body class="cem-theme-light">
 <template id="cem-badge">
     <attribute name="text"
             aria-description="Badge text content. Up to 4 characters including + sign."
@@ -61,7 +62,7 @@ ToDO
             aria-description="Boolean. Default is 'false'. Values: true|false"
             ></attribute>
     <style>
-        &[dot]>*>dd{ height: 0; width: 0; min-width: 0.5rem; color: transparent; padding: 0; min-height: 0.5rem; }
+        &[dot]>*>dd{ height: 0; width: 0; min-width: var(--cem-dim-x-small); color: transparent; padding: 0; min-height: var(--cem-dim-x-small); }
         &[invisible]>*>dd{ height: 0; width: 0; min-width: 0; color: transparent; padding: 0; min-height:0; }
         &[align~=left]>*>dd{  --cem-badge-align-h: -100%; }
         &[align~=center]>*>dd{  --cem-badge-align-h: -25%; }
@@ -70,9 +71,11 @@ ToDO
         &[align~=middle]>*>dd{  --cem-badge-align-v: 25%; }
         &[align~=bottom]>*>dd{  --cem-badge-align-v: 75%; }
         &{ position: relative; display: inline-block; --cem-badge-align-v: -50%; --cem-badge-align-h: 50%; }
+        &[color="primary"]{ --cem-badge-color: var(--cem-badge-color-primary); --cem-badge-text-color: var(--cem-action-primary-default-text); }
+        &[color="secondary"]{ --cem-badge-color: var(--cem-badge-color-secondary); --cem-badge-text-color: var(--cem-action-alternate-default-text); }
+        &[color="success"]{ --cem-badge-color: var(--cem-badge-color-success); --cem-badge-text-color: var(--cem-palette-calm-text); }
+        &[color="alert"]{ --cem-badge-color: var(--cem-badge-color-alert); --cem-badge-text-color: var(--cem-action-destructive-default-text); }
         &>*>dd{
-            /*position: absolute; top:-0.5rem; border-radius: 0.5rem; */
-            /*padding: 0.25rem; background-color: red;*/
             display: flex ;
             flex-direction: row;
             flex-wrap: wrap;
@@ -83,27 +86,24 @@ ToDO
             align-items: center;
             position: absolute;
             box-sizing: border-box;
-            font-family: Roboto, Helvetica, Arial, sans-serif;
-            font-weight: 500;
-            font-size: 0.75rem;
-            min-width: 20px;
-            line-height: 1;
-            height: 20px;
+            font-family: var(--cem-typography-tag-font-family);
+            font-weight: var(--cem-typography-tag-font-weight);
+            font-size: var(--cem-typography-tag-font-size);
+            min-width: calc(var(--cem-dim-large) + var(--cem-dim-xx-small));
+            line-height: var(--cem-typography-tag-line-height);
+            height: calc(var(--cem-dim-large) + var(--cem-dim-xx-small));
             z-index: 1;
-            background-color: var(--cem-badge-color, --cem-badge-color-primary);
-            color: var(--cem-badge-text-color,rgb(255, 255, 255));
+            background-color: var(--cem-badge-color, var(--cem-badge-color-primary));
+            color: var(--cem-badge-text-color, var(--cem-action-primary-default-text));
             top: 0;
             right: 0;
             transform: scale(1) translate(var(--cem-badge-align-h), var(--cem-badge-align-v));
             transform-origin: 100% 0%;
-            padding: 0 6px;
-            border-radius: 10px;
-            border: var(--cem-badge-border, none);
-            transition: all 225ms cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 var(--cem-dim-x-small);
+            border-radius: var(--cem-bend-round);
+            border: var(--cem-badge-border);
+            transition: all var(--cem-duration-action) var(--cem-easing-smooth);
         }
-        &[color="secondary"]>*>dd{ background-color: var(--cem-badge-color-secondary); }
-        &[color="success"]>*>dd{ background-color: var(--cem-badge-color-success); }
-        &[color="alert"]>*>dd{ background-color: var(--cem-badge-color-alert); }
 
     </style>
     <dd>{text}</dd>
@@ -111,11 +111,10 @@ ToDO
 </template>
 
 <custom-element hidden src="#cem-badge" tag="cem-badge"></custom-element>
-<custom-element hidden src="./icon-link.html#cem-badge-link" tag="cem-badge-link"></custom-element>
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 <custom-element hidden src="./icon.html#cem-icon" tag="cem-icon"></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head"></custom-element>
 </header>
 <main>
@@ -165,10 +164,10 @@ ToDO
     <template>
         <style>
             &
-            {   --cem-badge-text-color:red;
-                --cem-badge-color:#FF08;
-                --cem-badge-border: 1px blue solid;
-                cem-badge dd{box-shadow: -2px 3px 8px blue;}
+            {   --cem-badge-text-color: var(--cem-action-destructive-default-text);
+                --cem-badge-color: var(--cem-action-destructive-default-background);
+                --cem-badge-border: var(--cem-stroke-boundary) solid var(--cem-palette-trust);
+                cem-badge dd{box-shadow: var(--cem-layer-work-floating);}
             }
         </style>
         <cem-badge text="123"> CUSTOM COLOR </cem-badge>

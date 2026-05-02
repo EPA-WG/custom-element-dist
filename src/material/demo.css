@@ -5,17 +5,26 @@ body {
 header {
     text-align: center;
 
-    --mdc-text-button-label-text-color: #005cbb;
-    --mat-sidenav-content-background-color: var(--mat-indigo-50, #d7e3ff);
-    color: var(--text-color, var(--mat-app-on-background));
-    background-color: var(--primary-color, var(--mat-app-background));
-    --cem-action-box-shadow:none;
-    --cem-action-box-shadow-hover:none;
+    --mdc-text-button-label-text-color: var(--cem-action-primary-default-text);
+    --mat-sidenav-content-background-color: var(--cem-palette-trust);
+    --text-color: var(--cem-palette-trust-text);
+    --primary-color: var(--cem-palette-trust);
+    --cem-action-primary-color: var(--cem-palette-trust-text);
+    --cem-action-primary-background: transparent;
+    --cem-action-primary-background-hover: var(--cem-action-primary-hover-background);
+    --cem-action-primary-background-focus: var(--cem-action-primary-hover-background);
+    --cem-action-primary-background-active: var(--cem-action-primary-active-background);
+    --cem-action-box-shadow: none;
+    --cem-action-box-shadow-hover: var(--cem-layer-work-floating);
 
-    &{ padding: var(--cem-dim-x-small,0.5rem) var(--cem-dim-small,1rem) }
+    color: var(--cem-palette-trust-text);
+    background-color: var(--cem-palette-trust);
+    box-shadow: var(--cem-layer-work);
+
+    &{ padding: var(--cem-inset-control) var(--cem-inset-container) }
     h1,p{position: relative; z-index: 2;}
     .logo-large{ position: absolute;
-        right: var(--cem-dim-x-large);
+        right: var(--cem-layout-gutter-wide);
         height: var(--cem-dim-xxx-large);
         z-index: 1;
         opacity: 0.5;
@@ -23,14 +32,26 @@ header {
 }
 footer{ text-align: center;
     a
-    {   color: var(--text-color, black);
+    {   color: var(--cem-palette-comfort-text);
         text-decoration: none;
         &:hover,&:focus{text-decoration: underline;}
     }
 }
-code{ font-size: 125%; font-weight: bold; }
+code{
+    font-family: var(--cem-typography-script-font-family);
+    font-size: var(--cem-typography-script-font-size);
+    font-weight: var(--cem-typography-script-font-weight);
+}
 html-demo-element{
     pre{ margin: 0}
-    [slot="text"]{margin: 0 1rem; }
-    [slot="demo"]{margin: 0 1rem 1rem 1rem; }
+    [slot="text"]{margin: 0 var(--cem-inset-container); }
+    [slot="demo"]{margin: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); }
+    [slot="legend"], [slot="description"] {
+        background-color: var(--cem-palette-trust);
+    }
+}
+section {
+    display: flex;
+    gap: var(--cem-gap-page);
+    flex-wrap: wrap;
 }

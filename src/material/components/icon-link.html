@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,44 +22,45 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element
             {   overflow: visible;
-                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
-                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="legend"]{ border-radius: var(--cem-bend-surface) var(--cem-bend-surface) 0 0; }
+                [slot="description"]{ padding: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); dd{ padding: 0 !important;margin: 0; }}
                 [slot="description"] dd{ padding: 0; }
             }
+            cem-icon-link+cem-icon-link:before{ content: " ";}
         }
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <template id="cem-icon-link">
     <attribute name="href"></attribute>
     <attribute name="icon"></attribute>
     <attribute aria-description="color appearance. Default value is 'normal'. Values: normal|primary|secondary|alert|blend"
                name="kind"></attribute>
     <style>
-        &:not([kind]) a, &[kind="normal"] a {
-            /*background-color: var(--mdc-theme-primary, #6200ee);*/
-        }
-
         a {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;;
-            border-radius: 1.5rem;
+            gap: var(--cem-gap-related);
+            min-height: var(--cem-control-height);
+            padding: var(--cem-action-box-padding);
+            border-radius: var(--cem-action-border-radius);
 
             background-color: var(--cem-action-primary-background);
             transition: var(--cem-action-transition);
             box-shadow: var(--cem-action-box-shadow);
+            font-family: var(--cem-typography-ui-font-family);
+            font-size: var(--cem-typography-ui-font-size);
+            font-weight: var(--cem-typography-ui-font-weight);
 
             &:hover {
                 background-color: var(--cem-action-primary-background-hover);
@@ -69,15 +71,20 @@
                 background-color: var(--cem-action-primary-background-focus);
             }
 
+            &:focus-visible {
+                outline: var(--cem-stroke-focus) solid var(--cem-zebra-color-1);
+                outline-offset: var(--cem-stroke-indicator-offset);
+            }
+
             &:active, &:focus:active {
                 background-color: var(--cem-action-primary-background-active);
             }
 
             &, &:visited {
                 text-decoration: none;
-                color: var(--mat-light-blue-900);
+                color: var(--cem-action-primary-color);
             }
-            --icon-size: 2rem;
+            --icon-size: var(--cem-icon-size);
             min-height: var(--icon-size);
         }
 
@@ -99,7 +106,7 @@
 
 <custom-element hidden src="#cem-icon-link" tag="cem-icon-link"></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <main>

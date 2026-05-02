@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,19 +22,19 @@
     <style>
         @import "./angular.css";
         @import "./material.css";
-        @import "./theme/semantic.css";
+        @import "./components/cem-theme-components.css";
         @import "./demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>*{ flex: 1 1 12rem;}
             &>p{ min-width: 90%; }
         }
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <custom-element tag="cem-icon"      hidden src="./components/icon.html#cem-icon" ></custom-element>
 <custom-element tag="cem-input"     hidden src="./components/input.html#cem-input" ></custom-element>
 <custom-element tag="cem-icon-link" hidden src="./components/icon-link.html#cem-icon-link" ></custom-element>
@@ -41,7 +42,7 @@
 <custom-element tag="cem-badge"     hidden src="./components/badge.html#cem-badge" ></custom-element>
 <custom-element tag="cem-dropdown"  hidden src="./components/dropdown.html#cem-dropdown" ></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="./index.html#nav-head" ></custom-element>
 </header>
 <main>
@@ -57,21 +58,21 @@
                 &>dce-root
                 {   display: inline-flex; flex-direction: column; justify-content: space-between;
                     flex: 1;
-                    transition: background .3s ease;
-                    border: 1px solid #c4c6d0;
-                    border-radius: 12px;
+                    transition: var(--cem-action-transition);
+                    border: var(--cem-stroke-boundary) solid var(--cem-palette-conservative-x);
+                    border-radius: var(--cem-bend-surface);
                     overflow: hidden;
-                    &>*{padding: 1rem;}
+                    &>*{padding: var(--cem-inset-container);}
                     &>a
-                    {   color: var(--cem-action-secondary-color, black);
-                        background-color:var(--cem-action-secondary-background, silver);
+                    {   color: var(--cem-action-primary-default-text);
+                        background-color: var(--cem-action-primary-default-background);
                         min-height: 6rem;
-                        transition: background .3s ease;
+                        transition: var(--cem-action-transition);
                         transform: translateZ(0);
-                        &:hover { background-color: var(--cem-action-secondary-background-hover); }
-                        &:focus { background-color: var(--cem-action-secondary-background-focus); }
+                        &:hover { background-color: var(--cem-action-primary-hover-background); }
+                        &:focus { background-color: var(--cem-action-primary-hover-background); }
                         &:focus:active,
-                        &:active{ background-color: var(--cem-action-secondary-background-active); }
+                        &:active{ background-color: var(--cem-action-primary-active-background); }
 
                         &, &:visited { text-decoration: none; }
                         h3{ text-transform: capitalize; }
@@ -116,7 +117,7 @@
 
     <demo-list-card head="badge" description="A small value indicator that can be overlaid on another object.">
         <template>
-            <div style="display: inline-flex; gap:2rem;">
+            <div style="display: inline-flex; gap:var(--cem-gap-section);">
                 <cem-badge text="0"    color="secondary"><template> <cem-icon image="far fa-envelope"                   ></cem-icon> </template></cem-badge>
                 <cem-badge text="999+"                  ><template> <cem-icon image="🛒" vertical="middle"              ></cem-icon> </template></cem-badge>
                 <cem-badge text="999+"  dot             ><template> <cem-icon image="notifications" vertical="middle"   ></cem-icon> </template></cem-badge>
@@ -134,7 +135,7 @@
         <div>
         <cem-dropdown label="drop base" >
             <template>
-                <style>aside{background-color: silver; padding: 1rem; }</style>
+                <style>aside{background-color: var(--cem-palette-conservative); padding: var(--cem-inset-container); }</style>
                 dropped content
             </template>
 

@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,20 +22,20 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element
             {   overflow: visible;
-                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
-                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="legend"]{ border-radius: var(--cem-bend-surface) var(--cem-bend-surface) 0 0; }
+                [slot="description"]{ padding: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); dd{ padding: 0 !important;margin: 0; }}
                 [slot="description"] dd{ padding: 0; }
             }
-            var{ color: darkgreen; font-weight: bold; }
+            var{ color: var(--cem-palette-calm-text); font-weight: var(--cem-typography-tag-font-weight); }
         }
         cem-icon{ margin: 1rem; }
     </style>
@@ -43,7 +44,7 @@
 ToDO
 * docs w/ how to use
 -->
-<body>
+<body class="cem-theme-light">
 <template id="cem-icon">
     <attribute name="image"
             aria-description="defines the icon in one of the libraries or URL. The selection algorithm
@@ -64,9 +65,9 @@ ToDO
         &[size="normal"  ]>*>.icon{ height: var(--cem-icon-size);       font-size: var(--cem-icon-size); }
         &[size="small"   ]>*>.icon{ height: var(--cem-icon-size-small); font-size: var(--cem-icon-size-small); }
         &[size="large"   ]>*>.icon{ height: var(--cem-icon-size-large); font-size: var(--cem-icon-size-large); }
-        &{ display: inline-flex; justify-content: center; }
+        &{ display: inline-flex; justify-content: center; font-family: var(--cem-typography-ui-font-family); }
         &>* {
-            display: inline-flex; align-items: center; gap: calc( var(--cem-icon-size) / 4 );
+            display: inline-flex; align-items: center; gap: var(--cem-gap-related);
 
             .icon {
                 font-size: var(--cem-icon-size);
@@ -89,7 +90,7 @@ ToDO
 <custom-element hidden src="#cem-icon" tag="cem-icon"></custom-element>
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head"></custom-element>
 </header>
 <main>
@@ -234,9 +235,9 @@ ToDO
             For font based icons the color is inherited from CSS text <code>color</code>.
         </p>
         <template>
-<cem-icon image="fas fa-heart" style="color:red"     > red    </cem-icon>
-<cem-icon image="fas fa-heart" style="color:green"   > green  </cem-icon>
-<cem-icon image="fas fa-heart" style="color:blue"    > blue   </cem-icon>
+<cem-icon image="fas fa-heart" style="color:var(--cem-palette-danger)" > danger </cem-icon>
+<cem-icon image="fas fa-heart" style="color:var(--cem-palette-calm)"   > calm   </cem-icon>
+<cem-icon image="fas fa-heart" style="color:var(--cem-palette-trust)"  > trust  </cem-icon>
         </template>
     </html-demo-element>
 

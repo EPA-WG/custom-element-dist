@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,25 +22,25 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element{flex:1; width: 100%; }
         }
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <custom-element tag="cem-icon-link" hidden src="./icon-link.html#cem-icon-link" ></custom-element>
 <custom-element tag="cem-input"     hidden src="./input.html#cem-input" ></custom-element>
 <custom-element tag="cem-menu"      hidden src="./menu.html#cem-menu"></custom-element>
 
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <main>

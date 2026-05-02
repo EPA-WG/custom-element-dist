@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,27 +22,27 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element
             {   overflow: visible;
-                [slot="legend"]{ border-radius: 1rem 1rem 0 0; }
-                [slot="description"]{ padding: 0 1rem 1rem 1rem; dd{ padding: 0 !important;margin: 0; }}
+                [slot="legend"]{ border-radius: var(--cem-bend-surface) var(--cem-bend-surface) 0 0; }
+                [slot="description"]{ padding: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); dd{ padding: 0 !important;margin: 0; }}
                 [slot="description"] dd{ padding: 0; }
             }
         }
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <main>
@@ -71,12 +72,16 @@
                     &>*
                     {   display: flex;
                         align-items: center;
+                        min-height: var(--cem-menu-row-height);
                         padding: var(--cem-menu-item-padding);
                         background-color: var( --cem-menu-item-background );
                         color: var( --cem-menu-item-color );
                         text-decoration: none;
+                        font-family: var(--cem-typography-ui-font-family);
+                        font-size: var(--cem-typography-ui-font-size);
                         font-weight: var(--cem-menu-item-font-weight);
-                        &:focus{ z-index: 1; }
+                        transition: var(--cem-action-transition);
+                        &:focus{ z-index: 1; outline: var(--cem-stroke-focus) solid var(--cem-zebra-color-1); outline-offset: var(--cem-stroke-indicator-offset); }
                         &[disabled],&[disabled]:visited{ color:var(--cem-menu-item-color-disabled); pointer-events: none;}
                         &:visited{ color:var(--cem-menu-item-color); }
                         &:hover
@@ -157,7 +162,7 @@
     <template>
         <style>
             a
-            {   --cem-menu-item-color:blue;
+            {   --cem-menu-item-color: var(--cem-palette-trust);
                 --cem-menu-item-background: salmon;
                 --cem-menu-item-hover-background: blue;
                 --cem-menu-item-hover-color: yellow;

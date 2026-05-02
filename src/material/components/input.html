@@ -5,6 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Components - custom-element - Material Design</title>
     <link href="../../custom-element/demo/wc-square.svg" rel="icon"/>
+    <link href="../../../node_modules/@epa-wg/cem-theme/dist/lib/css/cem-combined.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" rel="stylesheet"/>
@@ -21,12 +22,12 @@
     <style>
         @import "../angular.css";
         @import "../material.css";
-        @import "../theme/semantic.css";
+        @import "./cem-theme-components.css";
         @import "../demo.css";
         main{
             display: flex; flex-wrap: wrap;
-            gap: 3rem;
-            padding: 5rem;
+            gap: var(--cem-gap-page);
+            padding: var(--cem-layout-gutter-max);
             &>p{ min-width: 90%; }
             html-demo-element{flex:1; width: 100%; }
         }
@@ -36,12 +37,12 @@
     </style>
 </head>
 
-<body>
+<body class="cem-theme-light">
 <custom-element hidden src="./icon-link.html#cem-icon-link" tag="cem-icon-link"></custom-element>
 <custom-element hidden src="./icon.html#cem-icon" tag="cem-icon"></custom-element>
 
 
-<header class="cem-theme-teal">
+<header>
     <custom-element src="../index.html#nav-head" ></custom-element>
 </header>
 <pre>
@@ -127,34 +128,36 @@
                     display: flex; flex-direction: column; justify-content: center;
                     --input-padding: 0;
 
-                    --cem-input-container-shape: 0.25rem;
+                    --cem-input-container-shape: var(--cem-bend-field);
                     --cem-input-background-color: var(--cem-list-background-color);
-                    --cem-input-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-                    --cem-input-focus-transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+                    --cem-input-container-elevation-shadow: var(--cem-layer-work);
+                    --cem-input-focus-transition: all var(--cem-duration-action) var(--cem-easing-smooth);
 
                     &:has(input:invalid,input:user-invalid,input:out-of-range, .warn>*:not(:empty) )
-                    {   --cem-filled-text-field-label-text-color: var(--alert-color,red);
+                    {   --cem-filled-text-field-label-text-color: var(--alert-color, var(--cem-palette-danger));
                         --cem-input-outline-color:var(--cem-filled-text-field-label-text-color);
-                        --cem-input-outline: inset 0 -1px 0 var(--cem-input-outline-color);
+                        --cem-input-outline: inset 0 calc(-1 * var(--cem-stroke-divider)) 0 var(--cem-input-outline-color);
                         --cem-outline-color-focus: var(--cem-input-outline-color);
                         color: var(--cem-filled-text-field-label-text-color);
                         .supporting{ display: none; }
                     }
                     &>label
-                    {   display: flex; flex: 1; gap: 0.5rem;
-                        padding: 0.5rem 1rem;
+                    {   display: flex; flex: 1; gap: var(--cem-gap-related);
+                        padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
                         background-color: var(--cem-filled-text-field-container-color, var(--cem-app-surface-variant));
+                        border-radius: var(--cem-input-container-shape) var(--cem-input-container-shape) 0 0;
                         &:hover
-                        {   --cem-filled-text-field-container-color: var(--cem-filled-text-field-container-color-hover,silver);
-                            --cem-input-outline-color:var(--text-color,black);
-                            box-shadow:  inset 0 -1px 0 var(--cem-input-outline-color,black);
-                            color:var(--text-color,black)
+                        {   --cem-filled-text-field-container-color: var(--cem-filled-text-field-container-color-hover, var(--cem-list-background-color-hover));
+                            --cem-input-outline-color: var(--text-color, var(--cem-palette-comfort-text));
+                            box-shadow: inset 0 calc(-1 * var(--cem-stroke-divider)) 0 var(--cem-input-outline-color);
+                            color: var(--text-color, var(--cem-palette-comfort-text))
                         }
                         box-shadow: var(--cem-input-outline);
-                        transition: var(--drop-transition);
+                        transition: var(--cem-drop-transition);
                         box-sizing: border-box;
-                        min-height: 3.5rem;
+                        min-height: calc(var(--cem-control-height) + var(--cem-control-padding-y));
                         color: var(--cem-filled-text-field-label-text-color);
+                        font-family: var(--cem-typography-ui-font-family);
                         position: relative;
                         &>.entry{ display: flex;flex-direction: column; justify-content: center;flex:1; }
                         label{display: flex;}
@@ -167,8 +170,9 @@
 
                             color: var(--cem-filled-text-field-input-text-color, var(--cem-app-on-surface));
                             caret-color: var(--cem-filled-text-field-caret-color, var(--cem-app-primary));
-                            font-size: 1rem;
-                            transition: var(--drop-transition);
+                            font-family: var(--cem-typography-ui-font-family);
+                            font-size: var(--cem-typography-ui-font-size);
+                            transition: var(--cem-drop-transition);
                         }
                         &:after{ display: block; width: 0; height: 0;  content: ' ';
                             left:0;
@@ -182,6 +186,8 @@
                         &> label
                         {   font-size: small; justify-content: space-between;
                             color: var(--cem-outline-color-focus);
+                            outline: var(--cem-stroke-focus) solid var(--cem-zebra-color-1);
+                            outline-offset: var(--cem-stroke-indicator-offset);
                             input{ caret-color: var(--cem-outline-color-focus); }
                             &:after{  width: 100%; height: var(--cem-focus-outline-height);
                                 left:0;
@@ -196,7 +202,7 @@
                     slice{display: none;}
                     .warn,.supporting
                     {
-                        padding: 0.25rem 1rem;
+                        padding: var(--cem-dim-xx-small) var(--cem-control-padding-x);
                         font-size: var(--cem-form-field-subscript-text-size, var(--cem-sys-body-small-size));
                     }
                     [slot="trailing"],[slot="leading"]{display: flex;}

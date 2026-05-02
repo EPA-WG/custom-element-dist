@@ -80,7 +80,7 @@
     --cem-menu-item-hover-background: var(--cem-action-contextual-hover-background);
     --cem-menu-item-hover-color: var(--cem-action-contextual-hover-text);
     --cem-menu-item-padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
-    --cem-menu-item-font-weight: var(--cem-typography-ui-font-weight);
+    --cem-menu-item-font-weight: var(--cem-typography-tag-font-weight);
 
     --cem-badge-color-primary: var(--cem-action-primary-default-background);
     --cem-badge-color-secondary: var(--cem-action-alternate-default-background);
