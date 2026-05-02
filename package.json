@@ -19,7 +19,7 @@
     "tt": "vitest --coverage.enabled --coverage.all --no-file-parallelism --watch --browser.headless=false src/stories/external-template.test.stories.ts "
   },
   "dependencies": {
-    "@epa-wg/cem-theme": "0.0.10",
+    "@epa-wg/cem-theme": "0.0.11",
     "@epa-wg/custom-element": "0.0.38"
   },
   "devDependencies": {

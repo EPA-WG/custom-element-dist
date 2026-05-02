@@ -1,0 +1,135 @@
+:root {
+    --primary-color: var(--cem-palette-trust);
+    --secondary-color: var(--cem-palette-enthusiasm);
+    --alert-color: var(--cem-palette-danger);
+    --text-color: var(--cem-palette-comfort-text);
+
+    --cem-action-explicit-default-background: var(--cem-palette-creativity);
+    --cem-action-explicit-default-text: var(--cem-palette-creativity-text);
+    --cem-action-explicit-hover-background: color-mix(in srgb, var(--cem-palette-creativity) 70%, var(--cem-palette-creativity-x));
+    --cem-action-explicit-hover-text: var(--cem-palette-creativity-text);
+    --cem-action-explicit-active-background: color-mix(in srgb, var(--cem-palette-creativity) 25%, var(--cem-palette-creativity-x));
+    --cem-action-explicit-active-text: var(--cem-palette-creativity-text-x);
+
+    --cem-action-primary-default-background: var(--cem-palette-trust);
+    --cem-action-primary-default-text: var(--cem-palette-trust-text);
+    --cem-action-primary-hover-background: color-mix(in srgb, var(--cem-palette-trust) 70%, var(--cem-palette-trust-x));
+    --cem-action-primary-hover-text: var(--cem-palette-trust-text);
+    --cem-action-primary-active-background: color-mix(in srgb, var(--cem-palette-trust) 25%, var(--cem-palette-trust-x));
+    --cem-action-primary-active-text: var(--cem-palette-trust-text-x);
+    --cem-action-primary-disabled-background: color-mix(in srgb, var(--cem-palette-trust) 30%, var(--cem-palette-conservative-x));
+    --cem-action-primary-disabled-text: var(--cem-palette-conservative-text-x);
+
+    --cem-action-contextual-default-background: var(--cem-palette-comfort);
+    --cem-action-contextual-default-text: var(--cem-palette-comfort-text);
+    --cem-action-contextual-hover-background: color-mix(in srgb, var(--cem-palette-comfort) 70%, var(--cem-palette-comfort-x));
+    --cem-action-contextual-hover-text: var(--cem-palette-comfort-text);
+    --cem-action-contextual-active-background: color-mix(in srgb, var(--cem-palette-comfort) 25%, var(--cem-palette-comfort-x));
+    --cem-action-contextual-active-text: var(--cem-palette-comfort-text-x);
+    --cem-action-contextual-disabled-background: color-mix(in srgb, var(--cem-palette-comfort) 30%, var(--cem-palette-conservative-x));
+    --cem-action-contextual-disabled-text: var(--cem-palette-conservative-text-x);
+
+    --cem-action-alternate-default-background: var(--cem-palette-enthusiasm);
+    --cem-action-alternate-default-text: var(--cem-palette-enthusiasm-text);
+    --cem-action-alternate-hover-background: color-mix(in srgb, var(--cem-palette-enthusiasm) 70%, var(--cem-palette-enthusiasm-x));
+    --cem-action-alternate-hover-text: var(--cem-palette-enthusiasm-text);
+    --cem-action-alternate-active-background: color-mix(in srgb, var(--cem-palette-enthusiasm) 25%, var(--cem-palette-enthusiasm-x));
+    --cem-action-alternate-active-text: var(--cem-palette-enthusiasm-text-x);
+
+    --cem-action-destructive-default-background: var(--cem-palette-danger);
+    --cem-action-destructive-default-text: var(--cem-palette-danger-text);
+    --cem-action-destructive-hover-background: color-mix(in srgb, var(--cem-palette-danger) 70%, var(--cem-palette-danger-x));
+    --cem-action-destructive-hover-text: var(--cem-palette-danger-text);
+    --cem-action-destructive-active-background: color-mix(in srgb, var(--cem-palette-danger) 25%, var(--cem-palette-danger-x));
+    --cem-action-destructive-active-text: var(--cem-palette-danger-text-x);
+
+    --cem-action-background-color: var(--cem-action-explicit-default-background);
+    --cem-action-color: var(--cem-action-explicit-default-text);
+    --cem-action-color-secondary: var(--cem-action-alternate-default-background);
+    --cem-action-color-success: var(--cem-palette-calm);
+    --cem-action-color-alert: var(--cem-action-destructive-default-background);
+    --cem-action-border-radius: var(--cem-bend-control);
+    --cem-action-box-padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
+    --cem-action-box-shadow: var(--cem-layer-work);
+    --cem-action-box-shadow-hover: var(--cem-layer-work-floating);
+    --cem-action-box-shadow-active: var(--cem-layer-base);
+    --cem-action-transition:
+        background-color var(--cem-duration-action) var(--cem-easing-smooth),
+        color var(--cem-duration-action) var(--cem-easing-smooth),
+        box-shadow var(--cem-duration-action) var(--cem-easing-smooth);
+
+    --cem-action-primary-color: var(--cem-action-primary-default-text);
+    --cem-action-primary-background: var(--cem-action-primary-default-background);
+    --cem-action-primary-background-hover: var(--cem-action-primary-hover-background);
+    --cem-action-primary-background-focus: var(--cem-action-primary-hover-background);
+    --cem-action-primary-background-active: var(--cem-action-primary-active-background);
+
+    --cem-drop-transition: all var(--cem-duration-overlay) var(--cem-easing-smooth);
+
+    --cem-icon-size-small: var(--cem-typography-size-l);
+    --cem-icon-size: var(--cem-icon-button-icon-size);
+    --cem-icon-size-large: var(--cem-dim-x-large);
+
+    --cem-list-background-color: var(--cem-action-contextual-default-background);
+    --cem-list-background-color-hover: var(--cem-action-contextual-hover-background);
+    --cem-list-background-color-focus: var(--cem-action-primary-hover-background);
+
+    --cem-menu-item-color: var(--cem-action-contextual-default-text);
+    --cem-menu-item-color-disabled: var(--cem-action-contextual-disabled-text);
+    --cem-menu-item-background: var(--cem-action-contextual-default-background);
+    --cem-menu-item-hover-background: var(--cem-action-contextual-hover-background);
+    --cem-menu-item-hover-color: var(--cem-action-contextual-hover-text);
+    --cem-menu-item-padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
+    --cem-menu-item-font-weight: var(--cem-typography-ui-font-weight);
+
+    --cem-badge-color-primary: var(--cem-action-primary-default-background);
+    --cem-badge-color-secondary: var(--cem-action-alternate-default-background);
+    --cem-badge-color-success: var(--cem-palette-calm);
+    --cem-badge-color-alert: var(--cem-action-destructive-default-background);
+    --cem-badge-color: var(--cem-badge-color-primary);
+    --cem-badge-text-color: var(--cem-action-primary-default-text);
+    --cem-badge-border: var(--cem-stroke-none) solid transparent;
+
+    --cem-app-surface-variant: var(--cem-palette-conservative);
+    --cem-app-on-surface: var(--cem-palette-conservative-text);
+    --cem-app-primary: var(--cem-palette-trust);
+    --cem-on-surface-variant: var(--cem-palette-conservative-text);
+
+    --cem-filled-text-field-container-color: var(--cem-action-contextual-default-background);
+    --cem-filled-text-field-container-color-hover: var(--cem-action-contextual-hover-background);
+    --cem-filled-text-field-label-text-color: var(--cem-palette-conservative-text);
+    --cem-filled-text-field-input-text-color: var(--cem-palette-comfort-text);
+    --cem-filled-text-field-caret-color: var(--cem-palette-trust);
+    --cem-outline-color-focus: var(--cem-zebra-color-1);
+    --cem-focus-outline-height: var(--cem-stroke-focus);
+    --cem-input-outline-color: var(--cem-palette-conservative-x);
+    --cem-input-outline: inset 0 calc(-1 * var(--cem-stroke-divider)) 0 var(--cem-input-outline-color);
+    --cem-sys-body-small-size: var(--cem-typography-size-xxs);
+    --cem-form-field-subscript-text-size: var(--cem-typography-tag-font-size);
+
+    --cem-autocomplete-container-shape: var(--cem-bend-overlay);
+}
+
+body {
+    background-color: var(--cem-palette-comfort);
+    color: var(--cem-palette-comfort-text);
+    font-family: var(--cem-typography-reading-font-family);
+}
+
+.cem-bend-sharp {
+    --cem-bend: var(--cem-bend-sharp);
+    --cem-bend-control: var(--cem-bend);
+    --cem-action-border-radius: var(--cem-bend-control);
+}
+
+.cem-bend-smooth {
+    --cem-bend: var(--cem-bend-smooth);
+    --cem-bend-control: var(--cem-bend);
+    --cem-action-border-radius: var(--cem-bend-control);
+}
+
+.cem-bend-round {
+    --cem-bend: var(--cem-bend-round);
+    --cem-bend-control: var(--cem-bend);
+    --cem-action-border-radius: var(--cem-bend-control);
+}
