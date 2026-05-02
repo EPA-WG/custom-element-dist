@@ -24,8 +24,21 @@ frameCanvas(frameTestId: string, canvas: ReturnType<typeof within>)
     : Promise<ReturnType<typeof within>>
 {
     const frEl: HTMLIFrameElement = await canvas.findByTestId(frameTestId);
-    return new Promise(resolve => frEl.addEventListener('load', () =>
+    return new Promise(resolve =>
     {
-        resolve(within(frEl.contentWindow?.document.documentElement!));
-    }));
+        const frameUrl = new URL(frEl.getAttribute('src')!, document.baseURI).href;
+        let isResolved = false;
+        const resolveCanvas = () =>
+        {
+            if( isResolved )
+                return;
+            isResolved = true;
+            frEl.removeEventListener('load', resolveCanvas);
+            resolve(within(frEl.contentWindow?.document.documentElement!));
+        };
+        frEl.addEventListener('load', resolveCanvas);
+
+        if( frEl.contentDocument?.readyState === 'complete' && frEl.contentWindow?.location.href === frameUrl )
+            resolveCanvas();
+    });
 }

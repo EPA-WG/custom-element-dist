@@ -297,7 +297,9 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
 
     sanitizeProcessor.importStylesheet( sanitizeXsl );
 
-    const fr = sanitizeProcessor.transformToFragment(tc, document)
+    // Use a detached (no browsing context) document so Chrome does not eagerly
+    // load img/link resources from the intermediate XSLT fragment
+    const fr = sanitizeProcessor.transformToFragment(tc, document.implementation.createHTMLDocument(''))
     ,   $ = (e,css) => e.querySelector(css)
     ,   payload = $( xslDom, 'template[mode="payload"]');
     if( !fr )
@@ -399,11 +401,13 @@ xhrTemplate(src)
     const dom = await new Promise((resolve,reject)=>
     {   const xhr = new XMLHttpRequest();
         xhr.open("GET", src);
-        xhr.responseType = "document";
-        // xhr.overrideMimeType("text/xml");
         xhr.onload = () =>
         {   if( xhr.readyState === xhr.DONE && xhr.status === 200 )
-                resolve( xhr.responseXML?.body || xhr.responseXML ||  create('div', xhr.responseText ) )
+            {   const mime = xhr.getResponseHeader('content-type')?.includes('xml')
+                           ? 'text/xml' : 'text/html';
+                const doc = new DOMParser().parseFromString(xhr.responseText, mime);
+                resolve( mime === 'text/html' ? doc.body : doc )
+            }
             else
                 reject(`${xhr.statusText} - ${src}`)
         };
@@ -801,6 +805,7 @@ CustomElement extends HTMLElement
                         processed[s] = ev;
                     }
                     Object.keys(processed).length !== 0 && transform();
+                    this.customElementRegistry?.initialize(this);
                 }
                 let timeoutID;
 

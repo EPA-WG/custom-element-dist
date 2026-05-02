@@ -2,17 +2,20 @@
 # to be treated as internal by test coverage
 #npm link @epa-wg/custom-element
 
-cd src/custom-element
-mkdir demo >/dev/null
-mkdir ide >/dev/null
+# Resolve package path — works with yarn PnP, yarn node-modules linker, and npm
+PKG_DIR=$(node -e "console.log(require.resolve('@epa-wg/custom-element/package.json').replace(/[\/\\\\]package\\.json\$/, '').replace(/\\\\/g, '/'))")
 
-rm *.d.ts >/dev/null
-rm *.js >/dev/null
+cd src/custom-element
+mkdir -p demo
+mkdir -p ide
+
+rm -f *.d.ts
+rm -f *.js
 pwd
-cp ../../node_modules/@epa-wg/custom-element/*.d.ts .
-cp ../../node_modules/@epa-wg/custom-element/*.js .
-cp ../../node_modules/@epa-wg/custom-element/index.html index.html
-cp -r ../../node_modules/@epa-wg/custom-element/demo/* demo/
-cp -r ../../node_modules/@epa-wg/custom-element/ide/* ide/
+cp "$PKG_DIR"/*.d.ts .
+cp "$PKG_DIR"/*.js .
+cp "$PKG_DIR"/index.html index.html
+cp -r "$PKG_DIR"/demo/* demo/
+cp -r "$PKG_DIR"/ide/* ide/
 
 cp -r demo ../../public

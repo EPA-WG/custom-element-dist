@@ -4,11 +4,8 @@ import {it}            from 'vitest';
 async function playStory( story: StoryObj, meta: Meta )
 {
     document.body.innerHTML = meta.render(story.args);
-    await new Promise( (resolve) => setTimeout(async ()=>
-    {
-        await story.play({canvasElement: document.body.lastElementChild});
-        resolve(0);
-    },0))
+    await new Promise( resolve => setTimeout(resolve,0));
+    await story.play({canvasElement: document.body.lastElementChild});
 }
 
 export async function testStoryBook<TProps>( mod: Record<string, StoryObj>, meta: Meta )
