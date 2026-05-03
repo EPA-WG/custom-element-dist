@@ -47,7 +47,7 @@
 </header>
 <main>
     <p>&lt;custom-element&gt; Material offers a wide variety of UI components based on the
-        <a href="https://material.io/components" >Material Design specification</a>.
+        <a href="https://github.com/EPA-WG/cem#readme" >Consumer Semantic Material Theme</a>.
     </p>
     <custom-element tag="demo-list-card" hidden>
         <template>
@@ -88,11 +88,18 @@
     </custom-element>
 
     <demo-list-card head="icon" description="Icons from popular collections">
-        <cem-icon image="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg"
-                    >Material Icon </cem-icon>
-        <cem-icon image="recycling"
-                    > Recycling </cem-icon>
+        <template>
 
+            <div style="display: inline-flex; gap:var(--cem-gap-group); flex-wrap: wrap; justify-content: space-between;">
+
+                <cem-icon image="🛒" direction="column">Unicode</cem-icon>
+                <cem-icon image="recycling" direction="column"
+                            > Material </cem-icon>
+                <cem-icon image="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" direction="column"
+                            >SVG </cem-icon>
+                <cem-icon image="fas fa-thumbs-up" direction="row">Fontawesome </cem-icon>
+            </div>
+        </template>
     </demo-list-card>
 
     <demo-list-card head="input" description="Text input field">
