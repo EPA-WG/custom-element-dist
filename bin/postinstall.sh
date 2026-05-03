@@ -4,6 +4,7 @@
 
 # Resolve package path — works with yarn PnP, yarn node-modules linker, and npm
 PKG_DIR=$(node -e "console.log(require.resolve('@epa-wg/custom-element/package.json').replace(/[\/\\\\]package\\.json\$/, '').replace(/\\\\/g, '/'))")
+CEM_THEME_DIR=$(node -e "console.log(require.resolve('@epa-wg/cem-theme/package.json').replace(/[\/\\\\]package\\.json\$/, '').replace(/\\\\/g, '/'))")
 
 cd src/custom-element
 mkdir -p demo
@@ -17,5 +18,9 @@ cp "$PKG_DIR"/*.js .
 cp "$PKG_DIR"/index.html index.html
 cp -r "$PKG_DIR"/demo/* demo/
 cp -r "$PKG_DIR"/ide/* ide/
+
+cd ..
+mkdir -p css
+cp "$CEM_THEME_DIR"/dist/lib/css/cem-combined.css css/
 
 cp -r demo ../../public
