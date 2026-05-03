@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-dist",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@epa-wg/cem-theme": "0.0.12",
-    "@epa-wg/custom-element": "0.0.38"
+    "@epa-wg/custom-element": "0.0.39"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "8.5.3",

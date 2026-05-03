@@ -1,4 +1,4 @@
-import{w as d,e as a,u as c,f as m}from"./index-CGuyH0k-.js";import"./custom-element-wuk8gYiP.js";function p(n){return new Promise(e=>setTimeout(e,n))}function g(n){const{title:e,body:t}=n;return`
+import{w as d,e as a,u as c,f as m}from"./index-CGuyH0k-.js";import"./custom-element-PxTx2W9y.js";function p(n){return new Promise(e=>setTimeout(e,n))}function g(n){const{title:e,body:t}=n;return`
         <fieldset>
             <legend>${e}</legend>
             ${t}

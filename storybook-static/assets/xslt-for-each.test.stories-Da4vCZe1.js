@@ -1,4 +1,4 @@
-import{w as i,e,f as m}from"./index-CGuyH0k-.js";import"./custom-element-wuk8gYiP.js";function w(a){const{title:t,tag:d,template:o,payload:s}=a;return`
+import{w as i,e,f as m}from"./index-CGuyH0k-.js";import"./custom-element-PxTx2W9y.js";function w(a){const{title:t,tag:d,template:o,payload:s}=a;return`
         <fieldset>
             <legend>${t}</legend>
             <custom-element tag="${d}" hidden>

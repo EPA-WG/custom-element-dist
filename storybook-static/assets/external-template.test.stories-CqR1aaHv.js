@@ -1,4 +1,4 @@
-import{w as l,e as a}from"./index-CGuyH0k-.js";import"./custom-element-wuk8gYiP.js";import{f as T}from"./frame.canvas-E5n9h6j1.js";function v(t){return new Promise(e=>setTimeout(e,t))}function w(t){const{title:e,body:n}=t;return`
+import{w as l,e as a}from"./index-CGuyH0k-.js";import"./custom-element-PxTx2W9y.js";import{f as T}from"./frame.canvas-BB4_DNn6.js";function v(t){return new Promise(e=>setTimeout(e,t))}function w(t){const{title:e,body:n}=t;return`
         <fieldset>
             <legend>${e}</legend>
             ${n}
