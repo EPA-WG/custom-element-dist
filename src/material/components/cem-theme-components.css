@@ -64,50 +64,46 @@
     --cem-action-primary-background-focus: var(--cem-action-primary-hover-background);
     --cem-action-primary-background-active: var(--cem-action-primary-active-background);
 
-    --cem-drop-transition: all var(--cem-duration-overlay) var(--cem-easing-smooth);
-
-    --cem-icon-size-small: var(--cem-typography-size-l);
-    --cem-icon-size: var(--cem-icon-button-icon-size);
-    --cem-icon-size-large: var(--cem-dim-x-large);
-
     --cem-list-background-color: var(--cem-action-contextual-default-background);
     --cem-list-background-color-hover: var(--cem-action-contextual-hover-background);
     --cem-list-background-color-focus: var(--cem-action-primary-hover-background);
-
-    --cem-menu-item-color: var(--cem-action-explicit-default-text);
-    --cem-menu-item-color-disabled: var(--cem-action-contextual-disabled-text);
-    --cem-menu-item-background: var(--cem-action-explicit-default-background);
-    --cem-menu-item-hover-background: var(--cem-action-explicit-hover-background);
-    --cem-menu-item-hover-color: var(--cem-action-explicit-hover-text);
-    --cem-menu-item-padding: var(--cem-control-padding-y) var(--cem-control-padding-x);
-    --cem-menu-item-font-weight: var(--cem-typography-tag-font-weight);
-
-    --cem-badge-color-primary: var(--cem-action-primary-default-background);
-    --cem-badge-color-secondary: var(--cem-action-alternate-default-background);
-    --cem-badge-color-success: var(--cem-palette-calm);
-    --cem-badge-color-alert: var(--cem-action-destructive-default-background);
-    --cem-badge-color: var(--cem-badge-color-primary);
-    --cem-badge-text-color: var(--cem-action-primary-default-text);
-    --cem-badge-border: var(--cem-stroke-none) solid transparent;
 
     --cem-app-surface-variant: var(--cem-palette-conservative);
     --cem-app-on-surface: var(--cem-palette-conservative-text);
     --cem-app-primary: var(--cem-palette-trust);
     --cem-on-surface-variant: var(--cem-palette-conservative-text);
 
-    --cem-filled-text-field-container-color: var(--cem-action-contextual-default-background);
-    --cem-filled-text-field-container-color-hover: var(--cem-action-contextual-hover-background);
+    --cem-filled-text-field-container-color: var(--cem-palette-conservative);
+    --cem-filled-text-field-container-color-hover: color-mix(in srgb, var(--cem-palette-conservative) 70%, var(--cem-palette-conservative-x));
     --cem-filled-text-field-label-text-color: var(--cem-palette-conservative-text);
     --cem-filled-text-field-input-text-color: var(--cem-palette-comfort-text);
     --cem-filled-text-field-caret-color: var(--cem-palette-trust);
-    --cem-outline-color-focus: var(--cem-zebra-color-1);
-    --cem-focus-outline-height: var(--cem-stroke-focus);
+    --cem-outline-color-focus: var(--cem-palette-creativity-x);
+    --cem-focus-outline-height: var(--cem-stroke-strong);
     --cem-input-outline-color: var(--cem-palette-conservative-x);
     --cem-input-outline: inset 0 calc(-1 * var(--cem-stroke-divider)) 0 var(--cem-input-outline-color);
     --cem-sys-body-small-size: var(--cem-typography-size-xxs);
     --cem-form-field-subscript-text-size: var(--cem-typography-tag-font-size);
 
-    --cem-autocomplete-container-shape: var(--cem-bend-overlay);
+    --cem-drop-transition: all var(--cem-duration-overlay) var(--cem-easing-highlighted-end);
+
+    --cem-icon-size-small: var(--cem-typography-size-l);
+    --cem-icon-size: var(--cem-icon-button-icon-size);
+    --cem-icon-size-large: var(--cem-dim-x-large);
+}
+
+.cem-theme-light,
+[data-theme="cem-theme-light"] {
+    --cem-app-surface-variant: var(--cem-color-grey-l);
+    --cem-filled-text-field-container-color: var(--cem-color-grey-l);
+    --cem-filled-text-field-container-color-hover: color-mix(in srgb, var(--cem-color-grey-l) 70%, var(--cem-color-grey-d));
+}
+
+.cem-theme-dark,
+[data-theme="cem-theme-dark"] {
+    --cem-app-surface-variant: var(--cem-color-grey-d);
+    --cem-filled-text-field-container-color: var(--cem-color-grey-d);
+    --cem-filled-text-field-container-color-hover: color-mix(in srgb, var(--cem-color-grey-d) 70%, var(--cem-color-grey-l));
 }
 
 body {

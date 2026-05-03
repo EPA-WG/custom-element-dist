@@ -395,10 +395,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@epa-wg/cem-theme@npm:0.0.11":
-  version: 0.0.11
-  resolution: "@epa-wg/cem-theme@npm:0.0.11"
-  checksum: 10c0/e322be84d2df33be6a4380545cdf2a828ebc792c1951ff3d0712b50cd487c11ceefa58cffb066553b016a4c8f5895195e451094dde07309d95c93cb1ea04b4c9
+"@epa-wg/cem-theme@npm:0.0.12":
+  version: 0.0.12
+  resolution: "@epa-wg/cem-theme@npm:0.0.12"
+  checksum: 10c0/b8731b3d0eb444f95c93f2b30ecbd0cfc91763d25b4202e2fb8f5b21d8baf4382508b7e3adad8cdc81aa84c42891ee7547ed61a0753584dd20be0d73b0708cb4
   languageName: node
   linkType: hard
 
@@ -406,7 +406,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@epa-wg/custom-element-dist@workspace:."
   dependencies:
-    "@epa-wg/cem-theme": "npm:0.0.11"
+    "@epa-wg/cem-theme": "npm:0.0.12"
     "@epa-wg/custom-element": "npm:0.0.38"
     "@storybook/addon-essentials": "npm:8.5.3"
     "@storybook/addon-interactions": "npm:8.5.3"

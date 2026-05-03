@@ -7,20 +7,11 @@ header {
 
     --mdc-text-button-label-text-color: var(--cem-action-primary-default-text);
     --mat-sidenav-content-background-color: var(--cem-palette-trust);
-    --text-color: var(--cem-palette-trust-text);
-    --primary-color: var(--cem-palette-trust);
-    --cem-action-primary-color: var(--cem-palette-trust-text);
-    --cem-action-primary-background: transparent;
-    --cem-action-primary-background-hover: var(--cem-action-primary-hover-background);
-    --cem-action-primary-background-focus: var(--cem-action-primary-hover-background);
-    --cem-action-primary-background-active: var(--cem-action-primary-active-background);
-    --cem-action-box-shadow: none;
-    --cem-action-box-shadow-hover: var(--cem-layer-work-floating);
 
     color: var(--cem-palette-trust-text);
     background-color: var(--cem-palette-trust);
     box-shadow: var(--cem-layer-work);
-
+    cem-icon-link a{ box-shadow: none;}
     &{ padding: var(--cem-inset-control) var(--cem-inset-container) }
     h1,p{position: relative; z-index: 2;}
     .logo-large{ position: absolute;
@@ -47,7 +38,7 @@ html-demo-element{
     [slot="text"]{margin: 0 var(--cem-inset-container); }
     [slot="demo"]{margin: 0 var(--cem-inset-container) var(--cem-inset-container) var(--cem-inset-container); }
     [slot="legend"], [slot="description"] {
-        background-color: var(--cem-palette-trust);
+        background-color: var(--cem-action-contextual-indeterminate-background);
     }
 }
 section {
